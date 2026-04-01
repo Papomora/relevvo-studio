@@ -1,0 +1,85 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Image from 'next/image'
+
+gsap.registerPlugin(ScrollTrigger)
+
+const points = [
+  {
+    title: 'Pensamos en resultados, no solo en diseño',
+    body: 'Cada decisión visual y cada pieza de contenido tiene un propósito claro: apoyar los objetivos comerciales de la marca. Diseñamos para comunicar mejor, posicionar con claridad y facilitar la conversión.',
+  },
+  {
+    title: 'Trabajamos con método y procesos claros',
+    body: 'No improvisamos. Usamos sistemas, planificación mensual y flujos de trabajo definidos que nos permiten ser consistentes, eficientes y confiables en el tiempo.',
+    highlight: true,
+  },
+  {
+    title: 'Usamos la tecnología como ventaja competitiva',
+    body: 'Integramos inteligencia artificial para optimizar tiempos, reducir costos y escalar producción sin perder calidad ni coherencia de marca. La tecnología no reemplaza el criterio creativo: lo potencia.',
+  },
+]
+
+export default function ComoProfesionales() {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const imageRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    gsap.fromTo(imageRef.current,
+      { x: -50 },
+      { x: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' } }
+    )
+    gsap.fromTo(contentRef.current,
+      { x: 50 },
+      { x: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' } }
+    )
+  }, [])
+
+  return (
+    <section ref={sectionRef} className="py-20 px-4 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        {/* Image */}
+        <div ref={imageRef} className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-[#1a1a1a]" style={{ willChange: 'transform, opacity' }}>
+          {/* Placeholder until real photo is added */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#0d0d1a] flex items-center justify-center">
+            <span className="text-white/20 font-display font-bold text-xl">Foto equipo</span>
+          </div>
+          <Image
+            src="/images/team-profesionales.jpg"
+            alt="Equipo Relevvo Studio trabajando"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        </div>
+
+        {/* Content */}
+        <div ref={contentRef} style={{ willChange: 'transform, opacity' }}>
+          <h2 className="mb-8">
+            <span className="heading-display text-white" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
+              Como{' '}
+            </span>
+            <span className="heading-serif text-white" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
+              profesionales
+            </span>
+          </h2>
+
+          <div className="flex flex-col gap-7">
+            {points.map((p, i) => (
+              <div key={i} className={`${p.highlight ? 'border border-accent/40 rounded-xl p-4 bg-accent/5' : ''}`}>
+                <h3 className="font-display font-bold text-white text-lg mb-2">{p.title}</h3>
+                <p className="text-white/55 text-sm leading-relaxed">{p.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
