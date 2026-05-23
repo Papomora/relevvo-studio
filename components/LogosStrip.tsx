@@ -5,15 +5,16 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 
+// TODO: Actualiza href con la URL real (Instagram, web, etc.) de cada cliente
 const logos = [
-  { name: 'Logo 1', src: '/images/Logos/Logo 1@1.5x.png' },
-  { name: 'Logo 2', src: '/images/Logos/Logo 2@1.5x.png' },
-  { name: 'Logo 3', src: '/images/Logos/Logo 3@1.5x.png' },
-  { name: 'Logo 4', src: '/images/Logos/Logo 4@1.5x.png' },
-  { name: 'Logo 5', src: '/images/Logos/Logo 5@1.5x.png' },
-  { name: 'Logo 6', src: '/images/Logos/Logo 6@1.5x.png' },
-  { name: 'Logo 7', src: '/images/Logos/Logo 7@1.5x.png' },
-  { name: 'Logo 8', src: '/images/Logos/Logo 8@1.5x.png' },
+  { name: 'Molicié',    src: '/images/Logos/Logo 1@1.5x.png', href: 'https://instagram.com' },
+  { name: 'ARÜ',        src: '/images/Logos/Logo 2@1.5x.png', href: 'https://instagram.com' },
+  { name: 'Verslä',     src: '/images/Logos/Logo 3@1.5x.png', href: 'https://instagram.com' },
+  { name: 'Crusso',     src: '/images/Logos/Logo 4@1.5x.png', href: 'https://instagram.com' },
+  { name: 'Visuality',  src: '/images/Logos/Logo 5@1.5x.png', href: 'https://instagram.com' },
+  { name: 'Cliente 6',  src: '/images/Logos/Logo 6@1.5x.png', href: '#' },
+  { name: 'Cliente 7',  src: '/images/Logos/Logo 7@1.5x.png', href: '#' },
+  { name: 'Cliente 8',  src: '/images/Logos/Logo 8@1.5x.png', href: '#' },
 ]
 
 export default function LogosStrip() {
@@ -46,9 +47,11 @@ export default function LogosStrip() {
 
   return (
     <section ref={sectionRef} id="clientes" className="py-16 overflow-hidden">
-      <p className="text-center text-white/40 text-sm mb-8 tracking-widest uppercase">
-        Nuestros diseños hacen parte de:
-      </p>
+      <div className="flex items-center justify-center mb-10">
+        <span className="section-label" style={{ justifyContent: 'center' }}>
+          Nuestros diseños hacen parte de
+        </span>
+      </div>
 
       <div className="relative overflow-hidden">
         {/* Fade edges */}
@@ -59,9 +62,15 @@ export default function LogosStrip() {
 
         <div ref={trackRef} className="flex items-center gap-16 w-max px-8" style={{ willChange: 'transform' }}>
           {duplicated.map((logo, i) => (
-            <div
+            <a
               key={i}
-              className="flex items-center justify-center h-12 px-2 opacity-50 hover:opacity-100 transition-opacity duration-300 flex-shrink-0"
+              href={logo.href !== '#' ? logo.href : undefined}
+              target={logo.href !== '#' ? '_blank' : undefined}
+              rel="noopener noreferrer"
+              aria-label={logo.name}
+              className="flex items-center justify-center h-12 px-2 opacity-40 hover:opacity-100 transition-opacity duration-300 flex-shrink-0"
+              style={{ cursor: logo.href !== '#' ? 'pointer' : 'default' }}
+              data-cursor
             >
               <Image
                 src={logo.src}
@@ -71,7 +80,7 @@ export default function LogosStrip() {
                 className="object-contain h-8 w-auto"
                 unoptimized
               />
-            </div>
+            </a>
           ))}
         </div>
       </div>

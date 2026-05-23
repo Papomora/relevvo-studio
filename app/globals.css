@@ -79,8 +79,27 @@ body {
 
 .btn-primary:hover {
   background: var(--accent-hover);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(124, 58, 237, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0px) scale(0.97);
+}
+
+/* Pulsing glow variant for main CTAs */
+@keyframes btn-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
+  50%       { box-shadow: 0 0 0 8px rgba(124, 58, 237, 0.18); }
+}
+
+.btn-glow {
+  animation: btn-pulse 2.8s ease-in-out infinite;
+}
+
+.btn-glow:hover {
+  animation: none;
+  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.5);
 }
 
 .btn-secondary {
@@ -121,6 +140,197 @@ body {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+
+/* ─── Grain texture overlay ─── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  opacity: 0.028;
+  mix-blend-mode: overlay;
+}
+
+/* ─── Accent text gradient ─── */
+.text-accent-gradient {
+  background: linear-gradient(135deg, #a78bfa 0%, #7C3AED 50%, #5b21b6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Editorial section label ─── */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+
+.section-label::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* ─── Enhanced cards with gradient border on hover ─── */
+.card {
+  position: relative;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(124,58,237,0) 0%, rgba(124,58,237,0) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: background 0.35s ease;
+  pointer-events: none;
+}
+
+.card:hover::before {
+  background: linear-gradient(135deg, rgba(124,58,237,0.6) 0%, rgba(167,139,250,0.2) 100%);
+}
+
+/* ─── Horizontal divider with accent ─── */
+.divider-accent {
+  position: relative;
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 0;
+}
+
+.divider-accent::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* ─── Number display for editorial lists ─── */
+.num-display {
+  font-family: var(--font-cormorant), serif;
+  font-style: italic;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: rgba(124,58,237,0.25);
+  font-weight: 300;
+  transition: color 0.3s ease;
+  user-select: none;
+}
+
+/* ─── Glass morphism utilities ─── */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-purple {
+  background: rgba(124, 58, 237, 0.09);
+  backdrop-filter: blur(18px) saturate(200%);
+  -webkit-backdrop-filter: blur(18px) saturate(200%);
+  border: 1px solid rgba(124, 58, 237, 0.22);
+}
+
+.glass-dark {
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ─── Custom cursor (hidden on touch) ─── */
+@media (pointer: fine) {
+  *, a, button { cursor: none !important; }
+}
+
+/* ─── Lenis smooth scroll — disable native smooth ─── */
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ─── Parallax section entrance ─── */
+.parallax-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* ─── Video parallax depth lines ─── */
+.depth-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+/* ─── Marquee infinite scroll ─── */
+@keyframes marquee-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee { animation: marquee-left 28s linear infinite; }
+
+/* ─── Character split reveal ─── */
+@keyframes charIn {
+  from { opacity: 0; transform: translateY(110%) rotate(3deg); }
+  to   { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+.char-wrap { overflow: hidden; display: inline-block; }
+.char      { display: inline-block; animation: charIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+
+/* ─── Hover link underline slide ─── */
+.link-slide {
+  position: relative;
+  text-decoration: none;
+}
+.link-slide::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 1px;
+  background: var(--accent);
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-slide:hover::after { width: 100%; }
+
+/* ─── Focus ring ─── */
+:focus-visible {
+  outline: 2px solid rgba(124, 58, 237, 0.7);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
