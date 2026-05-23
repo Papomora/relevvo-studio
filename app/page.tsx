@@ -1,12 +1,14 @@
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
+import WordReveal from '@/components/WordReveal'
 import LogosStrip from '@/components/LogosStrip'
-import Testimonial from '@/components/Testimonial'
+import AIStory from '@/components/AIStory'
 import Proceso from '@/components/Proceso'
-import Portfolio from '@/components/Portfolio'
-import Benefits from '@/components/Benefits'
 import Features from '@/components/Features'
 import Solution from '@/components/Solution'
+import Founder from '@/components/Founder'
+import Testimonial from '@/components/Testimonial'
+import InstagramClients from '@/components/InstagramClients'
 import Pricing from '@/components/Pricing'
 import Footer from '@/components/Footer'
 
@@ -15,13 +17,15 @@ export default function Home() {
     <main>
       <Navbar />
       <Hero />
+      <WordReveal />
       <LogosStrip />
-      <Testimonial />
+      <AIStory />
       <Proceso />
-      <Portfolio />
-      <Benefits />
       <Features />
       <Solution />
+      <Founder />
+      <Testimonial />
+      <InstagramClients />
       <Pricing />
       <Footer />
     </main>
