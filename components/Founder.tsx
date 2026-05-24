@@ -63,8 +63,8 @@ export default function Founder() {
             }}
           >
             <img src="/founder.png" alt="Juan Camilo Papo León Mora"
-                 className="w-full h-full object-cover object-top"
-                 style={{ filter: 'grayscale(15%) contrast(1.08)' }} />
+                 className="w-full h-full object-cover"
+                 style={{ filter: 'grayscale(15%) contrast(1.08)', objectPosition: 'center 15%' }} />
           </div>
 
           {/* Years badge */}
