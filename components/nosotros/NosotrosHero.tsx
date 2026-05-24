@@ -2,75 +2,106 @@
 
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
+import Image from 'next/image'
 
-const logos = ['ETOLOGÍA CANINA COLOMBIA', 'arü', 'cuéntame.app', '$ ecomms', 'HomsyCare']
+const logos: { name: string; src: string | null }[] = [
+  { name: 'Molicié',           src: '/images/Logos/MOLICIE.png' },
+  { name: 'Crusso',            src: '/images/Logos/CRUSSO.png' },
+  { name: 'Verslä',            src: '/images/Logos/versla.png' },
+  { name: 'Metro 73',          src: '/images/Logos/METRO73.png' },
+  { name: 'LimiteLegal',       src: '/images/Logos/limitelegal.png' },
+  { name: 'Forjar',            src: '/images/Logos/Forjar.png' },
+  { name: 'Fresas la Playita', src: '/images/Logos/fresaslaplayita.png' },
+]
 
 export default function NosotrosHero() {
   const headingRef = useRef<HTMLDivElement>(null)
-  const logosRef = useRef<HTMLDivElement>(null)
-  const bgRef = useRef<HTMLDivElement>(null)
+  const logosRef   = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     gsap.fromTo(headingRef.current,
-      { y: 50 },
-      { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.4 }
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.3 }
     )
-    gsap.fromTo(logosRef.current?.children ? Array.from(logosRef.current.children) : [],
-      { y: 20 },
-      { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out', stagger: 0.1, delay: 0.9 }
-    )
-    // Animated background glow
-    gsap.to(bgRef.current, {
-      backgroundPosition: '100% 50%',
-      duration: 8,
-      ease: 'sine.inOut',
-      yoyo: true,
-      repeat: -1,
-    })
+    const items = logosRef.current?.querySelectorAll('.ns-logo')
+    if (items) {
+      gsap.fromTo(Array.from(items),
+        { y: 16, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.55, ease: 'power3.out', stagger: 0.07, delay: 0.8 }
+      )
+    }
   }, [])
 
   return (
-    <section className="relative min-h-[60vh] flex flex-col items-center justify-center text-center px-4 pt-28 pb-16 overflow-hidden">
-      {/* Gradient background */}
-      <div
-        ref={bgRef}
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at 50% 60%, rgba(124,58,237,0.18) 0%, transparent 65%)',
-          willChange: 'background-position',
-        }}
-      />
+    <section className="relative min-h-[65vh] flex flex-col items-center justify-center text-center px-4 pt-28 pb-16 overflow-hidden">
+      {/* Subtle radial glow */}
+      <div className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at 50% 55%, rgba(124,58,237,0.14) 0%, transparent 60%)' }} />
 
-      <div ref={headingRef} style={{ willChange: 'transform, opacity' }}>
-        <h1 className="mb-8">
-          <span className="heading-display text-white" style={{ fontSize: 'clamp(3rem, 7vw, 6rem)' }}>
-            Sobre{' '}
-          </span>
-          <span className="heading-serif text-white" style={{ fontSize: 'clamp(3rem, 7vw, 6rem)' }}>
-            nosotros
-          </span>
+      {/* Heading */}
+      <div ref={headingRef} style={{ willChange: 'transform, opacity' }} className="mb-14">
+        <span className="section-label mb-6 inline-flex justify-center">Sobre nosotros</span>
+        <h1 className="mb-6">
+          <span className="type-hero heading-display text-white">Diseño con{' '}</span>
+          <span className="type-hero heading-serif text-white">propósito.</span>
         </h1>
-
-        <p className="max-w-2xl mx-auto text-white/65 text-lg leading-relaxed mb-12">
-          En <strong className="text-white font-semibold">Relevvo Studio</strong> creemos que las marcas se construyen con estrategia,
-          pero se sostienen con personas. Por eso nuestro trabajo combina{' '}
-          <strong className="text-white font-semibold">criterio profesional</strong> con una{' '}
-          <strong className="text-white font-semibold">forma de trabajar cercana, clara y honesta.</strong>
+        <p className="max-w-2xl mx-auto text-white/60 text-lg leading-relaxed">
+          En <strong className="text-white font-semibold">Relevvo Studio</strong> creemos que las marcas se construyen
+          con estrategia, pero se sostienen con personas. Combinamos{' '}
+          <strong className="text-white font-semibold">criterio profesional</strong> con una forma de trabajar
+          <strong className="text-white font-semibold"> cercana, clara y honesta.</strong>
         </p>
       </div>
 
-      {/* Logos */}
+      {/* Logo grid — white/monochrome, basement.studio style */}
       <div className="w-full max-w-3xl">
-        <p className="text-white/35 text-sm mb-6 tracking-widest uppercase">Our designs are featured on:</p>
-        <div ref={logosRef} className="flex flex-wrap justify-center gap-8 items-center">
+        <p className="text-white/25 text-xs mb-8 tracking-[0.2em] uppercase font-mono">
+          Nuestros diseños hacen parte de
+        </p>
+        <div
+          ref={logosRef}
+          className="grid grid-cols-4 gap-px overflow-hidden"
+          style={{ border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px' }}
+        >
           {logos.map((logo, i) => (
-            <span
+            <div
               key={i}
-              className="text-white/45 hover:text-white/80 transition-colors duration-300 font-semibold text-sm tracking-tight"
-              style={{ willChange: 'opacity' }}
+              className="ns-logo group flex items-center justify-center"
+              style={{
+                aspectRatio: '2/1',
+                background: 'rgba(255,255,255,0.02)',
+                transition: 'background 0.3s ease, box-shadow 0.3s ease',
+              }}
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLElement
+                el.style.background = 'rgba(124,58,237,0.07)'
+                el.style.boxShadow = 'inset 0 0 0 1px rgba(124,58,237,0.4)'
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLElement
+                el.style.background = 'rgba(255,255,255,0.02)'
+                el.style.boxShadow = 'none'
+              }}
             >
-              {logo}
-            </span>
+              {logo.src ? (
+                <Image
+                  src={logo.src}
+                  alt={logo.name}
+                  width={160}
+                  height={64}
+                  className="object-contain w-auto group-hover:brightness-200 transition-all duration-300"
+                  style={{ maxHeight: '52px', maxWidth: '80%', filter: 'brightness(0) invert(1)', opacity: 0.45 }}
+                  unoptimized
+                />
+              ) : (
+                <span
+                  className="font-display font-bold text-xs tracking-widest uppercase transition-all duration-300 group-hover:opacity-100"
+                  style={{ color: 'rgba(255,255,255,0.45)', letterSpacing: '0.1em' }}
+                >
+                  {logo.name}
+                </span>
+              )}
+            </div>
           ))}
         </div>
       </div>

@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
-import { Bricolage_Grotesque, Cormorant_Garamond, Inter } from 'next/font/google'
+import { Bricolage_Grotesque, Instrument_Serif, Inter } from 'next/font/google'
 import './globals.css'
 import WhatsAppFAB from '@/components/WhatsAppFAB'
 import VideoBackground from '@/components/VideoBackground'
 import SchemaOrg from '@/components/SchemaOrg'
 import SmoothScroll from '@/components/SmoothScroll'
 import CustomCursor from '@/components/CustomCursor'
+import PageFade from '@/components/PageFade'
 
 const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
@@ -14,11 +15,11 @@ const bricolage = Bricolage_Grotesque({
   display: 'swap',
 })
 
-const cormorant = Cormorant_Garamond({
+const instrumentSerif = Instrument_Serif({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
+  weight: ['400'],
   style: ['normal', 'italic'],
-  variable: '--font-cormorant',
+  variable: '--font-instrument',
   display: 'swap',
 })
 
@@ -96,11 +97,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${bricolage.variable} ${cormorant.variable} ${inter.variable}`}>
+    <html lang="es" className={`${bricolage.variable} ${instrumentSerif.variable} ${inter.variable}`}>
       <head>
         <SchemaOrg />
       </head>
       <body>
+        <PageFade />
         <CustomCursor />
         <VideoBackground />
         <SmoothScroll>

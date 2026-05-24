@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programa de Referidos | Relevvo Studio</title>
+    <meta name="description" content="Gana dinero refiriendo clientes a Relevvo Studio. Comisión 15% del primer mes. Sin cuotas, sin B.S.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #5E00A8;
+            --secondary: #E91E8C;
+            --dark: #0F172A;
+            --light: #F8FAFC;
+            --border: #E2E8F0;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --success: #16A34A;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-primary: #F1F5F9;
+                --text-secondary: #CBD5E1;
+                --text-muted: #94A3B8;
+                --light: #1E293B;
+                --border: #334155;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0F172A 0%, #1a0033 50%, #0a0a1a 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* NAVBAR */
+        nav {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            right: 1rem;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(233, 30, 140, 0.2);
+            border-radius: 12px;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 50;
+            max-width: 1200px;
+            margin: 0 auto;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #5E00A8, #E91E8C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav a {
+            color: rgba(241, 245, 249, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 200ms ease;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: #E91E8C;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(233, 30, 140, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(94, 0, 168, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            text-align: center;
+            animation: fadeInUp 800ms ease;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(233, 30, 140, 0.15);
+            border: 1px solid rgba(233, 30, 140, 0.3);
+            color: #E91E8C;
+            padding: 0.5rem 1.25rem;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            font-size: clamp(32px, 8vw, 72px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: #F1F5F9;
+            letter-spacing: -1px;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, #E91E8C, #5E00A8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: rgba(241, 245, 249, 0.8);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 200ms ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #E91E8C, #5E00A8);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(233, 30, 140, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(233, 30, 140, 0.1);
+            color: #E91E8C;
+            border: 1px solid rgba(233, 30, 140, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(233, 30, 140, 0.2);
+            border-color: #E91E8C;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(233, 30, 140, 0.1);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #E91E8C;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: rgba(241, 245, 249, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* SECCIONES */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: clamp(28px, 6vw, 48px);
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #F1F5F9;
+            line-height: 1.2;
+        }
+
+        /* CÓMO FUNCIONA */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(233, 30, 140, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 200ms ease;
+            cursor: pointer;
+        }
+
+        .step-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #E91E8C;
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #5E00A8, #E91E8C);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-card h3 {
+            font-size: 20px;
+            margin-bottom: 1rem;
+            color: #F1F5F9;
+            font-weight: 600;
+        }
+
+        .step-card p {
+            font-size: 15px;
+            color: rgba(241, 245, 249, 0.7);
+            line-height: 1.6;
+        }
+
+        /* GANANCIAS */
+        .earnings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .earning-card {
+            background: rgba(94, 0, 168, 0.2);
+            border: 1px solid rgba(233, 30, 140, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .earning-amount {
+            font-size: 32px;
+            font-weight: 700;
+            color: #E91E8C;
+            margin-bottom: 0.5rem;
+        }
+
+        .earning-label {
+            font-size: 14px;
+            color: rgba(241, 245, 249, 0.7);
+            line-height: 1.6;
+        }
+
+        /* FAQ */
+        .faq-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(233, 30, 140, 0.1);
+            padding-bottom: 1.5rem;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-size: 16px;
+            font-weight: 600;
+            color: #F1F5F9;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: color 200ms ease;
+        }
+
+        .faq-question:hover {
+            color: #E91E8C;
+        }
+
+        .faq-answer {
+            font-size: 15px;
+            color: rgba(241, 245, 249, 0.7);
+            line-height: 1.6;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(233, 30, 140, 0.1);
+            text-align: center;
+            color: rgba(241, 245, 249, 0.6);
+            font-size: 14px;
+        }
+
+        .footer-logo {
+            font-size: 18px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #5E00A8, #E91E8C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #E91E8C;
+            text-decoration: none;
+            transition: color 200ms ease;
+        }
+
+        .footer-links a:hover {
+            color: #5E00A8;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .hero {
+                padding: 5rem 1.5rem 2rem;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn {
+                width: 100%;
+                min-width: unset;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .earnings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h2 {
+                font-size: 28px;
+                margin-bottom: 2rem;
+            }
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* SCROLL REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 600ms ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">relevvo</div>
+        <div style="display: flex; gap: 2rem; align-items: center;">
+            <a href="#como-funciona">Cómo funciona</a>
+            <a href="#ganancias">Ganancias</a>
+            <a href="#faq">Preguntas</a>
+            <a href="#formulario" class="btn btn-primary" style="min-width: 150px;">Comenzar</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">Programa de referidos</div>
+            <h1>Gana dinero <span>mientras nosotros trabajamos</span></h1>
+            <p>¿Tus clientes piden diseño? Nosotros lo hacemos. Vos recibís comisión sin hacer nada más.</p>
+            
+            <div class="cta-buttons">
+                <a href="#formulario" class="btn btn-primary">Completa el formulario</a>
+                <a href="https://wa.me/573223094005?text=Hola,%20me%20interesa%20el%20programa%20de%20referidos" class="btn btn-secondary">Envía un WhatsApp</a>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">15%</div>
+                    <div class="stat-label">Comisión</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">$105k+</div>
+                    <div class="stat-label">Por referido</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">Hoy</div>
+                    <div class="stat-label">Recibís pago</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CÓMO FUNCIONA -->
+    <section id="como-funciona">
+        <h2>Cómo funciona</h2>
+        <div class="steps-grid">
+            <div class="step-card reveal">
+                <div class="step-number">1</div>
+                <h3>Refierés</h3>
+                <p>Tu cliente necesita diseño, branding o contenido. Nos lo pasas (email, WhatsApp, formulario).</p>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-number">2</div>
+                <h3>Nosotros cerramos</h3>
+                <p>Nos comunicamos con el cliente, presentamos nuestros planes y hacemos el proyecto.</p>
+            </div>
+            <div class="step-card reveal">
+                <div class="step-number">3</div>
+                <h3>Vos cobras</h3>
+                <p>Recibís 15% del primer mes de comisión. Mismo día que firma el cliente.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GANANCIAS -->
+    <section id="ganancias">
+        <h2>Ejemplos reales de ganancias</h2>
+        <div class="earnings-grid">
+            <div class="earning-card reveal">
+                <div class="earning-amount">$105.000</div>
+                <div class="earning-label">Plan BASIC ($700k/mes)</div>
+            </div>
+            <div class="earning-card reveal">
+                <div class="earning-amount">$298.500</div>
+                <div class="earning-label">Plan MID ($1.990k/mes)</div>
+            </div>
+            <div class="earning-card reveal">
+                <div class="earning-amount">$598.500</div>
+                <div class="earning-label">Plan FULL ($3.990k/mes)</div>
+            </div>
+        </div>
+        <p style="text-align: center; font-size: 15px; color: rgba(241, 245, 249, 0.7); margin-top: 2rem;">
+            Sin límite de referidos. Refiere 1 o 10, ganas en todos.
+        </p>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+        <h2>Preguntas frecuentes</h2>
+        <div class="faq-container">
+            <div class="faq-item reveal">
+                <div class="faq-question">¿Cuándo recibo el dinero?</div>
+                <div class="faq-answer">Mismo día que el cliente firma el contrato. Transferencia directa a tu cuenta.</div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question">¿Mi cliente se entera que yo gano comisión?</div>
+                <div class="faq-answer">No, a menos que tú lo cuentes. Es totalmente confidencial, pero es legal y transparente.</div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question">¿Hay límite de cuántos referidos puedo hacer?</div>
+                <div class="faq-answer">No. Referí 1 o 100. No hay cuota, no hay límite. Ganas en todos.</div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question">¿Y si el proyecto no se completa?</div>
+                <div class="faq-answer">Tu comisión ya fue pagada. Nosotros asumimos ese riesgo, no tú.</div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question">¿Esto es MLM o algo raro?</div>
+                <div class="faq-answer">No. Es simple: refierés → nosotros trabajamos → vos cobras. Sin complicaciones.</div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question">¿Necesito hacer algo más después de referir?</div>
+                <div class="faq-answer">No. Después que refierés, nosotros nos encargamos de todo. Vos solo cobras.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMULARIO -->
+    <section id="formulario">
+        <h2>Completa el formulario</h2>
+        <div style="max-width: 600px; margin: 0 auto;">
+            <iframe src="https://forms.typeform.com/to/YOUR_FORM_ID" width="100%" height="700" frameborder="0" allow="camera; microphone; geolocation" style="border-radius: 12px; border: none;"></iframe>
+            <p style="text-align: center; font-size: 13px; color: rgba(241, 245, 249, 0.6); margin-top: 1.5rem;">
+                💡 Reemplaza "YOUR_FORM_ID" con tu ID de Typeform
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">relevvo studio</div>
+        <p style="margin-bottom: 1rem;">Creatividad con método. Resultados con intención.</p>
+        <div class="footer-links">
+            <a href="https://www.relevvostudio.com">Web</a>
+            <a href="https://www.instagram.com/relevvostudio">Instagram</a>
+            <a href="mailto:hola@relevvostudio.com">Email</a>
+            <a href="https://wa.me/573223094005">WhatsApp</a>
+        </div>
+        <p>© 2025 Relevvo Studio. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Reveal animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Respeta preferencias de movimiento reducido
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.documentElement.style.scrollBehavior = 'auto';
+        }
+    </script>
+</body>
+</html>

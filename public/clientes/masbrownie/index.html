@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MasBrownie — Brownies Artesanales Premium · Cali, Colombia</title>
+  <meta name="description" content="Brownies artesanales premium horneados en Cali. Línea convencional, sin azúcar, tortas melcochudas y más. Distribución B2B y cliente directo." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Design Tokens (Brand System) ─────────────────────────────── */
+    :root {
+      /* Brand Colors */
+      --primary:        #FF6B00;
+      --primary-hover:  #E05A00;
+      --primary-light:  #FF8C38;
+      --primary-subtle: #FFF0E6;
+
+      --secondary:      #3D1C10;
+      --secondary-mid:  #5A2D1A;
+      --secondary-light:#7A4030;
+
+      --tertiary:       #049EFF;
+      --tertiary-light: #38B6FF;
+
+      --neutral:        #88736A;
+      --neutral-light:  #B09A90;
+      --neutral-subtle: #F0E4DC;
+
+      /* Backgrounds */
+      --bg-warm:        #FAF0E6;
+      --bg-card:        #FFFFFF;
+      --bg-deep:        #3D1C10;
+
+      /* Text */
+      --text-primary:   #3D1C10;
+      --text-secondary: #5A2D1A;
+      --text-muted:     #88736A;
+      --text-white:     #FFFDF9;
+
+      /* Typography */
+      --ff-head:  'Plus Jakarta Sans', system-ui, sans-serif;
+      --ff-body:  'Hanken Grotesk', system-ui, sans-serif;
+
+      /* Radii */
+      --r-sm:  8px;
+      --r-md:  16px;
+      --r-lg:  24px;
+      --r-xl:  40px;
+      --r-full: 9999px;
+
+      /* Shadows */
+      --shadow-sm:   0 2px 12px rgba(61,28,16,.10);
+      --shadow-md:   0 8px 32px rgba(61,28,16,.14);
+      --shadow-lg:   0 20px 60px rgba(61,28,16,.18);
+      --shadow-glow: 0 4px 24px rgba(255,107,0,.35);
+
+      /* Transitions */
+      --ease-micro:  all .18s ease;
+      --ease-ui:     all .28s cubic-bezier(.25,.46,.45,.94);
+      --ease-flow:   all .48s cubic-bezier(.25,.46,.45,.94);
+    }
+
+    /* ── Reset ────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--ff-body);
+      background: var(--bg-warm);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Utilities ─────────────────────────────────────────────────── */
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+
+    .label {
+      font-family: var(--ff-body);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: #A84400;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .h1 { font-family: var(--ff-head); font-size: clamp(2.8rem,6vw,5.5rem); font-weight: 800; line-height: 1.06; }
+    .h2 { font-family: var(--ff-head); font-size: clamp(2rem,4vw,3.2rem); font-weight: 800; line-height: 1.12; }
+    .h3 { font-family: var(--ff-head); font-size: 1.35rem; font-weight: 700; line-height: 1.25; }
+
+    /* ── Buttons ──────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 15px 32px; border-radius: var(--r-full);
+      font-family: var(--ff-body); font-size: .95rem; font-weight: 600;
+      cursor: pointer; border: none; transition: var(--ease-ui);
+      white-space: nowrap; line-height: 1;
+    }
+    .btn svg { flex-shrink: 0; transition: transform .2s; }
+    .btn:hover svg { transform: translateX(3px); }
+
+    .btn-primary { background: var(--primary); color: #fff; box-shadow: var(--shadow-glow); }
+    .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,107,0,.45); }
+
+    .btn-inverted { background: var(--secondary); color: var(--bg-warm); }
+    .btn-inverted:hover { background: var(--secondary-mid); transform: translateY(-2px); }
+
+    .btn-outlined {
+      background: transparent; color: #fff;
+      border: 2px solid rgba(255,255,255,.45);
+    }
+    .btn-outlined:hover { border-color: #fff; background: rgba(255,255,255,.1); }
+
+    .btn-wa { background: #25D366; color: #fff; box-shadow: 0 4px 24px rgba(37,211,102,.35); }
+    .btn-wa:hover { background: #20BD5A; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(37,211,102,.5); }
+
+    /* ── Nav ──────────────────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 22px 0; transition: var(--ease-flow);
+    }
+    .nav.scrolled {
+      background: rgba(61,28,16,.88);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      padding: 14px 0;
+      box-shadow: 0 4px 40px rgba(0,0,0,.25);
+      border-bottom: 1px solid rgba(255,107,0,.15);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; }
+    .nav-logo-img { height: 38px; width: auto; display: block; }
+    .nav-logo span { color: var(--primary); }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: .88rem; font-weight: 500;
+      color: rgba(255,255,255,.8); letter-spacing: .01em;
+      transition: color .18s;
+    }
+    .nav-links a:hover { color: var(--primary-light); }
+    .nav-pill {
+      background: var(--primary); color: #fff !important;
+      padding: 9px 22px; border-radius: var(--r-full);
+      font-weight: 700 !important;
+      transition: var(--ease-micro) !important;
+    }
+    .nav-pill:hover { background: var(--primary-hover) !important; }
+
+    /* ── Hero ─────────────────────────────────────────────────────── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center;
+      background: var(--secondary); overflow: hidden;
+    }
+    /* Force container to full width inside flex hero */
+    .hero > .container {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 440px 1fr;
+      align-items: center;
+    }
+    /* ── Campaign Carousel ── */
+    .hero-carousel { position: absolute; inset: 0; z-index: 0; }
+    .hero-carousel-slide {
+      position: absolute; inset: 0;
+      opacity: 0; transition: opacity 1.2s cubic-bezier(.4,0,.2,1);
+      will-change: opacity;
+    }
+    .hero-carousel-slide.active { opacity: 1; }
+    .hero-carousel-slide img { width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+    .hero-carousel::after {
+      content:''; position:absolute; inset:0; z-index:1;
+      background: linear-gradient(to right,
+        rgba(20,5,1,.95) 0%,
+        rgba(20,5,1,.88) 25%,
+        rgba(20,5,1,.22) 52%,
+        rgba(20,5,1,.05) 100%
+      );
+    }
+    .hero-dots {
+      position:absolute; bottom:80px; left:50%; transform:translateX(-50%);
+      z-index:3; display:flex; gap:8px; align-items:center;
+    }
+    .hero-dot {
+      width:6px; height:6px; border-radius:50%;
+      background:rgba(255,255,255,.35); transition:all .4s ease;
+      cursor:pointer; border:none; padding:0;
+    }
+    .hero-dot.active { background:var(--primary); width:22px; border-radius:3px; }
+    .hero-bg { display:none; }
+    /* Animated particles */
+    .hero-particles { position: absolute; inset: 0; pointer-events: none; }
+    .particle {
+      position: absolute; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,107,0,.25) 0%, rgba(255,107,0,0) 70%);
+      animation: floatP var(--dur, 9s) ease-in-out infinite;
+      animation-delay: var(--del, 0s);
+    }
+    @keyframes floatP {
+      0%,100% { transform: translateY(0) scale(1); opacity: var(--op, .4); }
+      50%      { transform: translateY(calc(var(--dy,-40px))) scale(1.12); opacity: calc(var(--op,.4)*.5); }
+    }
+    @media (prefers-reduced-motion: reduce) { .particle { animation: none; } }
+
+    .hero-content { position: relative; z-index: 2; max-width: 420px; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: rgba(255,107,0,.15); border: 1px solid rgba(255,107,0,.35);
+      color: var(--primary-light); font-size: .78rem; font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase;
+      padding: 7px 18px; border-radius: var(--r-full); margin-bottom: 28px;
+    }
+    .hero-tag-dot { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; }
+    .hero-title { color: #fff; margin-bottom: 22px; }
+    .hero-title em { font-style: italic; color: var(--primary-light); }
+    .hero-sub {
+      font-size: 1.1rem; line-height: 1.75;
+      color: rgba(255,255,255,.65); max-width: 400px; margin-bottom: 44px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* Floating stat pills on right */
+    .hero-floats {
+      position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
+      z-index: 2; display: flex; flex-direction: column; gap: 16px;
+    }
+    .float-card {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-radius: var(--r-md); padding: 22px 28px; text-align: center;
+      min-width: 148px;
+    }
+    .float-num {
+      font-family: var(--ff-head); font-size: 2.2rem; font-weight: 800;
+      color: var(--primary-light); line-height: 1;
+    }
+    .float-lbl {
+      font-size: .75rem; font-weight: 500;
+      color: rgba(255,255,255,.55); margin-top: 5px; letter-spacing: .05em;
+    }
+
+    /* scroll hint */
+    .hero-scroll {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 6px;
+      color: rgba(255,255,255,.4); font-size: .72rem; letter-spacing: .12em;
+      text-transform: uppercase; animation: nudge 2.2s ease-in-out infinite;
+    }
+    .hero-scroll::after {
+      content: ''; width: 1px; height: 44px;
+      background: linear-gradient(to bottom, rgba(255,107,0,.5), transparent);
+    }
+    @keyframes nudge {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(7px); }
+    }
+    @media (prefers-reduced-motion: reduce) { .hero-scroll { animation: none; } }
+
+    /* ── Brand Strip ──────────────────────────────────────────────── */
+    .strip { background: var(--primary); padding: 16px 0; overflow: hidden; }
+    .strip-track {
+      display: flex; gap: 56px;
+      animation: scrollL 22s linear infinite; width: max-content;
+    }
+    @media (prefers-reduced-motion: reduce) { .strip-track { animation: none; } }
+    @keyframes scrollL {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .strip-item {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--secondary); font-family: var(--ff-body);
+      font-weight: 700; font-size: .82rem;
+      letter-spacing: .12em; text-transform: uppercase; white-space: nowrap;
+    }
+    .strip-item svg { flex-shrink: 0; }
+
+    /* ── About / Story ───────────────────────────────────────────── */
+    .about { padding: 120px 0; background: var(--bg-card); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .about-visual {
+      position: relative; display: flex; flex-direction: column; gap: 16px;
+    }
+    .about-card-main {
+      background: var(--secondary);
+      border-radius: var(--r-xl); padding: 56px 48px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .about-card-main::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle 200px at 20% 20%, rgba(255,107,0,.15) 0%, transparent 70%);
+    }
+    .about-card-main-icon {
+      font-size: 4rem; display: block; margin-bottom: 20px; position: relative;
+    }
+    .about-card-main h3 {
+      font-family: var(--ff-head); font-size: 1.6rem; font-weight: 700;
+      color: var(--bg-warm); margin-bottom: 10px; position: relative;
+    }
+    .about-card-main p {
+      color: rgba(255,255,255,.55); font-size: .9rem;
+      line-height: 1.7; position: relative;
+    }
+    .about-cards-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .about-mini {
+      background: var(--primary-subtle);
+      border: 1px solid rgba(255,107,0,.2);
+      border-radius: var(--r-md); padding: 22px 20px;
+      transition: var(--ease-ui); cursor: default;
+    }
+    .about-mini:hover { background: var(--primary); }
+    .about-mini:hover .about-mini-label,
+    .about-mini:hover .about-mini-val { color: #fff; }
+    .about-mini-val {
+      font-family: var(--ff-head); font-size: 1.6rem; font-weight: 800;
+      color: var(--primary); line-height: 1; margin-bottom: 4px;
+      transition: color .25s;
+    }
+    .about-mini-label {
+      font-size: .78rem; font-weight: 600; color: var(--neutral);
+      letter-spacing: .04em; transition: color .25s;
+    }
+
+    .about-content .label { }
+    .about-content .h2 { color: var(--secondary); margin-bottom: 22px; }
+    .about-content p {
+      color: var(--text-muted); line-height: 1.85; font-size: 1rem; margin-bottom: 18px;
+    }
+    .about-highlights { display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
+    .highlight {
+      display: flex; align-items: center; gap: 14px;
+      font-size: .9rem; font-weight: 500; color: var(--text-secondary);
+    }
+    .highlight-icon {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--primary); display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0;
+    }
+
+    /* ── Stats Counter ────────────────────────────────────────────── */
+    .stats { background: var(--secondary); padding: 72px 0; }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+    }
+    .stat-item {
+      padding: 40px 32px; text-align: center;
+      border-right: 1px solid rgba(255,255,255,.07);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: var(--ff-head); font-size: 3.2rem; font-weight: 800;
+      color: var(--primary); line-height: 1; margin-bottom: 10px;
+    }
+    .stat-label {
+      font-size: .85rem; font-weight: 500;
+      color: rgba(255,255,255,.55); letter-spacing: .04em;
+    }
+
+    /* ── Products ─────────────────────────────────────────────────── */
+    .products { padding: 120px 0; background: var(--secondary); }
+    .products-header {
+      display: flex; align-items: flex-end;
+      justify-content: space-between; margin-bottom: 56px;
+      gap: 24px; flex-wrap: wrap;
+    }
+    .products-header .h2 { color: #fff; }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 20px;
+    }
+    .pcard {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--r-lg);
+      overflow: hidden; cursor: pointer;
+      transition: var(--ease-flow);
+    }
+    .pcard:hover {
+      background: rgba(255,107,0,.1);
+      border-color: rgba(255,107,0,.4);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 24px 64px rgba(0,0,0,.4), 0 0 0 1px rgba(255,107,0,.2);
+    }
+    .pcard:hover .pcard-img { transform: scale(1.06); }
+    .pcard-img-wrap {
+      height: 260px; overflow: hidden; position: relative;
+    }
+    .pcard-img {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 10px;
+      transition: transform .55s cubic-bezier(.25,.46,.45,.94);
+    }
+    .pcard-img-icon {
+      font-size: 3.5rem; display: block;
+    }
+    .pcard-img-tag {
+      font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(255,255,255,.35); font-weight: 600;
+    }
+    img.pcard-img { object-fit: cover; display: block; }
+    .pcard-badge {
+      position: absolute; top: 14px; left: 14px;
+      background: var(--primary); color: #fff;
+      font-size: .68rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; padding: 4px 12px;
+      border-radius: var(--r-full);
+    }
+    .pcard-body { padding: 26px; }
+    .pcard-cat {
+      font-size: .68rem; font-weight: 700; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--primary); margin-bottom: 8px;
+    }
+    .pcard-name {
+      font-family: var(--ff-head); font-size: 1.28rem; font-weight: 700;
+      color: var(--bg-warm); margin-bottom: 9px; line-height: 1.2;
+    }
+    .pcard-desc {
+      font-size: .85rem; color: rgba(255,255,255,.5);
+      line-height: 1.65; margin-bottom: 20px;
+    }
+    .pcard-cta {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .83rem; font-weight: 600; color: rgba(255,255,255,.6);
+      transition: var(--ease-micro); cursor: pointer;
+    }
+    .pcard:hover .pcard-cta { color: var(--primary); gap: 13px; }
+    .pcard-arrow {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(255,255,255,.08);
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .pcard:hover .pcard-arrow { background: var(--primary); }
+
+    /* Promo card */
+    .pcard-promo {
+      background: var(--primary);
+      border-color: var(--primary);
+      display: flex; align-items: center; justify-content: center;
+      min-height: 340px;
+    }
+    .pcard-promo:hover {
+      background: var(--primary-hover);
+      border-color: var(--primary-hover);
+    }
+    .pcard-promo-inner { text-align: center; padding: 36px; }
+    .pcard-promo-inner h3 {
+      font-family: var(--ff-head); font-size: 1.45rem; font-weight: 800;
+      color: #fff; margin-bottom: 10px;
+    }
+    .pcard-promo-inner p { color: rgba(255,255,255,.75); font-size: .88rem; margin-bottom: 26px; }
+
+    /* ── Process ──────────────────────────────────────────────────── */
+    .process { padding: 120px 0; background: var(--bg-warm); }
+    .process-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .process-content .h2 { color: var(--secondary); margin-bottom: 20px; }
+    .process-desc { color: var(--text-muted); line-height: 1.85; margin-bottom: 44px; }
+    .steps { display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: flex; gap: 22px; padding: 26px 0;
+      border-bottom: 1px solid var(--neutral-subtle);
+      transition: var(--ease-ui); cursor: default;
+    }
+    .step:last-child { border-bottom: none; }
+    .step:hover .step-n { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .step-n {
+      flex-shrink: 0; width: 46px; height: 46px; border-radius: 50%;
+      background: var(--primary-subtle); border: 1.5px solid rgba(255,107,0,.3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--ff-head); font-weight: 700; color: var(--primary);
+      font-size: 1rem; transition: var(--ease-ui);
+    }
+    .step-t h4 {
+      font-family: var(--ff-head); font-size: 1rem; font-weight: 700;
+      color: var(--secondary); margin-bottom: 5px;
+    }
+    .step-t p { font-size: .86rem; color: var(--text-muted); line-height: 1.6; }
+
+    .process-visual-wrap { position: relative; }
+    .process-big-card {
+      background: var(--secondary); border-radius: var(--r-xl);
+      padding: 52px 44px; position: relative; overflow: hidden;
+    }
+    .process-big-card::before {
+      content: ''; position: absolute;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: rgba(255,107,0,.12);
+      bottom: -100px; right: -80px;
+    }
+    .process-big-card-icon { font-size: 4rem; margin-bottom: 24px; display: block; }
+    .process-big-card h3 {
+      font-family: var(--ff-head); font-size: 1.7rem; font-weight: 800;
+      color: var(--bg-warm); margin-bottom: 14px;
+    }
+    .process-big-card p { color: rgba(255,255,255,.55); line-height: 1.75; }
+    .process-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .ptag {
+      background: rgba(255,107,0,.18); border: 1px solid rgba(255,107,0,.3);
+      color: var(--primary-light); font-size: .78rem; font-weight: 600;
+      padding: 5px 15px; border-radius: var(--r-full);
+    }
+
+    /* ── Gallery ──────────────────────────────────────────────────── */
+    .gallery { padding: 120px 0; background: var(--bg-card); }
+    .gallery-header { text-align: center; margin-bottom: 56px; }
+    .gallery-header .h2 { color: var(--secondary); margin-bottom: 12px; }
+    .gallery-header p { color: var(--text-muted); max-width: 460px; margin: 0 auto; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 220px;
+      gap: 14px;
+    }
+    .gitem {
+      border-radius: var(--r-md); overflow: hidden;
+      position: relative; cursor: pointer;
+      transition: var(--ease-flow);
+    }
+    .gitem:hover { transform: scale(1.02); box-shadow: var(--shadow-lg); z-index: 2; }
+    .gitem:hover .gitem-overlay { opacity: 1; }
+    .gitem:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .gitem:nth-child(4) { grid-row: span 2; }
+    .gitem-bg { width: 100%; height: 100%; }
+    .gitem-overlay {
+      position: absolute; inset: 0;
+      background: rgba(61,28,16,.75);
+      display: flex; align-items: flex-end; padding: 20px;
+      opacity: 0; transition: var(--ease-ui);
+    }
+    .gitem-label {
+      font-family: var(--ff-head); font-size: .9rem; font-weight: 700; color: #fff;
+    }
+
+    /* ── B2B ──────────────────────────────────────────────────────── */
+    .b2b { padding: 120px 0; background: var(--bg-warm); }
+    .b2b-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .b2b-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .bcard {
+      background: var(--bg-card); border: 1px solid var(--neutral-subtle);
+      border-radius: var(--r-md); padding: 26px 22px;
+      transition: var(--ease-ui); cursor: default;
+    }
+    .bcard:hover { background: var(--secondary); border-color: var(--secondary); transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .bcard:hover .bcard-title,
+    .bcard:hover .bcard-desc { color: #fff; }
+    .bcard:hover .bcard-icon { background: rgba(255,107,0,.2); }
+    .bcard-icon {
+      width: 50px; height: 50px; background: var(--primary-subtle);
+      border-radius: var(--r-sm); display: flex; align-items: center;
+      justify-content: center; margin-bottom: 14px; transition: var(--ease-ui);
+    }
+    .bcard-title {
+      font-family: var(--ff-head); font-size: 1rem; font-weight: 700;
+      color: var(--secondary); margin-bottom: 7px; transition: color .25s;
+    }
+    .bcard-desc { font-size: .82rem; color: var(--text-muted); line-height: 1.6; transition: color .25s; }
+    .b2b-content .h2 { color: var(--secondary); margin-bottom: 18px; }
+    .b2b-content p { color: var(--text-muted); line-height: 1.85; margin-bottom: 30px; }
+    .b2b-benefits { display: flex; flex-direction: column; gap: 13px; margin-bottom: 36px; }
+    .bbenefit { display: flex; align-items: center; gap: 13px; font-size: .9rem; font-weight: 500; color: var(--text-secondary); }
+    .bbenefit-chk {
+      width: 26px; height: 26px; background: var(--primary); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    /* ── Testimonials ─────────────────────────────────────────────── */
+    .testi { padding: 120px 0; background: var(--secondary); }
+    .testi-header { text-align: center; margin-bottom: 60px; }
+    .testi-header .h2 { color: var(--bg-warm); margin-bottom: 12px; }
+    .testi-header p { color: rgba(255,255,255,.5); max-width: 440px; margin: 0 auto; }
+    .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .tcard {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--r-lg); padding: 32px;
+      transition: var(--ease-ui); cursor: default;
+    }
+    .tcard:hover { background: rgba(255,107,0,.1); border-color: rgba(255,107,0,.3); transform: translateY(-4px); }
+    .tcard-quote {
+      font-family: var(--ff-head); font-size: 2.8rem; font-weight: 800;
+      color: var(--primary); line-height: 1; margin-bottom: 14px; display: block;
+    }
+    .tcard-text {
+      font-size: .92rem; font-style: italic;
+      color: rgba(255,255,255,.65); line-height: 1.8; margin-bottom: 24px;
+    }
+    .tcard-author { display: flex; align-items: center; gap: 12px; }
+    .tcard-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,107,0,.2); display: flex;
+      align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .tcard-name { font-family: var(--ff-head); font-weight: 700; font-size: .88rem; color: var(--bg-warm); }
+    .tcard-role { font-size: .75rem; color: rgba(255,255,255,.45); }
+    .tcard-stars { color: var(--primary); font-size: .78rem; margin-top: 3px; }
+
+    /* ── CTA Section ──────────────────────────────────────────────── */
+    .cta-wrap {
+      padding: 100px 0;
+      background: linear-gradient(135deg, var(--primary) 0%, #C45200 100%);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-wrap::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(circle 350px at 15% 50%, rgba(255,255,255,.12) 0%, transparent 70%),
+        radial-gradient(circle 250px at 85% 30%, rgba(255,255,255,.08) 0%, transparent 70%);
+    }
+    .cta-inner { position: relative; max-width: 680px; margin: 0 auto; }
+    .cta-inner .label { color: rgba(255,255,255,.8); margin-bottom: 18px; }
+    .cta-title {
+      font-family: var(--ff-head); font-size: clamp(2rem,4vw,3rem);
+      font-weight: 800; color: #fff; margin-bottom: 18px; line-height: 1.1;
+    }
+    .cta-sub { color: rgba(255,255,255,.75); font-size: .98rem; line-height: 1.75; margin-bottom: 44px; }
+    .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-cta-wa { background: #fff; color: var(--primary); font-weight: 700; }
+    .btn-cta-wa:hover { background: var(--bg-warm); transform: translateY(-2px); }
+    .btn-cta-shop { border: 2px solid rgba(255,255,255,.5); color: #fff; background: transparent; }
+    .btn-cta-shop:hover { border-color: #fff; background: rgba(255,255,255,.12); }
+
+    /* ── Footer ───────────────────────────────────────────────────── */
+    .footer { background: #1A0802; padding: 72px 0 32px; }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 52px;
+    }
+    .footer-logo { display: block; margin-bottom: 14px; }
+    .footer-logo-img { height: 46px; width: auto; display: block; }
+    .footer-tagline { color: rgba(255,255,255,.4); font-size: .87rem; line-height: 1.7; max-width: 270px; margin-bottom: 22px; }
+    .footer-socials { display: flex; gap: 10px; }
+    .social-a {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,.65); transition: var(--ease-ui); cursor: pointer;
+    }
+    .social-a:hover { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .footer-col h4 {
+      font-family: var(--ff-head); font-size: .95rem; font-weight: 700;
+      color: var(--bg-warm); margin-bottom: 18px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-links a { font-size: .84rem; color: rgba(255,255,255,.45); transition: color .18s; }
+    .footer-links a:hover { color: var(--primary-light); }
+    .f-contact { display: flex; flex-direction: column; gap: 11px; }
+    .f-ci { display: flex; align-items: flex-start; gap: 9px; }
+    .f-ci-icon { color: var(--primary); flex-shrink: 0; margin-top: 1px; }
+    .f-ci-text { font-size: .82rem; color: rgba(255,255,255,.45); line-height: 1.5; }
+    .footer-bottom {
+      padding-top: 28px; border-top: 1px solid rgba(255,255,255,.06);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+    }
+    .footer-copy { font-size: .78rem; color: rgba(255,255,255,.3); }
+    .footer-copy a { color: var(--primary-light); }
+
+    /* ── Floating WA ──────────────────────────────────────────────── */
+    .wa-float {
+      position: fixed; bottom: 30px; right: 30px; z-index: 200;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #25D366; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 28px rgba(37,211,102,.5);
+      transition: var(--ease-ui); animation: pulsewa 2.8s infinite;
+    }
+    .wa-float:hover { transform: scale(1.12); }
+    @keyframes pulsewa {
+      0%,100% { box-shadow: 0 6px 28px rgba(37,211,102,.5); }
+      50%      { box-shadow: 0 6px 48px rgba(37,211,102,.8), 0 0 0 12px rgba(37,211,102,.1); }
+    }
+    @media (prefers-reduced-motion: reduce) { .wa-float { animation: none; } }
+
+    /* ── Scroll Reveal ────────────────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.up { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+
+    /* ── Responsive ────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero-floats { display: none; }
+      .hero > .container { grid-template-columns: 1fr; }
+      .about-grid, .process-inner, .b2b-grid { grid-template-columns: 1fr; gap: 48px; }
+      .testi-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+      .gallery-grid { grid-template-columns: repeat(2,1fr); }
+      .gitem:nth-child(1) { grid-column: span 2; }
+      .gitem:nth-child(4) { grid-row: span 1; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .testi-grid, .b2b-cards { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .products-header { flex-direction: column; align-items: flex-start; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 160px; }
+      .about-cards-row { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .hero-actions { flex-direction: column; }
+    }
+
+    /* ── Relevvo CTA ──────────────────────────────────────────────── */
+    .relevvo-cta {
+      background: #0A0A0A;
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .relevvo-cta::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .relevvo-cta-inner {
+      position: relative; z-index: 1;
+      text-align: center;
+      max-width: 760px; margin: 0 auto;
+    }
+    .relevvo-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(124,58,237,0.12);
+      border: 1px solid rgba(124,58,237,0.35);
+      color: #a78bfa;
+      font-size: .72rem; font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase;
+      padding: 7px 18px; border-radius: 100px;
+      margin-bottom: 32px;
+    }
+    .relevvo-badge-dot { width:6px; height:6px; background:#7C3AED; border-radius:50%; display:inline-block; }
+    .relevvo-cta-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      font-weight: 800; line-height: 1.1;
+      color: #fff; margin-bottom: 20px;
+    }
+    .relevvo-cta-title span { color: #a78bfa; }
+    .relevvo-cta-sub {
+      font-size: 1.05rem; line-height: 1.75;
+      color: rgba(255,255,255,.55);
+      max-width: 580px; margin: 0 auto 48px;
+    }
+    .relevvo-pills {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+      margin-bottom: 52px;
+    }
+    .relevvo-pill {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.7);
+      font-size: .82rem; font-weight: 500;
+      padding: 9px 18px; border-radius: 100px;
+    }
+    .relevvo-cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-relevvo-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 34px; border-radius: 100px;
+      background: #7C3AED; color: #fff;
+      font-size: .95rem; font-weight: 700;
+      transition: all .25s ease; text-decoration: none;
+      box-shadow: 0 4px 28px rgba(124,58,237,.4);
+    }
+    .btn-relevvo-primary:hover { background: #6D28D9; transform: translateY(-2px); box-shadow: 0 8px 36px rgba(124,58,237,.55); }
+    .btn-relevvo-wa {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 34px; border-radius: 100px;
+      background: #25D366; color: #fff;
+      font-size: .95rem; font-weight: 700;
+      transition: all .25s ease; text-decoration: none;
+      box-shadow: 0 4px 24px rgba(37,211,102,.35);
+    }
+    .btn-relevvo-wa:hover { background: #20BD5A; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(37,211,102,.5); }
+    .relevvo-logo-line {
+      margin-top: 56px;
+      font-size: .75rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.25);
+    }
+    .relevvo-logo-line a { color: rgba(255,255,255,.4); text-decoration: none; transition: color .2s; }
+    .relevvo-logo-line a:hover { color: #a78bfa; }
+    @media (max-width: 600px) {
+      .relevvo-cta { padding: 72px 0; }
+      .relevvo-cta-actions { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ──────────────────────────────────────────────────────── -->
+  <nav class="nav" id="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">
+          <img src="logo-masbrownie.webp" alt="MasBrownie" class="nav-logo-img" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="#productos">Productos</a></li>
+          <li><a href="#nosotros">Nuestra Historia</a></li>
+          <li><a href="#proceso">Proceso</a></li>
+          <li><a href="#empresas">Para Empresas</a></li>
+          <li><a href="#contacto" class="nav-pill">Hacer Pedido</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── HERO ─────────────────────────────────────────────────────── -->
+  <section class="hero">
+    <!-- Campaign carousel -->
+    <div class="hero-carousel" aria-hidden="true">
+      <div class="hero-carousel-slide active"><img src="./banner1.png" alt="" /></div>
+      <div class="hero-carousel-slide"><img src="./banner2.png" alt="" /></div>
+      <div class="hero-carousel-slide"><img src="./banner3.png" alt="" /></div>
+      <div class="hero-carousel-slide"><img src="./banner4.png" alt="" /></div>
+    </div>
+    <div class="hero-particles" id="particles"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span class="hero-tag-dot"></span>
+          Nuevo empaque · Mismo sabor de siempre
+        </div>
+        <h1 class="h1 hero-title">
+          Cambiamos de <em>imagen,</em><br>pero no de sabor
+        </h1>
+        <p class="hero-sub">
+          Brownies artesanales elaborados con chocolate premium, horneados
+          cada día con amor y dedicación. Para ti, tu negocio o tu celebración especial.
+        </p>
+        <div class="hero-actions">
+          <a href="#productos" class="btn btn-primary">
+            Ver Productos
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="https://wa.me/573014853948" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Pedir por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating stat cards -->
+    <div class="hero-floats">
+      <div class="float-card">
+        <div class="float-num">5+</div>
+        <div class="float-lbl">Líneas de Producto</div>
+      </div>
+      <div class="float-card">
+        <div class="float-num">100%</div>
+        <div class="float-lbl">Artesanal & Premium</div>
+      </div>
+      <div class="float-card" style="border-color:rgba(4,158,255,.45);">
+        <div class="float-num" style="color:var(--tertiary);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div class="float-lbl" style="color:rgba(4,158,255,.75);">Envíos Nacionales</div>
+      </div>
+    </div>
+
+    <!-- Carousel dots -->
+    <div class="hero-dots" id="heroDots">
+      <button class="hero-dot active" data-i="0" aria-label="Slide 1"></button>
+      <button class="hero-dot" data-i="1" aria-label="Slide 2"></button>
+      <button class="hero-dot" data-i="2" aria-label="Slide 3"></button>
+      <button class="hero-dot" data-i="3" aria-label="Slide 4"></button>
+    </div>
+
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- ── BRAND STRIP ───────────────────────────────────────────────── -->
+  <div class="strip">
+    <div class="strip-track">
+      <!-- Item template duplicated for seamless loop -->
+      <span class="strip-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Brownies Artesanales
+      </span>
+      <span class="strip-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Línea Sin Azúcar
+      </span>
+      <span class="strip-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Tortas Melcochudas
+      </span>
+      <span class="strip-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Pan con Brownie
+      </span>
+      <span class="strip-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Distribución B2B
+      </span>
+      <span class="strip-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Envíos a Colombia
+      </span>
+      <span class="strip-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Cali, Colombia
+      </span>
+      <!-- Duplicate -->
+      <span class="strip-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Brownies Artesanales
+      </span>
+      <span class="strip-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Línea Sin Azúcar
+      </span>
+      <span class="strip-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Tortas Melcochudas
+      </span>
+      <span class="strip-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Pan con Brownie
+      </span>
+      <span class="strip-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Distribución B2B
+      </span>
+      <span class="strip-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Envíos a Colombia
+      </span>
+      <span class="strip-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+        Cali, Colombia
+      </span>
+    </div>
+  </div>
+
+  <!-- ── ABOUT / STORY ─────────────────────────────────────────────── -->
+  <section class="about" id="nosotros">
+    <div class="container">
+      <div class="about-grid">
+        <!-- Visual side -->
+        <div class="about-visual reveal">
+          <div class="about-card-main">
+            <span class="about-card-main-icon">🍫</span>
+            <h3>Horneados con Amor</h3>
+            <p>Desde nuestra cocina en Cali hasta tu mesa, cada brownie lleva el cariño y la dedicación que solo el amor por lo que se hace puede dar.</p>
+          </div>
+          <div class="about-cards-row">
+            <div class="about-mini">
+              <div class="about-mini-val counter" data-target="500" data-suffix="+">0+</div>
+              <div class="about-mini-label">Clientes Felices</div>
+            </div>
+            <div class="about-mini">
+              <div class="about-mini-val counter" data-target="3" data-suffix="+ años">0 años</div>
+              <div class="about-mini-label">de Experiencia</div>
+            </div>
+            <div class="about-mini">
+              <div class="about-mini-val counter" data-target="5" data-suffix=" líneas">0 líneas</div>
+              <div class="about-mini-label">de Producto</div>
+            </div>
+            <div class="about-mini">
+              <div class="about-mini-val">100%</div>
+              <div class="about-mini-label">Artesanal</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content side -->
+        <div class="about-content reveal" style="transition-delay:.15s">
+          <span class="label">Nuestra Historia</span>
+          <h2 class="h2">Más que un brownie,<br>es una historia</h2>
+          <p>Todo comenzó en una cocina hogareña en Cali, Colombia. Con amor por el buen chocolate y la convicción de que cada mordida debe ser una experiencia memorable, nació MasBrownie.</p>
+          <p>Hoy, cada brownie que horneamos lleva ese mismo espíritu: ingredientes cuidadosamente seleccionados, recetas propias perfeccionadas con el tiempo y el cuidado artesanal que solo la pasión genuina puede ofrecer.</p>
+          <p>No somos una fábrica. Somos panaderos artesanales que aman lo que hacen y se nota en cada mordida.</p>
+          <div class="about-highlights">
+            <div class="highlight">
+              <span class="highlight-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              Receta propia, perfeccionada durante años
+            </div>
+            <div class="highlight">
+              <span class="highlight-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              Sin conservantes, sin atajos
+            </div>
+            <div class="highlight">
+              <span class="highlight-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              Horneados diariamente, siempre frescos
+            </div>
+            <div class="highlight">
+              <span class="highlight-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              Chocolate de alta calidad en cada lote
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STATS ─────────────────────────────────────────────────────── -->
+  <section class="stats" id="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-num"><span class="counter" data-target="500" data-suffix="+">0</span></div>
+          <div class="stat-label">Clientes Satisfechos</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num"><span class="counter" data-target="3" data-suffix="+">0</span></div>
+          <div class="stat-label">Años de Experiencia</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num"><span class="counter" data-target="5" data-suffix="">0</span></div>
+          <div class="stat-label">Líneas de Producto</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Artesanal & Natural</div>
+        </div>
+      </div>
+      <p style="text-align:center;color:rgba(255,255,255,.25);font-size:.7rem;margin-top:20px;letter-spacing:.06em;">* Datos estimados · pendiente de confirmación con el cliente</p>
+    </div>
+  </section>
+
+  <!-- ── PRODUCTS ──────────────────────────────────────────────────── -->
+  <section class="products" id="productos">
+    <div class="container">
+      <div class="products-header">
+        <div>
+          <span class="label" style="color:var(--primary-light)">Nuestras Líneas</span>
+          <h2 class="h2">Cada brownie,<br>una experiencia</h2>
+        </div>
+        <a href="https://masbrownie.com/collections/frontpage" class="btn btn-outlined" target="_blank" rel="noopener noreferrer">
+          Catálogo completo
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="products-grid">
+
+        <!-- 1 -->
+        <div class="pcard reveal" tabindex="0" role="button" aria-label="Ver Brownie Crunch">
+          <div class="pcard-img-wrap">
+            <img class="pcard-img" src="https://masbrownie.com/cdn/shop/files/BrownieCRUNCH.png?v=1764176592&width=600" alt="Brownie Crunch Pack x12 unidades" loading="lazy" />
+            <span class="pcard-badge">⭐ Favorito</span>
+          </div>
+          <div class="pcard-body">
+            <p class="pcard-cat">Línea Convencional</p>
+            <h3 class="pcard-name">Brownie Crunch</h3>
+            <p class="pcard-desc">Interior suave, exterior crujiente. La combinación perfecta en pack x12 unidades de 32g.</p>
+            <div class="pcard-cta">
+              Pedir ahora
+              <span class="pcard-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="pcard reveal" style="transition-delay:.08s" tabindex="0" role="button" aria-label="Ver Chocolate Sin Azúcar">
+          <div class="pcard-img-wrap">
+            <img class="pcard-img" src="https://masbrownie.com/cdn/shop/files/SINAZUCAR1.png?v=1764176339&width=600" alt="Brownie Chocolate Sin Azúcar Pack x12" loading="lazy" />
+            <span class="pcard-badge" style="background:#3A7A3A;">Sin Azúcar</span>
+          </div>
+          <div class="pcard-body">
+            <p class="pcard-cat">Línea Sin Azúcar</p>
+            <h3 class="pcard-name">Chocolate Sin Azúcar</h3>
+            <p class="pcard-desc">Todo el placer sin azúcar añadida. Ideal para diabéticos y quienes cuidan su alimentación.</p>
+            <div class="pcard-cta">
+              Pedir ahora
+              <span class="pcard-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="pcard reveal" style="transition-delay:.16s" tabindex="0" role="button" aria-label="Ver Día de la Madre">
+          <div class="pcard-img-wrap">
+            <img class="pcard-img" src="https://masbrownie.com/cdn/shop/files/Cajadebolitasdiadelamadre.png?v=1775755195&width=600" alt="Bolitas de Brownie Día de la Madre x12" loading="lazy" />
+            <span class="pcard-badge" style="background:#B83A6A;">Especial</span>
+          </div>
+          <div class="pcard-body">
+            <p class="pcard-cat">Edición Especial</p>
+            <h3 class="pcard-name">Bolitas Día de la Madre</h3>
+            <p class="pcard-desc">Presentación elegante en caja. El regalo perfecto para celebrar a las mamás más dulces.</p>
+            <div class="pcard-cta">
+              Pedir ahora
+              <span class="pcard-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="pcard reveal" style="transition-delay:.24s" tabindex="0" role="button" aria-label="Ver Tortas Melcochudas">
+          <div class="pcard-img-wrap">
+            <img class="pcard-img" src="https://masbrownie.com/cdn/shop/collections/ChatGPTImage23ene2026_02_16_51p.m..png?v=1769196091&width=600" alt="Tortas Melcochudas de Brownie" loading="lazy" />
+            <span class="pcard-badge" style="background:#8B5A10;">Nuevo</span>
+          </div>
+          <div class="pcard-body">
+            <p class="pcard-cat">Tortas Melcochudas</p>
+            <h3 class="pcard-name">Torta de Brownie</h3>
+            <p class="pcard-desc">Textura melcochuda inigualable en formato torta. Para celebraciones que merecen algo distinto.</p>
+            <div class="pcard-cta">
+              Pedir ahora
+              <span class="pcard-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="pcard reveal" style="transition-delay:.32s" tabindex="0" role="button" aria-label="Ver Pan con Brownie">
+          <div class="pcard-img-wrap">
+            <img class="pcard-img" src="https://masbrownie.com/cdn/shop/collections/IMG_0281.jpg?v=1771366922&width=600" alt="Pan con Brownie artesanal" loading="lazy" />
+          </div>
+          <div class="pcard-body">
+            <p class="pcard-cat">Fusión Artesanal</p>
+            <h3 class="pcard-name">Pan con Brownie</h3>
+            <p class="pcard-desc">La combinación que nadie esperaba y todos aman. Pan artesanal relleno de brownie de chocolate premium.</p>
+            <div class="pcard-cta">
+              Pedir ahora
+              <span class="pcard-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 – Promo card -->
+        <div class="pcard pcard-promo reveal" style="transition-delay:.4s">
+          <div class="pcard-promo-inner">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 18px"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            <h3>¿Algo especial?</h3>
+            <p>Pedidos personalizados para tu evento o empresa</p>
+            <a href="https://wa.me/573014853948" class="btn" style="background:#fff;color:var(--primary);font-weight:700" target="_blank" rel="noopener noreferrer">
+              Consultar
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROCESS ───────────────────────────────────────────────────── -->
+  <section class="process" id="proceso">
+    <div class="container">
+      <div class="process-inner">
+        <div class="process-content">
+          <span class="label">Nuestro Proceso</span>
+          <h2 class="h2 reveal">Artesanal desde<br>el primer ingrediente</h2>
+          <p class="process-desc reveal">Cada brownie que sale de nuestra cocina pasa por un proceso cuidadoso. Seleccionamos los mejores ingredientes y respetamos los tiempos de horneado para garantizar esa textura perfecta que nos caracteriza.</p>
+          <div class="steps">
+            <div class="step reveal"><div class="step-n">01</div><div class="step-t"><h4>Selección de Ingredientes</h4><p>Chocolate premium, huevos frescos y mantequilla de alta calidad. Sin atajos, sin compromisos.</p></div></div>
+            <div class="step reveal"><div class="step-n">02</div><div class="step-t"><h4>Mezcla Artesanal</h4><p>Cada lote se mezcla a mano siguiendo recetas propias perfeccionadas durante años.</p></div></div>
+            <div class="step reveal"><div class="step-n">03</div><div class="step-t"><h4>Horneado con Precisión</h4><p>Temperatura y tiempo exactos para lograr el interior suave y el exterior perfecto.</p></div></div>
+            <div class="step reveal"><div class="step-n">04</div><div class="step-t"><h4>Control de Calidad</h4><p>Cada pieza es revisada antes de salir. Solo lo mejor llega a tus manos.</p></div></div>
+          </div>
+        </div>
+        <div class="process-visual-wrap reveal" style="transition-delay:.2s">
+          <div class="process-big-card">
+            <span class="process-big-card-icon">🍫</span>
+            <h3>Horneados<br>con Amor</h3>
+            <p>Desde nuestra cocina en Cali hasta tu mesa, cada brownie lleva el cariño y dedicación que mereces.</p>
+            <div class="process-tags">
+              <span class="ptag">Sin Conservantes</span>
+              <span class="ptag">Receta Propia</span>
+              <span class="ptag">Hecho a Mano</span>
+              <span class="ptag">Horneado Diario</span>
+              <span class="ptag">100% Natural</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GALLERY ───────────────────────────────────────────────────── -->
+  <section class="gallery">
+    <div class="container">
+      <div class="gallery-header reveal">
+        <span class="label">Galería</span>
+        <h2 class="h2">Visualmente irresistibles</h2>
+        <p>Cada brownie es una obra de arte. Aquí una muestra de lo que hacemos con amor cada día.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gitem reveal">
+          <div class="gitem-bg" style="height:100%;background:linear-gradient(145deg,#5C2A10,#2A0F06);display:flex;align-items:center;justify-content:center;font-size:5rem;">🍫</div>
+          <div class="gitem-overlay"><span class="gitem-label">Brownie Crunch Clásico</span></div>
+        </div>
+        <div class="gitem reveal" style="transition-delay:.08s">
+          <div class="gitem-bg" style="height:100%;background:linear-gradient(145deg,#7A4A10,#3A2006);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🎂</div>
+          <div class="gitem-overlay"><span class="gitem-label">Torta Melcochuda</span></div>
+        </div>
+        <div class="gitem reveal" style="transition-delay:.14s">
+          <div class="gitem-bg" style="height:100%;background:linear-gradient(145deg,#2E4A2E,#162816);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🌿</div>
+          <div class="gitem-overlay"><span class="gitem-label">Línea Sin Azúcar</span></div>
+        </div>
+        <div class="gitem reveal" style="transition-delay:.2s">
+          <div class="gitem-bg" style="height:100%;background:linear-gradient(145deg,#3D1C10,#1A0802);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🍞</div>
+          <div class="gitem-overlay"><span class="gitem-label">Pan con Brownie</span></div>
+        </div>
+        <div class="gitem reveal" style="transition-delay:.26s">
+          <div class="gitem-bg" style="height:100%;background:linear-gradient(145deg,#7A1A45,#4A0A28);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🌸</div>
+          <div class="gitem-overlay"><span class="gitem-label">Caja Día de la Madre</span></div>
+        </div>
+        <div class="gitem reveal" style="transition-delay:.32s">
+          <div class="gitem-bg" style="height:100%;background:linear-gradient(145deg,#FF6B00,#C45200);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">✨</div>
+          <div class="gitem-overlay"><span class="gitem-label">Ediciones Especiales</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── B2B ───────────────────────────────────────────────────────── -->
+  <section class="b2b" id="empresas">
+    <div class="container">
+      <div class="b2b-grid">
+        <div class="b2b-cards">
+          <div class="bcard reveal">
+            <div class="bcard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2h1l1 7H19l1-5H6"/><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>
+            </div>
+            <h4 class="bcard-title">Restaurantes & Cafeterías</h4>
+            <p class="bcard-desc">Brownies listos para servir o incorporar en tu menú. Entrega puntual garantizada.</p>
+          </div>
+          <div class="bcard reveal" style="transition-delay:.1s">
+            <div class="bcard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <h4 class="bcard-title">Supermercados</h4>
+            <p class="bcard-desc">Empaque atractivo para punto de venta con fecha de vencimiento adecuada para retail.</p>
+          </div>
+          <div class="bcard reveal" style="transition-delay:.2s">
+            <div class="bcard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+            </div>
+            <h4 class="bcard-title">Empresas & Eventos</h4>
+            <p class="bcard-desc">Detalles corporativos, desayunos empresariales y eventos con presentación premium.</p>
+          </div>
+          <div class="bcard reveal" style="transition-delay:.3s">
+            <div class="bcard-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <h4 class="bcard-title">Distribución Nacional</h4>
+            <p class="bcard-desc">Enviamos a toda Colombia con empaque especial que preserva frescura y presentación.</p>
+          </div>
+        </div>
+
+        <div class="b2b-content reveal" style="transition-delay:.15s">
+          <span class="label">Para Tu Negocio</span>
+          <h2 class="h2">El socio dulce<br>que tu negocio<br>necesita</h2>
+          <p>Trabajamos con restaurantes, cafeterías, supermercados y empresas en toda Colombia. Precios especiales por volumen, entrega programada y calidad que tu negocio merece.</p>
+          <div class="b2b-benefits">
+            <div class="bbenefit">
+              <span class="bbenefit-chk">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              Precios especiales por volumen de pedido
+            </div>
+            <div class="bbenefit">
+              <span class="bbenefit-chk">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              Entrega programada y puntual
+            </div>
+            <div class="bbenefit">
+              <span class="bbenefit-chk">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              Empaque personalizado con tu marca
+            </div>
+            <div class="bbenefit">
+              <span class="bbenefit-chk">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              Línea sin azúcar para menús saludables
+            </div>
+            <div class="bbenefit">
+              <span class="bbenefit-chk">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              Asesoría en presentación y porciones
+            </div>
+          </div>
+          <a href="https://wa.me/573014853948?text=Hola%2C+me+interesa+una+propuesta+B2B" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+            Solicitar propuesta comercial
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ──────────────────────────────────────────────── -->
+  <section class="testi">
+    <div class="container">
+      <div class="testi-header reveal">
+        <span class="label" style="color:var(--primary-light)">Lo que dicen</span>
+        <h2 class="h2">Clientes que ya<br>son fanáticos</h2>
+        <p>La mejor validación de nuestro trabajo son las palabras de quienes nos prueban.</p>
+      </div>
+      <div class="testi-grid">
+        <div class="tcard reveal">
+          <span class="tcard-quote">"</span>
+          <p class="tcard-text">Los brownies de MasBrownie son lo mejor que he probado en Cali. La textura melcochuda es adictiva y el servicio siempre rápido y confiable.</p>
+          <div class="tcard-author">
+            <div class="tcard-avatar">👩</div>
+            <div>
+              <div class="tcard-name">María Fernanda R.</div>
+              <div class="tcard-role">Cliente Frecuente · Cali</div>
+              <div class="tcard-stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+        <div class="tcard reveal" style="transition-delay:.1s">
+          <span class="tcard-quote">"</span>
+          <p class="tcard-text">Llevamos 6 meses trabajando con MasBrownie en nuestra cafetería. Nuestros clientes siempre preguntan por los brownies. Son un producto estrella para nosotros.</p>
+          <div class="tcard-author">
+            <div class="tcard-avatar">👨‍🍳</div>
+            <div>
+              <div class="tcard-name">Carlos Mejía</div>
+              <div class="tcard-role">Dueño de Cafetería · Cali</div>
+              <div class="tcard-stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+        <div class="tcard reveal" style="transition-delay:.2s">
+          <span class="tcard-quote">"</span>
+          <p class="tcard-text">Pedimos los brownies sin azúcar para nuestra empresa y fueron un éxito total. Presentación impecable, sabor increíble. Sin duda los repetiremos.</p>
+          <div class="tcard-author">
+            <div class="tcard-avatar">👩‍💼</div>
+            <div>
+              <div class="tcard-name">Ana Lucía Torres</div>
+              <div class="tcard-role">Coordinadora RR.HH · Bogotá</div>
+              <div class="tcard-stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────────────── -->
+  <section class="cta-wrap" id="contacto">
+    <div class="container">
+      <div class="cta-inner">
+        <span class="label" style="color:rgba(255,255,255,.8);">¿Listo para pedir?</span>
+        <h2 class="cta-title">Tu pedido perfecto<br>a un mensaje de distancia</h2>
+        <p class="cta-sub">
+          Escríbenos por WhatsApp y te atendemos al instante.<br>
+          <strong>Calle 40 #16-32, Cali · hola@masbrownie.com</strong>
+        </p>
+        <div class="cta-actions">
+          <a href="https://wa.me/573014853948?text=Hola%2C+quiero+hacer+un+pedido+de+brownies" class="btn btn-cta-wa" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Escribir por WhatsApp
+          </a>
+          <a href="https://masbrownie.com" class="btn btn-cta-shop" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            Ir a la Tienda
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RELEVVO CTA ──────────────────────────────────────────────── -->
+  <section class="relevvo-cta">
+    <div class="container">
+      <div class="relevvo-cta-inner">
+        <div class="relevvo-badge">
+          <span class="relevvo-badge-dot"></span>
+          Hecho por Relevvo Studio
+        </div>
+        <h2 class="relevvo-cta-title">
+          ¿Quieres que tu marca<br><span>luzca así de bien?</span>
+        </h2>
+        <p class="relevvo-cta-sub">
+          Diseñamos identidades, sitios web y estrategias de contenido que convierten. Sin sobrecostos de agencia, con resultados reales.
+        </p>
+        <div class="relevvo-pills">
+          <span class="relevvo-pill">✦ Branding &amp; Identidad</span>
+          <span class="relevvo-pill">✦ Landing Pages</span>
+          <span class="relevvo-pill">✦ Redes Sociales</span>
+          <span class="relevvo-pill">✦ Campañas con IA</span>
+          <span class="relevvo-pill">✦ Diseño Gráfico</span>
+        </div>
+        <div class="relevvo-cta-actions">
+          <a href="https://relevvostudio.com" target="_blank" rel="noopener noreferrer" class="btn-relevvo-primary">
+            Ver nuestro trabajo
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="https://wa.me/573223094005?text=Hola%2C%20quiero%20un%20sitio%20web%20para%20mi%20marca%20%F0%9F%9A%80" target="_blank" rel="noopener noreferrer" class="btn-relevvo-wa">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Hablar con un asesor
+          </a>
+        </div>
+        <p class="relevvo-logo-line">Diseñado y desarrollado por <a href="https://relevvostudio.com" target="_blank" rel="noopener noreferrer">Relevvo Studio</a> · Colombia</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <span class="footer-logo">
+            <img src="logo-masbrownie.webp" alt="MasBrownie" class="footer-logo-img" />
+          </span>
+          <p class="footer-tagline">Brownies artesanales premium horneados con amor en Cali, Colombia. Para ti, tu negocio y tus momentos especiales.</p>
+          <div class="footer-socials">
+            <a href="https://www.instagram.com/masbrownie/" class="social-a" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@mas.brownie" class="social-a" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.73a4.85 4.85 0 01-1.01-.04z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/MasBrownieOficial" class="social-a" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Productos</h4>
+          <ul class="footer-links">
+            <li><a href="https://masbrownie.com/collections/linea-convencional" target="_blank" rel="noopener noreferrer">Línea Convencional</a></li>
+            <li><a href="https://masbrownie.com/collections/linea-sin-azucar" target="_blank" rel="noopener noreferrer">Línea Sin Azúcar</a></li>
+            <li><a href="https://masbrownie.com/collections/tortas-melcochudas" target="_blank" rel="noopener noreferrer">Tortas Melcochudas</a></li>
+            <li><a href="https://masbrownie.com/collections/pan-con-brownie" target="_blank" rel="noopener noreferrer">Pan con Brownie</a></li>
+            <li><a href="https://masbrownie.com/collections/dia-de-la-madre" target="_blank" rel="noopener noreferrer">Ediciones Especiales</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul class="footer-links">
+            <li><a href="#nosotros">Nuestra Historia</a></li>
+            <li><a href="#proceso">Nuestro Proceso</a></li>
+            <li><a href="#empresas">Para Empresas</a></li>
+            <li><a href="https://masbrownie.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer">Privacidad</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <div class="f-contact">
+            <div class="f-ci">
+              <svg class="f-ci-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.41 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.34 1.27h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.4a16 16 0 006.29 6.29l1.21-1.21a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              <span class="f-ci-text">3014853948</span>
+            </div>
+            <div class="f-ci">
+              <svg class="f-ci-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span class="f-ci-text">hola@masbrownie.com</span>
+            </div>
+            <div class="f-ci">
+              <svg class="f-ci-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span class="f-ci-text">Calle 40 #16-32<br>Cali, Colombia</span>
+            </div>
+            <div class="f-ci">
+              <svg class="f-ci-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              <span class="f-ci-text">Envíos a todo Colombia</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 MasBrownie · <a href="https://masbrownie.com" target="_blank" rel="noopener noreferrer">masbrownie.com</a> · Todos los derechos reservados</p>
+        <p class="footer-copy">Hecho con amor en Cali, Colombia</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── FLOATING WHATSAPP ─────────────────────────────────────────── -->
+  <a href="https://wa.me/573014853948?text=Hola%2C+quiero+hacer+un+pedido" class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- ── SCRIPTS ────────────────────────────────────────────────────── -->
+  <script>
+    // ── Nav scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // ── Hero particles
+    (function() {
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reducedMotion) return;
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 14; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 100 + 30;
+        p.style.cssText = [
+          `width:${size}px`,
+          `height:${size}px`,
+          `left:${Math.random()*100}%`,
+          `top:${Math.random()*100}%`,
+          `--dur:${(Math.random()*7+7).toFixed(1)}s`,
+          `--del:${(Math.random()*-8).toFixed(1)}s`,
+          `--op:${(Math.random()*.3+.08).toFixed(2)}`,
+          `--dy:${(Math.random()*60-30).toFixed(0)}px`
+        ].join(';');
+        container.appendChild(p);
+      }
+    })();
+
+    // ── Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('up'); revealObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => revealObs.observe(el));
+
+    // ── Animated counters
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target, 10);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1800;
+      const start = performance.now();
+      function step(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(eased * target) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    const counters = document.querySelectorAll('.counter');
+    const counterObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { animateCounter(e.target); counterObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.3 });
+    counters.forEach(el => counterObs.observe(el));
+
+    // ── Product card click-through
+    const cardLinks = [
+      'https://masbrownie.com/collections/linea-convencional',
+      'https://masbrownie.com/collections/linea-sin-azucar',
+      'https://masbrownie.com/collections/dia-de-la-madre',
+      'https://masbrownie.com/collections/tortas-melcochudas',
+      'https://masbrownie.com/collections/pan-con-brownie'
+    ];
+    document.querySelectorAll('.pcard:not(.pcard-promo)').forEach((card, i) => {
+      if (cardLinks[i]) {
+        card.addEventListener('click', () => window.open(cardLinks[i], '_blank'));
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') window.open(cardLinks[i], '_blank');
+        });
+      }
+    });
+  </script>
+
+  <!-- ── Campaign Carousel JS ──────────────────────────────────────── -->
+  <script>
+    (function () {
+      const slides = document.querySelectorAll('.hero-carousel-slide');
+      const dots   = document.querySelectorAll('.hero-dot');
+      let current  = 0;
+      let timer;
+
+      function goTo(idx) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (idx + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+      }
+
+      function next() { goTo(current + 1); }
+
+      function startTimer() {
+        clearInterval(timer);
+        timer = setInterval(next, 5000);
+      }
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          goTo(parseInt(dot.dataset.i));
+          startTimer();
+        });
+      });
+
+      // Preload images for smooth transitions
+      slides.forEach(s => { new Image().src = s.querySelector('img').src; });
+
+      startTimer();
+    })();
+  </script>
+</body>
+</html>

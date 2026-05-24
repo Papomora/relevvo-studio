@@ -88,6 +88,10 @@ export default function VideoParallaxSection({
         }}
       />
 
+      {/* ── Edge fades — blend into surrounding sections ── */}
+      <div className="absolute top-0 left-0 right-0 pointer-events-none" style={{ height: 160, background: 'linear-gradient(to bottom, rgba(10,10,10,1) 0%, transparent 100%)', zIndex: 2 }} />
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: 160, background: 'linear-gradient(to top, rgba(10,10,10,1) 0%, transparent 100%)', zIndex: 2 }} />
+
       {/* ── Purple accent gradient ── */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -150,14 +154,7 @@ export default function VideoParallaxSection({
           {/* Main headline */}
           <h2
             ref={headlineRef}
-            className="heading-display text-white mb-6"
-            style={{
-              fontSize: variant === 'cta'
-                ? 'clamp(2rem, 4.5vw, 3.5rem)'
-                : 'clamp(2.8rem, 6.5vw, 5.5rem)',
-              letterSpacing: '-0.04em',
-              lineHeight: 1.02,
-            }}
+            className={`heading-display text-white mb-6 ${variant === 'cta' ? 'type-display' : 'type-hero'}`}
             dangerouslySetInnerHTML={{ __html: headline }}
           />
 

@@ -9,7 +9,6 @@ import Features from '@/components/Features'
 import Solution from '@/components/Solution'
 import Founder from '@/components/Founder'
 import Testimonial from '@/components/Testimonial'
-import InstagramClients from '@/components/InstagramClients'
 import Pricing from '@/components/Pricing'
 import Footer from '@/components/Footer'
 
@@ -47,7 +46,6 @@ export default function Home() {
       <Solution />
       <Founder />
       <Testimonial />
-      <InstagramClients />
 
       {/* ── Parallax divider 3: before pricing — final CTA ── */}
       <VideoParallaxSection

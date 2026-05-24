@@ -32,19 +32,53 @@ body {
   overflow-x: hidden;
 }
 
-/* Typography helpers */
+/* ─── Type scale — 4 levels, use these everywhere ─── */
+/* Hero: página de inicio únicamente */
+.type-hero {
+  font-family: var(--font-bricolage), sans-serif;
+  font-size: clamp(3rem, 6.5vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+/* Display: títulos de sección grandes */
+.type-display {
+  font-family: var(--font-bricolage), sans-serif;
+  font-size: clamp(1.875rem, 3.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+/* Heading: títulos de card / subsección */
+.type-heading {
+  font-family: var(--font-bricolage), sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+/* Body: texto normal */
+.type-body {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+/* Typography helpers (retro-compat) */
 .heading-display {
   font-family: var(--font-bricolage), sans-serif;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.03em;
 }
 
+/* Serif accent → Instrument Serif */
 .heading-serif {
-  font-family: var(--font-cormorant), serif;
+  font-family: var(--font-instrument), Georgia, serif;
   font-style: italic;
   font-weight: 400;
   line-height: 1.05;
+  letter-spacing: -0.01em;
 }
 
 /* Pill badge */
@@ -228,7 +262,7 @@ body::after {
 
 /* ─── Number display for editorial lists ─── */
 .num-display {
-  font-family: var(--font-cormorant), serif;
+  font-family: var(--font-instrument), Georgia, serif;
   font-style: italic;
   font-size: 3.5rem;
   line-height: 1;
@@ -330,6 +364,18 @@ html.lenis {
   outline: 2px solid rgba(124, 58, 237, 0.7);
   outline-offset: 3px;
   border-radius: 4px;
+}
+
+/* ─── Neon hover card ─── */
+.neon-card {
+  transition: box-shadow 0.35s ease, border-color 0.35s ease !important;
+}
+.neon-card:hover {
+  box-shadow:
+    0 0 0 1px rgba(124,58,237,0.5),
+    0 0 24px rgba(124,58,237,0.18),
+    0 0 60px rgba(124,58,237,0.07);
+  border-color: rgba(124,58,237,0.4) !important;
 }
 
 /* Reduced motion */

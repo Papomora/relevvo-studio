@@ -21,17 +21,17 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       touchMultiplier: 1.5,
     })
 
-    // Bridge Lenis with GSAP ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update)
+    // Sync Lenis with GSAP ScrollTrigger
+    lenis.on('scroll', () => ScrollTrigger.update())
 
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000)
-    })
+    // Use GSAP ticker so Lenis stays in sync with GSAP animations
+    const rafCallback = (time: number) => lenis.raf(time * 1000)
+    gsap.ticker.add(rafCallback)
     gsap.ticker.lagSmoothing(0)
 
     return () => {
       lenis.destroy()
-      gsap.ticker.remove((time) => lenis.raf(time * 1000))
+      gsap.ticker.remove(rafCallback)
     }
   }, [])
 

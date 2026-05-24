@@ -45,29 +45,24 @@ export default function ComoProfesionales() {
     <section ref={sectionRef} className="py-20 px-4 max-w-5xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Image */}
-        <div ref={imageRef} className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-[#1a1a1a]" style={{ willChange: 'transform, opacity' }}>
-          {/* Placeholder until real photo is added */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#0d0d1a] flex items-center justify-center">
-            <span className="text-white/20 font-display font-bold text-xl">Foto equipo</span>
-          </div>
+        <div ref={imageRef} className="relative rounded-2xl overflow-hidden aspect-[4/5]" style={{ willChange: 'transform, opacity' }}>
           <Image
-            src="/images/team-profesionales.jpg"
-            alt="Equipo Relevvo Studio trabajando"
+            src="/images/portfolio/Mockup 1 (EXAMPLE ONLY)@2x.jpg"
+            alt="Trabajo de Relevvo Studio — Branding"
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"
+            unoptimized
           />
+          {/* Subtle overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
         </div>
 
         {/* Content */}
         <div ref={contentRef} style={{ willChange: 'transform, opacity' }}>
           <h2 className="mb-8">
-            <span className="heading-display text-white" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
-              Como{' '}
-            </span>
-            <span className="heading-serif text-white" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
-              profesionales
-            </span>
+            <span className="type-display heading-display text-white">Como{' '}</span>
+            <span className="type-display heading-serif text-white">profesionales</span>
           </h2>
 
           <div className="flex flex-col gap-7">
