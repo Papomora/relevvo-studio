@@ -210,15 +210,31 @@
 
     .hero-content { position: relative; z-index: 2; max-width: 420px; }
     .hero-tag {
-      display: inline-flex; align-items: center; gap: 9px;
-      background: rgba(255,107,0,.15); border: 1px solid rgba(255,107,0,.35);
-      color: var(--primary-light); font-size: .78rem; font-weight: 700;
-      letter-spacing: .18em; text-transform: uppercase;
-      padding: 7px 18px; border-radius: var(--r-full); margin-bottom: 28px;
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(255,107,0,.12); border: 1px solid rgba(255,107,0,.4);
+      color: var(--primary-light); font-size: .72rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      padding: 8px 16px 8px 12px; border-radius: var(--r-full); margin-bottom: 32px;
     }
-    .hero-tag-dot { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; }
-    .hero-title { color: #fff; margin-bottom: 22px; }
-    .hero-title em { font-style: italic; color: var(--primary-light); }
+    .hero-tag-dot {
+      width: 8px; height: 8px; background: var(--primary); border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(255,107,0,.25);
+      animation: tagpulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes tagpulse {
+      0%,100% { box-shadow: 0 0 0 3px rgba(255,107,0,.25); }
+      50%      { box-shadow: 0 0 0 6px rgba(255,107,0,.08); }
+    }
+    .hero-title {
+      color: #fff; margin-bottom: 24px;
+      font-size: clamp(2.6rem, 5.5vw, 5rem);
+      line-height: 1.04;
+    }
+    .hero-title em {
+      font-style: italic; color: var(--primary-light);
+      text-transform: uppercase; letter-spacing: -.01em;
+    }
     .hero-sub {
       font-size: 1.1rem; line-height: 1.75;
       color: rgba(255,255,255,.65); max-width: 400px; margin-bottom: 44px;
@@ -838,10 +854,10 @@
       <div class="hero-content">
         <div class="hero-tag">
           <span class="hero-tag-dot"></span>
-          Nuevo empaque · Mismo sabor de siempre
+          Nuevo empaque &nbsp;·&nbsp; Mismo sabor de siempre
         </div>
-        <h1 class="h1 hero-title">
-          Cambiamos de <em>imagen,</em><br>pero no de sabor
+        <h1 class="hero-title">
+          Cambiamos<br>de <em>imagen,</em><br>pero no<br>de sabor
         </h1>
         <p class="hero-sub">
           Brownies artesanales elaborados con chocolate premium, horneados
