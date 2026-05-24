@@ -62,20 +62,9 @@ export default function Founder() {
               border: '1px solid rgba(124,58,237,0.25)',
             }}
           >
-            {/*
-              Reemplaza este bloque con:
-              <img src="/founder.jpg" alt="Juan Camilo Papo León Mora"
-                   className="w-full h-full object-cover object-top"
-                   style={{ filter: 'grayscale(15%) contrast(1.08)' }} />
-            */}
-            <div className="w-full h-full flex items-center justify-center">
-              <span
-                className="heading-display text-white/8 select-none"
-                style={{ fontSize: 'clamp(6rem, 18vw, 12rem)', letterSpacing: '-0.06em' }}
-              >
-                JCL
-              </span>
-            </div>
+            <img src="/founder.png" alt="Juan Camilo Papo León Mora"
+                 className="w-full h-full object-cover object-top"
+                 style={{ filter: 'grayscale(15%) contrast(1.08)' }} />
           </div>
 
           {/* Years badge */}
