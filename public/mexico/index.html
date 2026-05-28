@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relevvo Studio — Tu marca, a toda máquina</title>
+  <meta name="description" content="Diseño, contenido y ecommerce con IA como copiloto y humanos al volante. Atendemos México." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ─────────────────────────────────── */
+    :root {
+      --purple:   #7C3AED;
+      --purple-l: #9D5CF5;
+      --lavender: #D2BBFF;
+      --green:    #41E575;
+      --pink:     #FFB0CD;
+      --amber:    #FFB84D;
+      --blue:     #60AFFE;
+      --red:      #FF5B5B;
+      --orange:   #FF8C42;
+      --bg:       #0A0A0A;
+      --surface:  rgba(255,255,255,0.04);
+      --surface-h:rgba(255,255,255,0.07);
+      --border:   rgba(255,255,255,0.08);
+      --border-h: rgba(255,255,255,0.16);
+      --muted:    rgba(229,226,225,0.5);
+      --text:     #E5E2E1;
+      --ease:     cubic-bezier(0.25,0.46,0.45,0.94);
+      --ease-out: cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* ── RESET ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+
+    /* ── TYPOGRAPHY ─────────────────────────────── */
+    .t-label   { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .t-sm      { font-size: 0.875rem; }
+    .t-base    { font-size: 1rem; }
+    .t-lg      { font-size: 1.125rem; }
+    .t-xl      { font-size: 1.25rem; }
+    .t-2xl     { font-size: 1.5rem; }
+    .t-3xl     { font-size: 2rem; font-weight: 700; }
+    .t-4xl     { font-size: 2.75rem; font-weight: 800; }
+    .t-hero    { font-size: clamp(3.5rem, 8vw, 6rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; }
+
+    /* ── LAYOUT ─────────────────────────────────── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section   { padding: 96px 0; }
+
+    /* ── GLASS CARD ─────────────────────────────── */
+    .glass {
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    }
+    .glass:hover {
+      border-color: var(--border-h);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 60px rgba(124,58,237,0.15);
+    }
+
+    /* ── BUTTONS ────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 12px;
+      font-weight: 600; font-size: 0.9375rem;
+      cursor: pointer; border: none;
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), opacity 0.25s var(--ease);
+      text-decoration: none;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple) 0%, var(--purple-l) 100%);
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(124,58,237,0.35);
+    }
+    .btn-primary:hover { box-shadow: 0 8px 32px rgba(124,58,237,0.5); }
+    .btn-ghost {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--border-h); background: var(--surface-h); }
+    .btn-wa {
+      background: #25D366;
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.3);
+    }
+    .btn-wa:hover { box-shadow: 0 8px 32px rgba(37,211,102,0.45); }
+
+    /* ── ENTRANCE ANIMATIONS ────────────────────── */
+    [data-animate] { opacity: 0; transform: translateY(32px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+    [data-animate].visible { opacity: 1; transform: translateY(0); }
+    [data-delay="1"] { transition-delay: 0.1s; }
+    [data-delay="2"] { transition-delay: 0.2s; }
+    [data-delay="3"] { transition-delay: 0.3s; }
+    [data-delay="4"] { transition-delay: 0.4s; }
+    [data-delay="5"] { transition-delay: 0.5s; }
+    [data-delay="6"] { transition-delay: 0.6s; }
+
+    /* ══════════════════════════════════════════════
+       1. NAV
+    ══════════════════════════════════════════════ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 24px;
+      height: 68px;
+      display: flex; align-items: center;
+      background: rgba(10,10,10,0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s var(--ease);
+    }
+    .nav__inner { max-width: 1200px; width: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .nav__logo { font-size: 1.375rem; font-weight: 900; color: #fff; letter-spacing: -0.02em; }
+    .nav__links { display: flex; align-items: center; gap: 32px; }
+    .nav__links a { font-size: 0.9rem; font-weight: 500; color: var(--muted); transition: color 0.2s var(--ease); }
+    .nav__links a:hover { color: var(--text); }
+    .nav__cta { margin-left: 16px; }
+    .nav__hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+    .nav__hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.3s var(--ease), opacity 0.3s var(--ease); }
+    .nav__hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__hamburger.active span:nth-child(2) { opacity: 0; }
+    .nav__hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile overlay */
+    .nav__overlay {
+      position: fixed; inset: 0; z-index: 99;
+      background: rgba(10,10,10,0.97);
+      backdrop-filter: blur(24px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s var(--ease);
+    }
+    .nav__overlay.open { opacity: 1; pointer-events: all; }
+    .nav__overlay a { font-size: 2rem; font-weight: 700; color: var(--text); transition: color 0.2s var(--ease); }
+    .nav__overlay a:hover { color: var(--lavender); }
+
+    /* ══════════════════════════════════════════════
+       2. HERO
+    ══════════════════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      padding: 120px 24px 80px;
+      text-align: center;
+    }
+    .hero__bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(124,58,237,0.22) 0%, transparent 70%);
+    }
+    /* Video background */
+    .hero__video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero__video-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.15) 40%, rgba(10,10,10,0.7) 100%);
+    }
+    /* Hero glass card */
+    .hero__content {
+      position: relative; z-index: 2; max-width: 860px;
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 28px;
+      padding: 56px 48px;
+    }
+    @media (max-width: 768px) {
+      .hero__content { padding: 40px 24px; border-radius: 20px; }
+    }
+    /* Floating orbs */
+    .orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); animation: floatOrb 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .orb-1 { width: 480px; height: 480px; background: rgba(124,58,237,0.18); top: -120px; left: -120px; animation-duration: 10s; }
+    .orb-2 { width: 320px; height: 320px; background: rgba(65,229,117,0.08); bottom: 0; right: -80px; animation-duration: 7s; animation-delay: -3s; }
+    .orb-3 { width: 240px; height: 240px; background: rgba(255,176,205,0.1); top: 40%; right: 15%; animation-duration: 9s; animation-delay: -5s; }
+    @keyframes floatOrb {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+    .hero__content { position: relative; z-index: 1; max-width: 860px; }
+    .hero__badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(65,229,117,0.08);
+      border: 1px solid rgba(65,229,117,0.25);
+      border-radius: 100px;
+      padding: 6px 16px; margin-bottom: 32px;
+      font-size: 0.875rem; font-weight: 500; color: var(--green);
+    }
+    .hero h1 {
+      font-size: clamp(3.5rem, 8.5vw, 6rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.03;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+    .hero h1 .accent { color: var(--lavender); }
+    .hero__sub {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto 48px;
+      line-height: 1.65;
+    }
+    .hero__actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* ══════════════════════════════════════════════
+       3. PROBLEMA
+    ══════════════════════════════════════════════ */
+    .problema { background: var(--bg); }
+    .section-label { margin-bottom: 16px; }
+    .section-title { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; letter-spacing: -0.02em; color: #fff; margin-bottom: 16px; }
+    .section-sub { font-size: 1.0625rem; color: var(--muted); max-width: 560px; }
+
+    .problema__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 56px; }
+    .prob-card { padding: 32px 28px; }
+    .prob-card__icon { font-size: 2rem; margin-bottom: 16px; }
+    .prob-card__title { font-size: 1.0625rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .prob-card__body { font-size: 0.9375rem; color: var(--muted); line-height: 1.6; }
+    .border-orange { border-left: 3px solid var(--orange); }
+    .border-red    { border-left: 3px solid var(--red); }
+    .border-redorange { border-left: 3px solid #FF6B35; }
+
+    /* ══════════════════════════════════════════════
+       4. SOLUCIÓN
+    ══════════════════════════════════════════════ */
+    .solucion { background: var(--bg); }
+    .sol__wrap { display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; align-items: stretch; margin-top: 56px; }
+    .sol__col {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 36px;
+    }
+    .sol__col-icon { font-size: 2.5rem; margin-bottom: 20px; }
+    .sol__col-title { font-size: 1.375rem; font-weight: 800; color: #fff; margin-bottom: 20px; }
+    .sol__stat { margin-bottom: 16px; }
+    .sol__stat-num { font-size: 2rem; font-weight: 900; color: var(--lavender); letter-spacing: -0.02em; }
+    .sol__stat-label { font-size: 0.875rem; color: var(--muted); margin-top: 2px; }
+    .sol__divider {
+      display: flex; align-items: center; justify-content: center;
+      width: 72px;
+      font-size: 2.5rem; font-weight: 900; color: var(--purple);
+    }
+    .sol__quote {
+      margin-top: 48px;
+      padding: 32px 36px;
+      border-left: 3px solid var(--purple);
+      background: rgba(124,58,237,0.06);
+      border-radius: 0 16px 16px 0;
+    }
+    .sol__quote p { font-size: 1.0625rem; font-style: italic; color: var(--text); line-height: 1.7; }
+
+    /* ══════════════════════════════════════════════
+       5. SERVICIOS
+    ══════════════════════════════════════════════ */
+    .servicios { background: var(--bg); }
+    .servicios__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+    .srv-card { padding: 32px 28px; position: relative; overflow: hidden; }
+    .srv-card__accent {
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; border-radius: 20px 20px 0 0;
+    }
+    .srv-card__icon { font-size: 2rem; margin-bottom: 16px; }
+    .srv-card__title { font-size: 1.125rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .srv-card__body  { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+    .accent-lavender { background: var(--lavender); }
+    .accent-pink     { background: var(--pink); }
+    .accent-purple   { background: var(--purple); }
+    .accent-green    { background: var(--green); }
+    .accent-amber    { background: var(--amber); }
+    .accent-blue     { background: var(--blue); }
+
+    /* ══════════════════════════════════════════════
+       6. ECOMMERCE SPOTLIGHT
+    ══════════════════════════════════════════════ */
+    .ecommerce {
+      background: linear-gradient(135deg, #0D0D0D 0%, rgba(65,229,117,0.04) 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .ecom__stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; margin: 56px 0; }
+    .ecom__stat-num {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 900; color: var(--green);
+      letter-spacing: -0.03em; line-height: 1;
+      margin-bottom: 8px;
+    }
+    .ecom__stat-label { font-size: 0.9rem; color: var(--muted); }
+    .ecom__body {
+      max-width: 680px;
+      font-size: 1.0625rem; color: var(--muted); line-height: 1.75;
+    }
+    .ecom__body strong { color: var(--text); }
+
+    /* ══════════════════════════════════════════════
+       7. COMPARACIÓN
+    ══════════════════════════════════════════════ */
+    .comparacion { background: var(--bg); }
+    .table-wrap { overflow-x: auto; margin-top: 56px; }
+    .comp-table {
+      width: 100%; border-collapse: separate; border-spacing: 0;
+      font-size: 0.9375rem;
+    }
+    .comp-table th, .comp-table td { padding: 18px 24px; text-align: left; }
+    .comp-table thead th { font-weight: 600; font-size: 0.8125rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .comp-table th:first-child { color: var(--muted); }
+    .comp-table th.col-others { color: var(--muted); }
+    .comp-table th.col-relevvo {
+      color: #fff; font-size: 1rem; letter-spacing: 0;
+      background: rgba(124,58,237,0.12);
+      border-top: 2px solid var(--purple);
+      border-radius: 12px 12px 0 0;
+    }
+    .comp-table tbody tr { border-bottom: 1px solid var(--border); }
+    .comp-table tbody tr:hover { background: var(--surface); }
+    .comp-table td.crit { font-weight: 600; color: var(--text); }
+    .comp-table td.others { color: var(--muted); }
+    .comp-table td.relevvo {
+      color: #fff; font-weight: 600;
+      background: rgba(124,58,237,0.07);
+    }
+    .green-check { color: var(--green); }
+    .comp-table tbody tr:last-child td.relevvo { border-radius: 0 0 12px 12px; }
+
+    /* ══════════════════════════════════════════════
+       8. PROCESO
+    ══════════════════════════════════════════════ */
+    .proceso { background: var(--bg); }
+    .steps-wrap {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 0; position: relative;
+      margin-top: 56px;
+    }
+    .steps-wrap::before {
+      content: '';
+      position: absolute;
+      top: 36px; left: 12.5%; right: 12.5%;
+      height: 1px;
+      border-top: 2px dashed rgba(124,58,237,0.3);
+      z-index: 0;
+    }
+    .step { padding: 0 24px; position: relative; z-index: 1; }
+    .step__num {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      border: 2px solid var(--purple);
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 800; color: var(--purple);
+      margin-bottom: 24px;
+    }
+    .step__title { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .step__body  { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+
+    /* ══════════════════════════════════════════════
+       9. TESTIMONIOS
+    ══════════════════════════════════════════════ */
+    .testimonios { background: var(--bg); }
+    .testi__grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 56px; }
+    .testi-card { padding: 32px 28px; }
+    .stars { color: #FFB84D; margin-bottom: 16px; font-size: 1.125rem; letter-spacing: 2px; }
+    .testi-card__quote { font-size: 0.9375rem; color: var(--text); line-height: 1.7; margin-bottom: 24px; font-style: italic; }
+    .testi-card__author { display: flex; align-items: center; gap: 14px; }
+    .testi-card__avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple) 0%, var(--lavender) 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.875rem; color: #fff;
+      flex-shrink: 0;
+    }
+    .testi-card__name { font-weight: 700; font-size: 0.9375rem; color: #fff; }
+    .testi-card__role { font-size: 0.8125rem; color: var(--muted); }
+
+    /* ══════════════════════════════════════════════
+       10. PRECIOS
+    ══════════════════════════════════════════════ */
+    .precios { background: var(--bg); }
+    .precios__note { font-size: 1rem; color: var(--muted); margin-top: -8px; margin-bottom: 56px; }
+    .plans-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+    .plan-card--enterprise {
+      border-color: rgba(65,229,117,0.4) !important;
+      background: linear-gradient(145deg, rgba(65,229,117,0.07) 0%, rgba(65,229,117,0.02) 100%) !important;
+      box-shadow: 0 0 0 1px rgba(65,229,117,0.3), 0 24px 64px rgba(65,229,117,0.1);
+    }
+    .plan-card--enterprise:hover { transform: translateY(-3px); }
+    .plan-badge--green { background: linear-gradient(135deg, #1e6b3a, #41E575); }
+    @media (max-width: 1200px) { .plans-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 600px)  { .plans-grid { grid-template-columns: 1fr; } }
+    .plan-card { padding: 36px 28px; position: relative; display: flex; flex-direction: column; }
+    .plan-card--pro {
+      border-color: var(--purple) !important;
+      box-shadow: 0 0 0 1px var(--purple), 0 24px 64px rgba(124,58,237,0.2);
+      transform: scale(1.02);
+    }
+    .plan-card--pro:hover {
+      transform: scale(1.02) translateY(-3px);
+    }
+    .plan-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--purple);
+      color: #fff; font-size: 0.75rem; font-weight: 700;
+      padding: 4px 16px; border-radius: 100px;
+      white-space: nowrap; letter-spacing: 0.05em;
+    }
+    .plan__name { font-size: 1rem; font-weight: 700; color: var(--muted); margin-bottom: 8px; }
+    .plan__price { font-size: 2.5rem; font-weight: 900; color: #fff; letter-spacing: -0.03em; line-height: 1; margin-bottom: 4px; }
+    .plan__period { font-size: 0.875rem; color: var(--muted); margin-bottom: 28px; }
+    .plan__features { list-style: none; margin-bottom: 32px; flex-grow: 1; }
+    .plan__features li { font-size: 0.9rem; color: var(--text); padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+    .plan__features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .plan__cta { width: 100%; text-align: center; justify-content: center; }
+    .plans-footnote { margin-top: 32px; font-size: 0.9rem; color: var(--muted); text-align: center; }
+    .plans-footnote a { color: var(--lavender); text-decoration: underline; }
+
+    /* ══════════════════════════════════════════════
+       11. CTA FINAL
+    ══════════════════════════════════════════════ */
+    .cta-final {
+      position: relative; overflow: hidden;
+      padding: 120px 24px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(124,58,237,0.15) 0%, rgba(10,10,10,1) 60%);
+      border-top: 1px solid var(--border);
+    }
+    .cta-final::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(124,58,237,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-final__inner { position: relative; z-index: 1; }
+    .cta-final h2 { font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 900; letter-spacing: -0.03em; color: #fff; margin-bottom: 16px; }
+    .cta-final p  { font-size: 1.125rem; color: var(--muted); margin-bottom: 40px; }
+    .cta-final__actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* ══════════════════════════════════════════════
+       12. FOOTER
+    ══════════════════════════════════════════════ */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 56px 24px 40px;
+    }
+    .footer__inner { max-width: 1200px; margin: 0 auto; }
+    .footer__top { display: flex; justify-content: space-between; align-items: flex-start; gap: 48px; margin-bottom: 48px; flex-wrap: wrap; }
+    .footer__brand__logo { font-size: 1.375rem; font-weight: 900; color: #fff; margin-bottom: 8px; }
+    .footer__brand__tag  { font-size: 0.875rem; color: var(--muted); }
+    .footer__nav { display: flex; gap: 48px; }
+    .footer__col h4 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 16px; }
+    .footer__col a  { display: block; font-size: 0.9rem; color: var(--muted); margin-bottom: 10px; transition: color 0.2s var(--ease); }
+    .footer__col a:hover { color: var(--text); }
+    .footer__bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-top: 32px; border-top: 1px solid var(--border); }
+    .footer__copy  { font-size: 0.875rem; color: var(--muted); }
+    .footer__socials { display: flex; gap: 16px; }
+    .footer__socials a { font-size: 0.875rem; color: var(--muted); transition: color 0.2s var(--ease); }
+    .footer__socials a:hover { color: var(--text); }
+
+    /* ══════════════════════════════════════════════
+       WhatsApp FAB
+    ══════════════════════════════════════════════ */
+    .wa-fab {
+      position: fixed; bottom: 28px; right: 28px; z-index: 200;
+      width: 60px; height: 60px; border-radius: 50%;
+      background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+      text-decoration: none;
+    }
+    .wa-fab:hover { transform: scale(1.08); box-shadow: 0 8px 32px rgba(37,211,102,0.6); }
+    .wa-fab svg { width: 32px; height: 32px; fill: #fff; }
+    .wa-fab::before {
+      content: '';
+      position: absolute; inset: -8px;
+      border-radius: 50%;
+      border: 2px solid rgba(37,211,102,0.35);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    .wa-fab::after {
+      content: '';
+      position: absolute; inset: -16px;
+      border-radius: 50%;
+      border: 2px solid rgba(37,211,102,0.15);
+      animation: pulse 2.5s ease-in-out infinite 0.4s;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    /* ══════════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .problema__grid   { grid-template-columns: repeat(2,1fr); }
+      .servicios__grid  { grid-template-columns: repeat(2,1fr); }
+      .testi__grid      { grid-template-columns: repeat(2,1fr); }
+      .sol__wrap        { grid-template-columns: 1fr; }
+      .sol__divider     { width: 100%; height: 48px; }
+      .steps-wrap       { grid-template-columns: repeat(2,1fr); gap: 32px; }
+      .steps-wrap::before { display: none; }
+      .ecom__stats      { grid-template-columns: repeat(3,1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .section { padding: 72px 0; }
+      .nav__links  { display: none; }
+      .nav__cta    { display: none; }
+      .nav__hamburger { display: flex; }
+      .problema__grid  { grid-template-columns: 1fr; }
+      .servicios__grid { grid-template-columns: 1fr; }
+      .testi__grid     { grid-template-columns: 1fr; }
+      .plans-grid      { grid-template-columns: 1fr; }
+      .plan-card--pro  { transform: none; order: -1; }
+      .plan-card--pro:hover { transform: translateY(-3px); }
+      .ecom__stats     { grid-template-columns: 1fr; gap: 24px; }
+      .steps-wrap      { grid-template-columns: 1fr; }
+      .footer__nav     { flex-direction: column; gap: 32px; }
+      .footer__top     { flex-direction: column; }
+      .footer__bottom  { flex-direction: column; text-align: center; }
+      .sol__wrap       { gap: 16px; }
+      .sol__divider    { font-size: 2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 3rem; }
+      .hero__actions { flex-direction: column; align-items: center; }
+      .cta-final__actions { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ 1. NAV ══════════════════════════════════ -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">
+        <img src="/images/Logos/Logorelevvo.png" alt="Relevvo" style="height:32px;width:auto;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+        <span style="display:none;">Relevvo</span>
+      </a>
+      <div class="nav__links">
+        <a href="#servicios">Servicios</a>
+        <a href="#testimonios">Resultados</a>
+        <a href="#precios">Precios</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <a href="https://wa.me/573223094005" target="_blank" class="btn btn-primary nav__cta">Hablemos →</a>
+      <button class="nav__hamburger" id="hamburger" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile overlay -->
+  <div class="nav__overlay" id="mobileMenu">
+    <a href="#servicios" class="overlay-link">Servicios</a>
+    <a href="#testimonios" class="overlay-link">Resultados</a>
+    <a href="#precios" class="overlay-link">Precios</a>
+    <a href="#contacto" class="overlay-link">Contacto</a>
+    <a href="https://wa.me/573223094005" target="_blank" class="btn btn-wa" style="font-size:1.125rem; padding:16px 36px;">💬 Hablemos →</a>
+  </div>
+
+  <!-- ══ 2. HERO ══════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero__bg">
+      <video class="hero__video" autoplay muted loop playsinline preload="auto">
+        <source src="/videos/bg.mp4" type="video/mp4">
+      </video>
+      <div class="hero__video-overlay"></div>
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="hero__content">
+      <div class="hero__badge" data-animate>
+        📍 Atendemos México
+      </div>
+      <h1 data-animate data-delay="1">Tu marca,<br /><span class="accent">a toda máquina.</span></h1>
+      <p class="hero__sub" data-animate data-delay="2">
+        Somos el equipo creativo que tu marca necesita — diseño, contenido y ecommerce con IA como copiloto y humanos al volante.
+      </p>
+      <div class="hero__actions" data-animate data-delay="3">
+        <a href="#servicios" class="btn btn-primary">Ver servicios ↓</a>
+        <a href="https://wa.me/573223094005?text=Hola%20Relevvo%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20sus%20servicios%20para%20M%C3%A9xico" target="_blank" class="btn btn-ghost">💬 Escríbenos por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 3. PROBLEMA ══════════════════════════════ -->
+  <section class="problema section" id="problema">
+    <div class="container">
+      <p class="t-label section-label" data-animate>El diagnóstico</p>
+      <h2 class="section-title" data-animate data-delay="1">¿Te suena familiar?</h2>
+      <p class="section-sub" data-animate data-delay="2">Estas son las razones por las que muchas marcas no crecen como deberían.</p>
+
+      <div class="problema__grid">
+        <div class="glass prob-card border-orange" data-animate data-delay="1">
+          <div class="prob-card__icon">🏢</div>
+          <h3 class="prob-card__title">Agencias que cobran como consultora y entregan cuando pueden</h3>
+          <p class="prob-card__body">Procesos lentos, burocracia interna y presupuestos inflados que no se reflejan en los resultados.</p>
+        </div>
+        <div class="glass prob-card border-red" data-animate data-delay="2">
+          <div class="prob-card__icon">🎲</div>
+          <h3 class="prob-card__title">Freelancers sin compromiso: hoy están, mañana desaparecen</h3>
+          <p class="prob-card__body">Sin estructura ni continuidad. Cada proyecto empieza de cero y la calidad es una apuesta.</p>
+        </div>
+        <div class="glass prob-card border-redorange" data-animate data-delay="3">
+          <div class="prob-card__icon">📉</div>
+          <h3 class="prob-card__title">Contenido bonito pero sin estrategia ni resultados reales</h3>
+          <p class="prob-card__body">Piezas que se ven bien en portafolio pero no mueven ventas ni construyen comunidad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 4. SOLUCIÓN ══════════════════════════════ -->
+  <section class="solucion section" id="solucion">
+    <div class="container">
+      <p class="t-label section-label" data-animate>Nuestro modelo</p>
+      <h2 class="section-title" data-animate data-delay="1">Relevvo es diferente</h2>
+      <p class="section-sub" data-animate data-delay="2">Lo mejor de dos mundos: velocidad de IA + criterio creativo humano.</p>
+
+      <div class="sol__wrap" data-animate data-delay="2">
+        <div class="sol__col">
+          <div class="sol__col-icon">⚡</div>
+          <h3 class="sol__col-title">IA como herramienta</h3>
+          <div class="sol__stat">
+            <div class="sol__stat-num">10×</div>
+            <div class="sol__stat-label">más velocidad de producción frente a un equipo tradicional</div>
+          </div>
+          <div class="sol__stat">
+            <div class="sol__stat-num">–60%</div>
+            <div class="sol__stat-label">reducción de costo operativo sin sacrificar calidad</div>
+          </div>
+          <div class="sol__stat">
+            <div class="sol__stat-num">∞</div>
+            <div class="sol__stat-label">capacidad de escalar volumen según tu demanda</div>
+          </div>
+        </div>
+
+        <div class="sol__divider">+</div>
+
+        <div class="sol__col">
+          <div class="sol__col-icon">🧠</div>
+          <h3 class="sol__col-title">Humanos al volante</h3>
+          <div class="sol__stat">
+            <div class="sol__stat-num" style="color: var(--green);">100%</div>
+            <div class="sol__stat-label">estrategia y aprobación final a cargo de creativos con criterio</div>
+          </div>
+          <div class="sol__stat">
+            <div class="sol__stat-num" style="color: var(--green);">MX</div>
+            <div class="sol__stat-label">conocimiento cultural del mercado mexicano: tono, referencias y contexto</div>
+          </div>
+          <div class="sol__stat">
+            <div class="sol__stat-num" style="color: var(--green);">❤️</div>
+            <div class="sol__stat-label">equipo comprometido, comunicación directa y ownership real del proyecto</div>
+          </div>
+        </div>
+      </div>
+
+      <blockquote class="sol__quote" data-animate data-delay="3">
+        <p>"No somos un bot reemplazando creativos. Somos un equipo creativo que usa IA para hacer más, en menos tiempo, a un costo justo."</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ══ 5. SERVICIOS ══════════════════════════════ -->
+  <section class="servicios section" id="servicios">
+    <div class="container">
+      <p class="t-label section-label" data-animate>Lo que hacemos</p>
+      <h2 class="section-title" data-animate data-delay="1">Servicios</h2>
+      <p class="section-sub" data-animate data-delay="2">Un solo equipo para todas las piezas de tu ecosistema digital.</p>
+
+      <div class="servicios__grid">
+        <div class="glass srv-card" data-animate data-delay="1">
+          <div class="srv-card__accent accent-lavender"></div>
+          <div class="srv-card__icon">✍️</div>
+          <h3 class="srv-card__title">Contenido Digital</h3>
+          <p class="srv-card__body">Redes sociales, copywriting, guiones para video y campañas que conectan de verdad. Contenido que no solo se ve bien — convierte.</p>
+        </div>
+        <div class="glass srv-card" data-animate data-delay="2">
+          <div class="srv-card__accent accent-pink"></div>
+          <div class="srv-card__icon">📣</div>
+          <h3 class="srv-card__title">Pauta & Ads</h3>
+          <p class="srv-card__body">Meta Ads, Google Ads, TikTok. Segmentamos, optimizamos y escalamos tu inversión para que cada peso trabaje al máximo.</p>
+        </div>
+        <div class="glass srv-card" data-animate data-delay="3">
+          <div class="srv-card__accent accent-purple"></div>
+          <div class="srv-card__icon">🎨</div>
+          <h3 class="srv-card__title">Diseño Gráfico</h3>
+          <p class="srv-card__body">Identidad visual, branding, material impreso y digital con personalidad. Porque el diseño es la primera impresión que no se puede borrar.</p>
+        </div>
+        <div class="glass srv-card" data-animate data-delay="2">
+          <div class="srv-card__accent accent-green"></div>
+          <div class="srv-card__icon">🛒</div>
+          <h3 class="srv-card__title">Ecommerce</h3>
+          <p class="srv-card__body">Tienda en línea, fichas de producto, Mercado Libre, Shopify. Vendemos contigo — catálogo optimizado y operación digital a punto.</p>
+        </div>
+        <div class="glass srv-card" data-animate data-delay="3">
+          <div class="srv-card__accent accent-amber"></div>
+          <div class="srv-card__icon">📸</div>
+          <h3 class="srv-card__title">Ambientación de Producto</h3>
+          <p class="srv-card__body">Fotografía conceptual, renders, lifestyle. Tus productos, irresistibles. Imágenes que hacen que el cliente diga: "lo quiero ya."</p>
+        </div>
+        <div class="glass srv-card" data-animate data-delay="4">
+          <div class="srv-card__accent accent-blue"></div>
+          <div class="srv-card__icon">🧭</div>
+          <h3 class="srv-card__title">Estrategia & Consultoría</h3>
+          <p class="srv-card__body">Diagnóstico, plan de contenido, auditoría de marca. Primero el mapa, luego el viaje. Sin estrategia, todo es ruido.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 6. ECOMMERCE SPOTLIGHT ══════════════════ -->
+  <section class="ecommerce section" id="ecommerce" style="position:relative;overflow:hidden;">
+    <video style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.08;pointer-events:none;z-index:0;" autoplay muted loop playsinline preload="auto">
+      <source src="/videos/1erv.mp4" type="video/mp4">
+    </video>
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(13,13,13,0.92) 0%,rgba(65,229,117,0.06) 100%);z-index:1;pointer-events:none;"></div>
+    <div class="container" style="position:relative;z-index:2;">
+      <p class="t-label section-label" data-animate>El mercado que no para</p>
+      <h2 class="section-title" data-animate data-delay="1">México ecommerce: la oportunidad es ahora</h2>
+
+      <div class="ecom__stats">
+        <div data-animate data-delay="1">
+          <div class="ecom__stat-num">$658 MDD</div>
+          <div class="ecom__stat-label">Valor del mercado ecommerce en México en 2024</div>
+        </div>
+        <div data-animate data-delay="2">
+          <div class="ecom__stat-num">+23%</div>
+          <div class="ecom__stat-label">Crecimiento anual sostenido año con año</div>
+        </div>
+        <div data-animate data-delay="3">
+          <div class="ecom__stat-num" style="font-size: clamp(1.25rem, 2.5vw, 1.75rem);">Shopify · ML · OXXO Pay</div>
+          <div class="ecom__stat-label">Integraciones que operamos de inicio a fin</div>
+        </div>
+      </div>
+
+      <p class="ecom__body" data-animate data-delay="2">
+        El consumidor mexicano ya compra en línea. La pregunta es si tu marca está lista para recibirlo. Nosotros te ayudamos a estarlo — <strong>catálogo optimizado, fichas que convierten y operación digital a punto</strong>. No solo ponemos la tienda: la hacemos funcionar.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ══ 7. COMPARACIÓN ══════════════════════════ -->
+  <section class="comparacion section" id="comparacion">
+    <div class="container">
+      <p class="t-label section-label" data-animate>La diferencia es clara</p>
+      <h2 class="section-title" data-animate data-delay="1">¿Por qué Relevvo?</h2>
+      <p class="section-sub" data-animate data-delay="2">Compara. No nos da miedo.</p>
+
+      <div class="table-wrap" data-animate data-delay="2">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="col-others">Agencia Local</th>
+              <th class="col-others">Freelancer</th>
+              <th class="col-relevvo">Relevvo ✓</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="crit">Tiempo de entrega</td>
+              <td class="others">4–8 semanas</td>
+              <td class="others">Variable (sin garantías)</td>
+              <td class="relevvo"><span class="green-check">✅</span> 3–7 días hábiles</td>
+            </tr>
+            <tr>
+              <td class="crit">Costo</td>
+              <td class="others">$$$$+ Elevado</td>
+              <td class="others">$ (si aparece)</td>
+              <td class="relevvo"><span class="green-check">✅</span> $$ Justo y transparente</td>
+            </tr>
+            <tr>
+              <td class="crit">Comunicación</td>
+              <td class="others">Burocrática, lenta</td>
+              <td class="others">Irregular</td>
+              <td class="relevvo"><span class="green-check">✅</span> Directa, en tiempo real</td>
+            </tr>
+            <tr>
+              <td class="crit">Estrategia incluida</td>
+              <td class="others">Extra (cobra más)</td>
+              <td class="others">Rara vez</td>
+              <td class="relevvo"><span class="green-check">✅</span> Siempre incluida</td>
+            </tr>
+            <tr>
+              <td class="crit">IA + creatividad humana</td>
+              <td class="others">❌</td>
+              <td class="others">❌</td>
+              <td class="relevvo"><span class="green-check">✅</span> Nuestro modelo</td>
+            </tr>
+            <tr>
+              <td class="crit">Ecommerce especializado</td>
+              <td class="others">A veces</td>
+              <td class="others">Depende</td>
+              <td class="relevvo"><span class="green-check">✅</span> Core del servicio</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 8. PROCESO ══════════════════════════════ -->
+  <section class="proceso section" id="proceso">
+    <div class="container">
+      <p class="t-label section-label" data-animate>Sin sorpresas</p>
+      <h2 class="section-title" data-animate data-delay="1">Cómo trabajamos</h2>
+      <p class="section-sub" data-animate data-delay="2">Un proceso claro, con comunicación en cada paso.</p>
+
+      <div class="steps-wrap">
+        <div class="step" data-animate data-delay="1">
+          <div class="step__num">01</div>
+          <h3 class="step__title">Briefing rápido</h3>
+          <p class="step__body">Cuéntanos qué necesitas. En menos de 24h tenemos un plan. Sin formularios kilométricos ni reuniones interminables.</p>
+        </div>
+        <div class="step" data-animate data-delay="2">
+          <div class="step__num">02</div>
+          <h3 class="step__title">Estrategia clara</h3>
+          <p class="step__body">Definimos objetivos, formatos y cronograma. Sabes exactamente qué se va a entregar y cuándo. Sin sorpresas.</p>
+        </div>
+        <div class="step" data-animate data-delay="3">
+          <div class="step__num">03</div>
+          <h3 class="step__title">Producción ágil</h3>
+          <p class="step__body">Creamos, iteramos y refinamos con tu feedback en el loop. Tu voz siempre está en el proceso.</p>
+        </div>
+        <div class="step" data-animate data-delay="4">
+          <div class="step__num">04</div>
+          <h3 class="step__title">Entrega y seguimiento</h3>
+          <p class="step__body">Entregamos en tiempo y medimos resultados contigo. El proyecto no termina en la entrega — termina cuando tú creces.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 9. TESTIMONIOS ══════════════════════════ -->
+  <section class="testimonios section" id="testimonios">
+    <div class="container">
+      <p class="t-label section-label" data-animate>Resultados reales</p>
+      <h2 class="section-title" data-animate data-delay="1">Lo que dicen nuestros clientes</h2>
+      <p class="section-sub" data-animate data-delay="2">Marcas mexicanas que ya están creciendo con nosotros.</p>
+
+      <div class="testi__grid">
+        <div class="glass testi-card" data-animate data-delay="1">
+          <div class="stars">★★★★★</div>
+          <p class="testi-card__quote">"Pasamos de vender en físico a tener una tienda en línea que genera ventas mientras dormimos. Relevvo lo hizo en dos semanas. Dos semanas."</p>
+          <div class="testi-card__author">
+            <div class="testi-card__avatar">SM</div>
+            <div>
+              <div class="testi-card__name">Sofía M.</div>
+              <div class="testi-card__role">Fundadora · Tienda Nómada</div>
+            </div>
+          </div>
+        </div>
+        <div class="glass testi-card" data-animate data-delay="2">
+          <div class="stars">★★★★★</div>
+          <p class="testi-card__quote">"Nuestro contenido de Instagram cambió por completo. Más engagement, más clientes nuevos. El equipo entiende la cultura y el mercado. Se nota."</p>
+          <div class="testi-card__author">
+            <div class="testi-card__avatar">JV</div>
+            <div>
+              <div class="testi-card__name">Jorge V.</div>
+              <div class="testi-card__role">Marketing · Café Ritual CDMX</div>
+            </div>
+          </div>
+        </div>
+        <div class="glass testi-card" data-animate data-delay="3">
+          <div class="stars">★★★★★</div>
+          <p class="testi-card__quote">"La comparación con lo que gastábamos en una agencia local es brutal. Mitad de precio, el doble de velocidad y más resultados. No lo cambio."</p>
+          <div class="testi-card__author">
+            <div class="testi-card__avatar">VR</div>
+            <div>
+              <div class="testi-card__name">Valentina R.</div>
+              <div class="testi-card__role">CEO · Moda Quetzal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 10. PRECIOS ══════════════════════════════ -->
+  <section class="precios section" id="precios">
+    <div class="container">
+      <p class="t-label section-label" data-animate>Planes a la medida</p>
+      <h2 class="section-title" data-animate data-delay="1">Inversión clara desde el día uno</h2>
+      <p class="precios__note t-base" data-animate data-delay="2">Precios en pesos mexicanos, sin letras chiquitas.</p>
+
+      <div class="plans-grid">
+        <!-- BÁSICO -->
+        <div class="glass plan-card" data-animate data-delay="1">
+          <p class="plan__name">Básico</p>
+          <p class="plan__price">$8,900</p>
+          <p class="plan__period">pesos MXN / mes</p>
+          <ul class="plan__features">
+            <li>Gestión de 1 red social</li>
+            <li>12 piezas de contenido/mes</li>
+            <li>1 campaña de ads básica</li>
+            <li>Reporte mensual</li>
+          </ul>
+          <a href="https://wa.me/573223094005?text=Hola%20Relevvo%2C%20me%20interesa%20el%20plan%20B%C3%A1sico" target="_blank" class="btn btn-ghost plan__cta">Empezar →</a>
+        </div>
+
+        <!-- PRO -->
+        <div class="glass plan-card plan-card--pro" data-animate data-delay="2">
+          <div class="plan-badge">⭐ MÁS POPULAR</div>
+          <p class="plan__name">Pro</p>
+          <p class="plan__price">$18,500</p>
+          <p class="plan__period">pesos MXN / mes</p>
+          <ul class="plan__features">
+            <li>Gestión de 3 redes sociales</li>
+            <li>30 piezas de contenido/mes</li>
+            <li>Campaña Meta + Google Ads</li>
+            <li>Diseño gráfico incluido</li>
+            <li>Estrategia mensual</li>
+            <li>Soporte prioritario</li>
+          </ul>
+          <a href="https://wa.me/573223094005?text=Hola%20Relevvo%2C%20me%20interesa%20el%20plan%20Pro" target="_blank" class="btn btn-primary plan__cta">Quiero este plan →</a>
+        </div>
+
+        <!-- ESCALA -->
+        <div class="glass plan-card" data-animate data-delay="3">
+          <p class="plan__name">Escala</p>
+          <p class="plan__price">$34,000</p>
+          <p class="plan__period">pesos MXN / mes</p>
+          <ul class="plan__features">
+            <li>Todo en Pro, más:</li>
+            <li>Ecommerce management</li>
+            <li>Fotografía de producto</li>
+            <li>Consultoría estratégica</li>
+            <li>Account manager dedicado</li>
+          </ul>
+          <a href="https://wa.me/573223094005?text=Hola%20Relevvo%2C%20me%20interesa%20el%20plan%20Escala" target="_blank" class="btn btn-ghost plan__cta">Hablemos de tu caso →</a>
+        </div>
+
+        <!-- ECOSISTEMA ECOMMERCE -->
+        <div class="glass plan-card plan-card--enterprise" data-animate data-delay="4">
+          <div class="plan-badge plan-badge--green">🛒 ECOSISTEMA COMPLETO</div>
+          <p class="plan__name" style="color:var(--green);">Ecosistema Ecommerce</p>
+          <p class="plan__price" style="color:var(--green);">$100,000</p>
+          <p class="plan__period">pesos MXN — proyecto completo</p>
+          <ul class="plan__features">
+            <li>Tienda Shopify o ML desde cero</li>
+            <li>Branding e identidad visual</li>
+            <li>Catálogo fotográfico completo</li>
+            <li>Integración de pagos MXN</li>
+            <li>Logística y envíos configurados</li>
+            <li>Campaña de lanzamiento (Meta + Google)</li>
+            <li>Capacitación del equipo</li>
+            <li>3 meses de soporte post-lanzamiento</li>
+          </ul>
+          <a href="https://wa.me/573223094005?text=Hola%20Relevvo%2C%20me%20interesa%20el%20Ecosistema%20Ecommerce%20completo%20para%20mi%20negocio" target="_blank" class="btn btn-wa plan__cta">Quiero mi ecosistema →</a>
+        </div>
+      </div>
+
+      <p class="plans-footnote" data-animate data-delay="4">
+        ¿Tienes un proyecto puntual? También hacemos proyectos one-shot. <a href="https://wa.me/573223094005" target="_blank">Escríbenos.</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ 11. CTA FINAL ══════════════════════════ -->
+  <section class="cta-final" id="contacto" style="position:relative;overflow:hidden;">
+    <video style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.1;pointer-events:none;z-index:0;" autoplay muted loop playsinline preload="auto">
+      <source src="/videos/2dov.mp4" type="video/mp4">
+    </video>
+    <div class="cta-final__inner container" style="position:relative;z-index:1;">
+      <p class="t-label" style="margin-bottom:16px;" data-animate>El primer paso es gratis</p>
+      <h2 data-animate data-delay="1">¿Listo para crecer en México?</h2>
+      <p data-animate data-delay="2">Agenda una llamada sin costo. Sin presión. Solo ideas.</p>
+      <div class="cta-final__actions" data-animate data-delay="3">
+        <a href="https://wa.me/573223094005?text=Hola%20Relevvo%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20sus%20servicios%20para%20M%C3%A9xico" target="_blank" class="btn btn-wa" style="padding: 16px 32px; font-size: 1rem;">💬 WhatsApp</a>
+        <a href="mailto:hola@relevvostudio.com" class="btn btn-ghost" style="padding: 16px 32px; font-size: 1rem;">✉️ hola@relevvostudio.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 12. FOOTER ══════════════════════════════ -->
+  <footer>
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <div class="footer__brand__logo">
+            <img src="/images/Logos/Logorelevvo.png" alt="Relevvo Studio" style="height:30px;width:auto;opacity:0.85;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+            <span style="display:none;font-size:1.375rem;font-weight:900;color:#fff;">Relevvo</span>
+          </div>
+          <div class="footer__brand__tag">IA como copiloto. Humanos al volante.</div>
+        </div>
+        <div class="footer__nav">
+          <div class="footer__col">
+            <h4>Empresa</h4>
+            <a href="#servicios">Servicios</a>
+            <a href="#proceso">Proceso</a>
+            <a href="#precios">Precios</a>
+            <a href="#contacto">Contacto</a>
+          </div>
+          <div class="footer__col">
+            <h4>Síguenos</h4>
+            <a href="#" target="_blank">Instagram</a>
+            <a href="#" target="_blank">LinkedIn</a>
+            <a href="#" target="_blank">TikTok</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">Relevvo Studio © 2025 · Hecho con ❤️ en Colombia para México</p>
+        <div class="footer__socials">
+          <a href="#">Instagram</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">TikTok</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══ WhatsApp FAB ══════════════════════════════ -->
+  <a class="wa-fab" href="https://wa.me/573223094005?text=Hola%20Relevvo%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20sus%20servicios%20para%20M%C3%A9xico" target="_blank" aria-label="Contactar por WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- ══ JAVASCRIPT ════════════════════════════════ -->
+  <script>
+    // ── Intersection Observer (fade-in) ──────────
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
+
+    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+
+    // ── Mobile hamburger ─────────────────────────
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlayLinks = document.querySelectorAll('.overlay-link, .nav__overlay .btn');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+
+    overlayLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // ── Sticky nav background enhancement ────────
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        nav.style.background = 'rgba(10,10,10,0.92)';
+      } else {
+        nav.style.background = 'rgba(10,10,10,0.7)';
+      }
+    }, { passive: true });
+
+    // ── Counter animation for stat numbers ───────
+    function animateCounter(el) {
+      const raw = el.textContent.trim();
+      const match = raw.match(/([\$\+\-]?)([\d,]+)(%|K|M|MDD|MXN)?/);
+      if (!match) return;
+      const prefix = match[1] || '';
+      const target = parseInt(match[2].replace(/,/g, ''));
+      const suffix = match[3] || '';
+      if (isNaN(target) || target === 0) return;
+      const duration = 1400;
+      const start = performance.now();
+      function tick(now) {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const val = Math.round(eased * target);
+        el.textContent = prefix + val.toLocaleString('es-MX') + suffix;
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.ecom__stat-num, .sol__stat-num').forEach(el => {
+      counterObserver.observe(el);
+    });
+
+    // ── Responsive video grid ─────────────────────
+    function checkVideoGrid() {
+      const vg = document.querySelector('#reel [style*="grid-template-columns"]');
+      if (!vg) return;
+      if (window.innerWidth < 768) {
+        vg.style.gridTemplateColumns = '1fr';
+      } else {
+        vg.style.gridTemplateColumns = '1fr 1fr';
+      }
+    }
+    checkVideoGrid();
+    window.addEventListener('resize', checkVideoGrid, { passive: true });
+  </script>
+</body>
+</html>
