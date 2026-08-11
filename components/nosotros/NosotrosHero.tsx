@@ -60,7 +60,7 @@ export default function NosotrosHero() {
         </p>
         <div
           ref={logosRef}
-          className="grid grid-cols-4 gap-px overflow-hidden"
+          className="grid grid-cols-2 sm:grid-cols-4 gap-px overflow-hidden"
           style={{ border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px' }}
         >
           {logos.map((logo, i) => (
