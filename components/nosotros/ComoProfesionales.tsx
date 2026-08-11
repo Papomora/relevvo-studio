@@ -18,8 +18,8 @@ const points = [
     highlight: true,
   },
   {
-    title: 'Usamos la tecnología como ventaja competitiva',
-    body: 'Integramos inteligencia artificial para optimizar tiempos, reducir costos y escalar producción sin perder calidad ni coherencia de marca. La tecnología no reemplaza el criterio creativo: lo potencia.',
+    title: 'La tecnología acelera; el criterio decide',
+    body: 'Apoyamos investigación, moodboards e iteración rápida en herramientas de IA para ganar tiempo. Pero cada decisión de marca —color, tipografía, mensaje, tono— pasa por nuestro equipo. La tecnología no reemplaza el criterio creativo: lo potencia.',
   },
 ]
 
@@ -47,8 +47,8 @@ export default function ComoProfesionales() {
         {/* Image */}
         <div ref={imageRef} className="relative rounded-2xl overflow-hidden aspect-[4/5]" style={{ willChange: 'transform, opacity' }}>
           <Image
-            src="/images/portfolio/Mockup 1 (EXAMPLE ONLY)@2x.jpg"
-            alt="Trabajo de Relevvo Studio — Branding"
+            src="/images/nosotros/cliente-logo-word.png"
+            alt="El cliente que llegó con un logo de Word — contenido de Relevvo Studio"
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"

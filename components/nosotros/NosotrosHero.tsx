@@ -80,11 +80,15 @@ export default function NosotrosHero() {
                 const el = e.currentTarget as HTMLElement
                 el.style.background = 'rgba(124,58,237,0.07)'
                 el.style.boxShadow = 'inset 0 0 0 1px rgba(124,58,237,0.4)'
+                const img = el.querySelector('img') as HTMLElement | null
+                if (img) { img.style.filter = 'none'; img.style.opacity = '1' }
               }}
               onMouseLeave={e => {
                 const el = e.currentTarget as HTMLElement
                 el.style.background = 'rgba(255,255,255,0.02)'
                 el.style.boxShadow = 'none'
+                const img = el.querySelector('img') as HTMLElement | null
+                if (img) { img.style.filter = 'grayscale(55%) brightness(1.3)'; img.style.opacity = '0.85' }
               }}
             >
               {logo.src ? (
@@ -93,8 +97,8 @@ export default function NosotrosHero() {
                   alt={logo.name}
                   width={160}
                   height={64}
-                  className="object-contain w-auto group-hover:brightness-200 transition-all duration-300"
-                  style={{ maxHeight: '52px', maxWidth: '80%', filter: 'brightness(0) invert(1)', opacity: 0.45 }}
+                  className="object-contain w-auto transition-all duration-300"
+                  style={{ maxHeight: '68px', maxWidth: '85%', filter: 'grayscale(55%) brightness(1.3)', opacity: 0.85 }}
                   unoptimized
                 />
               ) : (

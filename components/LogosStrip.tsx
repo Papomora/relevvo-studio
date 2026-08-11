@@ -88,8 +88,8 @@ export default function LogosStrip() {
                   alt={logo.name}
                   width={260}
                   height={110}
-                  className="object-contain w-auto transition-all duration-300 group-hover:brightness-150 group-hover:drop-shadow-[0_0_8px_rgba(124,58,237,0.7)]"
-                  style={{ maxHeight: '96px', maxWidth: '78%', filter: 'brightness(0.6) saturate(0)' }}
+                  className="object-contain w-auto transition-all duration-300 group-hover:brightness-125 group-hover:drop-shadow-[0_0_8px_rgba(124,58,237,0.7)]"
+                  style={{ maxHeight: '96px', maxWidth: '78%', filter: 'grayscale(50%) brightness(1.35)', opacity: 0.9 }}
                   unoptimized
                 />
               ) : (

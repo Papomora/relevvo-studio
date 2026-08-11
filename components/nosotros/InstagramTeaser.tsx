@@ -4,15 +4,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Image from 'next/image'
 import Link from 'next/link'
 
 const INSTAGRAM_URL = 'https://www.instagram.com/relevvostudio'
-
-const stills = [
-  { src: '/images/nosotros/cliente-logo-word.png', caption: 'El cliente que llegó con un logo de Word' },
-  { src: '/images/nosotros/bts-real.png',           caption: 'Un día en Relevvo · BTS real' },
-]
 
 export default function InstagramTeaser() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -67,26 +61,6 @@ export default function InstagramTeaser() {
               <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
             </svg>
           </Link>
-
-          {/* ── Stills de apoyo ── */}
-          <div className="grid grid-cols-2 gap-3 mt-10">
-            {stills.map((s, i) => (
-              <div key={i} className="relative rounded-xl overflow-hidden aspect-[4/5]">
-                <Image
-                  src={s.src}
-                  alt={s.caption}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                  unoptimized
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                <p className="absolute bottom-2 left-2 right-2 text-white/80 text-[10px] leading-snug font-mono">
-                  {s.caption}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* ── Video vertical (click-to-play, carga liviana) ── */}
