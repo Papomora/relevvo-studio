@@ -5,7 +5,6 @@ import WhatsAppFAB from '@/components/WhatsAppFAB'
 import { WebGLShader } from '@/components/ui/web-gl-shader'
 import SchemaOrg from '@/components/SchemaOrg'
 import SmoothScroll from '@/components/SmoothScroll'
-import CustomCursor from '@/components/CustomCursor'
 import PageFade from '@/components/PageFade'
 import ScrollTriggerRefresh from '@/components/ScrollTriggerRefresh'
 
@@ -107,7 +106,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WLR2HD8D" height="0" width="0" style={{display:'none',visibility:'hidden'}} /></noscript>
         <PageFade />
-        <CustomCursor />
         <ScrollTriggerRefresh />
         <WebGLShader />
         <SmoothScroll>

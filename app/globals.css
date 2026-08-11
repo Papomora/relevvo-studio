@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── GooeyText hero word ── */
+.gooey-hero-word {
+  font-family: var(--font-bricolage);
+  font-weight: 900;
+  font-size: clamp(4rem, 11vw, 10.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  background: linear-gradient(135deg, rgba(124,58,237,0.95) 0%, rgba(167,139,250,0.85) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 :root {
   --bg: #0A0A0A;
   --accent: #7C3AED;
@@ -293,11 +306,6 @@ body::after {
   -webkit-backdrop-filter: blur(22px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.07);
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-/* ─── Custom cursor (hidden on touch) ─── */
-@media (pointer: fine) {
-  *, a, button { cursor: none !important; }
 }
 
 /* ─── Lenis smooth scroll — disable native smooth ─── */
