@@ -12,7 +12,7 @@ export default function SchemaOrg() {
           url: 'https://relevvostudio.com/images/Relevvostd@3x.png',
         },
         description:
-          'Agencia de diseño gráfico con IA y marketing digital en Colombia. Planes mensuales sin sobrecostos.',
+          'Estudio de diseño gráfico, branding y marketing digital en Colombia. Planes mensuales sin sobrecostos.',
         address: {
           '@type': 'PostalAddress',
           addressCountry: 'CO',
@@ -27,7 +27,7 @@ export default function SchemaOrg() {
           areaServed: 'CO',
         },
         sameAs: [
-          'https://www.instagram.com/relevvostudio',
+          'https://www.instagram.com/relevvo_studio/',
           'https://wa.me/573223094005',
         ],
       },
@@ -52,16 +52,16 @@ export default function SchemaOrg() {
           '@type': 'OfferCatalog',
           name: 'Servicios de diseño y marketing digital',
           itemListElement: [
-            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Diseño con Inteligencia Artificial' } },
+            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Diseño Gráfico y Branding' } },
             { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Logos y Branding' } },
             { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Marketing Digital Colombia' } },
             { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Landing Pages' } },
             { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Gestión de Redes Sociales' } },
-            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Estrategia de Contenido con IA' } },
+            { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Estrategia de Contenido' } },
           ],
         },
         knowsAbout: [
-          'Diseño gráfico con IA',
+          'Diseño gráfico',
           'Branding',
           'Marketing digital',
           'Identidad de marca',
@@ -69,19 +69,19 @@ export default function SchemaOrg() {
           'Gestión de redes sociales',
           'Fotografía comercial',
           'Estrategia de contenido',
-          'Inteligencia artificial aplicada al diseño',
+          'Producción creativa asistida por IA',
           'Pauta digital',
         ],
       },
       {
         '@type': 'ProfessionalService',
         '@id': 'https://relevvostudio.com/#professionalservice',
-        name: 'Relevvo Studio — Agencia de Diseño con IA',
-        description: 'Diseño gráfico profesional con inteligencia artificial y marketing digital en Colombia. Creamos marcas que crecen con estrategia, velocidad y resultados reales.',
+        name: 'Relevvo Studio — Estudio de Diseño y Branding',
+        description: 'Estudio de diseño gráfico y marketing digital en Colombia. Creamos marcas que crecen con criterio, estrategia y resultados reales.',
         url: 'https://relevvostudio.com',
         areaServed: 'Colombia',
         serviceType: [
-          'Diseño gráfico con IA',
+          'Diseño gráfico y branding',
           'Branding y identidad de marca',
           'Marketing digital',
           'Gestión de redes sociales',
@@ -106,11 +106,11 @@ export default function SchemaOrg() {
         '@type': 'WebPage',
         '@id': 'https://relevvostudio.com/#webpage',
         url: 'https://relevvostudio.com',
-        name: 'Agencia de Diseño con IA y Marketing Digital en Colombia | Relevvo Studio',
+        name: 'Estudio de Diseño y Branding en Colombia | Relevvo Studio',
         isPartOf: { '@id': 'https://relevvostudio.com/#website' },
         about: { '@id': 'https://relevvostudio.com/#organization' },
         description:
-          'Agencia de diseño gráfico con inteligencia artificial y marketing digital en Colombia. Logos, branding, landing pages y estrategia digital. Planes mensuales sin sobrecostos.',
+          'Estudio de diseño gráfico, branding y marketing digital en Colombia. Logos, identidad de marca, landing pages y estrategia digital. Planes mensuales sin sobrecostos.',
         inLanguage: 'es-CO',
       },
       {
@@ -118,18 +118,10 @@ export default function SchemaOrg() {
         mainEntity: [
           {
             '@type': 'Question',
-            name: '¿Qué es una agencia de diseño con IA?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Una agencia de diseño con IA combina creatividad humana con herramientas de inteligencia artificial para producir diseños más rápido, con mayor calidad y a menor costo. En Relevvo Studio usamos IA para acelerar la producción sin perder la estrategia y la visión de marca.',
-            },
-          },
-          {
-            '@type': 'Question',
             name: '¿Relevvo Studio usa inteligencia artificial para diseñar?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Sí. En Relevvo Studio usamos inteligencia artificial como herramienta de producción, pero cada decisión estratégica — colores, tipografía, mensaje, tono — es tomada por nuestro equipo humano. La IA nos da velocidad; la estrategia le da dirección.',
+              text: 'Usamos IA como apoyo en investigación, moodboards e iteración rápida, para ganar tiempo en tareas operativas. Pero cada decisión estratégica de marca — colores, tipografía, mensaje, tono — es tomada por nuestro equipo humano. La IA acelera el proceso; el criterio del estudio decide el resultado.',
             },
           },
           {
@@ -142,7 +134,7 @@ export default function SchemaOrg() {
           },
           {
             '@type': 'Question',
-            name: '¿Cuánto cuesta una agencia de diseño en Colombia?',
+            name: '¿Cuánto cuesta un estudio de diseño en Colombia?',
             acceptedAnswer: {
               '@type': 'Answer',
               text: 'En Relevvo Studio manejamos planes mensuales desde $700.000 COP hasta $3.990.000 COP, según el volumen de trabajo y servicios requeridos. Sin sobrecostos ocultos ni tarifas por revisión.',
@@ -153,7 +145,7 @@ export default function SchemaOrg() {
             name: '¿Qué servicios ofrece Relevvo Studio?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Ofrecemos: logos y branding, landing pages, páginas web, gestión de redes sociales, pauta digital, fotografía comercial, presentaciones corporativas, diseño con IA y estrategia de marketing digital en Colombia.',
+              text: 'Ofrecemos: logos y branding, landing pages, páginas web, gestión de redes sociales, pauta digital, fotografía comercial, presentaciones corporativas y estrategia de marketing digital en Colombia.',
             },
           },
           {
@@ -170,12 +162,12 @@ export default function SchemaOrg() {
         '@type': 'ItemList',
         name: 'Servicios de Relevvo Studio',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Diseño Gráfico con Inteligencia Artificial', url: 'https://relevvostudio.com/#solucion' },
+          { '@type': 'ListItem', position: 1, name: 'Diseño Gráfico y Branding Colombia', url: 'https://relevvostudio.com/#solucion' },
           { '@type': 'ListItem', position: 2, name: 'Logos y Branding Colombia', url: 'https://relevvostudio.com/#solucion' },
           { '@type': 'ListItem', position: 3, name: 'Marketing Digital Colombia', url: 'https://relevvostudio.com/#solucion' },
           { '@type': 'ListItem', position: 4, name: 'Landing Pages Colombia', url: 'https://relevvostudio.com/#solucion' },
           { '@type': 'ListItem', position: 5, name: 'Gestión de Redes Sociales Colombia', url: 'https://relevvostudio.com/#solucion' },
-          { '@type': 'ListItem', position: 6, name: 'Estrategia de Contenido con IA', url: 'https://relevvostudio.com/#solucion' },
+          { '@type': 'ListItem', position: 6, name: 'Estrategia de Contenido Colombia', url: 'https://relevvostudio.com/#solucion' },
           { '@type': 'ListItem', position: 7, name: 'Fotografía Comercial Colombia', url: 'https://relevvostudio.com/#solucion' },
           { '@type': 'ListItem', position: 8, name: 'Pauta Digital Colombia', url: 'https://relevvostudio.com/#solucion' },
         ],

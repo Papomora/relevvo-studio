@@ -6,7 +6,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
 
-const INSTAGRAM_URL = 'https://www.instagram.com/relevvostudio'
+const INSTAGRAM_URL = 'https://www.instagram.com/relevvo_studio/'
 
 export default function InstagramTeaser() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -111,7 +111,7 @@ export default function InstagramTeaser() {
             className="absolute top-4 left-4 px-3 py-1.5 rounded-full font-mono text-[10px]"
             style={{ background: 'rgba(0,0,0,0.5)', color: 'rgba(255,255,255,0.8)', letterSpacing: '0.06em' }}
           >
-            @relevvostudio
+            @relevvo_studio
           </div>
         </div>
       </div>
