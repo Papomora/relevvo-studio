@@ -8,8 +8,13 @@ import { WA_URL } from '@/lib/constants'
 
 const navLinks = [
   { label: 'Nosotros',   href: '/nosotros' },
-  { label: 'Clientes',   href: '#clientes' },
-  { label: 'Portafolio', href: '#portafolio' },
+  // Absolute path + hash (not a bare '#id'): Navbar is mounted on every
+  // page, but these anchors only exist on the homepage. A bare '#clientes'
+  // does nothing when clicked from /nosotros, /blog, etc. — Next.js Link
+  // navigates to '/' first, then the browser scrolls to the anchor.
+  { label: 'Clientes',   href: '/#clientes' },
+  { label: 'Portafolio', href: '/#portafolio' },
+  { label: 'Blog',       href: '/blog' },
 ]
 
 const WA_ICON = (
@@ -18,11 +23,14 @@ const WA_ICON = (
   </svg>
 )
 
+const BAR_H = 40 // px — announcement bar height
+
 export default function Navbar() {
   const navRef    = useRef<HTMLElement>(null)
   const drawerRef = useRef<HTMLDivElement>(null)
   const [scrolled,  setScrolled]  = useState(false)
   const [menuOpen,  setMenuOpen]  = useState(false)
+  const [barOpen,   setBarOpen]   = useState(true)
 
   const close = useCallback(() => setMenuOpen(false), [])
   const toggle = useCallback(() => setMenuOpen(v => !v), [])
@@ -42,23 +50,68 @@ export default function Navbar() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return
-    gsap.from(navRef.current, { y: -16, duration: 0.7, ease: 'power3.out', delay: 0.1 })
+    gsap.from(navRef.current, { y: -20, opacity: 0, duration: 0.7, ease: 'power3.out', delay: 0.1 })
     const onScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const navTop = barOpen ? BAR_H + 12 : 12
+
   return (
     <>
+      {/* ── Announcement bar ── */}
+      {barOpen && (
+        <div
+          style={{
+            position: 'fixed', top: 0, left: 0, right: 0, zIndex: 501,
+            height: BAR_H,
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12,
+            padding: '0 48px 0 24px',
+            background: 'rgba(124,58,237,0.11)',
+            borderBottom: '1px solid rgba(124,58,237,0.2)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            fontSize: '0.8125rem',
+            color: 'rgba(167,139,250,0.9)',
+          }}
+        >
+          <span className="hidden sm:inline">✦ Estudio creativo 360° en Colombia &amp; México — Cupos disponibles</span>
+          <span className="sm:hidden">✦ Cupos disponibles</span>
+          <Link
+            href={WA_URL} target="_blank" rel="noopener noreferrer"
+            style={{ color: '#fff', fontWeight: 600, textDecoration: 'none', whiteSpace: 'nowrap' }}
+            className="hover:text-accent-light transition-colors"
+          >
+            Hablemos ahora →
+          </Link>
+          <button
+            onClick={() => setBarOpen(false)}
+            aria-label="Cerrar aviso"
+            style={{
+              position: 'absolute', right: 14,
+              background: 'none', border: 'none', cursor: 'pointer',
+              color: 'rgba(255,255,255,0.35)', fontSize: '1rem', lineHeight: 1, padding: '4px',
+              transition: 'color .2s',
+            }}
+            className="hover:text-white"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
+      {/* ── Pill nav ── */}
       <nav
         ref={navRef}
-        className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4 transition-all duration-300"
+        className="fixed left-0 right-0 z-50 flex justify-center px-4 transition-all duration-300"
+        style={{ top: navTop }}
       >
         <div
           className={`flex items-center gap-6 px-5 py-3 rounded-full border transition-all duration-300 ${
             scrolled
-              ? 'bg-[rgba(10,10,10,0.88)] backdrop-blur-xl border-white/15 shadow-lg shadow-black/40'
-              : 'bg-[rgba(10,10,10,0.6)] backdrop-blur-md border-white/10'
+              ? 'bg-[rgba(10,10,10,0.90)] backdrop-blur-xl border-white/15 shadow-lg shadow-black/40'
+              : 'bg-[rgba(10,10,10,0.55)] backdrop-blur-md border-white/10'
           }`}
         >
           {/* Logo */}
@@ -102,19 +155,16 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile drawer — always in DOM, animated via CSS */}
+      {/* ── Mobile drawer ── */}
       <div
         ref={drawerRef}
         aria-hidden={!menuOpen}
         className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${menuOpen ? 'visible' : 'invisible pointer-events-none'}`}
       >
-        {/* Backdrop */}
         <div
           className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${menuOpen ? 'opacity-100' : 'opacity-0'}`}
           onClick={close}
         />
-
-        {/* Panel slides down from top */}
         <div
           className={`absolute top-0 left-0 right-0 bg-[#0d0d0d] border-b border-white/10 px-6 pt-24 pb-8 flex flex-col gap-2 shadow-2xl transition-transform duration-[380ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${menuOpen ? 'translate-y-0' : '-translate-y-full'}`}
         >
@@ -123,20 +173,16 @@ export default function Navbar() {
               key={link.label}
               href={link.href}
               onClick={close}
-              className="flex items-center justify-between py-4 text-[1.05rem] font-semibold text-white/80 hover:text-white border-b border-white/8 transition-colors last:border-0"
+              className="flex items-center justify-between py-4 text-[1.05rem] font-semibold text-white/80 hover:text-white border-b border-white/[0.08] transition-colors last:border-0"
               style={{ transitionDelay: menuOpen ? `${i * 40}ms` : '0ms' }}
             >
               {link.label}
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-30"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <span className="text-white/25">→</span>
             </Link>
           ))}
-
           <Link
-            href={WA_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={close}
-            className="btn-primary flex items-center justify-center gap-2 mt-4 py-4 text-base"
+            href={WA_URL} target="_blank" rel="noopener noreferrer" onClick={close}
+            className="btn-primary btn-glow mt-4 py-3.5 flex items-center justify-center gap-2 text-sm font-semibold rounded-full"
           >
             {WA_ICON} Escríbenos por WhatsApp
           </Link>

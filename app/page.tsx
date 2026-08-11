@@ -1,28 +1,31 @@
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
-import WordReveal from '@/components/WordReveal'
+import MovingBullets from '@/components/MovingBullets'
+import WhatIncluded from '@/components/WhatIncluded'
 import LogosStrip from '@/components/LogosStrip'
 import AIStory from '@/components/AIStory'
 import VideoParallaxSection from '@/components/VideoParallaxSection'
 import Proceso from '@/components/Proceso'
 import Features from '@/components/Features'
 import Solution from '@/components/Solution'
+import Portfolio from '@/components/Portfolio'
 import Founder from '@/components/Founder'
 import Testimonial from '@/components/Testimonial'
-import Pricing from '@/components/Pricing'
 import Footer from '@/components/Footer'
+import { RevealServicesList } from '@/components/ui/reveal-images'
 
 export default function Home() {
   return (
     <main>
       <Navbar />
       <Hero />
-      <WordReveal />
+      <MovingBullets />
+      <WhatIncluded />
       <LogosStrip />
 
       {/* ── Parallax divider 1: after logos, before agency story ── */}
       <VideoParallaxSection
-        eyebrow="Agencia 360°"
+        eyebrow="Estudio 360°"
         headline="Branding.<br/>Diseño.<br/>Impacto."
         subtext="No solo creamos piezas gráficas — construimos marcas completas que se reconocen, se recuerdan y se eligen."
         minHeight="85vh"
@@ -30,6 +33,11 @@ export default function Home() {
       />
 
       <AIStory />
+
+      {/* ── Reveal services ── */}
+      <section className="py-16 px-4 max-w-5xl mx-auto">
+        <RevealServicesList />
+      </section>
 
       {/* ── Parallax divider 2: after agency story, before process ── */}
       <VideoParallaxSection
@@ -44,6 +52,7 @@ export default function Home() {
       <Proceso />
       <Features />
       <Solution />
+      <Portfolio />
       <Founder />
       <Testimonial />
 
@@ -58,7 +67,6 @@ export default function Home() {
         overlayOpacity={0.5}
       />
 
-      <Pricing />
       <Footer />
     </main>
   )
