@@ -3,17 +3,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 
-// 8-bit pixel-art cursor — snaps to the mouse (no easing, true to the retro
-// feel). The arrow shape itself is FIXED (a clean solid right-triangle,
-// black outline / purple fill — the classic minimal pixel pointer); the
-// "animated" part is a 1px sparkle that blinks on and off near the tip,
-// game-select-cursor style, instead of the shape itself changing (which
-// reads as a rendering glitch, not an animation). Built from a <rect> grid
-// with crisp, non-antialiased edges — no image asset needed.
+// 8-bit pixel-art cursor — static, no animation/blink. Snaps to the mouse
+// (no easing/glide) and grows slightly on hover. A clean solid
+// right-triangle arrowhead, black outline / purple fill, built from a
+// <rect> grid with crisp (non-antialiased) edges — no image asset needed.
 const GRID = 9
 const PIXEL = 3 // px per grid cell at 1x scale
 
-// Solid right-triangle arrowhead: 1 = black outline, 2 = purple fill, 0 = empty
+// 1 = black outline, 2 = purple fill, 0 = empty
 const ARROW: number[][] = [
   [1,0,0,0,0,0,0,0,0],
   [1,1,0,0,0,0,0,0,0],
@@ -25,13 +22,10 @@ const ARROW: number[][] = [
   [1,1,1,1,1,1,1,1,0],
 ]
 
-// Sparkle pixels (relative to the same grid), shown only on the "on" blink beat
-const SPARKLE: [number, number][] = [[8, 1], [7, 3]]
-
 const COLORS: Record<number, string> = { 1: '#0A0A0A', 2: '#7C3AED' }
 const COLORS_HOVER: Record<number, string> = { 1: '#0A0A0A', 2: '#D2BBFF' }
 
-function PixelCursor({ blinkOn, hover }: { blinkOn: boolean; hover: boolean }) {
+function PixelCursor({ hover }: { hover: boolean }) {
   const scale = hover ? 2.2 : 1.6
   const size = GRID * PIXEL * scale
   const colors = hover ? COLORS_HOVER : COLORS
@@ -46,16 +40,12 @@ function PixelCursor({ blinkOn, hover }: { blinkOn: boolean; hover: boolean }) {
           cell ? <rect key={`${x}-${y}`} x={x} y={y} width={1} height={1} fill={colors[cell]} /> : null
         )
       )}
-      {blinkOn && SPARKLE.map(([x, y]) => (
-        <rect key={`s-${x}-${y}`} x={x} y={y} width={1} height={1} fill={colors[2]} />
-      ))}
     </svg>
   )
 }
 
 export default function CustomCursor() {
   const wrapRef = useRef<HTMLDivElement>(null)
-  const [blinkOn, setBlinkOn] = useState(true)
   const [hover, setHover] = useState(false)
 
   useEffect(() => {
@@ -73,9 +63,6 @@ export default function CustomCursor() {
     }
     document.addEventListener('mousemove', onMove)
 
-    // Blink the sparkle accent — classic step timing, not smooth
-    const blink = setInterval(() => setBlinkOn(v => !v), 420)
-
     const onEnter = () => setHover(true)
     const onLeave = () => setHover(false)
     const targets = document.querySelectorAll('a, button, [data-cursor]')
@@ -86,7 +73,6 @@ export default function CustomCursor() {
 
     return () => {
       document.removeEventListener('mousemove', onMove)
-      clearInterval(blink)
       targets.forEach(el => {
         el.removeEventListener('mouseenter', onEnter)
         el.removeEventListener('mouseleave', onLeave)
@@ -106,7 +92,7 @@ export default function CustomCursor() {
         willChange: 'transform',
       }}
     >
-      <PixelCursor blinkOn={blinkOn} hover={hover} />
+      <PixelCursor hover={hover} />
     </div>
   )
 }
