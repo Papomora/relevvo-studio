@@ -4,14 +4,14 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import Image from 'next/image'
 
-const logos: { name: string; src: string | null }[] = [
-  { name: 'Molicié',           src: '/images/Logos/MOLICIE.png' },
-  { name: 'Crusso',            src: '/images/Logos/CRUSSO.png' },
-  { name: 'Verslä',            src: '/images/Logos/versla.png' },
-  { name: 'Metro 73',          src: '/images/Logos/METRO73.png' },
-  { name: 'LimiteLegal',       src: '/images/Logos/limitelegal.png' },
-  { name: 'Forjar',            src: '/images/Logos/Forjar.png' },
-  { name: 'Fresas la Playita', src: '/images/Logos/fresaslaplayita.png' },
+const logos: { name: string; src: string | null; href: string }[] = [
+  { name: 'Molicié',           src: '/images/Logos/MOLICIE.png',         href: 'https://www.instagram.com/moliciehogar/' },
+  { name: 'Crusso',            src: '/images/Logos/CRUSSO.png',          href: 'https://www.instagram.com/tiendacrusso/' },
+  { name: 'Verslä',            src: '/images/Logos/versla.png',          href: 'https://www.instagram.com/verslafeminite/' },
+  { name: 'Metro 73',          src: '/images/Logos/METRO73.png',         href: 'https://www.instagram.com/vivemetro73/' },
+  { name: 'LimiteLegal',       src: '/images/Logos/limitelegal.png',     href: 'https://www.instagram.com/limite_legalco/' },
+  { name: 'Forjar',            src: '/images/Logos/Forjar.png',          href: 'https://www.instagram.com/forjar_inversiones/' },
+  { name: 'Fresas la Playita', src: '/images/Logos/fresaslaplayita.png', href: 'https://www.instagram.com/fresaslaplayita/' },
 ]
 
 export default function NosotrosHero() {
@@ -64,8 +64,12 @@ export default function NosotrosHero() {
           style={{ border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px' }}
         >
           {logos.map((logo, i) => (
-            <div
+            <a
               key={i}
+              href={logo.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={`${logo.name} en Instagram`}
               className="ns-logo group flex items-center justify-center"
               style={{
                 aspectRatio: '2/1',
@@ -101,7 +105,7 @@ export default function NosotrosHero() {
                   {logo.name}
                 </span>
               )}
-            </div>
+            </a>
           ))}
         </div>
       </div>

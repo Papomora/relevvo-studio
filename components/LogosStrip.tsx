@@ -6,9 +6,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 
 const logos: { name: string; src: string | null; href: string | null; cta?: boolean }[] = [
-  { name: 'Molicié',           src: '/images/Logos/MOLICIE.png',         href: 'https://instagram.com' },
-  { name: 'Crusso',            src: '/images/Logos/CRUSSO.png',          href: 'https://instagram.com' },
-  { name: 'Verslä',            src: '/images/Logos/versla.png',          href: 'https://instagram.com' },
+  { name: 'Molicié',           src: '/images/Logos/MOLICIE.png',         href: 'https://www.instagram.com/moliciehogar/' },
+  { name: 'Crusso',            src: '/images/Logos/CRUSSO.png',          href: 'https://www.instagram.com/tiendacrusso/' },
+  { name: 'Verslä',            src: '/images/Logos/versla.png',          href: 'https://www.instagram.com/verslafeminite/' },
   { name: 'Metro 73',          src: '/images/Logos/METRO73.png',         href: 'https://www.instagram.com/vivemetro73/' },
   { name: 'LimiteLegal',       src: '/images/Logos/limitelegal.png',     href: 'https://www.instagram.com/limite_legalco/' },
   { name: 'Forjar',            src: '/images/Logos/Forjar.png',          href: 'https://www.instagram.com/forjar_inversiones/' },

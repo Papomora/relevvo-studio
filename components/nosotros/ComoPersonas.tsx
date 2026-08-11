@@ -63,8 +63,8 @@ export default function ComoPersonas() {
         {/* Image (right) */}
         <div ref={imageRef} className="relative rounded-2xl overflow-hidden aspect-[4/5]" style={{ willChange: 'transform, opacity' }}>
           <Image
-            src="/images/portfolio/Mockup 5 (EXAMPLE ONLY)@2x.jpg"
-            alt="Trabajo de Relevvo Studio — Diseño"
+            src="/images/nosotros/origen-personal.png"
+            alt="Así nació Relevvo Studio — origen personal"
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"
