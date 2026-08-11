@@ -17,7 +17,7 @@ export default function InstagramTeaser() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
     gsap.from(sectionRef.current, {
-      y: 30, opacity: 0, duration: 0.9, ease: 'power3.out',
+      opacity: 0, duration: 0.9, ease: 'power2.out',
       scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' },
     })
   }, [])

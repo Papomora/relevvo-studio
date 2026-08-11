@@ -29,14 +29,19 @@ export default function ComoProfesionales() {
   const contentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    // Opacity-only reveal (no x offset): if the ScrollTrigger animation
+    // never fires for any reason, the element still sits at its correct
+    // position — just fully visible instead of faded in. An x-transform
+    // reveal that never completes leaves content visibly clipped/shifted,
+    // which is what was happening on real mobile devices.
     gsap.fromTo(imageRef.current,
-      { x: -50 },
-      { x: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
+      { opacity: 0 },
+      { opacity: 1, duration: 0.9, ease: 'power2.out',
         scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' } }
     )
     gsap.fromTo(contentRef.current,
-      { x: 50 },
-      { x: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
+      { opacity: 0 },
+      { opacity: 1, duration: 0.9, ease: 'power2.out', delay: 0.1,
         scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' } }
     )
   }, [])

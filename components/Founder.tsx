@@ -29,18 +29,22 @@ export default function Founder() {
     if (typeof window === 'undefined') return
     gsap.registerPlugin(ScrollTrigger)
 
+    // Opacity-only reveals — an x/y-transform reveal that never fires (e.g.
+    // ScrollTrigger's cached trigger position going stale once below-the-
+    // fold images finish loading and shift document height) leaves content
+    // visibly clipped/shifted on mobile instead of just not-yet-faded-in.
     gsap.from(photoRef.current, {
-      x: -50, opacity: 0, duration: 1, ease: 'power3.out',
+      opacity: 0, duration: 1, ease: 'power2.out',
       scrollTrigger: { trigger: sectionRef.current, start: 'top 78%' },
     })
     gsap.from(textRef.current, {
-      x: 50, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.1,
+      opacity: 0, duration: 1, ease: 'power2.out', delay: 0.1,
       scrollTrigger: { trigger: sectionRef.current, start: 'top 78%' },
     })
     const items = tlRef.current?.querySelectorAll('.tl-item')
     if (items) {
       gsap.from(Array.from(items), {
-        y: 20, opacity: 0, duration: 0.6, ease: 'power2.out', stagger: 0.12,
+        opacity: 0, duration: 0.6, ease: 'power2.out', stagger: 0.12,
         scrollTrigger: { trigger: tlRef.current, start: 'top 85%' },
       })
     }

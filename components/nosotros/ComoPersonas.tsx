@@ -28,14 +28,17 @@ export default function ComoPersonas() {
   const imageRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    // Opacity-only reveal — see ComoProfesionales.tsx for why (a stuck
+    // x-transform leaves content visibly clipped on mobile; a stuck
+    // opacity just means it renders fully visible instead of faded in).
     gsap.fromTo(contentRef.current,
-      { x: -50 },
-      { x: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
+      { opacity: 0 },
+      { opacity: 1, duration: 0.9, ease: 'power2.out',
         scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' } }
     )
     gsap.fromTo(imageRef.current,
-      { x: 50 },
-      { x: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
+      { opacity: 0 },
+      { opacity: 1, duration: 0.9, ease: 'power2.out', delay: 0.1,
         scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' } }
     )
   }, [])
