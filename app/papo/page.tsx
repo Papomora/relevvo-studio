@@ -39,18 +39,18 @@ const brands = [
   { name: 'Forjar',            cat: 'Inversiones',           color: '#FBBF24', year: '2024', tags: ['Branding', 'Naming'],  href: 'https://www.instagram.com/forjar_inversiones/' },
 ]
 
-const tools = [
+const tools: { name: string; logo?: string; emoji?: string; cat: 'Design' | 'AI'; color: string }[] = [
   { name: 'Figma',         logo: '/images/tools/Figma_logo.png',         cat: 'Design', color: '#A259FF' },
   { name: 'Illustrator',   logo: '/images/tools/Illustrator_logo.png',   cat: 'Design', color: '#FF7C00' },
   { name: 'Photoshop',     logo: '/images/tools/Photoshop_logo.png',     cat: 'Design', color: '#31A8FF' },
   { name: 'After Effects', logo: '/images/tools/AfterEffects_logo.png',  cat: 'Design', color: '#9999FF' },
   { name: 'Premiere Pro',  logo: '/images/tools/PremierePro_logo.png',   cat: 'Design', color: '#9999FF' },
-  { name: 'Claude',        emoji: '🧠', cat: 'AI', color: '#D4A27F' },
-  { name: 'Midjourney',    emoji: '🌌', cat: 'AI', color: '#7C9FD4' },
-  { name: 'ChatGPT',       emoji: '💬', cat: 'AI', color: '#10A37F' },
-  { name: 'Firefly',       emoji: '🔥', cat: 'AI', color: '#FF6B6B' },
-  { name: 'Gemini',        emoji: '✨', cat: 'AI', color: '#4285F4' },
-  { name: 'Freepik',       emoji: '🧊', cat: 'AI', color: '#1273EB' },
+  { name: 'Claude',        logo: '/images/tools/Claude_logo.png',     cat: 'AI', color: '#D4A27F' },
+  { name: 'Midjourney',    logo: '/images/tools/Midjourney_logo.png', cat: 'AI', color: '#7C9FD4' },
+  { name: 'ChatGPT',       logo: '/images/tools/ChatGPT_logo.png',    cat: 'AI', color: '#10A37F' },
+  { name: 'Firefly',       logo: '/images/tools/Firefly_logo.png',    cat: 'AI', color: '#FF6B6B' },
+  { name: 'Gemini',        logo: '/images/tools/Gemini_logo.png',     cat: 'AI', color: '#4285F4' },
+  { name: 'Freepik',       logo: '/images/tools/Freepik_logo.png',    cat: 'AI', color: '#1273EB' },
 ]
 
 const proceso = [
