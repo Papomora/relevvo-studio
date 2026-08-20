@@ -12,7 +12,6 @@ import Portfolio from '@/components/Portfolio'
 import Founder from '@/components/Founder'
 import Testimonial from '@/components/Testimonial'
 import Footer from '@/components/Footer'
-import { RevealServicesList } from '@/components/ui/reveal-images'
 
 export default function Home() {
   return (
@@ -33,11 +32,6 @@ export default function Home() {
       />
 
       <AIStory />
-
-      {/* ── Reveal services ── */}
-      <section className="py-16 px-4 max-w-5xl mx-auto">
-        <RevealServicesList />
-      </section>
 
       {/* ── Parallax divider 2: after agency story, before process ── */}
       <VideoParallaxSection
