@@ -17,7 +17,14 @@ const studies = [
   { title: 'Diseño Visual', detail: 'Cursando actualmente — 5to semestre' },
 ]
 
-const aptitudes = ['Creatividad', 'Innovador', 'Diseñador Gráfico', 'Comediante', 'Cantante']
+// Rating out of 5 — matches the stars next to each skill in the CV
+const aptitudes = [
+  { name: 'Diseñador Gráfico', level: 5 },
+  { name: 'Creatividad', level: 4 },
+  { name: 'Innovador', level: 4 },
+  { name: 'Comediante', level: 3 },
+  { name: 'Cantante', level: 1 },
+]
 
 const tools = [
   { name: 'Photoshop', src: '/images/tools/Photoshop_logo.png' },
@@ -35,7 +42,7 @@ const timeline = [
     desc: 'Acompañamiento y realización de fotografías, videos y piezas gráficas.',
   },
   {
-    year: '2020', role: 'Diseñador Gráfico', place: null,
+    year: '2020', role: 'Diseñador Gráfico', place: 'Quality and Price',
     desc: 'Generación de contenido, fotografía de producto, e-commerce y manejo de redes sociales.',
   },
   {
@@ -43,7 +50,7 @@ const timeline = [
     desc: 'Branding y creación de marca, diseño y prototipado web, creación de conceptos visuales.',
   },
   {
-    year: '2021', role: 'Diseñador E-Learning', place: null,
+    year: '2021', role: 'Diseñador E-Learning', place: 'ADN Training',
     desc: 'Creación de key-visual, diseño y prototipado UI, diseño instruccional y piezas publicitarias.',
   },
   {
@@ -55,7 +62,7 @@ const timeline = [
     desc: 'Creación de marca, branding y retoque fotográfico para e-commerce en Estados Unidos y México.',
   },
   {
-    year: '2025', role: 'Creative Designer', place: 'LG Colombia',
+    year: '2025', role: 'Creative Designer', place: 'Ariadna (Grupo Barnier) — cuenta LG Colombia',
     desc: 'Apoyo creativo en piezas digitales, P.O.P y retail — optimización de piezas masivas y propuestas de campaña.',
   },
   {
@@ -191,25 +198,26 @@ export default function Founder() {
             No diseño para que algo se vea bien: diseño para que funcione, conecte y venda.
           </p>
 
-          {/* Aptitudes */}
+          {/* Aptitudes — con calificación en estrellas, como en la hoja de vida */}
           <div className="mb-8">
             <span className="font-mono text-xs text-white/25 uppercase mb-3 block" style={{ letterSpacing: '0.12em' }}>
               Aptitudes
             </span>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-col gap-2 max-w-xs">
               {aptitudes.map((a, i) => (
-                <span
-                  key={i}
-                  className="text-xs px-3 py-1.5 rounded-full font-mono"
-                  style={{
-                    background: 'rgba(124,58,237,0.08)',
-                    border: '1px solid rgba(124,58,237,0.25)',
-                    color: 'rgba(210,187,255,0.9)',
-                    letterSpacing: '0.02em',
-                  }}
-                >
-                  {a}
-                </span>
+                <div key={i} className="flex items-center justify-between gap-3">
+                  <span className="text-white/70 text-sm">{a.name}</span>
+                  <span className="flex gap-0.5 shrink-0" aria-label={`${a.level} de 5 estrellas`}>
+                    {Array.from({ length: 5 }).map((_, s) => (
+                      <svg key={s} width="13" height="13" viewBox="0 0 24 24"
+                        fill={s < a.level ? '#D2BBFF' : 'none'}
+                        stroke={s < a.level ? '#D2BBFF' : 'rgba(255,255,255,0.2)'}
+                        strokeWidth="1.5">
+                        <path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6L12 2z" />
+                      </svg>
+                    ))}
+                  </span>
+                </div>
               ))}
             </div>
           </div>

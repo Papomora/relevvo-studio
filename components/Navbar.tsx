@@ -8,6 +8,7 @@ import { WA_URL } from '@/lib/constants'
 
 const navLinks = [
   { label: 'Nosotros',   href: '/nosotros' },
+  { label: 'Sobre mí',   href: '/papo' },
   // Absolute path + hash (not a bare '#id'): Navbar is mounted on every
   // page, but these anchors only exist on the homepage. A bare '#clientes'
   // does nothing when clicked from /nosotros, /blog, etc. — Next.js Link
