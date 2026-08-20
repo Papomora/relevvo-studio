@@ -1,23 +1,69 @@
 'use client'
 
 // ── Sección fundador — Juan Camilo "Papo" León Mora ──────────
-// Foto: agrega /public/founder.jpg (portrait, editorial dark bg)
+// Foto: /public/founder.png (portrait, editorial dark bg)
+// Contenido basado en su hoja de vida (bio, estudios, aptitudes,
+// herramientas y experiencia laboral completa).
 
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
+import Image from 'next/image'
 import { WA_URL } from '@/lib/constants'
 
-const timeline = [
-  { year: '2016', role: 'Asistente Audiovisual', place: 'RCN Televisión' },
-  { year: '2021', role: 'Diseñador Gráfico & Branding', place: 'Think Click · Neofy' },
-  { year: '2023', role: 'Growth & Visual Strategy', place: 'Hoytrabajas' },
-  { year: '2024', role: 'Designer Lead', place: 'ecomms — México & USA' },
-  { year: 'Hoy', role: 'Fundador & Director Creativo', place: 'Relevvo Studio' },
+const studies = [
+  { title: 'Técnico en Diseño e Integración de Multimedia', detail: 'Culminado en 2016' },
+  { title: 'Diseño Visual', detail: 'Cursando actualmente — 5to semestre' },
 ]
 
-const tools = ['Photoshop', 'Illustrator', 'After Effects', 'Premiere', 'XD', 'Lightroom']
+const aptitudes = ['Creatividad', 'Innovador', 'Diseñador Gráfico', 'Comediante', 'Cantante']
+
+const tools = [
+  { name: 'Photoshop', src: '/images/tools/Photoshop_logo.png' },
+  { name: 'Illustrator', src: '/images/tools/Illustrator_logo.png' },
+  { name: 'After Effects', src: '/images/tools/AfterEffects_logo.png' },
+  { name: 'Premiere Pro', src: '/images/tools/PremierePro_logo.png' },
+  { name: 'Figma', src: '/images/tools/Figma_logo.png' },
+  { name: 'DaVinci Resolve', src: '/images/tools/DaVinciResolve_logo.png' },
+  { name: 'Creative Cloud', src: '/images/tools/CreativeCloud_logo.png' },
+]
+
+const timeline = [
+  {
+    year: '2016', role: 'Asistente Audiovisual', place: 'RCN Televisión',
+    desc: 'Acompañamiento y realización de fotografías, videos y piezas gráficas.',
+  },
+  {
+    year: '2020', role: 'Diseñador Gráfico', place: null,
+    desc: 'Generación de contenido, fotografía de producto, e-commerce y manejo de redes sociales.',
+  },
+  {
+    year: '2021', role: 'Diseñador Gráfico', place: 'Think Click · Neofy',
+    desc: 'Branding y creación de marca, diseño y prototipado web, creación de conceptos visuales.',
+  },
+  {
+    year: '2021', role: 'Diseñador E-Learning', place: null,
+    desc: 'Creación de key-visual, diseño y prototipado UI, diseño instruccional y piezas publicitarias.',
+  },
+  {
+    year: '2023', role: 'Diseñador Gráfico Junior', place: 'Hoytrabajas',
+    desc: 'Campañas de fortalecimiento de marca basadas en growth, P.O.P y estrategia visual en redes sociales de alto impacto.',
+  },
+  {
+    year: '2024', role: 'Designer Lead', place: 'ecomms — México & USA',
+    desc: 'Creación de marca, branding y retoque fotográfico para e-commerce en Estados Unidos y México.',
+  },
+  {
+    year: '2025', role: 'Creative Designer', place: 'LG Colombia',
+    desc: 'Apoyo creativo en piezas digitales, P.O.P y retail — optimización de piezas masivas y propuestas de campaña.',
+  },
+  {
+    year: 'Hoy', role: 'Fundador & Director Creativo', place: 'Relevvo Studio',
+    desc: 'Todo ese camino hoy vive dentro de Relevvo — una agencia hecha con la misma mezcla de criterio, curiosidad y ganas de anticiparse a lo que viene.',
+    current: true,
+  },
+]
 
 export default function Founder() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -44,7 +90,7 @@ export default function Founder() {
     const items = tlRef.current?.querySelectorAll('.tl-item')
     if (items) {
       gsap.from(Array.from(items), {
-        opacity: 0, duration: 0.6, ease: 'power2.out', stagger: 0.12,
+        opacity: 0, duration: 0.6, ease: 'power2.out', stagger: 0.1,
         scrollTrigger: { trigger: tlRef.current, start: 'top 85%' },
       })
     }
@@ -57,7 +103,7 @@ export default function Founder() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
 
         {/* ── Foto ── */}
-        <div ref={photoRef} className="relative" style={{ willChange: 'transform, opacity' }}>
+        <div ref={photoRef} className="relative" style={{ willChange: 'opacity' }}>
           <div
             className="w-full rounded-3xl overflow-hidden"
             style={{
@@ -93,10 +139,25 @@ export default function Founder() {
             className="absolute -bottom-5 -right-5 w-24 h-24 rounded-2xl"
             style={{ background: 'rgba(124,58,237,0.1)', border: '1px solid rgba(124,58,237,0.25)', zIndex: -1 }}
           />
+
+          {/* ── Estudios ── */}
+          <div className="mt-10">
+            <span className="font-mono text-xs text-white/25 uppercase mb-4 block" style={{ letterSpacing: '0.12em' }}>
+              Estudios
+            </span>
+            <div className="flex flex-col gap-4">
+              {studies.map((s, i) => (
+                <div key={i}>
+                  <p className="text-white/80 text-sm font-medium leading-snug">{s.title}</p>
+                  <p className="text-white/35 text-xs mt-0.5">{s.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* ── Texto ── */}
-        <div ref={textRef} style={{ willChange: 'transform, opacity' }}>
+        <div ref={textRef} style={{ willChange: 'opacity' }}>
           <span
             className="font-mono text-xs uppercase mb-4 block"
             style={{ color: 'rgba(124,58,237,0.8)', letterSpacing: '0.14em' }}
@@ -114,36 +175,62 @@ export default function Founder() {
             className="heading-serif text-white mb-6"
             style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', letterSpacing: '-0.02em', lineHeight: 1.1 }}
           >
-            León Mora
+            "Papo" León Mora
           </h2>
 
           <p className="text-white/60 text-base leading-relaxed mb-4">
-            Diseñador gráfico y estratega creativo que lleva más de 9 años en la industria.
-            Mi carrera pasó por RCN Televisión, agencias digitales, startups de growth y trabajo
-            internacional en México y Estados Unidos — todo eso hoy vive dentro de Relevvo.
+            Amo ser esto que la gente llama "creativo". Soy diseñador gráfico, y mi paso por
+            distintos proyectos y caminos muy diferentes entre sí me hizo desarrollar el gusto
+            por estar en la tendencia, ser innovador y anticiparme a las necesidades — algo que
+            terminó llevándome a trabajar en México, ampliando horizontes.
           </p>
 
           <p className="text-white/40 text-sm leading-relaxed mb-8">
-            Me gusta estar en la tendencia, ser innovador y anticiparme a las necesidades.
-            No diseño para que algo se vea bien — diseño para que funcione, conecte y venda.
+            Fuera de la pantalla me encanta cocinar, ilustrar y salir en bici — es de mis hábitos
+            más espontáneos, junto con las ideas locas que después terminan siendo un proyecto.
+            No diseño para que algo se vea bien: diseño para que funcione, conecte y venda.
           </p>
 
-          {/* Tools */}
-          <div className="flex flex-wrap gap-2 mb-8">
-            {tools.map((t, i) => (
-              <span
-                key={i}
-                className="text-xs px-3 py-1.5 rounded-full font-mono"
-                style={{
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  color: 'rgba(255,255,255,0.45)',
-                  letterSpacing: '0.02em',
-                }}
-              >
-                {t}
-              </span>
-            ))}
+          {/* Aptitudes */}
+          <div className="mb-8">
+            <span className="font-mono text-xs text-white/25 uppercase mb-3 block" style={{ letterSpacing: '0.12em' }}>
+              Aptitudes
+            </span>
+            <div className="flex flex-wrap gap-2">
+              {aptitudes.map((a, i) => (
+                <span
+                  key={i}
+                  className="text-xs px-3 py-1.5 rounded-full font-mono"
+                  style={{
+                    background: 'rgba(124,58,237,0.08)',
+                    border: '1px solid rgba(124,58,237,0.25)',
+                    color: 'rgba(210,187,255,0.9)',
+                    letterSpacing: '0.02em',
+                  }}
+                >
+                  {a}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Herramientas */}
+          <div className="mb-8">
+            <span className="font-mono text-xs text-white/25 uppercase mb-3 block" style={{ letterSpacing: '0.12em' }}>
+              Mis herramientas
+            </span>
+            <div className="flex flex-wrap gap-3">
+              {tools.map((t, i) => (
+                <div
+                  key={i}
+                  title={t.name}
+                  className="w-10 h-10 rounded-xl flex items-center justify-center transition-transform duration-200 hover:scale-110"
+                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)' }}
+                >
+                  <Image src={t.src} alt={t.name} width={24} height={24} className="object-contain" unoptimized />
+                </div>
+              ))}
+            </div>
           </div>
 
           <Link
@@ -160,34 +247,42 @@ export default function Founder() {
         </div>
       </div>
 
-      {/* ── Timeline ── */}
+      {/* ── Experiencia laboral ── */}
       <div ref={tlRef} className="mt-16 pt-12" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <span className="font-mono text-xs text-white/25 uppercase mb-8 block" style={{ letterSpacing: '0.12em' }}>
-          Trayectoria
+          Experiencia laboral
         </span>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="flex flex-col">
           {timeline.map((item, i) => (
             <div
               key={i}
-              className="tl-item rounded-2xl p-5"
+              className="tl-item grid gap-4 py-5"
               style={{
-                background: i === timeline.length - 1
-                  ? 'rgba(124,58,237,0.1)'
-                  : 'rgba(255,255,255,0.02)',
-                border: `1px solid ${i === timeline.length - 1 ? 'rgba(124,58,237,0.3)' : 'rgba(255,255,255,0.06)'}`,
+                gridTemplateColumns: '70px 1fr',
+                borderBottom: i === timeline.length - 1 ? 'none' : '1px solid rgba(255,255,255,0.06)',
               }}
             >
               <span
-                className="font-mono text-xs block mb-2"
-                style={{
-                  color: i === timeline.length - 1 ? 'rgba(124,58,237,0.9)' : 'rgba(255,255,255,0.25)',
-                  letterSpacing: '0.1em',
-                }}
+                className="font-mono text-xs pt-0.5"
+                style={{ color: item.current ? 'rgba(124,58,237,0.9)' : 'rgba(255,255,255,0.3)', letterSpacing: '0.06em' }}
               >
                 {item.year}
               </span>
-              <p className="text-white/80 text-xs font-medium leading-snug mb-1">{item.role}</p>
-              <p className="text-white/30 text-xs leading-snug">{item.place}</p>
+              <div>
+                <p className="text-white text-sm font-semibold leading-snug">
+                  {item.role}
+                  {item.place && <span className="text-white/40 font-normal"> · {item.place}</span>}
+                  {item.current && (
+                    <span
+                      className="ml-2 text-[10px] font-mono px-2 py-0.5 rounded-full align-middle"
+                      style={{ background: 'rgba(124,58,237,0.15)', color: 'rgba(210,187,255,0.9)' }}
+                    >
+                      hoy
+                    </span>
+                  )}
+                </p>
+                <p className="text-white/40 text-xs leading-relaxed mt-1.5 max-w-xl">{item.desc}</p>
+              </div>
             </div>
           ))}
         </div>
