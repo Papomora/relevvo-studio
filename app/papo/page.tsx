@@ -37,20 +37,20 @@ const brands = [
   { name: 'Metro 73',          cat: 'Estilo de vida',        color: '#818CF8', year: '2024', tags: ['Branding', 'Social'],   href: 'https://www.instagram.com/vivemetro73/' },
   { name: 'LímiteLegal',       cat: 'Legal & Consultoría',   color: '#94A3B8', year: '2024', tags: ['Identidad', 'Web'],     href: 'https://www.instagram.com/limite_legalco/' },
   { name: 'Forjar',            cat: 'Inversiones',           color: '#FBBF24', year: '2024', tags: ['Branding', 'Naming'],  href: 'https://www.instagram.com/forjar_inversiones/' },
-  { name: 'Fresitas la Playita', cat: 'Gastronomía',         color: '#F472B6', year: '2024', tags: ['Identidad', 'Social'], href: 'https://www.instagram.com/fresaslaplayita/' },
 ]
 
 const tools = [
-  { name: 'Figma',         emoji: '🎨', cat: 'Design',   color: '#A259FF' },
-  { name: 'Illustrator',   emoji: '✏️', cat: 'Design',   color: '#FF7C00' },
-  { name: 'Photoshop',     emoji: '🖼️', cat: 'Design',   color: '#31A8FF' },
-  { name: 'After Effects', emoji: '🎬', cat: 'Design',   color: '#9999FF' },
-  { name: 'InDesign',      emoji: '📄', cat: 'Design',   color: '#FF3366' },
-  { name: 'Claude',        emoji: '🧠', cat: 'AI',       color: '#D4A27F' },
-  { name: 'Midjourney',    emoji: '🌌', cat: 'AI',       color: '#7C9FD4' },
-  { name: 'ChatGPT',       emoji: '💬', cat: 'AI',       color: '#10A37F' },
-  { name: 'Firefly',       emoji: '🔥', cat: 'AI',       color: '#FF6B6B' },
-  { name: 'DALL·E',        emoji: '🎭', cat: 'AI',       color: '#B794F4' },
+  { name: 'Figma',         logo: '/images/tools/Figma_logo.png',         cat: 'Design', color: '#A259FF' },
+  { name: 'Illustrator',   logo: '/images/tools/Illustrator_logo.png',   cat: 'Design', color: '#FF7C00' },
+  { name: 'Photoshop',     logo: '/images/tools/Photoshop_logo.png',     cat: 'Design', color: '#31A8FF' },
+  { name: 'After Effects', logo: '/images/tools/AfterEffects_logo.png',  cat: 'Design', color: '#9999FF' },
+  { name: 'Premiere Pro',  logo: '/images/tools/PremierePro_logo.png',   cat: 'Design', color: '#9999FF' },
+  { name: 'Claude',        emoji: '🧠', cat: 'AI', color: '#D4A27F' },
+  { name: 'Midjourney',    emoji: '🌌', cat: 'AI', color: '#7C9FD4' },
+  { name: 'ChatGPT',       emoji: '💬', cat: 'AI', color: '#10A37F' },
+  { name: 'Firefly',       emoji: '🔥', cat: 'AI', color: '#FF6B6B' },
+  { name: 'Gemini',        emoji: '✨', cat: 'AI', color: '#4285F4' },
+  { name: 'Freepik',       emoji: '🧊', cat: 'AI', color: '#1273EB' },
 ]
 
 const proceso = [
@@ -412,7 +412,11 @@ export default function PapoPage() {
                   onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = `${tool.color}55`; el.style.background = `${tool.color}12`; el.style.transform = 'translateY(-2px)' }}
                   onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = T.border; el.style.background = 'rgba(255,255,255,0.04)'; el.style.transform = 'translateY(0)' }}
                   style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '9px 14px', borderRadius: 100, background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(8px)', border: `1px solid ${T.border}`, cursor: 'default', transition: 'all .2s ease' }}>
-                  <span style={{ fontSize: 16, lineHeight: 1 }}>{tool.emoji}</span>
+                  {tool.logo ? (
+                    <img src={tool.logo} alt={tool.name} style={{ width: 18, height: 18, objectFit: 'contain' }} />
+                  ) : (
+                    <span style={{ fontSize: 16, lineHeight: 1 }}>{tool.emoji}</span>
+                  )}
                   <span style={{ fontSize: 12, fontWeight: 700, color: '#fff', fontFamily: T.fd, letterSpacing: '-0.01em', whiteSpace: 'nowrap' }}>{tool.name}</span>
                 </div>
               ))}

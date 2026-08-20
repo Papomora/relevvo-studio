@@ -12,7 +12,6 @@ const logos: { name: string; src: string | null; href: string | null; cta?: bool
   { name: 'Metro 73',          src: '/images/Logos/METRO73.png',         href: 'https://www.instagram.com/vivemetro73/' },
   { name: 'LimiteLegal',       src: '/images/Logos/limitelegal.png',     href: 'https://www.instagram.com/limite_legalco/' },
   { name: 'Forjar',            src: '/images/Logos/Forjar.png',          href: 'https://www.instagram.com/forjar_inversiones/' },
-  { name: 'Fresas la Playita', src: '/images/Logos/fresaslaplayita.png', href: 'https://www.instagram.com/fresaslaplayita/' },
   { name: 'cta',               src: null,                                 href: null, cta: true },
 ]
 
