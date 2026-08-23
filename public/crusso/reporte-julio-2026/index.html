@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte Digital CRUSSO · Julio 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root{
+  --brand:#0D1117;
+  --brand-2:#161B22;
+  --accent:#2563EB;
+  --green:#059669;
+  --yellow:#D97706;
+  --red:#DC2626;
+  --bg:#F1F5F9;
+  --card:#FFFFFF;
+  --text:#0F172A;
+  --text-2:#475569;
+  --border:#E2E8F0;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;font-size:14px}
+
+/* ── HEADER ── */
+.rh{background:var(--brand);color:#fff;padding:52px 64px 44px}
+.rh-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px}
+.rh-brand{font-size:32px;font-weight:800;letter-spacing:-1.5px}
+.rh-tagline{font-size:13px;color:rgba(255,255,255,.5);margin-top:4px}
+.rh-right{text-align:right}
+.rh-period{font-size:13px;color:rgba(255,255,255,.65);font-weight:500}
+.rh-date{font-size:11px;color:rgba(255,255,255,.35);margin-top:4px}
+.rh-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.1);border-radius:10px;overflow:hidden}
+.rh-kpi{background:rgba(255,255,255,.05);padding:20px 24px}
+.rh-kpi-l{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.rh-kpi-v{font-size:28px;font-weight:700;color:#fff;line-height:1}
+.rh-kpi-s{font-size:12px;color:rgba(255,255,255,.45);margin-top:4px}
+.rh-kpi-b{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:6px;background:rgba(5,150,105,.35);color:#6EE7B7}
+
+/* ── BODY ── */
+.body{max-width:1100px;margin:0 auto;padding:40px 24px 80px}
+
+/* ── SECTION ── */
+.section{margin-bottom:52px}
+.sec-hdr{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--border)}
+.sec-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.sec-title{font-size:17px;font-weight:700;color:var(--text)}
+.sec-sub{font-size:12px;color:var(--text-2);margin-left:auto;white-space:nowrap}
+
+/* ── PLATFORM BADGE ── */
+.platform-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px 4px 8px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:16px}
+.pb-meta{background:#E7F0FF;color:#1547B8}
+.pb-google{background:#E8F5E9;color:#1B7A2B}
+.pb-ga4{background:#FFF3E0;color:#8B4A00}
+.pb-shopify{background:#E8F5E9;color:#1B6A3B}
+
+/* ── KPIS ── */
+.kpi-grid{display:grid;gap:14px;margin-bottom:20px}
+.kpi-4{grid-template-columns:repeat(4,1fr)}
+.kpi-3{grid-template-columns:repeat(3,1fr)}
+.kpi-2{grid-template-columns:repeat(2,1fr)}
+.kpi{background:var(--card);border-radius:var(--radius);padding:18px 20px;border:1px solid var(--border)}
+.kpi-l{font-size:10px;font-weight:600;color:var(--text-2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
+.kpi-v{font-size:24px;font-weight:800;color:var(--text);line-height:1;letter-spacing:-.5px}
+.kpi-s{font-size:12px;color:var(--text-2);margin-top:4px}
+.kpi-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:7px}
+.b-green{background:#DCFCE7;color:#14532D}
+.b-yellow{background:#FEF9C3;color:#713F12}
+.b-red{background:#FEE2E2;color:#7F1D1D}
+.b-blue{background:#DBEAFE;color:#1E3A8A}
+
+/* ── CHARTS ── */
+.chart-grid{display:grid;gap:14px;margin-bottom:16px}
+.cg-2{grid-template-columns:1fr 1fr}
+.cg-3{grid-template-columns:1fr 1fr 1fr}
+.chart-card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:20px}
+.chart-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:14px;text-transform:uppercase;letter-spacing:.04em}
+.chart-sub{font-size:10px;color:var(--text-2);margin-top:10px}
+.chart-wrap{position:relative;width:100%}
+
+/* ── TABLES ── */
+.table-wrap{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{padding:9px 14px;font-size:10px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.05em;background:#F8FAFC;border-bottom:1px solid var(--border);text-align:left}
+td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#FAFBFD}
+.tr{text-align:right}
+.tc{text-align:center}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.p-ok{background:#DCFCE7;color:#14532D}
+.p-warn{background:#FEF9C3;color:#713F12}
+.p-bad{background:#FEE2E2;color:#7F1D1D}
+.p-new{background:#DBEAFE;color:#1E3A8A}
+.p-info{background:#F0F9FF;color:#0C4A6E}
+.p-gray{background:#F1F5F9;color:#475569}
+
+/* ── CALLOUTS ── */
+.callout{display:flex;gap:14px;padding:16px 18px;border-radius:10px;margin-bottom:12px;align-items:flex-start}
+.co-green{background:#F0FDF4;border:1px solid #BBF7D0}
+.co-yellow{background:#FFFBEB;border:1px solid #FDE68A}
+.co-red{background:#FFF1F2;border:1px solid #FECDD3}
+.co-blue{background:#EFF6FF;border:1px solid #BFDBFE}
+.co-gray{background:#F8FAFC;border:1px solid #E2E8F0}
+.co-dark{background:#1E293B;border:1px solid #334155}
+.co-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.co-title{font-size:13px;font-weight:700;margin-bottom:4px}
+.co-text{font-size:12px;color:var(--text-2);line-height:1.7}
+.co-dark .co-title{color:#F1F5F9}
+.co-dark .co-text{color:#94A3B8}
+
+/* ── INVEST BAR ── */
+.inv-section{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:20px;margin-bottom:20px}
+.inv-bar{display:flex;border-radius:6px;overflow:hidden;height:32px;margin:14px 0}
+.inv-seg{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;transition:opacity .2s}
+.inv-seg:hover{opacity:.9}
+.inv-labels{display:flex;gap:20px;margin-top:8px}
+.inv-label{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-2)}
+.inv-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* ── ROWS HIGHLIGHT ── */
+.row-hi td{background:#F0FDF4!important}
+.row-lo td{background:#FFF1F2!important}
+.row-new td{background:#EFF6FF!important}
+.row-gray td{background:#F8FAFC}
+
+/* ── DIVIDER ── */
+.div{height:1px;background:var(--border);margin:32px 0}
+
+/* ── FOOTNOTE ── */
+.fn{font-size:10px;color:var(--text-2);font-style:italic;margin-top:8px}
+
+/* ── RECS GRID ── */
+.rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.rec{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);border-left:3px solid var(--border);padding:16px}
+.rec-green{border-left-color:#059669}
+.rec-yellow{border-left-color:#D97706}
+.rec-red{border-left-color:#DC2626}
+.rec-blue{border-left-color:#2563EB}
+.rec-n{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-2);margin-bottom:6px}
+.rec-t{font-size:13px;font-weight:700;margin-bottom:6px}
+.rec-d{font-size:12px;color:var(--text-2);line-height:1.6}
+
+/* ── FOOTER ── */
+.rfoot{background:var(--brand);color:rgba(255,255,255,.4);text-align:center;padding:28px;font-size:11px}
+.rfoot strong{color:rgba(255,255,255,.7)}
+
+/* ── LEGEND ── */
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11px;color:var(--text-2);margin-top:8px}
+.leg-i{display:flex;align-items:center;gap:5px}
+.leg-sq{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+
+/* ── PRINT ── */
+@media print{
+  body{background:#fff}
+  .section{break-inside:avoid}
+  .rh{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .rh-kpis{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════ -->
+<div class="rh">
+  <div class="rh-top">
+    <div>
+      <div class="rh-brand">CRUSSO</div>
+      <div class="rh-tagline">Reporte de Desempeño Digital · Julio 2026</div>
+    </div>
+    <div class="rh-right">
+      <div class="rh-period">1 de julio – 27 de julio de 2026</div>
+      <div class="rh-date">Generado el 27 de julio de 2026</div>
+    </div>
+  </div>
+  <div class="rh-kpis">
+    <div class="rh-kpi">
+      <div class="rh-kpi-l">Inversión Total</div>
+      <div class="rh-kpi-v">$4,77M</div>
+      <div class="rh-kpi-s">COP · Meta + Google Ads</div>
+    </div>
+    <div class="rh-kpi">
+      <div class="rh-kpi-l">Conversaciones WA</div>
+      <div class="rh-kpi-v">1.328</div>
+      <div class="rh-kpi-s">Generadas por Meta Ads</div>
+    </div>
+    <div class="rh-kpi">
+      <div class="rh-kpi-l">Usuarios Web</div>
+      <div class="rh-kpi-v">5.500</div>
+      <div class="rh-kpi-s">crusso.com.co</div>
+      <span class="rh-kpi-b">▲ 148% vs período ant.</span>
+    </div>
+    <div class="rh-kpi">
+      <div class="rh-kpi-l">Pedidos Shopify</div>
+      <div class="rh-kpi-v">10</div>
+      <div class="rh-kpi-s">Online Store</div>
+      <span class="rh-kpi-b">▲ 233% vs período ant.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     BODY
+════════════════════════════════════════════ -->
+<div class="body">
+
+<!-- ── 1. INVERSIÓN TOTAL ── -->
+<div class="section">
+  <div class="sec-hdr">
+    <div class="sec-icon" style="background:#EFF6FF">📊</div>
+    <div class="sec-title">Resumen de Inversión</div>
+    <div class="sec-sub">Meta + Google Ads · Julio 2026</div>
+  </div>
+
+  <div class="inv-section">
+    <div style="font-size:12px;font-weight:600;color:var(--text-2);text-transform:uppercase;letter-spacing:.05em">Distribución de inversión total · $4.766.400 COP</div>
+    <div class="inv-bar">
+      <div class="inv-seg" style="width:73.3%;background:#1877F2">Meta Ads · $3.496.400 · 73%</div>
+      <div class="inv-seg" style="width:26.7%;background:#4285F4">Google Ads · $1.270.000 · 27%</div>
+    </div>
+    <div class="inv-labels">
+      <span class="inv-label"><span class="inv-dot" style="background:#1877F2"></span>Meta Ads: $3.496.400 COP — 1.328 conversaciones WA + tráfico web</span>
+      <span class="inv-label"><span class="inv-dot" style="background:#4285F4"></span>Google Ads: $1.270.000 COP — 4.700 clics, 90 conversiones web</span>
+    </div>
+    <p class="fn">* Datos Meta Ads: 1–22 jul 2026. Datos Google Ads / GA4 / Shopify: 1–27 jul 2026.</p>
+  </div>
+</div>
+
+<!-- ── 2. META ADS ── -->
+<div class="section">
+  <div class="sec-hdr">
+    <div class="sec-icon" style="background:#E7F0FF;font-size:16px;font-weight:900;color:#1877F2">f</div>
+    <div class="sec-title">Meta Ads — Facebook & Instagram</div>
+    <div class="sec-sub">1 jul – 22 jul · 11 campañas activas</div>
+  </div>
+
+  <div class="kpi-grid kpi-4">
+    <div class="kpi">
+      <div class="kpi-l">Inversión</div>
+      <div class="kpi-v">$3,5M</div>
+      <div class="kpi-s">COP · 1–22 julio</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">Conv. WhatsApp</div>
+      <div class="kpi-v">1.328</div>
+      <div class="kpi-s">8 campañas de mensajería</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">CPR Promedio</div>
+      <div class="kpi-v">$2.234</div>
+      <div class="kpi-s">COP por conversación WA</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">Mejor CTR</div>
+      <div class="kpi-v">3,39%</div>
+      <div class="kpi-s">LIBERNOVO | Calle 109</div>
+      <span class="kpi-badge b-blue">🆕 Nueva campaña</span>
+    </div>
+  </div>
+
+  <!-- Charts row -->
+  <div class="chart-grid cg-2">
+    <div class="chart-card">
+      <div class="chart-title">Conversaciones WhatsApp por campaña</div>
+      <div class="chart-wrap" style="height:230px"><canvas id="cConv"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Costo por conversación (CPR)</div>
+      <div class="chart-wrap" style="height:230px"><canvas id="cCPR"></canvas></div>
+      <div class="legend" style="margin-top:10px">
+        <span class="leg-i"><span class="leg-sq" style="background:#059669"></span>≤$2.000 Óptimo</span>
+        <span class="leg-i"><span class="leg-sq" style="background:#D97706"></span>$2.000–$3.000 Revisar</span>
+        <span class="leg-i"><span class="leg-sq" style="background:#DC2626"></span>>$3.000 Alto</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Messaging campaigns table -->
+  <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-2);margin-bottom:10px">Campañas de Mensajería WhatsApp</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Campaña</th>
+          <th class="tr">Inversión</th>
+          <th class="tr">Conv. WA</th>
+          <th class="tr">CPR</th>
+          <th class="tr">CTR</th>
+          <th class="tr">Frecuencia</th>
+          <th class="tc">Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-hi">
+          <td><strong>S300 | Cra 30</strong></td>
+          <td class="tr">$355.589</td>
+          <td class="tr">227</td>
+          <td class="tr"><strong style="color:#059669">$1.566</strong></td>
+          <td class="tr">2,35%</td>
+          <td class="tr">1,57</td>
+          <td class="tc"><span class="pill p-ok">Óptimo ✓</span></td>
+        </tr>
+        <tr class="row-hi">
+          <td><strong>B100 | Calle 109</strong></td>
+          <td class="tr">$498.317</td>
+          <td class="tr">275</td>
+          <td class="tr"><strong style="color:#059669">$1.812</strong></td>
+          <td class="tr">2,49%</td>
+          <td class="tr">1,73</td>
+          <td class="tc"><span class="pill p-ok">Óptimo ✓</span></td>
+        </tr>
+        <tr>
+          <td>XPRO500 | Calle 109</td>
+          <td class="tr">$357.560</td>
+          <td class="tr">167</td>
+          <td class="tr">$2.141</td>
+          <td class="tr">2,50%</td>
+          <td class="tr"><strong>2,08 ↑</strong></td>
+          <td class="tc"><span class="pill p-warn">Freq. alta</span></td>
+        </tr>
+        <tr>
+          <td>Maxconfort | Calle 109</td>
+          <td class="tr">$593.464</td>
+          <td class="tr">258</td>
+          <td class="tr">$2.300</td>
+          <td class="tr">2,30%</td>
+          <td class="tr">1,82</td>
+          <td class="tc"><span class="pill p-ok">Bueno</span></td>
+        </tr>
+        <tr class="row-new">
+          <td>LIBERNOVO | Calle 109 <span style="font-size:10px;font-weight:700;color:#1E40AF">NEW</span></td>
+          <td class="tr">$134.070</td>
+          <td class="tr">52</td>
+          <td class="tr">$2.578</td>
+          <td class="tr"><strong style="color:#2563EB">3,39%</strong></td>
+          <td class="tr">1,87</td>
+          <td class="tc"><span class="pill p-new">Promisoria ★</span></td>
+        </tr>
+        <tr>
+          <td>C300 | Cra 30</td>
+          <td class="tr">$347.708</td>
+          <td class="tr">130</td>
+          <td class="tr">$2.675</td>
+          <td class="tr">2,44%</td>
+          <td class="tr">1,51</td>
+          <td class="tc"><span class="pill p-warn">Revisar</span></td>
+        </tr>
+        <tr>
+          <td>C300 | Calle 109</td>
+          <td class="tr">$593.751</td>
+          <td class="tr">200</td>
+          <td class="tr">$2.969</td>
+          <td class="tr">2,02%</td>
+          <td class="tr">1,58</td>
+          <td class="tc"><span class="pill p-warn">CPR alto</span></td>
+        </tr>
+        <tr class="row-lo">
+          <td>FINIX | Cra 30 <span style="font-size:10px;font-weight:700;color:#1E40AF">NEW</span></td>
+          <td class="tr">$87.904</td>
+          <td class="tr">19</td>
+          <td class="tr"><strong style="color:#DC2626">$4.627</strong></td>
+          <td class="tr">1,65%</td>
+          <td class="tr">1,31</td>
+          <td class="tc"><span class="pill p-bad">Muy alto ↑</span> <span class="pill p-ok" style="margin-left:4px">Creativo ya actualizado ✓</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="fn">* FINIX | Cra 30: el CPR alto corresponde al creativo inicial. Ya se implementó un nuevo creativo para esta campaña; se espera mejora en el próximo corte de reporte.</p>
+
+  <!-- Traffic campaigns table -->
+  <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-2);margin-bottom:10px;margin-top:20px">Campañas de Tráfico y Engagement</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Campaña</th>
+          <th class="tr">Inversión</th>
+          <th class="tr">Resultados</th>
+          <th class="tr">CPR</th>
+          <th class="tr">CTR</th>
+          <th class="tr">Frecuencia</th>
+          <th class="tc">Tipo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>XPRO JUNIO 2026 – Copia</td>
+          <td class="tr">$229.384</td>
+          <td class="tr">2.956 clics</td>
+          <td class="tr">$78 / clic</td>
+          <td class="tr">1,90%</td>
+          <td class="tr">1,16</td>
+          <td class="tc"><span class="pill p-info">Link clicks</span></td>
+        </tr>
+        <tr>
+          <td>XPRO JUNIO 2026</td>
+          <td class="tr">$153.689</td>
+          <td class="tr">2.175 clics</td>
+          <td class="tr">$71 / clic</td>
+          <td class="tr">1,73%</td>
+          <td class="tr">1,18</td>
+          <td class="tc"><span class="pill p-info">Link clicks</span></td>
+        </tr>
+        <tr>
+          <td>Tráfico Website</td>
+          <td class="tr">$144.964</td>
+          <td class="tr">1.078 visitas</td>
+          <td class="tr">$134 / visita</td>
+          <td class="tr">4,56%</td>
+          <td class="tr">1,51</td>
+          <td class="tc"><span class="pill p-info">Web traffic</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout co-gray">
+    <div class="co-icon">⚠️</div>
+    <div>
+      <div class="co-title">Limitación de medición: WhatsApp</div>
+      <div class="co-text">Las conversiones en campañas de mensajería representan <strong>conversaciones iniciadas en WhatsApp</strong>. Sin retroalimentación sobre la calidad de esas conversaciones (ratio de cierre, ticket promedio por sede), no es posible calcular el ROI real de Meta Ads. Las métricas reportadas miden el volumen y costo de captación de interés, no ventas confirmadas. Se recomienda establecer un proceso de registro semanal que permita correlacionar conversaciones WA con ventas.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 3. GOOGLE ADS ── -->
+<div class="section">
+  <div class="sec-hdr">
+    <div class="sec-icon" style="background:#E8F5E9;font-size:14px;font-weight:900;color:#34A853">G</div>
+    <div class="sec-title">Google Ads</div>
+    <div class="sec-sub">1 jul – 27 jul · Sales-Crusso-Max</div>
+  </div>
+
+  <div class="kpi-grid kpi-4">
+    <div class="kpi">
+      <div class="kpi-l">Inversión Google</div>
+      <div class="kpi-v">$1,27M</div>
+      <div class="kpi-s">COP · 1–27 julio</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">Clics al sitio</div>
+      <div class="kpi-v">4.700</div>
+      <div class="kpi-s">De 77.500 impresiones</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">CTR</div>
+      <div class="kpi-v">6,0%</div>
+      <div class="kpi-s">Prom. industria: 2–3%</div>
+      <span class="kpi-badge b-green">Excelente ✓</span>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">Conversiones web</div>
+      <div class="kpi-v">90</div>
+      <div class="kpi-s">CPA: $14.991 · CPC: $274</div>
+    </div>
+  </div>
+
+  <div class="callout co-blue">
+    <div class="co-icon">🚀</div>
+    <div>
+      <div class="co-title">Primera activación de Google Ads — resultados iniciales sólidos</div>
+      <div class="co-text">Esta es la primera campaña de Google Ads activa para CRUSSO (Sales-Crusso-Max). Un CTR de <strong>6,0%</strong> está muy por encima del promedio de la industria (2–3%), lo que indica que el anuncio es relevante para las búsquedas de los usuarios. El pico de tráfico del 14–15 de julio en GA4 coincide con la activación de la campaña. Los 90 eventos de conversión registrados y el +233% en pedidos Shopify son señales positivas de un ecosistema digital coherente.</div>
+    </div>
+  </div>
+
+  <div class="chart-grid cg-2">
+    <div class="chart-card">
+      <div class="chart-title">Resumen de métricas Google Ads</div>
+      <div class="chart-wrap" style="height:200px"><canvas id="cGoogle"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">CTR: Impresiones vs. Clics</div>
+      <div class="chart-wrap" style="height:200px"><canvas id="cGooglePie"></canvas></div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Campaña</th>
+          <th class="tr">Inversión</th>
+          <th class="tr">Impresiones</th>
+          <th class="tr">Clics</th>
+          <th class="tr">CTR</th>
+          <th class="tr">CPC medio</th>
+          <th class="tr">Conversiones</th>
+          <th class="tr">CPA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Sales-Crusso-Max</strong></td>
+          <td class="tr">$1.270.000</td>
+          <td class="tr">77.500</td>
+          <td class="tr">4.700</td>
+          <td class="tr"><strong style="color:#059669">6,0%</strong></td>
+          <td class="tr">$273,81</td>
+          <td class="tr">90</td>
+          <td class="tr">$14.991</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── 4. GA4 / WEB ── -->
+<div class="section">
+  <div class="sec-hdr">
+    <div class="sec-icon" style="background:#FFF3E0">📈</div>
+    <div class="sec-title">Sitio Web — Google Analytics 4</div>
+    <div class="sec-sub">1 jul – 27 jul · crusso.com.co</div>
+  </div>
+
+  <div class="kpi-grid kpi-4">
+    <div class="kpi">
+      <div class="kpi-l">Usuarios Activos</div>
+      <div class="kpi-v">5.500</div>
+      <div class="kpi-s">vs. período anterior</div>
+      <span class="kpi-badge b-green">▲ 148%</span>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">Usuarios Nuevos</div>
+      <div class="kpi-v">5.300</div>
+      <div class="kpi-s">96% del total</div>
+      <span class="kpi-badge b-green">▲ 156%</span>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">Vistas de Producto</div>
+      <div class="kpi-v">6.795</div>
+      <div class="kpi-s">Eventos view_item</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">Add to Cart</div>
+      <div class="kpi-v">266</div>
+      <div class="kpi-s">3,9% de visitantes</div>
+    </div>
+  </div>
+
+  <div class="chart-grid cg-2">
+    <div class="chart-card">
+      <div class="chart-title">Fuentes de tráfico (sesiones)</div>
+      <div class="chart-wrap" style="height:230px"><canvas id="cSources"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Eventos clave del sitio</div>
+      <div class="chart-wrap" style="height:230px"><canvas id="cEvents"></canvas></div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Fuente</th>
+          <th>Medio</th>
+          <th class="tr">Sesiones</th>
+          <th class="tr">% del total</th>
+          <th>Canal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-hi">
+          <td>google</td><td>cpc</td><td class="tr"><strong>3.772</strong></td><td class="tr">50,8%</td><td><span class="pill p-new">Google Ads (pagado)</span></td>
+        </tr>
+        <tr>
+          <td>Direct</td><td>—</td><td class="tr">895</td><td class="tr">12,0%</td><td><span class="pill p-gray">Directo / marca</span></td>
+        </tr>
+        <tr>
+          <td>google</td><td>organic</td><td class="tr">854</td><td class="tr">11,5%</td><td><span class="pill p-gray">SEO orgánico</span></td>
+        </tr>
+        <tr class="row-new">
+          <td>ig</td><td>social</td><td class="tr">795</td><td class="tr">10,7%</td><td><span class="pill p-info">Instagram (Meta)</span></td>
+        </tr>
+        <tr>
+          <td>m.facebook.com</td><td>referral</td><td class="tr">198</td><td class="tr">2,7%</td><td><span class="pill p-info">Facebook (Meta)</span></td>
+        </tr>
+        <tr>
+          <td>facebook.com</td><td>referral</td><td class="tr">114</td><td class="tr">1,5%</td><td><span class="pill p-info">Facebook (Meta)</span></td>
+        </tr>
+        <tr>
+          <td>lm.facebook.com</td><td>referral</td><td class="tr">89</td><td class="tr">1,2%</td><td><span class="pill p-info">Facebook (Meta)</span></td>
+        </tr>
+        <tr>
+          <td>facebook</td><td>paid</td><td class="tr">86</td><td class="tr">1,2%</td><td><span class="pill p-info">Facebook Ads</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout co-blue">
+    <div class="co-icon">💡</div>
+    <div>
+      <div class="co-title">Google Ads lidera el tráfico · Meta genera conversaciones WA · roles complementarios</div>
+      <div class="co-text">Google CPC representa el <strong>50,8%</strong> de todas las sesiones del sitio. Meta (Instagram + Facebook referral + Facebook paid) aporta aproximadamente el <strong>16%</strong> del tráfico web, aunque su mayor contribución es en conversaciones directas por WhatsApp. Esta complementariedad es deseable: Google captura demanda existente (personas buscando sillas de oficina); Meta genera descubrimiento y conversaciones directas de alta intención.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 5. SHOPIFY ── -->
+<div class="section">
+  <div class="sec-hdr">
+    <div class="sec-icon" style="background:#E8F5E9">🛍️</div>
+    <div class="sec-title">Ventas — Shopify Online Store</div>
+    <div class="sec-sub">Últimos 30 días</div>
+  </div>
+
+  <div class="kpi-grid kpi-3">
+    <div class="kpi">
+      <div class="kpi-l">Pedidos Online</div>
+      <div class="kpi-v">10</div>
+      <div class="kpi-s">Online Store</div>
+      <span class="kpi-badge b-green">▲ 233% vs período ant.</span>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">Artículos Vendidos</div>
+      <div class="kpi-v">10</div>
+      <div class="kpi-s">1 producto por pedido</div>
+      <span class="kpi-badge b-green">▲ 233% vs período ant.</span>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">Pedidos Entregados</div>
+      <div class="kpi-v">5 / 10</div>
+      <div class="kpi-s">5 pendientes de preparación</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Cliente</th>
+          <th>Fecha</th>
+          <th class="tr">Total</th>
+          <th class="tc">Pago</th>
+          <th class="tc">Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>#1172</strong></td>
+          <td>Monica Solano</td>
+          <td>27 jul (hoy)</td>
+          <td class="tr">$665.390</td>
+          <td class="tc"><span class="pill p-ok">Pagado</span></td>
+          <td class="tc"><span class="pill p-new">En curso</span></td>
+        </tr>
+        <tr>
+          <td><strong>#1171</strong></td>
+          <td>Alejandro Ruiz O</td>
+          <td>26 jul</td>
+          <td class="tr"><strong>$4.019.080</strong></td>
+          <td class="tc"><span class="pill p-ok">Pagado</span></td>
+          <td class="tc"><span class="pill p-new">En curso</span></td>
+        </tr>
+        <tr>
+          <td><strong>#1170</strong></td>
+          <td>Yuliana Salazar Posada</td>
+          <td>23 jul</td>
+          <td class="tr">$690.980</td>
+          <td class="tc"><span class="pill p-ok">Pagado</span></td>
+          <td class="tc"><span class="pill p-warn">No preparado</span></td>
+        </tr>
+        <tr>
+          <td><strong>#1169</strong></td>
+          <td>Esmeralda Gracia</td>
+          <td>22 jul</td>
+          <td class="tr"><strong>$4.207.410</strong></td>
+          <td class="tc"><span class="pill p-ok">Pagado</span></td>
+          <td class="tc"><span class="pill p-warn">No preparado</span></td>
+        </tr>
+        <tr class="row-lo">
+          <td><strong>#1168</strong> ⚠️</td>
+          <td>Sandra García</td>
+          <td>20 jul (7 días)</td>
+          <td class="tr">$2.107.410</td>
+          <td class="tc"><span class="pill p-ok">Pagado</span></td>
+          <td class="tc"><span class="pill p-bad">Sin preparar</span></td>
+        </tr>
+        <tr class="row-lo">
+          <td><strong>#1167</strong> ⚠️</td>
+          <td>Juan Daniel Triana Sanchez</td>
+          <td>18 jul (9 días)</td>
+          <td class="tr">$970.620</td>
+          <td class="tc"><span class="pill p-ok">Pagado</span></td>
+          <td class="tc"><span class="pill p-bad">Sin preparar</span></td>
+        </tr>
+        <tr class="row-lo">
+          <td><strong>#1166</strong> ⚠️</td>
+          <td>Carlos Augusto Parra Sanchez</td>
+          <td>17 jul (10 días)</td>
+          <td class="tr">$1.523.020</td>
+          <td class="tc"><span class="pill p-ok">Pagado</span></td>
+          <td class="tc"><span class="pill p-bad">Sin preparar</span></td>
+        </tr>
+        <tr class="row-gray">
+          <td colspan="6" style="font-size:11px;color:var(--text-2);font-style:italic">+ 3 pedidos adicionales no incluidos en esta captura</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout co-yellow">
+    <div class="co-icon">⚠️</div>
+    <div>
+      <div class="co-title">3 pedidos con más de 7 días sin preparar</div>
+      <div class="co-text">Los pedidos #1168 (20 jul), #1167 (18 jul) y #1166 (17 jul) llevan entre <strong>7 y 10 días pagados sin prepararse</strong>. El tiempo promedio de preparación de 310 horas impacta la experiencia del cliente y puede traducirse en cancelaciones, reseñas negativas o contracargos. Se recomienda revisar el proceso logístico urgentemente para estos pedidos.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 6. RECOMENDACIONES ── -->
+<div class="section">
+  <div class="sec-hdr">
+    <div class="sec-icon" style="background:#F0FDF4">✅</div>
+    <div class="sec-title">Observaciones y Próximos Pasos</div>
+  </div>
+
+  <div class="rec-grid">
+    <div class="rec rec-green">
+      <div class="rec-n">✅ Escalar</div>
+      <div class="rec-t">S300 | Cra 30 y B100 | Calle 109</div>
+      <div class="rec-d">Las dos campañas más eficientes del portafolio (CPR $1.566 y $1.812, frecuencia baja). Aumentar presupuesto 20–25% y evaluar resultados en 5 días antes de un segundo ajuste.</div>
+    </div>
+    <div class="rec rec-blue">
+      <div class="rec-n">🆕 Potencial</div>
+      <div class="rec-t">LIBERNOVO: no tocar, dejar optimizar</div>
+      <div class="rec-d">CTR de 3,39% — el más alto del portafolio. Solo tiene ~5 días activa (desde jul 17). El algoritmo aún está en fase de aprendizaje. Evaluar CPR real después de 7–10 días de data suficiente.</div>
+    </div>
+    <div class="rec rec-red">
+      <div class="rec-n">🔴 Detectado en este reporte → ✅ Ya resuelto</div>
+      <div class="rec-t">FINIX | Cra 30: nuevo creative inmediato</div>
+      <div class="rec-d">CPR de $4.627 — más del doble del promedio. CTR 1,65% muy bajo. El video/copy actual no estaba conectando.<br><br><strong style="color:#059669">Actualización:</strong> este hallazgo ya se resolvió — se implementó un nuevo creativo para la campaña antes de la entrega de este reporte. El impacto del cambio se verá reflejado en el próximo corte.</div>
+    </div>
+    <div class="rec rec-yellow">
+      <div class="rec-n">⚡ Prevención</div>
+      <div class="rec-t">XPRO500: rotar creative pronto</div>
+      <div class="rec-d">Frecuencia en 2,08 — primera señal de fatiga de anuncio. Activar creative alternativo antes de que el CPR suba. No esperar a que se deterioren los números para actuar.</div>
+    </div>
+    <div class="rec rec-yellow">
+      <div class="rec-n">🔧 Optimizar</div>
+      <div class="rec-t">C300 | Calle 109: reducir o pausar</div>
+      <div class="rec-d">$593K gastados con CPR de $2.969, el más alto entre las campañas clásicas. Reducir a $20K/día y probar nuevo creative. Si no mejora en 7 días, pausar y redirigir presupuesto a S300.</div>
+    </div>
+    <div class="rec rec-green">
+      <div class="rec-n">📈 Google Ads</div>
+      <div class="rec-t">Expandir keywords y añadir remarketing</div>
+      <div class="rec-d">CTR de 6% en primer mes es excelente. Próximos pasos: (1) expandir keywords de mayor conversión, (2) añadir extensiones de imagen por producto, (3) remarketing para los 266 usuarios que hicieron add to cart pero no compraron.</div>
+    </div>
+  </div>
+
+  <div class="callout co-dark">
+    <div class="co-icon">📌</div>
+    <div>
+      <div class="co-title">Recomendación estratégica: Cerrar el ciclo de medición</div>
+      <div class="co-text">El principal punto ciego de la estrategia actual es la ausencia de retroalimentación desde WhatsApp hacia las campañas. Sin saber qué conversaciones se convierten en ventas y a qué ticket promedio, no podemos optimizar hacia lo que realmente importa — ventas, no solo chats. <strong>Solución propuesta:</strong> implementar un registro simple (spreadsheet o CRM) donde el equipo de ventas registre semanalmente: número WA contactado (109 vs. 30), ¿llegó a cotización?, ¿se cerró venta?, valor. Con esa data, podemos calcular ROI real por sucursal y redirigir presupuesto con precisión.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── 7. GESTIÓN DE LEADS Y SEGUIMIENTO COMERCIAL ── -->
+<div class="section">
+  <div class="sec-hdr">
+    <div class="sec-icon" style="background:#FEF9C3">📋</div>
+    <div class="sec-title">Gestión de Leads y Seguimiento Comercial</div>
+    <div class="sec-sub">Análisis del registro Excel · Sede 30 + Sede 109 · Jun–Jul 2026</div>
+  </div>
+
+  <p style="font-size:12px;color:var(--text-2);margin-bottom:16px;line-height:1.7">El mes pasado el equipo pidió cerrar el ciclo de medición de WhatsApp con un registro propio. Ya existe — este es el segundo análisis de esos datos, con el panel de resumen ya corregido y nuevas herramientas de alerta instaladas en el Excel. Los números de fondo (respuesta, seguimiento, calidad de dato) siguen siendo los mismos que el corte anterior — la diferencia ahora es que el equipo tiene, por primera vez, las herramientas visuales para corregirlos sin depender de un análisis externo.</p>
+
+  <div class="kpi-grid kpi-4">
+    <div class="kpi">
+      <div class="kpi-l">Leads registrados</div>
+      <div class="kpi-v">1.066</div>
+      <div class="kpi-s">341 Sede 30 · 725 Sede 109</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">Sin respuesta</div>
+      <div class="kpi-v" style="color:#DC2626">92,8%</div>
+      <div class="kpi-s">989 de 1.066 contactos</div>
+      <span class="kpi-badge b-red">Crítico</span>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">Seguimiento 2h / 12h aplicado</div>
+      <div class="kpi-v" style="color:#DC2626">0%</div>
+      <div class="kpi-s">Columnas vacías en 100% de filas</div>
+      <span class="kpi-badge b-red">Sin ejecutar</span>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">Nombre del lead capturado</div>
+      <div class="kpi-v" style="color:#D97706">16%</div>
+      <div class="kpi-s">84% de filas sin nombre</div>
+      <span class="kpi-badge b-yellow">Incompleto</span>
+    </div>
+  </div>
+
+  <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-2);margin-bottom:10px">Modelos vendidos este mes (18 ventas registradas · $29.937.000 COP)</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Modelo</th>
+          <th class="tr">Ventas</th>
+          <th class="tr">Valor total</th>
+          <th class="tr">% del total</th>
+          <th class="tc">Sede(s)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-hi">
+          <td><strong>B100</strong></td>
+          <td class="tr">7</td>
+          <td class="tr"><strong>$9.660.000</strong></td>
+          <td class="tr">32,3%</td>
+          <td class="tc"><span class="pill p-info">109</span></td>
+        </tr>
+        <tr>
+          <td>Otro producto <span style="font-size:10px;color:var(--text-2)">(sin catalogar)</span></td>
+          <td class="tr">3</td>
+          <td class="tr">$8.541.000</td>
+          <td class="tr">28,5%</td>
+          <td class="tc"><span class="pill p-gray">30 · 109</span></td>
+        </tr>
+        <tr>
+          <td>XPRO</td>
+          <td class="tr">1</td>
+          <td class="tr">$2.700.000</td>
+          <td class="tr">9,0%</td>
+          <td class="tc"><span class="pill p-info">109</span></td>
+        </tr>
+        <tr>
+          <td>S300</td>
+          <td class="tr">1</td>
+          <td class="tr">$2.630.000</td>
+          <td class="tr">8,8%</td>
+          <td class="tc"><span class="pill p-info">30</span></td>
+        </tr>
+        <tr>
+          <td>Swan</td>
+          <td class="tr">2</td>
+          <td class="tr">$1.800.000</td>
+          <td class="tr">6,0%</td>
+          <td class="tc"><span class="pill p-info">109</span></td>
+        </tr>
+        <tr>
+          <td>Maxconfort</td>
+          <td class="tr">2</td>
+          <td class="tr">$1.770.000</td>
+          <td class="tr">5,9%</td>
+          <td class="tc"><span class="pill p-info">109</span></td>
+        </tr>
+        <tr>
+          <td>Luxury</td>
+          <td class="tr">1</td>
+          <td class="tr">$850.000</td>
+          <td class="tr">2,8%</td>
+          <td class="tc"><span class="pill p-info">109</span></td>
+        </tr>
+        <tr>
+          <td>Crussó 360</td>
+          <td class="tr">1</td>
+          <td class="tr">$650.000</td>
+          <td class="tr">2,2%</td>
+          <td class="tc"><span class="pill p-info">109</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="fn">* 3 de las 18 ventas quedaron registradas como "Otro producto" sin modelo específico — vale la pena pedirle al equipo que use el desplegable de producto también al momento de cerrar la venta, no solo al registrar el contacto inicial.</p>
+
+  <div class="callout co-blue">
+    <div class="co-icon">🎯</div>
+    <div>
+      <div class="co-title">B100 es el modelo más vendido — y coincide con la campaña de mejor rendimiento</div>
+      <div class="co-text">B100 | Calle 109 lidera en ventas (7 de 18, $9.660.000 COP) y también es una de las dos campañas marcadas "Óptimo" en Meta Ads este mes (CPR de $1.812, frecuencia baja). La pauta está atrayendo al comprador correcto para este modelo. Esto refuerza la recomendación de escalar presupuesto en B100 | Calle 109 — no solo genera conversaciones baratas, ya está demostrando que esas conversaciones se convierten en ventas reales.</div>
+    </div>
+  </div>
+
+  <div class="callout co-green">
+    <div class="co-icon">✅</div>
+    <div>
+      <div class="co-title">Resuelto desde el último corte: el panel de Resumen ya coincide con los datos reales</div>
+      <div class="co-text">El hallazgo del reporte anterior (el panel mostraba 172 contactos y $21.577.000 en ventas, cuando la realidad era 1.066 contactos y $29.937.000) ya está corregido. El panel ahora reporta exactamente lo mismo que el conteo directo de las hojas de sede: <strong>1.066 contactos, 18 ventas por $29.937.000 COP</strong>. Dirección ya puede confiar en ese panel sin necesidad de auditoría externa mes a mes.</div>
+    </div>
+  </div>
+
+  <div class="callout co-blue">
+    <div class="co-icon">🛠️</div>
+    <div>
+      <div class="co-title">Nuevo: herramientas de alerta instaladas directamente en el Excel</div>
+      <div class="co-text">Se agregaron tres mejoras al registro para que el equipo detecte problemas sin depender de un reporte mensual: <strong>(1)</strong> columna "Horas desde contacto" que calcula automáticamente cuánto lleva cada lead sin seguimiento, con semáforo verde/amarillo/rojo; <strong>(2)</strong> resaltado de fila completa cuando un lead "Caliente" queda en "No responde" — el peor escenario, ahora visible de un vistazo; <strong>(3)</strong> las alertas de campos vacíos y desplegables, que antes solo cubrían parte del registro en Sede 109, ahora cubren el 100% de las filas. Estas herramientas ya están activas — el paso pendiente es que el equipo las use a diario.</div>
+    </div>
+  </div>
+
+  <div class="callout co-yellow">
+    <div class="co-icon">⏱️</div>
+    <div>
+      <div class="co-title">La guía interna ya dice qué hacer — el registro muestra que no se está haciendo</div>
+      <div class="co-text">El propio Excel incluye una hoja de "Recomendaciones para asesores" con instrucciones claras: responder en menos de 15 minutos, escalonar seguimiento a las 2h y 12h, priorizar leads "Caliente". En la práctica, las columnas "Seguimiento 2h" y "Seguimiento 12h" están vacías en el 100% de los 1.066 registros. La velocidad de respuesta es el factor que más pesa en el cierre: contactar en los primeros 5 minutos multiplica por 21 la probabilidad de calificar un lead; después de 30 minutos la conversión cae 10 veces; después de 24 horas el lead está prácticamente frío. Sin registrar el seguimiento, no hay forma de saber si se está cumpliendo — ni de corregir a tiempo.</div>
+    </div>
+  </div>
+
+  <div class="rec-grid">
+    <div class="rec rec-red">
+      <div class="rec-n">🔴 Prioridad 1</div>
+      <div class="rec-t">Exigir el registro de "Seguimiento 2h / 12h" como paso obligatorio</div>
+      <div class="rec-d">Hoy existe la columna pero nadie la usa. No es un problema de proceso — es un problema de que no se está siguiendo el proceso ya definido. Revisión diaria de cierre de turno (ya sugerida en la guía) debe ser innegociable, no opcional.</div>
+    </div>
+    <div class="rec rec-red">
+      <div class="rec-n">🔴 Prioridad 1</div>
+      <div class="rec-t">Bloquear el registro sin nombre y producto de interés</div>
+      <div class="rec-d">84% de los leads no tiene nombre capturado. Sin nombre, el segundo y tercer mensaje de seguimiento no se pueden personalizar — y un mensaje genérico ("¿sigues interesado?") es exactamente lo que la propia guía interna identifica como el error que enfría un lead.</div>
+    </div>
+    <div class="rec rec-yellow">
+      <div class="rec-n">⚡ Prioridad 2</div>
+      <div class="rec-t">Usar "Temperatura" para priorizar la fila de trabajo, no solo para clasificar</div>
+      <div class="rec-d">Hay 20 leads marcados "Caliente" — solo 1 quedó atascado en "No responde", lo cual sugiere que sí se priorizan cuando se identifican. Ahora esas filas se resaltan automáticamente en naranja cuando quedan sin respuesta, así que este comportamiento ya positivo se puede mantener sin depender de que el asesor revise manualmente cada fila.</div>
+    </div>
+    <div class="rec rec-blue">
+      <div class="rec-n">💬 Prioridad 2</div>
+      <div class="rec-t">Filtrar el ruido antes de que llegue al asesor</div>
+      <div class="rec-d">+80% de los leads llegan por DM orgánico (Instagram/Facebook) — alto volumen, intención mezclada. Una respuesta automática con 1-2 preguntas de calificación (producto de interés + sede) permite separar curiosos de compradores reales antes de que un asesor tenga que escribir manualmente cada uno, reduciendo la carga que hoy termina en "No responde" por volumen, no por desinterés real.</div>
+    </div>
+    <div class="rec rec-green">
+      <div class="rec-n">✅ Ya implementado</div>
+      <div class="rec-t">Panel de Resumen corregido + alertas visuales instaladas</div>
+      <div class="rec-d">El panel ya refleja los datos reales, y el Excel ahora tiene columna de horas transcurridas con semáforo, resaltado de leads calientes atascados y validaciones completas en el 100% de las filas de ambas sedes. Sin acción adicional requerida en la herramienta — el siguiente paso es de uso diario, no de construcción.</div>
+    </div>
+    <div class="rec rec-red">
+      <div class="rec-n">🔴 Prioridad 1</div>
+      <div class="rec-t">Adoptar el semáforo de "Horas desde contacto" en la rutina diaria</div>
+      <div class="rec-d">La herramienta ya calcula y colorea automáticamente qué leads llevan más de 12 horas sin seguimiento. El hábito que falta instalar: cada asesor filtra por rojo al iniciar y cerrar turno, antes de tocar cualquier otra tarea. Sin este hábito, la herramienta no cambia el resultado — solo lo hace visible.</div>
+    </div>
+  </div>
+
+  <div class="callout co-dark">
+    <div class="co-icon">📌</div>
+    <div>
+      <div class="co-title">Recomendación estratégica: la herramienta ya está lista — falta que se convierta en hábito</div>
+      <div class="co-text">Meta y Google están generando 1.066 conversaciones en el mes, un volumen sólido para el presupuesto invertido. El 92,8% sigue terminando en "No responde" y el seguimiento de 2h/12h sigue en 0% — eso no cambió este mes. Lo que sí cambió: el panel de resumen ya es confiable, y el Excel ahora avisa solo cuándo un lead lleva demasiado tiempo sin respuesta y resalta los casos más graves (caliente + sin respuesta). Optimizar más la pauta sin cerrar esta brecha significa seguir pagando por leads que el embudo comercial no está capturando. <strong>El mayor ROI disponible ahora mismo no está en subir presupuesto de Meta o Google — está en que el equipo de ventas convierta en rutina diaria las alertas que ya tiene enfrente.</strong></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /body -->
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<div class="rfoot">
+  <div><strong>CRUSSO</strong> · Reporte de Desempeño Digital · Julio 2026</div>
+  <div style="margin-top:6px">Meta Ads: datos 1–22 jul · Google Ads / GA4 / Shopify: datos 1–27 jul 2026 · Documento confidencial</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════ -->
+<script>
+Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif";
+Chart.defaults.font.size = 11;
+Chart.defaults.color = '#64748B';
+
+const cprColor = v => v <= 2000 ? '#059669' : v <= 3000 ? '#D97706' : '#DC2626';
+
+// DATA
+const camps = ['S300|30','B100|109','XPRO500|109','Maxconfort|109','LIBERNOVO|109','C300|30','C300|109','FINIX|30'];
+const convs = [227, 275, 167, 258, 52, 130, 200, 19];
+const cprs  = [1566, 1812, 2141, 2300, 2578, 2675, 2969, 4627];
+const convColors = ['#1d4ed8','#1d4ed8','#3b82f6','#3b82f6','#60a5fa','#3b82f6','#60a5fa','#bfdbfe'];
+
+const baseOpts = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: { legend: { display: false } }
+};
+
+// 1. CONVERSACIONES
+new Chart(document.getElementById('cConv'), {
+  type: 'bar',
+  data: {
+    labels: camps,
+    datasets: [{ data: convs, backgroundColor: convColors, borderRadius: 4, borderSkipped: false }]
+  },
+  options: {
+    ...baseOpts,
+    plugins: { ...baseOpts.plugins, tooltip: { callbacks: { label: c => `${c.raw} conversaciones WA` } } },
+    scales: {
+      x: { grid: { display: false }, ticks: { maxRotation: 35, font: { size: 10 } } },
+      y: { grid: { color: '#F1F5F9' } }
+    }
+  }
+});
+
+// 2. CPR
+new Chart(document.getElementById('cCPR'), {
+  type: 'bar',
+  data: {
+    labels: camps,
+    datasets: [{ data: cprs, backgroundColor: cprs.map(cprColor), borderRadius: 4, borderSkipped: false }]
+  },
+  options: {
+    ...baseOpts,
+    indexAxis: 'y',
+    plugins: { ...baseOpts.plugins, tooltip: { callbacks: { label: c => `$${c.raw.toLocaleString('es-CO')} COP` } } },
+    scales: {
+      y: { grid: { display: false }, ticks: { font: { size: 10 } } },
+      x: { grid: { color: '#F1F5F9' }, ticks: { callback: v => `$${(v/1000).toFixed(0)}K` } }
+    }
+  }
+});
+
+// 3. GOOGLE METRICS
+new Chart(document.getElementById('cGoogle'), {
+  type: 'bar',
+  data: {
+    labels: ['Impresiones', 'Clics', 'Conversiones'],
+    datasets: [{
+      data: [77500, 4700, 90],
+      backgroundColor: ['#BFDBFE','#3B82F6','#1D4ED8'],
+      borderRadius: 6, borderSkipped: false
+    }]
+  },
+  options: {
+    ...baseOpts,
+    plugins: { ...baseOpts.plugins, tooltip: { callbacks: { label: c => c.raw.toLocaleString('es-CO') } } },
+    scales: {
+      x: { grid: { display: false } },
+      y: { type: 'logarithmic', grid: { color: '#F1F5F9' }, ticks: { callback: v => v >= 1000 ? `${(v/1000).toFixed(0)}K` : v } }
+    }
+  }
+});
+
+// 4. GOOGLE PIE
+new Chart(document.getElementById('cGooglePie'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Clics recibidos (CTR 6%)', 'Impresiones sin clic'],
+    datasets: [{ data: [4700, 72800], backgroundColor: ['#3B82F6','#E2E8F0'], borderWidth: 0, hoverOffset: 4 }]
+  },
+  options: {
+    ...baseOpts,
+    cutout: '65%',
+    plugins: {
+      legend: { display: true, position: 'bottom', labels: { boxWidth: 10, padding: 14 } },
+      tooltip: { callbacks: { label: c => `${c.label}: ${c.raw.toLocaleString('es-CO')}` } }
+    }
+  }
+});
+
+// 5. SOURCES PIE
+new Chart(document.getElementById('cSources'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Google CPC', 'Directo', 'Google Orgánico', 'Instagram', 'Facebook', 'Otros'],
+    datasets: [{
+      data: [3772, 895, 854, 795, 487, 630],
+      backgroundColor: ['#4285F4','#94A3B8','#34A853','#E1306C','#1877F2','#CBD5E1'],
+      borderWidth: 2, borderColor: '#fff', hoverOffset: 4
+    }]
+  },
+  options: {
+    ...baseOpts,
+    cutout: '58%',
+    plugins: {
+      legend: { display: true, position: 'bottom', labels: { boxWidth: 10, padding: 10, font: { size: 10 } } },
+      tooltip: { callbacks: { label: c => `${c.label}: ${c.raw.toLocaleString('es-CO')} sesiones` } }
+    }
+  }
+});
+
+// 6. EVENTS
+new Chart(document.getElementById('cEvents'), {
+  type: 'bar',
+  data: {
+    labels: ['page_view','user_engagement','session_start','view_item','first_visit','scroll','ads_conv.','form_start','add_to_cart'],
+    datasets: [{
+      data: [22078,17167,7366,6795,5332,5245,1004,778,266],
+      backgroundColor: ['#3B82F6','#3B82F6','#60A5FA','#60A5FA','#93C5FD','#93C5FD','#1D4ED8','#1D4ED8','#1D4ED8'],
+      borderRadius: 3, borderSkipped: false
+    }]
+  },
+  options: {
+    ...baseOpts,
+    indexAxis: 'y',
+    plugins: { ...baseOpts.plugins, tooltip: { callbacks: { label: c => c.raw.toLocaleString('es-CO') } } },
+    scales: {
+      y: { grid: { display: false }, ticks: { font: { size: 10 } } },
+      x: { grid: { color: '#F1F5F9' }, ticks: { callback: v => v >= 1000 ? `${(v/1000).toFixed(0)}K` : v } }
+    }
+  }
+});
+</script>
+</body>
+</html>

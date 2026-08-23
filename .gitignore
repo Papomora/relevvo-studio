@@ -32,3 +32,6 @@ Thumbs.db
 
 .vercel
 .env.local
+
+# Raw client-uploaded assets (source material, not served)
+Contenido/

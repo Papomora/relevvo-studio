@@ -6,6 +6,32 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
 import { WA_URL } from '@/lib/constants'
 
+// ── Shared typography scale (all bento cards use the same) ──
+const CARD_TITLE: React.CSSProperties = {
+  fontFamily: 'var(--font-bricolage)',
+  fontWeight: 800,
+  fontSize: '1.375rem',        // fixed — same on all cards
+  letterSpacing: '-0.025em',
+  lineHeight: 1.25,
+  color: '#fff',
+  marginBottom: '0.625rem',
+}
+
+const CARD_DESC: React.CSSProperties = {
+  fontSize: '0.9375rem',       // fixed — same on all cards
+  lineHeight: 1.65,
+  color: 'rgba(255,255,255,0.52)',
+}
+
+const STEP_NUM: React.CSSProperties = {
+  fontFamily: 'var(--font-inter)',
+  fontWeight: 700,
+  fontSize: '0.6875rem',
+  textTransform: 'uppercase' as const,
+  letterSpacing: '0.12em',
+  color: 'rgba(124,58,237,0.55)',
+}
+
 export default function Proceso() {
   const headingRef = useRef<HTMLDivElement>(null)
   const gridRef    = useRef<HTMLDivElement>(null)
@@ -31,82 +57,81 @@ export default function Proceso() {
   return (
     <section className="py-24 px-4 max-w-5xl mx-auto">
 
-      {/* ── Heading ─────────────────────────────────────────── */}
+      {/* ── Heading ── */}
       <div ref={headingRef} className="mb-14 md:grid md:grid-cols-2 md:gap-16 items-end">
         <div>
           <span className="pill-badge mb-6 inline-flex">Proceso</span>
           <h2>
-            <span className="heading-display text-white block"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}>
+            <span
+              className="heading-display text-white block"
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', letterSpacing: '-0.04em', lineHeight: 0.95 }}
+            >
               Solicita sin
             </span>
-            <span className="heading-serif text-white block"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}>
+            <span
+              className="heading-serif text-white block"
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 0.95 }}
+            >
               fricción
             </span>
           </h2>
         </div>
-        <p className="text-white/50 text-base leading-relaxed mt-6 md:mt-0 md:pb-1">
+        <p style={{ ...CARD_DESC, marginTop: '1.5rem' }} className="md:mt-0 md:pb-1">
           Pide diseños, piezas estratégicas o ajustes cuando los necesites.
           Entendemos tu contexto, tu marca y tus metas antes de ejecutar.
         </p>
       </div>
 
-      {/* ── Bento grid ──────────────────────────────────────── */}
-      {/*
-        Desktop layout (3 cols):
-        [ 01 — 2col wide ] [ 02 — 1col ]
-        [       03 — 3col full          ]
-      */}
+      {/* ── Bento grid ── */}
       <div
         ref={gridRef}
         className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10"
       >
 
-        {/* ── 01 — Suscríbete con claridad (2col wide) ─── */}
-        <div className="proc-card neon-card group relative overflow-hidden rounded-2xl border border-white/[0.07]
-          sm:col-span-2"
-          style={{ background: 'rgba(255,255,255,0.03)', minHeight: '200px' }}>
-
+        {/* ── 01 — Suscríbete con claridad (2col wide) ── */}
+        <div
+          className="proc-card neon-card group relative overflow-hidden rounded-2xl border border-white/[0.07] sm:col-span-2"
+          style={{ background: 'rgba(255,255,255,0.03)', minHeight: 220 }}
+        >
           <div className="absolute inset-0 bg-gradient-to-br from-violet-900/20 to-transparent pointer-events-none" />
 
-          {/* Big step number bg */}
-          <div className="absolute -right-4 -bottom-6 font-black select-none pointer-events-none
-            opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-500"
-            style={{
-              fontSize: '11rem',
-              lineHeight: 1,
-              color: 'rgba(124,58,237,1)',
-              fontFamily: 'var(--font-bricolage)',
-            }}>
+          {/* Decorative bg number */}
+          <div
+            className="absolute -right-4 -bottom-6 select-none pointer-events-none opacity-[0.035] group-hover:opacity-[0.07] transition-opacity duration-500"
+            style={{ fontSize: '10rem', lineHeight: 1, color: '#7C3AED', fontFamily: 'var(--font-bricolage)', fontWeight: 900 }}
+          >
             1
           </div>
 
           <div className="relative z-10 p-8 h-full flex flex-col justify-between">
             <div className="flex items-center justify-between">
-              <span className="font-mono text-xs text-accent/35" style={{ letterSpacing: '0.12em' }}>01</span>
-              <span className="font-mono text-[10px] uppercase tracking-widest text-white/20 group-hover:text-white/40 transition-colors">
+              <span style={STEP_NUM}>01</span>
+              <span style={{ ...STEP_NUM, color: 'rgba(255,255,255,0.18)' }} className="group-hover:!text-white/40 transition-colors">
                 Inicio
               </span>
             </div>
 
             <div className="mt-8">
-              <h3 className="heading-display text-white mb-3"
-                style={{ fontSize: 'clamp(1.3rem, 2.5vw, 1.8rem)', letterSpacing: '-0.03em' }}>
-                Suscríbete con claridad
-              </h3>
-              <p className="text-white/40 text-sm leading-relaxed max-w-sm group-hover:text-white/60 transition-colors">
+              <h3 style={CARD_TITLE}>Suscríbete con claridad</h3>
+              <p style={CARD_DESC} className="max-w-sm group-hover:!text-white/70 transition-colors">
                 Elige un plan mensual y centraliza todos tus requerimientos en un único flujo.
                 Sin costos ocultos, sin contratos eternos.
               </p>
             </div>
 
-            {/* Tag pills */}
             <div className="flex gap-2 mt-6 flex-wrap">
               {['Plan BASIC', 'Plan MID', 'Plan FULL'].map((t, i) => (
-                <span key={i} className="text-[11px] font-mono px-2.5 py-0.5 rounded-full border border-white/[0.08] text-white/25
-                  group-hover:border-accent/25 group-hover:text-white/50 transition-all duration-300"
-                  style={{ transitionDelay: `${i * 40}ms` }}>
+                <span
+                  key={i}
+                  className="group-hover:border-accent/30 group-hover:text-white/60 transition-all duration-300"
+                  style={{
+                    fontSize: '0.6875rem', fontFamily: 'var(--font-inter)', fontWeight: 600,
+                    padding: '4px 12px', borderRadius: 100,
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    color: 'rgba(255,255,255,0.3)',
+                    transitionDelay: `${i * 40}ms`,
+                  }}
+                >
                   {t}
                 </span>
               ))}
@@ -114,63 +139,57 @@ export default function Proceso() {
           </div>
         </div>
 
-        {/* ── 02 — Recibe con velocidad (1col) ─────────── */}
-        <div className="proc-card neon-card group relative overflow-hidden rounded-2xl border border-white/[0.07]
-          sm:col-span-1"
-          style={{ background: 'rgba(255,255,255,0.03)', minHeight: '200px' }}>
-
+        {/* ── 02 — Recibe con velocidad (1col) ── */}
+        <div
+          className="proc-card neon-card group relative overflow-hidden rounded-2xl border border-white/[0.07] sm:col-span-1"
+          style={{ background: 'rgba(255,255,255,0.03)', minHeight: 220 }}
+        >
           <div className="absolute inset-0 bg-gradient-to-br from-purple-800/20 to-transparent pointer-events-none" />
 
-          {/* Big ↑ decorative */}
-          <div className="absolute bottom-2 right-3 font-black select-none pointer-events-none
-            opacity-[0.05] group-hover:opacity-[0.1] transition-opacity duration-500"
-            style={{ fontSize: '8rem', lineHeight: 1, color: 'rgba(124,58,237,1)', fontFamily: 'var(--font-bricolage)' }}>
+          <div
+            className="absolute bottom-2 right-3 select-none pointer-events-none opacity-[0.04] group-hover:opacity-[0.09] transition-opacity duration-500"
+            style={{ fontSize: '7rem', lineHeight: 1, color: '#7C3AED', fontFamily: 'var(--font-bricolage)', fontWeight: 900 }}
+          >
             ↑
           </div>
 
-          <div className="relative z-10 p-7 h-full flex flex-col justify-between">
-            <span className="font-mono text-xs text-accent/35" style={{ letterSpacing: '0.12em' }}>02</span>
+          <div className="relative z-10 p-8 h-full flex flex-col justify-between">
+            <span style={STEP_NUM}>02</span>
             <div>
-              <h3 className="heading-display text-white mb-2 text-base leading-tight">
-                Recibe con velocidad
-              </h3>
-              <p className="text-white/35 text-xs leading-relaxed group-hover:text-white/60 transition-colors">
+              <h3 style={CARD_TITLE}>Recibe con velocidad</h3>
+              <p style={CARD_DESC} className="group-hover:!text-white/70 transition-colors">
                 Entregas ágiles, procesos claros, priorización según impacto.
               </p>
             </div>
           </div>
         </div>
 
-        {/* ── 03 — Ajustamos todo (full width) ─────────── */}
-        <div className="proc-card neon-card group relative overflow-hidden rounded-2xl border border-white/[0.07]
-          sm:col-span-3"
-          style={{ background: 'rgba(255,255,255,0.03)', minHeight: '150px' }}>
-
+        {/* ── 03 — Ajustamos todo (full width) ── */}
+        <div
+          className="proc-card neon-card group relative overflow-hidden rounded-2xl border border-white/[0.07] sm:col-span-3"
+          style={{ background: 'rgba(255,255,255,0.03)', minHeight: 120 }}
+        >
           <div className="absolute inset-0 bg-gradient-to-r from-violet-900/15 via-purple-900/10 to-transparent pointer-events-none" />
 
-          {/* Horizontal lines decorative */}
-          <div className="absolute right-0 top-0 bottom-0 w-40 flex flex-col justify-center gap-2 px-4
-            opacity-[0.06] group-hover:opacity-[0.12] transition-opacity pointer-events-none">
+          <div
+            className="absolute right-0 top-0 bottom-0 w-40 flex flex-col justify-center gap-2 px-4 opacity-[0.05] group-hover:opacity-[0.11] transition-opacity pointer-events-none"
+          >
             {[90, 60, 100, 40, 75, 55].map((w, i) => (
               <div key={i} className="h-px rounded-full bg-accent" style={{ width: `${w}%` }} />
             ))}
           </div>
 
-          <div className="relative z-10 p-7 md:p-8 h-full flex flex-col md:flex-row md:items-center gap-6 justify-between">
+          <div className="relative z-10 p-8 h-full flex flex-col md:flex-row md:items-center gap-6 justify-between">
             <div className="flex items-start md:items-center gap-6">
-              <span className="font-mono text-xs text-accent/35 flex-shrink-0" style={{ letterSpacing: '0.12em' }}>03</span>
+              <span style={STEP_NUM} className="flex-shrink-0">03</span>
               <div>
-                <h3 className="heading-display text-white mb-1.5"
-                  style={{ fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', letterSpacing: '-0.03em' }}>
-                  Ajustamos todo
-                </h3>
-                <p className="text-white/35 text-xs leading-relaxed max-w-lg group-hover:text-white/60 transition-colors">
+                <h3 style={CARD_TITLE}>Ajustamos todo</h3>
+                <p style={CARD_DESC} className="max-w-lg group-hover:!text-white/70 transition-colors">
                   Iteramos contigo hasta que cada entrega esté alineada al 100% con lo que tu marca necesita.
                 </p>
               </div>
             </div>
 
-            {/* Inline CTA */}
             <Link
               href={WA_URL}
               target="_blank"

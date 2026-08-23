@@ -17,7 +17,7 @@ const plans = [
       'Logo básico o ajuste de logo',
       'Mini brand kit',
       'Gestión de redes',
-      'IA básica',
+      'Producción ágil de piezas',
       '2 revisiones por pieza',
       'Soporte asincrónico',
     ],
@@ -32,7 +32,7 @@ const plans = [
       'Edición y generación de videos',
       'Branding continuo y coherencia visual',
       'Sesión de fotografía profesional',
-      'Generación de imágenes con IA',
+      'Producción visual acelerada',
       'Community Manager',
       'Planeación mensual de contenido',
       '3 revisiones por pieza',
@@ -45,7 +45,7 @@ const plans = [
     badge: 'Premium',
     features: [
       'Solicitudes de diseño ilimitadas',
-      'IA avanzada para creación de piezas',
+      'Flujo de producción a máxima velocidad',
       'Fotografía profesional',
       'Community Manager dedicado',
       'Gestión de pauta publicitaria',
@@ -76,9 +76,18 @@ export default function Pricing() {
     const cards = cardsRef.current?.children
     if (cards) {
       gsap.from(Array.from(cards), {
-        y: 50, opacity: 0, duration: 0.7, ease: 'power3.out', stagger: 0.15,
+        y: 60, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.18,
         scrollTrigger: { trigger: cardsRef.current, start: 'top 82%' },
       })
+      // Featured card gets extra scale punch
+      const featured = cardsRef.current?.querySelector('.plan-featured')
+      if (featured) {
+        gsap.from(featured, {
+          scale: 0.92, duration: 0.9, ease: 'back.out(1.5)',
+          scrollTrigger: { trigger: cardsRef.current, start: 'top 82%' },
+          delay: 0.18,
+        })
+      }
     }
   }, [])
 
@@ -147,9 +156,9 @@ export default function Pricing() {
         {plans.map((plan, i) => (
           <div
             key={i}
-            className={`relative flex flex-col rounded-2xl border text-left transition-all duration-300 ${
+            className={`relative flex flex-col rounded-2xl border text-left transition-all duration-300 hover:-translate-y-1 ${
               plan.featured
-                ? 'border-accent/50 bg-[rgba(124,58,237,0.07)] shadow-lg shadow-accent/10'
+                ? 'plan-featured border-accent/50 bg-[rgba(124,58,237,0.07)] shadow-lg shadow-accent/10'
                 : 'border-white/[0.07] bg-[rgba(255,255,255,0.03)]'
             }`}
             style={{ padding: '1.75rem' }}

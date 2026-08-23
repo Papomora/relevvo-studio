@@ -88,9 +88,7 @@ export default function VideoParallaxSection({
         }}
       />
 
-      {/* ── Edge fades — blend into surrounding sections ── */}
-      <div className="absolute top-0 left-0 right-0 pointer-events-none" style={{ height: 160, background: 'linear-gradient(to bottom, rgba(10,10,10,1) 0%, transparent 100%)', zIndex: 2 }} />
-      <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: 160, background: 'linear-gradient(to top, rgba(10,10,10,1) 0%, transparent 100%)', zIndex: 2 }} />
+      {/* Edge fades removed — no video bg, no cuts needed */}
 
       {/* ── Purple accent gradient ── */}
       <div

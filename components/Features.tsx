@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { DotPattern } from '@/components/ui/dot-pattern'
 
 export default function Features() {
   const headingRef = useRef<HTMLDivElement>(null)
@@ -73,11 +74,7 @@ export default function Features() {
           style={{ background: 'rgba(255,255,255,0.03)', minHeight: '300px' }}>
 
           {/* Dot-grid texture */}
-          <div className="absolute inset-0 opacity-[0.15] pointer-events-none"
-            style={{
-              backgroundImage: 'radial-gradient(rgba(124,58,237,0.5) 1px, transparent 1px)',
-              backgroundSize: '22px 22px',
-            }} />
+          <DotPattern width={22} height={22} cr={0.8} className="opacity-20" />
 
           {/* Neon glow on hover */}
           <div className="absolute -top-20 left-1/3 w-80 h-80 rounded-full
@@ -116,7 +113,7 @@ export default function Features() {
                 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', letterSpacing: '-0.04em', lineHeight: 1.05 }}>
                 Figma en<br />tiempo real
               </h3>
-              <p className="text-white/40 text-sm leading-relaxed mt-3 max-w-xs group-hover:text-white/60 transition-colors duration-300">
+              <p className="text-white/45 leading-relaxed mt-3 max-w-xs group-hover:text-white/65 transition-colors duration-300" style={{ fontSize: '0.9375rem', lineHeight: 1.65 }}>
                 Sigue el trabajo directamente en Figma, comenta sobre el archivo y visualiza avances en vivo.
               </p>
             </div>
@@ -153,11 +150,10 @@ export default function Features() {
           <div className="relative z-10 p-7 h-full flex flex-col justify-between">
             <span className="font-mono text-xs text-accent/35" style={{ letterSpacing: '0.12em' }}>02</span>
             <div>
-              <h3 className="heading-display text-white mb-1.5"
-                style={{ fontSize: 'clamp(1.1rem, 2vw, 1.35rem)', letterSpacing: '-0.03em' }}>
+              <h3 className="heading-display text-white mb-2" style={{ fontSize: '1.25rem', letterSpacing: '-0.025em', lineHeight: 1.25 }}>
                 Entrega ágil<br />y continua
               </h3>
-              <p className="text-white/35 text-xs leading-relaxed group-hover:text-white/60 transition-colors">
+              <p className="text-white/45 group-hover:text-white/65 transition-colors" style={{ fontSize: '0.9rem', lineHeight: 1.65 }}>
                 Entregas constantes, sin perder el ritmo.
               </p>
             </div>
@@ -179,11 +175,11 @@ export default function Features() {
           <div className="relative z-10 p-6 h-full flex flex-col justify-between">
             <span className="font-mono text-xs text-accent/35" style={{ letterSpacing: '0.12em' }}>03</span>
             <div>
-              <h3 className="heading-display text-white text-base leading-tight mb-1">
+              <h3 className="heading-display text-white mb-2" style={{ fontSize: '1.25rem', letterSpacing: '-0.025em', lineHeight: 1.25 }}>
                 Tarifa mensual clara
               </h3>
-              <p className="text-white/35 text-[11px] group-hover:text-white/60 transition-colors">
-                Sin sorpresas.
+              <p className="text-white/45 group-hover:text-white/65 transition-colors" style={{ fontSize: '0.9rem', lineHeight: 1.65 }}>
+                Sin sorpresas ni cobros ocultos.
               </p>
             </div>
           </div>
@@ -207,10 +203,10 @@ export default function Features() {
           <div className="relative z-10 p-6 h-full flex flex-col justify-between">
             <span className="font-mono text-xs text-accent/35" style={{ letterSpacing: '0.12em' }}>04</span>
             <div>
-              <h3 className="heading-display text-white text-base leading-tight mb-1">
+              <h3 className="heading-display text-white mb-2" style={{ fontSize: '1.25rem', letterSpacing: '-0.025em', lineHeight: 1.25 }}>
                 Diseño con impacto
               </h3>
-              <p className="text-white/35 text-[11px] group-hover:text-white/60 transition-colors">
+              <p className="text-white/45 group-hover:text-white/65 transition-colors" style={{ fontSize: '0.9rem', lineHeight: 1.65 }}>
                 Para vender y posicionar.
               </p>
             </div>
@@ -234,11 +230,10 @@ export default function Features() {
           <div className="relative z-10 p-7 h-full flex flex-col justify-between">
             <span className="font-mono text-xs text-accent/35" style={{ letterSpacing: '0.12em' }}>05</span>
             <div>
-              <h3 className="heading-display text-white mb-1.5"
-                style={{ fontSize: 'clamp(1.05rem, 1.8vw, 1.3rem)', letterSpacing: '-0.03em' }}>
+              <h3 className="heading-display text-white mb-2" style={{ fontSize: '1.25rem', letterSpacing: '-0.025em', lineHeight: 1.25 }}>
                 Iteración continua
               </h3>
-              <p className="text-white/35 text-xs leading-relaxed group-hover:text-white/60 transition-colors">
+              <p className="text-white/45 leading-relaxed group-hover:text-white/65 transition-colors" style={{ fontSize: '0.9rem', lineHeight: 1.65 }}>
                 Refinamos cada pieza hasta que cumpla el objetivo.
               </p>
             </div>
@@ -279,11 +274,10 @@ export default function Features() {
               </span>
             </div>
             <div>
-              <h3 className="heading-display text-white mb-1.5"
-                style={{ fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', letterSpacing: '-0.03em' }}>
+              <h3 className="heading-display text-white mb-2" style={{ fontSize: '1.25rem', letterSpacing: '-0.025em', lineHeight: 1.25 }}>
                 Siempre a tu lado
               </h3>
-              <p className="text-white/35 text-xs leading-relaxed group-hover:text-white/60 transition-colors max-w-xs">
+              <p className="text-white/45 leading-relaxed group-hover:text-white/65 transition-colors max-w-xs" style={{ fontSize: '0.9rem', lineHeight: 1.65 }}>
                 Comunicación directa, revisiones sin burocracia y equipo dedicado.
               </p>
             </div>

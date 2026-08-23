@@ -1,0 +1,71 @@
+{
+  "slug": "factory-artesanias",
+  "cliente": "Factory Artesanías",
+  "proyecto": "Plan Tienda Factory — Gestión y actualización de tu tienda Shopify",
+  "fecha": "2026-07-27",
+  "vigenciaDias": 15,
+  "resumen": "Sabemos que hoy no buscas el paquete completo de servicios — buscas que tu tienda se vea profesional y se mantenga al día, sin tener que aprender a editar imágenes o ajustar detalles visuales por tu cuenta. Con 30 productos activos en catálogo (línea Montessori, organizadores, juguetería y más), la calidad de cada foto es lo que más pesa en la decisión de compra de tus clientes. Este plan resuelve exactamente eso: fotos consistentes, catálogo siempre actualizado y una tienda que se ve tan bien como tus productos.",
+  "objetivos": [
+    "Elevar la calidad visual de los 30 productos activos para aumentar la conversión",
+    "Mantener el catálogo siempre actualizado sin que tengas que dedicarle tiempo",
+    "Dar a la tienda una apariencia profesional y coherente, mes a mes",
+    "Resolver cambios y ajustes por WhatsApp, sin reuniones ni fricción"
+  ],
+  "alcance": [
+    { "concepto": "Mejora inicial de imágenes", "descripcion": "Revisión y edición de las fotos de los 30 productos activos: tamaños, recorte de fondo, calidad y consistencia visual. Incluida en el primer mes.", "cantidad": "30 productos" },
+    { "concepto": "Carga y actualización de productos", "descripcion": "Fotos, precios, descripciones y nuevas referencias mantenidas al día, mes a mes.", "cantidad": "10 actualizaciones/mes" },
+    { "concepto": "Gestión de imágenes continua", "descripcion": "Edición, redimensionamiento, recorte de fondos y optimización para que cada foto cargue rápido y se vea profesional.", "cantidad": "Incluida" },
+    { "concepto": "Ajustes de apariencia de la tienda", "descripcion": "Banners, portada, orden de colecciones, secciones destacadas y otros detalles visuales.", "cantidad": "6 horas/mes" },
+    { "concepto": "Organización de colecciones", "descripcion": "Montessori, Diseño y Organización, Lúdicos, Descuentos — estructuradas para facilitar la navegación y la compra.", "cantidad": "Incluida" },
+    { "concepto": "Acompañamiento directo por WhatsApp", "descripcion": "Solicita cambios y resuelve dudas sin reuniones largas. Reporte mensual breve de lo realizado.", "cantidad": "Ilimitado" }
+  ],
+  "fases": [
+    { "numero": "01", "titulo": "Kickoff", "descripcion": "Coordinamos el acceso a tu tienda Shopify y confirmamos prioridades del primer mes.", "duracion": "Día 1" },
+    { "numero": "02", "titulo": "Primera entrega", "descripcion": "Las 30 fotos del catálogo quedan mejoradas, consistentes y listas para vender.", "duracion": "Primera semana" },
+    { "numero": "03", "titulo": "Operación mensual", "descripcion": "Actualizaciones, ajustes visuales y acompañamiento continuo, mes a mes.", "duracion": "Mensual" }
+  ],
+  "porQue": {
+    "titulo": "Por qué con nosotros",
+    "texto": "En Relevvo Studio ya gestionamos tiendas Shopify para otras marcas, con procesos claros de actualización y ajuste visual. La diferencia con este plan: pagas exactamente por lo que necesitas hoy para Factory Artesanías, sin servicios de más que no vas a usar. Si más adelante quieres escalar a fotografía de producto, campañas o contenido para redes, ya conocemos tu catálogo y tu tienda — el siguiente paso será simple."
+  },
+  "demoProducto": {
+    "titulo": "Así dejaríamos tu primer producto",
+    "intro": "Tomamos tu producto más visible en la tienda — el Blister Hot Wheels — y lo procesamos con el mismo estándar que aplicaríamos a los 30 productos del catálogo: fondo limpio, colores consistentes y una ficha que realmente vende.",
+    "antes": {
+      "imagen": "/images/factory-demo/hotwheels-antes.jpg",
+      "nombre": "BLISTER HOT WHEELS",
+      "descripcion": "Ideal para coleccionistas que prefieren conservar sus vehículos en su empaque original. Su diseño permite exhibir los carros de forma organizada, protegiendo tanto la colección como su valor."
+    },
+    "despues": {
+      "imagen": "/images/factory-demo/hotwheels-despues.jpg",
+      "nombre": "Organizador de Pared Hot Wheels — Exhibidor para 4 Autos",
+      "descripcion": "Convierte la colección de Hot Wheels en decoración real. Este organizador de pared en madera sostiene hasta 4 autos a la vez, con el diseño oficial Hot Wheels en la parte superior — ideal para la habitación del coleccionista de la casa.",
+      "bullets": [
+        "Exhibe y protege la colección — cada auto queda fijo en su riel, sin golpes ni pérdidas",
+        "Se instala en la pared — libera espacio y luce como decoración, no como guardado",
+        "Medidas: 49 cm alto x 36 cm ancho — el tamaño ideal para cualquier habitación",
+        "Fabricado en madera con acabado en pintura resistente"
+      ],
+      "pills": ["Entrega inmediata", "Pocas unidades"],
+      "precio": 75000,
+      "stockTexto": "Quedan pocas unidades disponibles",
+      "trustBadges": ["Envío a toda Colombia", "Compra 100% segura", "Producto original Hot Wheels"]
+    }
+  },
+  "inversion": {
+    "moneda": "COP",
+    "items": [
+      { "concepto": "Plan Tienda Factory — 10 actualizaciones + gestión de imágenes + 6h de ajustes visuales", "valor": 800000 }
+    ],
+    "descuentoPct": 0,
+    "notaPago": "Una \"actualización\" equivale a un cambio de foto, precio o descripción en un producto existente, o la carga de una referencia nueva. Actualizaciones u horas adicionales fuera de lo incluido: $45.000 COP/hora. Sin permanencia mínima — puedes cancelar o ajustar el alcance con un mes de aviso."
+  },
+  "condiciones": [
+    "Precio en pesos colombianos (COP), facturado mensualmente.",
+    "Una \"actualización\" = cambio de foto, precio o descripción de 1 producto, o carga de 1 referencia nueva.",
+    "Actualizaciones u horas adicionales fuera de lo incluido: $45.000 COP/hora.",
+    "Sin permanencia mínima ni contratos largos — cancela o ajusta el alcance con un mes de aviso.",
+    "El primer mes incluye la mejora inicial de imágenes de los 30 productos activos."
+  ],
+  "whatsappMensaje": "Hola, vi la propuesta del Plan Tienda Factory para Factory Artesanías y quiero confirmarla."
+}

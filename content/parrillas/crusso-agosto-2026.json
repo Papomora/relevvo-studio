@@ -1,0 +1,243 @@
+{
+  "slug": "crusso-agosto-2026",
+  "cliente": "Crussó",
+  "handle": "@tiendacrusso",
+  "mes": "Agosto 2026",
+  "protagonistas": "C300 Pro · C500 Pro · Bada X7 · Libernova (4 colores) · S300 Family · Luxury · Nexus Pro · Hbada E3 Pro · Swan",
+  "pilar": "MOFU — mover de \"conoce la marca\" a \"decide comprar\"",
+  "formato": "El plan incluye 12 piezas/mes. Hay 18 piezas candidatas + 2 campañas aparte (Alzate, EAMES) — elige las 12 que se publican este mes.",
+  "whatsappNumero": "573229393554",
+  "cupoPlan": 12,
+  "piezas": [
+    {
+      "numero": 1, "semana": 1, "tipo": "Reel", "categoria": "Confianza/Showroom", "protagonista": "Libernova — Negro, Gris, Verde y Blanco",
+      "hook": "Esto es lo que casi nadie ve cuando entra a nuestra tienda 👀",
+      "guion": [
+        "(Exterior showroom Cra. 30) Bienvenido a Crussó, Bogotá.",
+        "(Se detiene en Libernova negra) Esta es la Libernova. Diseñada por biomecánicos.",
+        "(Close-up reclinación) Se reclina de 105° a 160°. El rango más amplio del catálogo.",
+        "(Corte a gris y blanca) Existe en gris... y en blanco, disponible ya en este showroom.",
+        "(Plano de alguien reclinándose, texto: Estiramiento de columna integrado) Al reclinarte, activa un estiramiento vertebral automático.",
+        "(Corte a swatch verde) Y este verde... todavía no lo tenemos en tienda. Pero ya viene.",
+        "(Cierre, logo) Ven a sentirla vos mismo."
+      ],
+      "caption": "No es lujo por lujo. Es biomecánica real. Te esperamos en la Cra. 30 🪑✨",
+      "cta": "Guarda este reel y ven a probarla / Comenta \"VISITA\" y te contamos horarios."
+    },
+    {
+      "numero": 2, "semana": 1, "tipo": "Carrusel", "categoria": "Objeciones/Educativo", "protagonista": "C300 Pro",
+      "hook": "3 cosas que NADIE te dice antes de comprar tu silla ergonómica 🧠",
+      "slides": [
+        "1. Si la silla \"sigue\" tu movimiento o solo se reclina. La C300 Pro tiene un chasis inteligente que se ajusta contigo.",
+        "2. El soporte lumbar real. No es un cojín pegado — es un sistema que envuelve tu columna.",
+        "3. La malla. Si no respira, en 3 meses la vas a odiar.",
+        "La C300 Pro trae rastreo dinámico de postura, lumbar Domino II y malla CloudTech.",
+        "Guarda esto para cuando vayas a comprar la tuya 📌"
+      ],
+      "caption": "Comprar silla no debería sentirse como una lotería.",
+      "cta": "Guarda para después / Comenta qué otra duda tenés."
+    },
+    {
+      "numero": 3, "semana": 1, "tipo": "Post", "categoria": "Comunidad",
+      "copy": "¿Cuál es tu mayor duda antes de comprar una silla para tu oficina en casa? 🤔 Te leemos y te respondemos una por una en comentarios.",
+      "cta": "Comenta tu duda / Etiqueta a alguien que también está buscando silla."
+    },
+    {
+      "numero": 4, "semana": 2, "tipo": "Reel", "categoria": "Prueba social", "protagonista": "Libernova Blanca (unidad física en showroom)",
+      "hook": "Le dimos la silla a un cliente real y no le avisamos que estábamos grabando 🎥",
+      "guion": [
+        "(Cliente sentándose en la Libernova blanca) Uy, esto se siente distinto apenas te sentás.",
+        "(Se reclina) ¿Esto se mueve solo conmigo?",
+        "(Reacción espontánea) ¿Cuánto vale esta?",
+        "(Precio en pantalla: $6.899.000) Esta es la Libernova, en blanco.",
+        "(Cierre) Opinión 100% real. Cero libreto."
+      ],
+      "caption": "Nada de actores. Así reacciona la gente cuando prueba la Libernova blanca por primera vez.",
+      "cta": "Ven a probarla vos también / Guarda si estás decidiendo tu próxima silla premium."
+    },
+    {
+      "numero": 5, "semana": 2, "tipo": "Carrusel", "categoria": "Lifestyle", "protagonista": "C300 Pro Blanco",
+      "hook": "De rincón olvidado a puesto de trabajo real 🏠➡️💼",
+      "slides": [
+        "(antes) Este rincón llevaba meses sin usarse.",
+        "(después, C300 Pro blanca) Y así quedó con la C300 Pro.",
+        "(detalle blanco) El blanco cambia todo el carácter del espacio.",
+        "(persona reclinada) Reclinación de 150° para cuando el día se pone largo.",
+        "(cierre) ¿Tu rincón necesita este cambio?"
+      ],
+      "caption": "El home office no necesita ser grande. Necesita la silla correcta. 🪑",
+      "cta": "Etiqueta a alguien que necesita este cambio."
+    },
+    {
+      "numero": 6, "semana": 2, "tipo": "Post", "categoria": "Objeciones/logística", "protagonista": "C500 Pro",
+      "copy": "Sí, enviamos a toda Colombia. Y sí, llega bien empacada. Así se ve por dentro nuestro despacho 📦",
+      "caption": "Sabemos que da miedo comprar sin ver antes. Por eso te mostramos cómo empacamos hasta una silla con mecanismo de fibra de carbono como la C500 Pro. 🚚",
+      "cta": "Comenta tu ciudad y te confirmamos tiempo de entrega."
+    },
+    {
+      "numero": 7, "semana": 3, "tipo": "Carrusel", "categoria": "Comparativa", "protagonista": "Bada X7",
+      "hook": "Silla genérica vs. silla premium importada: qué cambia realmente 👀",
+      "slides": [
+        "La tecnología. Trae calefacción y masaje con control remoto. Ninguna genérica hace eso.",
+        "El soporte. Sistema en T de 3 zonas — cuello, hombros y lumbar al mismo tiempo.",
+        "El ajuste. 9 posiciones de respaldo + lumbar 8D.",
+        "Esto no se improvisa en una línea de producción genérica.",
+        "Esta es la Bada X7. La diferencia se siente, no solo se ve."
+      ],
+      "caption": "No hablamos de nadie en particular. Hablamos de lo que hace que una silla sea premium de verdad. 💭",
+      "cta": "Guarda este carrusel / Comenta si querés que comparemos otro modelo."
+    },
+    {
+      "numero": 8, "semana": 3, "tipo": "Reel", "categoria": "Educativo/Confianza (tecnología)", "protagonista": "Bada X7 + Libernova",
+      "hook": "Dos formas distintas de definir \"silla inteligente\" 🧠",
+      "guion": [
+        "(Persona del equipo a cámara) Te muestro la diferencia entre dos tecnologías del catálogo.",
+        "(Bada X7, activando masaje) Esta se enfoca en recuperación activa — calor y masaje mientras trabajás.",
+        "(Libernova, reclinándose) Esta se enfoca en biomecánica — se adapta a tu columna en tiempo real.",
+        "(Plano de ambas) No es que una sea mejor. Resuelven cosas distintas.",
+        "(Cierre) Por eso preguntamos siempre para qué la necesitás antes de recomendar."
+      ],
+      "caption": "La tecnología correcta depende de lo que tu cuerpo necesita. 🧵",
+      "cta": "Comenta cuál te llamó más la atención."
+    },
+    {
+      "numero": 9, "semana": 3, "tipo": "Post + Historia con encuesta", "categoria": "Comunidad", "protagonista": "Los 4 colores de Libernova",
+      "copy": "Historia (encuesta): ¿Cuál color de Libernova te gusta más? 🖤🩶💚🤍 · Post de resumen: Ya votaron cientos de ustedes... y esto fue lo que ganó 👇",
+      "caption": "El blanco ya está disponible para probar en showroom. El verde todavía no llega a tienda, pero ya sabemos que hay ganas 👀",
+      "cta": "Comenta tu favorito / Ven a probar el que ya tenemos disponible."
+    },
+    {
+      "numero": 10, "semana": 4, "tipo": "Reel", "categoria": "Prueba social", "protagonista": "Bada X7",
+      "hook": "Le pusimos calefacción y masaje a alguien que llevaba 8 horas sentado 🔥",
+      "guion": [
+        "(Cliente sentándose, cansado) Llevo todo el día en reuniones.",
+        "(Activa el control remoto) ¿Esto tiene calefacción?",
+        "(Reacción real, relajándose) Uy... esto se siente increíble.",
+        "(Close-up control remoto) Calefacción + masaje, todo desde acá.",
+        "(Cierre con calificación en pantalla ⭐⭐⭐⭐⭐)"
+      ],
+      "caption": "Otra reseña real. Esta silla no es solo ergonomía — es recuperación activa en tu escritorio.",
+      "cta": "Ven a probarla vos también / Guarda si trabajás jornadas largas."
+    },
+    {
+      "numero": 11, "semana": 4, "tipo": "Carrusel", "categoria": "Educativo", "protagonista": "Escalera completa — C300 Pro, C500 Pro, Bada X7, Libernova",
+      "hook": "La escalera completa de ergonomía inteligente Crussó 🪜",
+      "slides": [
+        "Nivel 1 — C300 Pro ($2.900.000). Chasis inteligente, rastreo de postura, malla que respira.",
+        "Nivel 2 — C500 Pro ($3.900.000). Mecanismo de fibra de carbono, malla coreana.",
+        "Nivel 3 — Bada X7 ($6.500.000). Calefacción, masaje y control remoto.",
+        "Nivel 4 — Libernova ($6.899.000). Biomecánica de verdad, disponible en 4 colores.",
+        "¿En qué nivel estás vos? Guarda esta guía."
+      ],
+      "caption": "No hay una silla \"mejor\". Hay una silla para cada nivel de exigencia. 📌",
+      "cta": "Guarda esta guía / Comenta en qué nivel te ubicás."
+    },
+    {
+      "numero": 12, "semana": 4, "tipo": "Reel/Post", "categoria": "Comunidad/Ofertas", "protagonista": "C300 Pro (exhibición)",
+      "hook": "Atención: van a quedar sillas de exhibición con descuento 👀",
+      "copy": "Aviso para la comunidad: pronto vamos a liberar unidades de exhibición del showroom — mismas sillas, mismo respaldo de garantía, pero con descuento especial por ser de exhibición. Entre ellas, unidades de la C300 Pro.",
+      "caption": "Cupos limitados. La primera en avisarse es siempre la comunidad. 🪑",
+      "cta": "Comenta \"QUIERO\" para que te avisemos apenas estén disponibles / Guarda este post."
+    },
+    {
+      "numero": 13, "semana": 5, "tipo": "Reel", "categoria": "Lanzamiento", "protagonista": "S300 Family",
+      "hook": "La familia S300 llegó completa a Crussó 👨‍👩‍👧",
+      "guion": [
+        "(Exterior tienda) Nueva llegada a Crussó.",
+        "(Close-up S300 Family) La línea S300 Family — pensada para toda la casa, no solo la oficina.",
+        "(Detalle ajustes) Mismo ADN ergonómico S300, en versiones para cada miembro de la familia.",
+        "(Corte a variantes) Desde el escritorio de los chicos hasta el home office de los papás.",
+        "(Cierre) Ya está disponible en showroom."
+      ],
+      "caption": "Ergonomía real, para toda la familia. 👨‍👩‍👧‍👦",
+      "cta": "Ven a conocer la línea completa / Comenta si quieres el catálogo."
+    },
+    {
+      "numero": 14, "semana": 5, "tipo": "Carrusel", "categoria": "Lanzamiento", "protagonista": "Luxury",
+      "hook": "Presentamos Luxury: el nuevo tope de gama Crussó ✨",
+      "slides": [
+        "Materiales premium en cada detalle — desde el cuero hasta el mecanismo.",
+        "Diseño pensado para oficinas ejecutivas y espacios que exigen estética, no solo función.",
+        "Ajustes de precisión en cada punto de contacto con el cuerpo.",
+        "Esta silla no es para todos. Es para quien no negocia calidad.",
+        "Ya disponible en Crussó."
+      ],
+      "caption": "Luxury: donde la ergonomía se encuentra con el diseño de alta gama. 🖤",
+      "cta": "Agenda una cita para probarla / Comenta \"LUXURY\" para más info."
+    },
+    {
+      "numero": 15, "semana": 5, "tipo": "Reel", "categoria": "Confianza/Showroom", "protagonista": "Sede Calle 30 + Sede Calle 109",
+      "hook": "Dos tiendas, un mismo estándar Crussó 🏬🏬",
+      "guion": [
+        "(Exterior Calle 30) Esta es nuestra sede de la Calle 30.",
+        "(Interior recorrido) Catálogo completo, showroom para probar cada modelo.",
+        "(Corte a Calle 109) Y esta es la Calle 109 — nuestra segunda casa.",
+        "(Interior recorrido) Mismo catálogo, misma atención, más cerca de ti.",
+        "(Cierre, direcciones en pantalla) Elige la que te quede más cerca. Te esperamos en cualquiera de las dos."
+      ],
+      "caption": "Dos sedes en Bogotá, la misma experiencia Crussó. 📍",
+      "cta": "Comenta tu sede más cercana / Guarda las direcciones."
+    },
+    {
+      "numero": 16, "semana": 5, "tipo": "Carrusel", "categoria": "Lanzamiento/Educativo", "protagonista": "Nexus Pro",
+      "hook": "Nexus Pro: la silla que faltaba en el catálogo 🔧",
+      "slides": [
+        "Sistema de ajuste Nexus — sincroniza respaldo y asiento en un solo movimiento.",
+        "Pensada para quienes pasan largas jornadas frente al computador.",
+        "Soporte lumbar ajustable + reposabrazos 4D.",
+        "Otra opción más en la escalera de ergonomía inteligente Crussó.",
+        "Ya disponible — ven a probarla."
+      ],
+      "caption": "Nexus Pro se une al catálogo Crussó. 🆕",
+      "cta": "Guarda este carrusel / Ven a probarla en showroom."
+    },
+    {
+      "numero": 17, "semana": 5, "tipo": "Reel", "categoria": "Lanzamiento/Prueba social", "protagonista": "Hbada E3 Pro",
+      "hook": "La Hbada E3 Pro ya está en Crussó — y esto fue lo primero que dijeron los clientes 🎥",
+      "guion": [
+        "(Cliente probando la silla) ¿Esta es nueva?",
+        "(Close-up mecanismo) Sí, Hbada E3 Pro — acaba de llegar.",
+        "(Cliente reclinándose) Se siente muy firme, me gusta.",
+        "(Detalle reposacabezas) Reposacabezas ajustable, soporte lumbar dedicado.",
+        "(Cierre) Otra opción premium para tu espacio de trabajo."
+      ],
+      "caption": "Nueva llegada: Hbada E3 Pro. Primeras reacciones, 100% reales.",
+      "cta": "Ven a probarla / Comenta si quieres que la comparemos con otro modelo."
+    },
+    {
+      "numero": 18, "semana": 5, "tipo": "Reel (pendiente)", "categoria": "Campaña aparte · Colaboración", "protagonista": "Cantante Alzate",
+      "hook": "Guion pendiente — el material llega la próxima semana",
+      "copy": "Colaboración con el cantante Alzate. Esta pieza NO forma parte del calendario regular de agosto — es una campaña aparte. El video está en producción y se recibe la próxima semana; se documenta aquí como marcador de espacio para que quede en el radar de aprobación una vez llegue el material.",
+      "caption": "Por definir cuando llegue el video.",
+      "cta": "Pendiente de definir con el material final.",
+      "fueraDeCalendario": true
+    },
+    {
+      "numero": 19, "semana": 5, "tipo": "Post", "categoria": "Pauta pequeña · Lanzamiento", "protagonista": "Eames",
+      "copy": "Campaña pequeña de pauta paga para dar visibilidad puntual al modelo Eames — el diseño icónico ya forma parte del catálogo Crussó. Alcance acotado, no es parte del contenido orgánico regular.",
+      "caption": "El diseño que nunca pasa de moda, ahora en Crussó. 🪑",
+      "cta": "Conoce la Eames / Escríbenos por disponibilidad.",
+      "fueraDeCalendario": true
+    },
+    {
+      "numero": 20, "semana": 5, "tipo": "Carrusel", "categoria": "Prioridad · Inventario", "protagonista": "Swan",
+      "hook": "Swan: lista para entrega inmediata en ambas sedes 🦢",
+      "slides": [
+        "La Swan ya está disponible para entrega inmediata — sin esperas.",
+        "Línea de perfil bajo, curvas suaves, pensada para espacios que combinan estética y comodidad.",
+        "Ideal tanto para oficina en casa como para espacios de recepción.",
+        "Buen momento para pedirla: disponibilidad amplia en Calle 30 y Calle 109.",
+        "Ven a probarla o pregunta por disponibilidad ahora mismo."
+      ],
+      "caption": "Swan: disponible ya, en las dos sedes. 🦢",
+      "cta": "Pregunta disponibilidad / Ven a probarla en showroom.",
+      "prioridad": true
+    }
+  ],
+  "historias": [
+    { "semana": 1, "items": ["Foto rápida del showroom, sticker: ¿Libernova negra, gris o blanca?", "Boomerang de empaque saliendo: Sale hoy para [ciudad]"] },
+    { "semana": 2, "items": ["Countdown: El reel de la Libernova blanca sale mañana 👀", "Repost de comentario de la pieza 4 con \"Real people, real chairs\""] },
+    { "semana": 3, "items": ["Timelapse del setup de grabación del reel comparativo (Bada X7)", "Encuesta: ¿Ya sabías que la Bada X7 tiene calefacción? Sí / No"] },
+    { "semana": 4, "items": ["Repost del resultado de colores Libernova con comentario del equipo", "Cuenta regresiva: Últimas horas para etiquetar y ganar la C300 Pro"] }
+  ]
+}

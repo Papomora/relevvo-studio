@@ -67,6 +67,31 @@ export default function AIStory() {
   const ch5Ref       = useRef<HTMLDivElement>(null)
   const closerRef    = useRef<HTMLDivElement>(null)
 
+  // Counter animation on stats
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const counters = document.querySelectorAll('.stat-counter')
+    counters.forEach(el => {
+      const num = parseInt(el.getAttribute('data-num') || '0')
+      const suffix = el.getAttribute('data-suffix') || ''
+      const obs = new IntersectionObserver(entries => {
+        if (!entries[0].isIntersecting) return
+        let start = 0
+        const duration = 1400
+        const step = (ts: number) => {
+          if (!start) start = ts
+          const p = Math.min((ts - start) / duration, 1)
+          const eased = 1 - Math.pow(1 - p, 3)
+          ;(el as HTMLElement).textContent = Math.round(eased * num) + suffix
+          if (p < 1) requestAnimationFrame(step)
+        }
+        requestAnimationFrame(step)
+        obs.disconnect()
+      }, { threshold: 0.5 })
+      obs.observe(el)
+    })
+  }, [])
+
   useReveal(introRef,     { y: 40 })
   useReveal(ch1Ref,       { y: 30 })
   useReveal(toolsRef,     { y: 40 })
@@ -231,20 +256,24 @@ export default function AIStory() {
           </p>
         </div>
 
-        {/* Stats */}
+        {/* Stats — counter animation on scroll */}
         <div ref={statsRef} className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           {[
-            { value: '20+', label: 'Marcas potenciadas en Colombia y LATAM', accent: '#7C3AED' },
-            { value: '5+',  label: 'Años construyendo identidades que perduran', accent: '#41E575' },
-            { value: '100%', label: 'De compromiso con cada cliente, sin importar el plan', accent: '#FFB0CD' },
+            { value: '20+', num: 20, suffix: '+', label: 'Marcas potenciadas en Colombia y LATAM', accent: '#7C3AED' },
+            { value: '5+',  num: 5,  suffix: '+', label: 'Años construyendo identidades que perduran', accent: '#41E575' },
+            { value: '100%', num: 100, suffix: '%', label: 'De compromiso con cada cliente, sin importar el plan', accent: '#FFB0CD' },
           ].map((s, i) => (
             <div
               key={i}
-              className="rounded-2xl p-8 text-center"
-              style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
+              className="rounded-2xl p-8 text-center group"
+              style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', transition: 'border-color .3s, background .3s' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = `${s.accent}40`; (e.currentTarget as HTMLElement).style.background = `${s.accent}08` }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.07)'; (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.03)' }}
             >
               <p
-                className="heading-display mb-2"
+                className="heading-display mb-2 stat-counter"
+                data-num={s.num}
+                data-suffix={s.suffix}
                 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.8rem)', letterSpacing: '-0.04em', color: s.accent }}
               >
                 {s.value}
@@ -302,6 +331,7 @@ export default function AIStory() {
               { text: 'Construimos tu identidad con intención. Cada color tiene un argumento. Cada tipografía, una razón. Nada es decoración — todo comunica.' },
               { text: 'Ejecutamos sin cuellos de botella. Tu marca siempre activa, siempre coherente, siempre avanzando.' },
               { text: 'Medimos lo que importa. Los datos nos dicen qué funciona. Iteramos hasta que los números hablen solos.' },
+              { text: 'Usamos IA donde acelera, no donde decide. Investigación, moodboards e iteración rápida se apoyan en tecnología. La dirección de arte, la coherencia de marca y la aprobación final son criterio humano — siempre.' },
               { text: 'Somos transparentes. Si algo no está funcionando, te lo decimos antes de que lo notes tú.' },
             ].map((item, i) => (
               <div key={i} className="flex gap-5 items-start">
@@ -309,6 +339,32 @@ export default function AIStory() {
                 <p className="text-white/65 text-base leading-relaxed">{item.text}</p>
               </div>
             ))}
+          </div>
+        </div>
+
+        <BigQuote text="La IA cambia cómo trabajamos, no por qué diseñamos." accent="rgba(167,139,250,0.9)" />
+
+        {/* Proyecto pequeño vs. corporativo */}
+        <div
+          className="rounded-3xl p-8 md:p-12 mb-16"
+          style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)' }}
+        >
+          <h4 className="font-mono text-xs mb-8 text-white/25 uppercase" style={{ letterSpacing: '0.12em' }}>Dónde ayuda la IA, y dónde no</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="rounded-2xl p-6" style={{ background: 'rgba(96,165,250,0.06)', border: '1px solid rgba(96,165,250,0.18)' }}>
+              <h5 className="font-mono text-xs mb-4 uppercase" style={{ color: '#60A5FA', letterSpacing: '0.1em' }}>Proyecto pequeño</h5>
+              <p className="text-white/55 text-sm leading-relaxed">
+                Piezas puntuales, prototipos rápidos, primeras versiones. Ahí la IA acelera muchísimo el proceso —
+                y lo usamos sin pena, porque el objetivo es velocidad sin sacrificar criterio.
+              </p>
+            </div>
+            <div className="rounded-2xl p-6" style={{ background: 'rgba(124,58,237,0.08)', border: '1px solid rgba(124,58,237,0.25)' }}>
+              <h5 className="font-mono text-xs mb-4 uppercase" style={{ color: '#A78BFA', letterSpacing: '0.1em' }}>Proyecto corporativo</h5>
+              <p className="text-white/55 text-sm leading-relaxed">
+                Sistemas de marca completos, manuales, señalética, papelería, decenas de piezas coherentes entre sí.
+                Ahí la IA sola no basta: se necesita dominio real de herramientas profesionales y visión estratégica humana.
+              </p>
+            </div>
           </div>
         </div>
 

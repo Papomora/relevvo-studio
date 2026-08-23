@@ -1,0 +1,38 @@
+{
+  "slug": "ejemplo-demo",
+  "cliente": "Nombre del Cliente",
+  "proyecto": "Branding completo + estrategia de contenido",
+  "fecha": "2026-07-27",
+  "vigenciaDias": 10,
+  "resumen": "Propuesta de trabajo para construir la identidad de marca completa y activar un sistema de contenido mensual que sostenga el crecimiento en redes sociales y ventas.",
+  "objetivos": [
+    "Definir una identidad visual coherente y memorable",
+    "Activar presencia digital con contenido estratégico mensual",
+    "Establecer un sistema de producción ágil y predecible"
+  ],
+  "alcance": [
+    { "concepto": "Identidad de marca", "descripcion": "Logo, paleta de color, tipografía y manual básico de uso", "cantidad": "1 sistema" },
+    { "concepto": "Piezas mensuales", "descripcion": "Diseño de contenido para redes sociales con estrategia definida", "cantidad": "12 piezas/mes" },
+    { "concepto": "Estrategia de contenido", "descripcion": "Planeación mensual alineada a objetivos comerciales", "cantidad": "Incluida" }
+  ],
+  "fases": [
+    { "numero": "01", "titulo": "Descubrimiento", "descripcion": "Entendemos tu marca, tu audiencia y tus objetivos comerciales.", "duracion": "3-5 días" },
+    { "numero": "02", "titulo": "Diseño de identidad", "descripcion": "Construimos el sistema visual completo con revisiones incluidas.", "duracion": "1-2 semanas" },
+    { "numero": "03", "titulo": "Producción continua", "descripcion": "Activamos el flujo mensual de contenido y campañas.", "duracion": "Mensual" }
+  ],
+  "inversion": {
+    "moneda": "COP",
+    "items": [
+      { "concepto": "Identidad de marca (pago único)", "valor": 1500000 },
+      { "concepto": "Plan mensual de contenido", "valor": 1200000 }
+    ],
+    "descuentoPct": 0,
+    "notaPago": "El plan mensual se factura de forma recurrente a partir del segundo mes. La identidad de marca es un pago único."
+  },
+  "condiciones": [
+    "Esta propuesta es válida por el tiempo indicado arriba.",
+    "Los precios están en pesos colombianos (COP) e incluyen IVA si aplica.",
+    "El proyecto inicia con la confirmación y el primer pago acordado."
+  ],
+  "whatsappMensaje": "Hola, vi la propuesta para Nombre del Cliente y quiero confirmarla."
+}

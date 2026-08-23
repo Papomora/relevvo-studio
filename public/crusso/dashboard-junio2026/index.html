@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRUSSÓ — Campañas Adicionales & Auditoría Web | Junio 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#D41515;
+    --red-dark:#240404;
+    --off-white:#F5EFE6;
+    --blk:#111111;
+    --gray:#6b6b6b;
+    --line:#ece4d8;
+    --crit:#D41515;
+    --alta:#E8821A;
+    --media:#D4A615;
+    --ok:#1F9D55;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--off-white);
+    color:var(--blk);
+    line-height:1.5;
+  }
+  .topbar{
+    background:var(--red-dark);
+    color:#fff;
+    padding:36px 6vw;
+    position:relative;
+    overflow:hidden;
+  }
+  .topbar::after{
+    content:"";
+    position:absolute; bottom:0; left:0; right:0;
+    height:6px; background:var(--red);
+  }
+  .topbar .eyebrow{
+    font-size:12px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--red); font-weight:700; margin-bottom:8px;
+  }
+  .topbar h1{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(36px,6vw,64px);
+    letter-spacing:.04em;
+    line-height:1.05;
+  }
+  .topbar p{
+    margin-top:10px; max-width:680px; color:#e9d9d9; font-size:15px;
+  }
+  .topbar .meta{
+    margin-top:18px; display:flex; gap:24px; flex-wrap:wrap; font-size:13px; color:#cdb9b9;
+  }
+  .topbar .meta b{color:#fff;}
+
+  nav.tabs{
+    position:sticky; top:0; z-index:50;
+    background:#fff; border-bottom:1px solid var(--line);
+    display:flex; gap:4px; padding:0 6vw; overflow-x:auto;
+  }
+  nav.tabs button{
+    border:none; background:none; cursor:pointer;
+    font-family:'Inter'; font-weight:700; font-size:13px;
+    text-transform:uppercase; letter-spacing:.06em;
+    padding:16px 14px; color:var(--gray);
+    border-bottom:3px solid transparent;
+    white-space:nowrap;
+  }
+  nav.tabs button.active{ color:var(--red); border-bottom-color:var(--red); }
+  nav.tabs button:hover{ color:var(--red-dark); }
+
+  main{ padding:32px 6vw 80px; max-width:1280px; margin:0 auto; }
+  section.view{ display:none; }
+  section.view.active{ display:block; animation:fade .25s ease; }
+  @keyframes fade{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+  h2.section-title{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:30px; letter-spacing:.03em; color:var(--red-dark);
+    margin-bottom:6px; display:flex; align-items:center; gap:12px;
+  }
+  h2.section-title::before{
+    content:""; width:28px; height:4px; background:var(--red); display:inline-block;
+  }
+  .section-sub{ color:var(--gray); font-size:14px; margin-bottom:24px; max-width:760px;}
+
+  /* KPI cards */
+  .kpis{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; margin-bottom:32px; }
+  .kpi{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px 20px; }
+  .kpi .num{ font-family:'Bebas Neue'; font-size:32px; color:var(--red-dark); }
+  .kpi .lbl{ font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--gray); font-weight:700; margin-top:4px;}
+
+  /* Cards / grid */
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:28px;}
+  @media(max-width:760px){ .grid2{grid-template-columns:1fr;} }
+  .card{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px; }
+  .card h3{ font-size:16px; color:var(--red-dark); margin-bottom:12px; display:flex; align-items:center; gap:8px;}
+  .card h3 .dot{ width:8px; height:8px; border-radius:50%; background:var(--red); display:inline-block;}
+  .card ul{ padding-left:18px; font-size:14px; color:#3b3b3b;}
+  .card li{ margin-bottom:6px;}
+
+  /* Tables */
+  .table-wrap{ background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; margin-bottom:28px; }
+  table{ width:100%; border-collapse:collapse; font-size:13.5px;}
+  thead th{
+    background:var(--red-dark); color:#fff; text-align:left;
+    padding:12px 16px; font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:.05em;
+    position:sticky; top:0;
+  }
+  tbody td{ padding:12px 16px; border-bottom:1px solid var(--line); vertical-align:top;}
+  tbody tr:nth-child(even){ background:#fbf7f1; }
+  tbody tr:hover{ background:#fdeeee; }
+  td.num, th.num{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap;}
+
+  .badge{ display:inline-block; padding:3px 10px; border-radius:99px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:#fff;}
+  .b-incluida{ background:var(--ok); }
+  .b-adicional{ background:var(--red); }
+  .b-critica{ background:var(--crit); }
+  .b-alta{ background:var(--alta); }
+  .b-media{ background:var(--media); color:#3b2e00;}
+  .b-mediaalta{ background:#e07a16;}
+
+  .total-row td{ font-weight:800; background:#f3e2e2 !important; font-size:15px; }
+  .strike{ text-decoration:line-through; color:var(--gray); font-weight:400; }
+
+  .pill-row{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px;}
+  .pill{ background:#fff; border:1px solid var(--line); border-radius:99px; padding:6px 16px; font-size:12px; font-weight:700; color:var(--red-dark);}
+
+  .price-box{
+    background:var(--red-dark); color:#fff; border-radius:16px; padding:28px 32px;
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:20px; margin-bottom:28px;
+  }
+  .price-box .label{ font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:#e9b9b9; font-weight:700;}
+  .price-box .price{ font-family:'Bebas Neue'; font-size:48px; color:#fff; }
+  .price-box .price .strike{ color:#a98484; font-size:24px; margin-right:10px;}
+  .price-box .note{ font-size:12px; color:#e9d9d9; max-width:320px;}
+
+  .flow{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:28px;}
+  .flow .step{ background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 16px; font-size:13px; font-weight:600; flex:1; min-width:140px; text-align:center;}
+  .flow .arrow{ color:var(--red); font-weight:800; font-size:18px;}
+
+  .footer-cta{
+    margin-top:40px; background:var(--red); color:#fff; border-radius:16px;
+    padding:28px 32px; text-align:center;
+  }
+  .footer-cta h3{ font-family:'Bebas Neue'; font-size:26px; letter-spacing:.03em; margin-bottom:6px;}
+  .footer-cta p{ font-size:14px; color:#ffe2e2;}
+
+  .legend{ font-size:12px; color:var(--gray); margin-bottom:16px; display:flex; gap:18px; flex-wrap:wrap; align-items:center;}
+  .legend span{ display:inline-flex; align-items:center; gap:6px;}
+  .legend .sw{ width:12px; height:12px; border-radius:3px; display:inline-block;}
+
+  footer.page-footer{
+    text-align:center; padding:24px; font-size:12px; color:var(--gray);
+    border-top:1px solid var(--line);
+  }
+
+  /* ======= MOBILE ======= */
+  @media(max-width:640px){
+    .topbar{ padding:24px 5vw; }
+    .topbar h1{ font-size:clamp(28px,9vw,40px); }
+    .topbar p{ font-size:13px; }
+    .topbar .meta{ gap:10px 16px; font-size:12px; }
+
+    nav.tabs{ padding:0 4vw; gap:0; -webkit-overflow-scrolling:touch; }
+    nav.tabs button{ padding:12px 10px; font-size:11.5px; }
+
+    main{ padding:20px 4vw 60px; }
+    h2.section-title{ font-size:24px; }
+    .section-sub{ font-size:13px; margin-bottom:16px; }
+
+    .kpis{ grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:20px; }
+    .kpi{ padding:14px 16px; }
+    .kpi .num{ font-size:26px; }
+    .kpi .lbl{ font-size:11px; }
+
+    .grid2{ gap:14px; margin-bottom:20px; }
+    .card{ padding:16px; }
+
+    .table-wrap{ margin-bottom:20px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .table-wrap table{ min-width:560px; }
+    table{ font-size:12px; }
+    thead th, tbody td{ padding:10px 12px; }
+
+    .price-box{ flex-direction:column; align-items:flex-start; padding:20px; gap:12px; }
+    .price-box .price{ font-size:36px; }
+    .price-box .price .strike{ font-size:18px; }
+
+    .flow{ flex-direction:column; align-items:stretch; }
+    .flow .arrow{ transform:rotate(90deg); align-self:center; }
+    .flow .step{ width:100%; }
+
+    .footer-cta{ padding:20px; margin-top:24px; }
+    .footer-cta h3{ font-size:22px; }
+
+    .legend{ font-size:11px; gap:10px; }
+    .pill-row{ gap:6px; }
+    .pill{ font-size:11px; padding:5px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="eyebrow">Relevvo Studio · Junio 2026</div>
+  <h1>Crussó — Plan de Campañas + Auditoría de Sitio</h1>
+  <p>Resumen ejecutivo de las 10 campañas activas este mes (Calle 109 y Cra 30), la inversión del adicional, y un diagnóstico del sitio crusso.com.co con las correcciones prioritarias para que la pauta rinda al máximo.</p>
+  <div class="meta">
+    <div><b>Sedes:</b> Calle 109 · Cra 30</div>
+    <div><b>Campañas totales:</b> 10 (3 plan + 7 adicionales)</div>
+    <div><b>Inversión adicional:</b> $2.500.000 COP (pago único)</div>
+  </div>
+</div>
+
+<nav class="tabs">
+  <button class="active" data-view="campanas">Campañas</button>
+  <button data-view="inversion">Inversión</button>
+  <button data-view="auditoria">Auditoría del sitio</button>
+  <button data-view="estrategia">Estrategia de pauta</button>
+  <button data-view="medicion">Medición</button>
+  <button data-view="plan">Plan de acción</button>
+</nav>
+
+<main>
+
+  <!-- ======= CAMPAÑAS ======= -->
+  <section class="view active" id="campanas">
+    <h2 class="section-title">Las 10 campañas de junio</h2>
+    <p class="section-sub">3 campañas ya cubiertas por el plan mensual + 7 adicionales cubiertas por esta propuesta. Cada campaña adicional incluye 1 video y 2 piezas gráficas listas para pauta.</p>
+
+    <div class="kpis">
+      <div class="kpi"><div class="num">10</div><div class="lbl">Campañas totales</div></div>
+      <div class="kpi"><div class="num">2</div><div class="lbl">Sedes (109 / Cra 30)</div></div>
+      <div class="kpi"><div class="num">3</div><div class="lbl">Incluidas en plan</div></div>
+      <div class="kpi"><div class="num">7</div><div class="lbl">Adicionales (esta propuesta)</div></div>
+      <div class="kpi"><div class="num">21</div><div class="lbl">Piezas a producir (7 video + 14 gráficas)</div></div>
+    </div>
+
+    <div class="legend">
+      <span><span class="sw" style="background:var(--ok)"></span> Incluida en el plan mensual</span>
+      <span><span class="sw" style="background:var(--red)"></span> Adicional — esta propuesta</span>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Sede</th>
+            <th>Campaña</th>
+            <th>Producto / Modelo</th>
+            <th>Estado</th>
+            <th>Producción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Calle 109</td><td>Día del Padre (Mis Hijos)</td><td>Edición especial</td><td><span class="badge b-adicional">Adicional</span></td><td>1 video + 2 gráficas</td></tr>
+          <tr><td>2</td><td>Calle 109</td><td>Modelo Xpro</td><td>Silla Gamer XPRO 500</td><td><span class="badge b-adicional">Adicional</span></td><td>1 video + 2 gráficas</td></tr>
+          <tr><td>3</td><td>Calle 109</td><td>Modelo Max Confort</td><td>Línea ergonómica oficina</td><td><span class="badge b-adicional">Adicional</span></td><td>1 video + 2 gráficas</td></tr>
+          <tr><td>4</td><td>Calle 109</td><td>Modelo Swuan</td><td>Silla Swan</td><td><span class="badge b-adicional">Adicional</span></td><td>1 video + 2 gráficas</td></tr>
+          <tr><td>5</td><td>Calle 109</td><td>Modelo C300</td><td>Línea ejecutiva</td><td><span class="badge b-adicional">Adicional</span></td><td>1 video + 2 gráficas</td></tr>
+          <tr><td>6</td><td>Cra 30</td><td>Día del Padre</td><td>Edición especial</td><td><span class="badge b-adicional">Adicional</span></td><td>1 video + 2 gráficas</td></tr>
+          <tr><td>7</td><td>Cra 30</td><td>Modelo S300</td><td>Silla Family S300</td><td><span class="badge b-adicional">Adicional</span></td><td>1 video + 2 gráficas</td></tr>
+          <tr><td>8</td><td>Cra 30</td><td>Modelo C300</td><td>Línea ejecutiva</td><td><span class="badge b-adicional">Adicional</span></td><td>1 video + 2 gráficas</td></tr>
+          <tr><td>9</td><td>Cra 30</td><td>Modelo Swuan</td><td>Silla Swan</td><td><span class="badge b-adicional">Adicional</span></td><td>1 video + 2 gráficas</td></tr>
+          <tr><td>10</td><td>Cra 30</td><td>Modelo Luxuri</td><td>Silla Luxury</td><td><span class="badge b-adicional">Adicional</span></td><td>1 video + 2 gráficas</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3><span class="dot"></span>Qué incluye el adicional</h3>
+        <ul>
+          <li><b>Producción visual completa:</b> 1 video + 2 piezas gráficas por campaña, listas para pauta (21 piezas en total).</li>
+          <li><b>Organización y seguimiento:</b> configuración, lanzamiento y monitoreo de las 7 campañas en ambas sedes, con control de presupuesto y audiencias.</li>
+          <li><b>Feedback cada lunes:</b> sesión semanal de revisión por WhatsApp o llamada — qué funciona, qué se ajusta y qué cambia esa semana.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><span class="dot"></span>Condiciones</h3>
+        <ul>
+          <li>Pago único este mes — no se convierte en cobro recurrente.</li>
+          <li>Las campañas adicionales se siguen gestionando y optimizando todos los meses que permanezcan activas, sin costo extra de gestión.</li>
+          <li>El plan mensual de Crussó continúa igual, con sus 3 campañas incluidas como siempre.</li>
+          <li>Cubre las 7 campañas adicionales en Calle 109 y Cra 30.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= INVERSIÓN ======= -->
+  <section class="view" id="inversion">
+    <h2 class="section-title">Inversión — pago único este mes</h2>
+    <p class="section-sub">Precio especial para Crussó este mes, aplica solo por el volumen de campañas solicitado.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Concepto</th><th class="num">Valor</th></tr></thead>
+        <tbody>
+          <tr><td>Producción visual: 21 piezas adicionales (7 videos + 14 gráficas)</td><td class="num">$1.000.000</td></tr>
+          <tr><td>Gestión y pauta de 7 campañas adicionales (dos sedes)</td><td class="num">$1.650.000</td></tr>
+          <tr><td>Seguimiento, optimización y feedback semanal</td><td class="num">$350.000</td></tr>
+          <tr class="total-row"><td>Valor total del adicional</td><td class="num"><span class="strike">$3.000.000</span> $2.500.000</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="price-box">
+      <div>
+        <div class="label">Precio especial para Crussó este mes</div>
+        <div class="price"><span class="strike">$3.000.000</span>$2.500.000 COP</div>
+      </div>
+      <div class="note">Pago único, aplica solo este mes por el volumen de campañas solicitado. No se convierte en cobro recurrente.</div>
+    </div>
+
+    <h2 class="section-title">¿Arrancamos?</h2>
+    <div class="flow">
+      <div class="step">1 · Confirmación del pago</div>
+      <div class="arrow">→</div>
+      <div class="step">2 · Las 7 campañas entran a producción hoy mismo</div>
+      <div class="arrow">→</div>
+      <div class="step">3 · Envío de gráficos y videos para tu aprobación</div>
+      <div class="arrow">→</div>
+      <div class="step">4 · Comienza la gestión de todo</div>
+    </div>
+  </section>
+
+  <!-- ======= AUDITORÍA ======= -->
+  <section class="view" id="auditoria">
+    <h2 class="section-title">Auditoría del sitio crusso.com.co</h2>
+    <p class="section-sub">Diagnóstico de readiness publicitario. CRUSSÓ tiene una propuesta premium sólida (importación directa, ergonomía, showroom Bogotá), pero hay 4 bloqueadores que conviene resolver antes de escalar inversión en pauta.</p>
+
+    <div class="kpis">
+      <div class="kpi"><div class="num">31</div><div class="lbl">Productos visibles · colección oficina</div></div>
+      <div class="kpi"><div class="num">$249K–$6,9M</div><div class="lbl">Rango de precios COP</div></div>
+      <div class="kpi"><div class="num">~$1,7M</div><div class="lbl">Mediana de precio (oficina)</div></div>
+      <div class="kpi"><div class="num">4</div><div class="lbl">Bloqueadores prioritarios</div></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3><span class="dot"></span>Lo que ya funciona bien</h3>
+        <ul>
+          <li>Posicionamiento premium claro: "Sillas ergonómicas importadas, diseño y materiales de alta especificación".</li>
+          <li>Catálogo amplio y visual, con SKUs marcados como "Entrega Inmediata".</li>
+          <li>Flujo producto → carrito → checkout funcional, con formulario de contacto y suscripción de correo.</li>
+          <li>Showroom físico en Bogotá (Cra 30 #73-15) — gran activo para confianza local y campañas geo-segmentadas.</li>
+          <li>Presencia social activa en Instagram, Facebook y TikTok.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><span class="dot"></span>Los 4 bloqueadores principales</h3>
+        <ul>
+          <li><b>UX/Comercial:</b> el botón "VER PROMO" del home lleva a una URL 404.</li>
+          <li><b>Consistencia de marca:</b> textos en inglés ("Welcome to our store", "Collections") y direcciones/razón social inconsistentes entre páginas.</li>
+          <li><b>Conversión:</b> productos marcados "Oferta" sin descuento real, costos de envío solo visibles en checkout, sin reseñas visibles.</li>
+          <li><b>Medición:</b> la política de privacidad declara cookies/píxeles/GA, pero no se confirma GTM, gtag, fbq ni dataLayer activos — el tracking debe tratarse como <i>no validado</i> hasta hacer QA dentro del admin.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 class="section-title" style="margin-top:8px;">Hallazgos detallados</h2>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--crit)"></span> Crítica</span>
+      <span><span class="sw" style="background:var(--alta)"></span> Alta</span>
+      <span><span class="sw" style="background:var(--media)"></span> Media</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Área</th><th>Hallazgo</th><th>Implicación para pauta</th><th>Prioridad</th></tr></thead>
+        <tbody>
+          <tr><td>CTA roto</td><td>El botón "VER PROMO" del home lleva a una URL 404.</td><td>No escalar pauta hasta corregirlo; revisar también enlaces de promociones históricas.</td><td><span class="badge b-critica">Crítica</span></td></tr>
+          <tr><td>Identidad legal</td><td>El contacto menciona "Grupo Concetto Arquitectura y Publicidad SAS", mientras que la política de privacidad muestra "CRUSSÓ COMMERCE SAS" y correos de distintos dominios.</td><td>Resolver identidad visible para evitar fricción en checkout y en anuncios de confianza.</td><td><span class="badge b-critica">Crítica</span></td></tr>
+          <tr><td>Dirección</td><td>El footer muestra Calle 109 #16-08 y Carrera 30 #73-15; la página de contacto destaca solo Carrera 30.</td><td>Unificar antes de activar Google Business Profile, location assets o "store visit".</td><td><span class="badge b-critica">Crítica</span></td></tr>
+          <tr><td>Tracking</td><td>La política declara cookies, etiquetas, píxeles y GA, pero no se confirma GTM/gtag/fbq/dataLayer ni banner de consentimiento.</td><td>Tratar la medición actual como no validada hasta QA dentro de Shopify/GTM/Meta/GA4.</td><td><span class="badge b-critica">Crítica</span></td></tr>
+          <tr><td>Confianza</td><td>Varios productos muestran "Oferta" sin descuento real visible.</td><td>Puede erosionar confianza y bajar la tasa de conversión.</td><td><span class="badge b-alta">Alta</span></td></tr>
+          <tr><td>Inventario y surtido</td><td>La colección de oficina muestra 31 productos; la colección hogar es mínima.</td><td>Priorizar campañas hacia oficina/ergonomía/gamer, no hacia "hogar" como promesa amplia.</td><td><span class="badge b-alta">Alta</span></td></tr>
+          <tr><td>Disponibilidad</td><td>Hay productos con entrega inmediata, otros con fecha concreta y otros agotados/reserva.</td><td>El feed de PMax y el catálogo de Meta deben excluir agotados y destacar SKUs inmediatos.</td><td><span class="badge b-alta">Alta</span></td></tr>
+          <tr><td>Consistencia</td><td>Se observan textos en inglés como "Welcome to our store" y "Collections".</td><td>Reduce la sensación de terminación premium, especialmente en mobile.</td><td><span class="badge b-media">Media</span></td></tr>
+          <tr><td>Precio / posicionamiento</td><td>Rango visible $249.000–$6.899.000 COP; mediana de oficina ~$1,7M, muy por encima del retail masivo.</td><td>Search de alta intención y retargeting rendirán mejor que tráfico frío y masivo.</td><td><span class="badge b-alta">Alta</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="section-title">Mejoras recomendadas para la landing</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Mejora</th><th>Prioridad</th><th>Por qué impacta a la pauta</th></tr></thead>
+        <tbody>
+          <tr><td>Arreglar o eliminar el CTA "VER PROMO" roto</td><td><span class="badge b-critica">Crítica</span></td><td>Un enlace 404 desperdicia clics pagos y afecta la experiencia de post-clic.</td></tr>
+          <tr><td>Unificar dirección principal y razón social visible</td><td><span class="badge b-critica">Crítica</span></td><td>Necesario para confianza, checkout, location assets y campañas de showroom.</td></tr>
+          <tr><td>Crear landing showroom Bogotá (mapa, horario, fotos, CTA)</td><td><span class="badge b-alta">Alta</span></td><td>El sitio tiene la dirección, pero no una experiencia dedicada para búsqueda local.</td></tr>
+          <tr><td>Crear landing corporativa / cotización</td><td><span class="badge b-alta">Alta</span></td><td>Hoy el formulario de contacto es genérico; falta una ruta clara para compras empresariales.</td></tr>
+          <tr><td>Mostrar trust strip arriba del fold (garantía, envío, medios de pago, importación)</td><td><span class="badge b-alta">Alta</span></td><td>Hoy esos mensajes viven en el footer o en políticas, no donde el usuario decide.</td></tr>
+          <tr><td>Excluir agotados/reserva de campañas escalables</td><td><span class="badge b-alta">Alta</span></td><td>No conviene enviar tráfico pago a SKUs sin disponibilidad.</td></tr>
+          <tr><td>Añadir especificaciones comparables por modelo</td><td><span class="badge b-alta">Alta</span></td><td>Mejora la comparación en un ticket alto y reduce dudas antes del checkout.</td></tr>
+          <tr><td>Mostrar costo/condición de envío antes del checkout</td><td><span class="badge b-mediaalta">Media-alta</span></td><td>Hoy el envío se calcula recién al pagar, lo que agrega fricción.</td></tr>
+          <tr><td>Añadir reseñas, casos o prueba social</td><td><span class="badge b-mediaalta">Media-alta</span></td><td>No se observan reseñas visibles en la revisión pública.</td></tr>
+          <tr><td>Eliminar restos de texto en inglés</td><td><span class="badge b-media">Media</span></td><td>Refuerza la percepción premium y la coherencia de marca.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ======= ESTRATEGIA ======= -->
+  <section class="view" id="estrategia">
+    <h2 class="section-title">Estrategia de pauta recomendada</h2>
+    <p class="section-sub">Mix inicial sugerido: <b>55% Google / 45% Meta</b> durante las primeras 6–8 semanas. Google captura mejor la intención de un ticket alto; Meta construye deseo, remarketing y comparación visual.</p>
+
+    <div class="grid2">
+      <div class="card">
+        <h3><span class="dot"></span>Google Ads</h3>
+        <ul>
+          <li><b>Search Brand</b> — defender marca y modelos (Maximize Conversions → tCPA).</li>
+          <li><b>Search Non-Brand Ergonomía</b> — "ergonómica", "ejecutiva premium", "Bogotá/showroom".</li>
+          <li><b>Search Gamer</b> — "silla gamer premium", "reposapiés/ergonomía gamer".</li>
+          <li><b>Performance Max + feed</b> — asset groups Ergonómicas / Ejecutivas / Gamer, excluyendo agotados.</li>
+          <li><b>Demand Gen</b> — descubrimiento visual y remarketing 7/14/30/90 días.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><span class="dot"></span>Meta Ads</h3>
+        <ul>
+          <li><b>Sales Prospecting</b> — 1 Advantage+ + 1 campaña manual por persona.</li>
+          <li><b>Catalog Sales</b> — remarketing dinámico (PDP 30d, ATC 14d, IC 14d, excluyendo compradores).</li>
+          <li><b>B2B / Showroom Lead</b> — segmentación local Bogotá, audiencias calientes y lookalikes.</li>
+          <li><b>Creative Testing</b> — 3-5 creatividades por ángulo, rotación semanal.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 class="section-title">Buyer personas prioritarias</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Persona</th><th>Dolor principal</th><th>Mensaje ganador</th></tr></thead>
+        <tbody>
+          <tr><td><b>Profesional home office premium</b><br><span style="color:var(--gray)">28-45 años, ingresos medios-altos</span></td><td>Dolor lumbar, mala postura, silla "normal" que ya no sirve.</td><td>"Trabaja mejor, con diseño premium y ergonomía real."</td></tr>
+          <tr><td><b>Comprador corporativo / admin de oficina</b><br><span style="color:var(--gray)">30-55 años, decide compras de equipo</span></td><td>Necesita justificar calidad, imagen y garantía.</td><td>"Sillas premium para elevar la experiencia y la productividad."</td></tr>
+          <tr><td><b>Gamer / creador de setup</b><br><span style="color:var(--gray)">20-35 años</span></td><td>Fatiga en sesiones largas, setup sin coherencia.</td><td>"Comodidad gamer premium con soporte y diseño pro."</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="section-title">Escenarios de presupuesto mensual</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Escenario</th><th class="num">Presupuesto mensual</th><th class="num">Diario aprox.</th><th class="num">Google</th><th class="num">Meta</th><th>Qué alcanza</th></tr></thead>
+        <tbody>
+          <tr><td>Bajo</td><td class="num">$4.500.000</td><td class="num">$150.000</td><td class="num">$2.475.000</td><td class="num">$2.025.000</td><td>Brand + Search alta intención + retargeting; PMax muy acotado</td></tr>
+          <tr><td>Medio</td><td class="num">$9.000.000</td><td class="num">$300.000</td><td class="num">$4.950.000</td><td class="num">$4.050.000</td><td>Search completo + PMax con feed + Demand Gen pequeño + prospecting Meta</td></tr>
+          <tr><td>Alto</td><td class="num">$18.000.000</td><td class="num">$600.000</td><td class="num">$9.900.000</td><td class="num">$8.100.000</td><td>Segmentación por línea de producto, testing creativo continuo, escalar remarketing</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="section-title">KPIs esperados (bandas de referencia)</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Canal / campaña</th><th class="num">CTR</th><th class="num">CVR</th><th class="num">CPA</th><th class="num">ROAS</th></tr></thead>
+        <tbody>
+          <tr><td>Google Search Brand</td><td class="num">15%–30%</td><td class="num">2,5%–6%</td><td class="num">Muy bajo</td><td class="num">5x–12x</td></tr>
+          <tr><td>Google Search Non-Brand alta intención</td><td class="num">6%–10%</td><td class="num">1,5%–3,2%</td><td class="num">$120K–$350K</td><td class="num">3x–7x</td></tr>
+          <tr><td>Google Performance Max + feed</td><td class="num">0,8%–1,5%</td><td class="num">1,0%–1,8%</td><td class="num">$150K–$380K</td><td class="num">2,5x–5,5x</td></tr>
+          <tr><td>Google Demand Gen</td><td class="num">0,8%–1,8%</td><td class="num">0,5%–1,2%</td><td class="num">$180K–$420K</td><td class="num">1,8x–3,5x</td></tr>
+          <tr><td>Meta prospecting Sales</td><td class="num">1,1%–1,8%</td><td class="num">0,6%–1,2%</td><td class="num">$180K–$450K</td><td class="num">1,8x–3,5x</td></tr>
+          <tr><td>Meta retargeting / catálogo</td><td class="num">1,8%–3,5%</td><td class="num">1,5%–3,5%</td><td class="num">$90K–$250K</td><td class="num">3,5x–8x</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="section-sub" style="font-size:12px;">* Bandas estimadas de planificación inferidas del sitio, posicionamiento de precio y benchmarks públicos. Deben validarse con datos reales de cuenta y Keyword Planner para Colombia.</p>
+  </section>
+
+  <!-- ======= MEDICIÓN ======= -->
+  <section class="view" id="medicion">
+    <h2 class="section-title">Medición y tracking</h2>
+    <p class="section-sub">El sitio declara uso de cookies, píxeles y Google Analytics en su política de privacidad, pero la implementación pública no está confirmada. Antes de escalar pauta, hay que validar esta arquitectura mínima.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Acción de negocio</th><th>GA4</th><th>Google Ads</th><th>Meta</th></tr></thead>
+        <tbody>
+          <tr><td>Visita a página de producto</td><td>view_item</td><td>Conversión secundaria / audiencia</td><td>ViewContent</td></tr>
+          <tr><td>Añadir al carrito</td><td>add_to_cart</td><td>Conversión secundaria</td><td>AddToCart</td></tr>
+          <tr><td>Iniciar checkout</td><td>begin_checkout</td><td>Secundaria o primaria temporal</td><td>InitiateCheckout</td></tr>
+          <tr><td>Compra</td><td>purchase (valor + COP)</td><td>Conversión primaria</td><td>Purchase (value + currency)</td></tr>
+          <tr><td>Envío de contacto/cotización</td><td>generate_lead / form_submit</td><td>Conversión primaria B2B</td><td>Lead / Contact</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3><span class="dot"></span>Setup mínimo viable</h3>
+        <ul>
+          <li>GA4 implementado en Shopify (canal nativo o GTM custom pixel), con ecommerce validado en DebugView.</li>
+          <li>Google Ads conversion tracking — compra como conversión primaria, lead como conversión adicional para la pata B2B/showroom.</li>
+          <li>Meta Pixel + Conversions API en configuración redundante y deduplicada.</li>
+          <li>UTMs estandarizadas en todas las campañas (utm_source, utm_medium, utm_campaign, utm_content).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><span class="dot"></span>QA y validación</h3>
+        <ul>
+          <li>Tag Assistant / Preview de Google Tag Manager.</li>
+          <li>DebugView de GA4 para validar eventos de ecommerce.</li>
+          <li>Test Events de Meta (navegador y servidor).</li>
+          <li>Test de custom pixels dentro de Shopify Customer Events.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 class="section-title">Cadencia de reporting</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Cadencia</th><th>Qué mirar</th><th>Acción</th></tr></thead>
+        <tbody>
+          <tr><td>Diario</td><td>Gasto, conversiones, revenue, CPA, ROAS, enlaces rotos, agotados activos en feed</td><td>Corregir links/exclusiones rápido; pausar lo roto</td></tr>
+          <tr><td>2x semana</td><td>Search terms, asset performance, PDPs de aterrizaje, ATC/checkout rate</td><td>Añadir negativos, mover presupuesto, refrescar assets</td></tr>
+          <tr><td>Semanal</td><td>Rendimiento por persona, ciudad, colección, landing, formato creativo</td><td>Reasignar gasto entre oficina, premium y gamer</td></tr>
+          <tr><td>Quincenal</td><td>Cohortes de remarketing, ventanas 7/14/30 días, PMax vs Demand Gen vs Meta</td><td>Escalar solo lo que muestra eficiencia consistente</td></tr>
+          <tr><td>Mensual</td><td>Tendencia de MER/ROAS, AOV, nuevos vs recurrentes, share Google vs Meta</td><td>Ajustar estrategia y ampliar/recortar canales</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ======= PLAN DE ACCIÓN ======= -->
+  <section class="view" id="plan">
+    <h2 class="section-title">Checklist de implementación</h2>
+    <p class="section-sub">Hitos para dejar el sitio listo y escalar la inversión publicitaria con confianza.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Hito</th><th>Responsable sugerido</th><th>Criterio de finalización</th></tr></thead>
+        <tbody>
+          <tr><td>Reparar CTA "VER PROMO"</td><td>Desarrollo / ecommerce</td><td>Ningún enlace promocional crítico devuelve 404</td></tr>
+          <tr><td>Resolver identidad y dirección</td><td>Dirección / legal / ecommerce</td><td>Razón social y dirección principal visibles y consistentes</td></tr>
+          <tr><td>Configurar GA4 ecommerce</td><td>Analítica</td><td>purchase, begin_checkout, add_to_cart, view_item visibles en DebugView</td></tr>
+          <tr><td>Configurar Google Ads conversions</td><td>Paid media + analítica</td><td>Compra y lead disponibles como conversiones</td></tr>
+          <tr><td>Configurar Meta Pixel + CAPI</td><td>Paid media + analítica</td><td>Eventos redundantes deduplicados en Test Events</td></tr>
+          <tr><td>Limpiar feed Google y Meta</td><td>Ecommerce</td><td>Sin agotados ni reservas en campañas escalables</td></tr>
+          <tr><td>Crear estructura Search</td><td>Paid media</td><td>Brand, non-brand, premium, gamer y local activos</td></tr>
+          <tr><td>Crear estructura Meta</td><td>Paid media</td><td>Prospecting, catálogo, remarketing y B2B/showroom activos</td></tr>
+          <tr><td>Lanzar reporting semanal</td><td>Paid media / BI</td><td>Dashboard único con gasto, revenue, ROAS, CPA y funnel</td></tr>
+          <tr><td>Activar location assets</td><td>Paid media / local SEO</td><td>Business Profile vinculado y dirección resuelta</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footer-cta">
+      <h3>¿Arrancamos esta semana?</h3>
+      <p>Con la confirmación del pago de las campañas adicionales ($2.500.000 COP), las 7 campañas entran a producción hoy mismo. En paralelo, comenzamos a resolver los puntos críticos de la auditoría para que la pauta rinda al máximo desde el primer clic.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="page-footer">
+  Relevvo Studio · Junio 2026 · hola@relevvostudio.com · +57 322 309 4005 · www.relevvostudio.com
+</footer>
+
+<script>
+  const buttons = document.querySelectorAll('nav.tabs button');
+  const views = document.querySelectorAll('section.view');
+  buttons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      buttons.forEach(b=>b.classList.remove('active'));
+      views.forEach(v=>v.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.view).classList.add('active');
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>

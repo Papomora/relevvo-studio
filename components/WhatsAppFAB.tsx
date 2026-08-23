@@ -2,14 +2,18 @@
 
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { gsap } from 'gsap'
 import { WA_URL } from '@/lib/constants'
 
 export default function WhatsAppFAB() {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const ringRef    = useRef<HTMLDivElement>(null)
+  const pathname    = usePathname()
+  const hideOnRoute = pathname?.startsWith('/cotizacion') || pathname?.startsWith('/parrilla')
 
   useEffect(() => {
+    if (hideOnRoute) return
     if (typeof window === 'undefined') return
 
     // Entrance — animate the whole wrapper so ring + button move together
@@ -26,7 +30,9 @@ export default function WhatsAppFAB() {
       repeat: -1,
       delay: 2.3,
     })
-  }, [])
+  }, [hideOnRoute])
+
+  if (hideOnRoute) return null
 
   return (
     <div
