@@ -137,7 +137,7 @@ export default function SchemaOrg() {
             name: '¿Cuánto cuesta un estudio de diseño en Colombia?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'En Relevvo Studio manejamos planes mensuales desde $700.000 COP hasta $3.990.000 COP, según el volumen de trabajo y servicios requeridos. Sin sobrecostos ocultos ni tarifas por revisión.',
+              text: 'En Relevvo Studio manejamos planes mensuales según el volumen de trabajo y servicios requeridos, sin sobrecostos ocultos ni tarifas por revisión. Escríbenos y te armamos una cotización a la medida.',
             },
           },
           {
