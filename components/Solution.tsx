@@ -114,7 +114,7 @@ export default function Solution() {
   const doubled = [...services, ...services]
 
   return (
-    <section className="py-24 overflow-hidden">
+    <section id="solucion" className="py-24 overflow-hidden">
       <div ref={headingRef} className="text-center px-4 mb-14 max-w-4xl mx-auto">
         <span className="section-label" style={{ justifyContent: 'center' }}>Solución</span>
         <h2 className="mb-6">
