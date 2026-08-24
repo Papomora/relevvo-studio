@@ -2,8 +2,10 @@ import type { Metadata } from 'next'
 import LandingReferidos from '@/components/LandingReferidos'
 
 export const metadata: Metadata = {
-  title: 'Programa de Referidos Diseño Colombia | Gana Comisión — Relevvo Studio',
-  description: 'Referí clientes a Relevvo Studio y recibí comisión garantizada el mismo día que firman. BASIC $30.000 · MID $99.500 · FULL $399.000. Sin cuotas, sin MLM. Para agencias, freelancers y consultores en Colombia.',
+  // El layout raíz ya añade " | Relevvo Studio" vía title.template — no
+  // repetir la marca aquí (salía tres veces en <title>, ver auditoría).
+  title: 'Programa de Referidos Diseño Colombia | Gana Comisión',
+  description: 'Refiere clientes a Relevvo Studio y recibe comisión garantizada el mismo día que firman. BASIC $30.000 · MID $99.500 · FULL $399.000. Sin cuotas, sin MLM. Para agencias, freelancers y consultores en Colombia.',
   keywords: [
     'programa de referidos diseño Colombia',
     'ganar comisión agencia diseño',
@@ -19,7 +21,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Gana comisión refiriendo clientes de diseño — Relevvo Studio',
-    description: 'Referí un cliente a Relevvo y recibí hasta $399.000 el mismo día que firma. Sin cuotas, sin riesgo, pago instantáneo. Para agencias y freelancers en Colombia.',
+    description: 'Refiere un cliente a Relevvo y recibe hasta $399.000 el mismo día que firma. Sin cuotas, sin riesgo, pago instantáneo. Para agencias y freelancers en Colombia.',
     url: 'https://relevvostudio.com/referidos',
     siteName: 'Relevvo Studio',
     locale: 'es_CO',

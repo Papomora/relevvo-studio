@@ -4,21 +4,25 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
+import { PLANS } from '@/lib/planes'
 
 const WA_BASE = 'https://wa.me/573223094005'
 const WA_REFERIDO = `${WA_BASE}?text=Hola%2C%20quiero%20unirme%20al%20programa%20de%20referidos%20de%20Relevvo%20Studio`
 
+// El precio de cada plan viene de lib/planes.ts (fuente única) — acá solo
+// se agregan los datos propios del programa de referidos (comisión, %,
+// colores). Si el precio de un plan cambia, se actualiza en un solo lugar.
 const plans = [
-  { name: 'BASIC',  price: '$700.000',    commission: '$30.000',   pct: 4.3,   color: 'from-violet-600/20 to-purple-900/10',  border: 'rgba(124,58,237,0.3)' },
-  { name: 'MID',    price: '$1.990.000',  commission: '$99.500',   pct: 5,  color: 'from-violet-500/30 to-purple-700/15', border: 'rgba(124,58,237,0.55)', featured: true },
-  { name: 'FULL',   price: '$3.990.000',  commission: '$399.000',  pct: 10, color: 'from-violet-700/20 to-indigo-900/10', border: 'rgba(124,58,237,0.3)' },
+  { name: 'BASIC', price: PLANS[0].price, commission: '$30.000',  pct: 4.3, color: 'from-violet-600/20 to-purple-900/10',  border: 'rgba(124,58,237,0.3)' },
+  { name: 'MID',   price: PLANS[1].price, commission: '$99.500',  pct: 5,   color: 'from-violet-500/30 to-purple-700/15', border: 'rgba(124,58,237,0.55)', featured: true },
+  { name: 'FULL',  price: PLANS[2].price, commission: '$399.000', pct: 10,  color: 'from-violet-700/20 to-indigo-900/10', border: 'rgba(124,58,237,0.3)' },
 ]
 
 const steps = [
   {
     num: '01',
-    title: 'Vos referís',
-    desc: 'Tu cliente necesita diseño, branding o contenido. Nos lo pasás por WhatsApp, email o formulario. Un mensaje es suficiente.',
+    title: 'Tú refieres',
+    desc: 'Tu cliente necesita diseño, branding o contenido. Nos lo pasas por WhatsApp, email o formulario. Un mensaje es suficiente.',
     icon: (
       <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
         <path d="M18 4 C10.3 4 4 10.3 4 18 C4 20.6 4.7 23 6 25.1 L4 32 L11.1 30.1 C13.2 31.3 15.5 32 18 32 C25.7 32 32 25.7 32 18 C32 10.3 25.7 4 18 4Z" stroke="rgba(124,58,237,0.9)" strokeWidth="1.5" fill="rgba(124,58,237,0.12)" strokeLinejoin="round"/>
@@ -31,7 +35,7 @@ const steps = [
   {
     num: '02',
     title: 'Nosotros cerramos',
-    desc: 'Presentamos los planes (BASIC $700k, MID $1.990k, FULL $3.990k). Hacemos el seguimiento. El cliente firma directamente con nosotros.',
+    desc: `Presentamos los planes (BASIC ${plans[0].price}, MID ${plans[1].price}, FULL ${plans[2].price}). Hacemos el seguimiento. El cliente firma directamente con nosotros.`,
     icon: (
       <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
         <rect x="6" y="8" width="24" height="18" rx="4" stroke="rgba(124,58,237,0.9)" strokeWidth="1.5" fill="rgba(124,58,237,0.12)"/>
@@ -43,7 +47,7 @@ const steps = [
   },
   {
     num: '03',
-    title: 'Vos cobrás',
+    title: 'Tú cobras',
     desc: 'Tu comisión garantizada llega a tu cuenta el mismo día que el cliente firma. Sin esperas, sin condicionantes, sin excusas.',
     icon: (
       <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
@@ -62,7 +66,7 @@ const targets = [
     title: 'Agencias Digitales',
     sub: 'Web, Social, Marketing',
     desc: 'Hacen estrategia pero no tienen diseñadores propios. Su cliente pide branding y ellos no lo hacen.',
-    pitch: '"Tu cliente necesita diseño, vos no lo hacés. Nosotros sí. Referís y ganás comisión instantánea."',
+    pitch: '"Tu cliente necesita diseño, tú no lo haces. Nosotros sí. Refieres y ganas comisión instantánea."',
     color: 'from-violet-600/15',
   },
   {
@@ -70,7 +74,7 @@ const targets = [
     title: 'Freelancers',
     sub: 'Dev, Copywriter, Consultor',
     desc: 'Especialistas en 1-2 cosas que reciben clientes que piden más servicios de los que ofrecen.',
-    pitch: '"Cuando tu cliente quiere diseño además de tu servicio, refierenos. Cobrás comisión sin hacer nada extra."',
+    pitch: '"Cuando tu cliente quiere diseño además de tu servicio, refiérenos. Cobras comisión sin hacer nada extra."',
     color: 'from-purple-600/15',
   },
   {
@@ -78,7 +82,7 @@ const targets = [
     title: 'Equipos Creativos',
     sub: 'Empresas medianas saturadas',
     desc: 'Tienen diseñadores pero están a tope de capacidad. Proyectos overflow que no pueden atender.',
-    pitch: '"Cada proyecto que no podés hacer es comisión perdida. Referínos y cobrás mensual."',
+    pitch: '"Cada proyecto que no puedes hacer es comisión perdida. Refiérenos y cobras mensual."',
     color: 'from-indigo-600/15',
   },
   {
@@ -86,18 +90,18 @@ const targets = [
     title: 'Consultores & Coaches',
     sub: 'Mentores de negocio',
     desc: 'Atienden clientes que necesitan branding, landing pages o contenido visual para crecer.',
-    pitch: '"Mejorá el valor de tu servicio refiriendo diseño. Tu cliente queda feliz, vos cobrás."',
+    pitch: '"Mejora el valor de tu servicio refiriendo diseño. Tu cliente queda feliz, tú cobras."',
     color: 'from-fuchsia-600/15',
   },
 ]
 
 const faqs = [
   { q: '¿Cuándo cobro?', a: 'El mismo día que el cliente firma el contrato. Sin demoras, sin "cuando pague el cliente".' },
-  { q: '¿Mi cliente se entera que yo cobro comisión?', a: 'No, a menos que vos lo cuentes. Es 100% confidencial entre nosotros.' },
-  { q: '¿Hay límite de referidos?', a: 'No. Referí cuanto quieras. Cada cliente que firma = nueva comisión para vos.' },
-  { q: '¿Qué pasa si el cliente cancela al mes 2?', a: 'Tu comisión ya fue pagada el día que firmó. No hay reembolso, no perdés nada.' },
-  { q: '¿Necesito suscribirme o pagar algo?', a: 'Cero. Es gratis unirse, gratis referir. Solo ganás.' },
-  { q: '¿Es legal? ¿Puedo referir competidores?', a: '100% legal. Es modelo estándar en servicios creativos. Podés referir agencias, competidores, quien sea.' },
+  { q: '¿Mi cliente se entera que yo cobro comisión?', a: 'No, a menos que tú lo cuentes. Es 100% confidencial entre nosotros.' },
+  { q: '¿Hay límite de referidos?', a: 'No. Refiere cuantos quieras. Cada cliente que firma = nueva comisión para ti.' },
+  { q: '¿Qué pasa si el cliente cancela al mes 2?', a: 'Tu comisión ya fue pagada el día que firmó. No hay reembolso, no pierdes nada.' },
+  { q: '¿Necesito suscribirme o pagar algo?', a: 'Cero. Es gratis unirse, gratis referir. Solo ganas.' },
+  { q: '¿Es legal? ¿Puedo referir competidores?', a: '100% legal. Es modelo estándar en servicios creativos. Puedes referir agencias, competidores, quien sea.' },
 ]
 
 function ArrowRight() {
@@ -189,7 +193,7 @@ export default function LandingReferidos() {
 
         <p className="hero-el text-white/55 text-xl leading-relaxed max-w-2xl mb-10">
           ¿Tu cliente pide diseño? Nosotros lo hacemos.
-          Vos recibís <strong className="text-white/80">comisión garantizada</strong> el mismo día que firma.
+          Tú recibes <strong className="text-white/80">comisión garantizada</strong> el mismo día que firma.
           Sin cuotas, sin MLM, sin B.S.
         </p>
 
@@ -265,14 +269,14 @@ export default function LandingReferidos() {
         <span className="section-label">Comisiones</span>
         <h2 className="mb-4">
           <span className="heading-display text-white" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)' }}>
-            ¿Cuánto podés{' '}
+            ¿Cuánto puedes{' '}
           </span>
           <span className="heading-serif text-white" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)' }}>
             ganar?
           </span>
         </h2>
         <p className="text-white/50 mb-12 max-w-md mx-auto">
-          Elegí el plan que creés que necesita tu cliente y mirá tu comisión exacta.
+          Elige el plan que crees que necesita tu cliente y mira tu comisión exacta.
         </p>
 
         {/* Plan selector */}
@@ -344,7 +348,7 @@ export default function LandingReferidos() {
           ))}
         </div>
 
-        <p className="text-white/30 text-sm mt-8">Sin límite — referí 10 clientes al mes si querés.</p>
+        <p className="text-white/30 text-sm mt-8">Sin límite — refiere 10 clientes al mes si quieres.</p>
       </section>
 
       <hr className="divider-accent max-w-5xl mx-auto" />
@@ -355,10 +359,10 @@ export default function LandingReferidos() {
           <span className="section-label">Referidores</span>
           <h2>
             <span className="heading-display text-white block" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)' }}>
-              ¿Esto es para vos
+              ¿Esto es para ti
             </span>
             <span className="heading-serif text-white block" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)' }}>
-              si sos…
+              si eres…
             </span>
           </h2>
         </div>
@@ -409,9 +413,9 @@ export default function LandingReferidos() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-left">
           {[
             { icon: '⚡', title: 'Pago instantáneo', desc: 'El mismo día que firma el cliente. No "cuando pague". No "a fin de mes".' },
-            { icon: '📋', title: 'Planes claros', desc: '$700k, $1.990k, $3.990k. Fácil de explicar, fácil de vender.' },
-            { icon: '🛡️', title: 'Riesgo cero', desc: 'Si el cliente no paga, ese riesgo lo asumimos nosotros. Vos ya cobraste.' },
-            { icon: '🤫', title: 'Confidencial', desc: 'Tu cliente jamás se entera que recibes comisión, a menos que vos lo cuentes.' },
+            { icon: '📋', title: 'Planes claros', desc: `${plans[0].price}, ${plans[1].price}, ${plans[2].price}. Fácil de explicar, fácil de vender.` },
+            { icon: '🛡️', title: 'Riesgo cero', desc: 'Si el cliente no paga, ese riesgo lo asumimos nosotros. Tú ya cobraste.' },
+            { icon: '🤫', title: 'Confidencial', desc: 'Tu cliente jamás se entera que recibes comisión, a menos que tú lo cuentes.' },
             { icon: '🔁', title: 'Sin cuotas', desc: 'Sin mínimos. Un referido está bien. Cien referidos están mejor.' },
             { icon: '💼', title: 'Portfolio real', desc: 'Vive Metro, Tienda Crusso, Molicie Hogar y más. Tu cliente verá trabajo probado.' },
           ].map((item, i) => (
@@ -481,8 +485,8 @@ export default function LandingReferidos() {
           </span>
         </h2>
         <p className="text-white/50 text-lg mb-12 max-w-lg mx-auto leading-relaxed">
-          Escribinos por WhatsApp, contanos quién es tu cliente y nosotros nos encargamos del resto.
-          Vos cobrás el mismo día que firma.
+          Escríbenos por WhatsApp, cuéntanos quién es tu cliente y nosotros nos encargamos del resto.
+          Tú cobras el mismo día que firma.
         </p>
 
         <Link href={WA_REFERIDO} target="_blank" rel="noopener noreferrer"
@@ -494,7 +498,7 @@ export default function LandingReferidos() {
         </Link>
 
         <p className="text-white/25 text-sm mt-6">
-          O visitá <Link href="/" className="text-accent/60 hover:text-accent transition-colors">relevvostudio.com</Link> para ver el portfolio completo
+          O revisa el <Link href="/planes" className="text-accent/60 hover:text-accent transition-colors">detalle de cada plan</Link> antes de referir a tu cliente
         </p>
       </section>
 

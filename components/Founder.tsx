@@ -11,20 +11,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
 import Image from 'next/image'
 import { WA_URL } from '@/lib/constants'
-
-const studies = [
-  { title: 'Técnico en Diseño e Integración de Multimedia', detail: 'Culminado en 2016' },
-  { title: 'Diseño Visual', detail: 'Cursando actualmente — 5to semestre' },
-]
-
-// Rating out of 5 — matches the stars next to each skill in the CV
-const aptitudes = [
-  { name: 'Diseñador Gráfico', level: 5 },
-  { name: 'Creatividad', level: 4 },
-  { name: 'Innovador', level: 4 },
-  { name: 'Comediante', level: 3 },
-  { name: 'Cantante', level: 1 },
-]
+import { STUDIES as studies, APTITUDES as aptitudes, TIMELINE as timeline } from '@/lib/founder'
 
 const tools = [
   { name: 'Photoshop', src: '/images/tools/Photoshop_logo.png' },
@@ -34,42 +21,6 @@ const tools = [
   { name: 'Figma', src: '/images/tools/Figma_logo.png' },
   { name: 'DaVinci Resolve', src: '/images/tools/DaVinciResolve_logo.png' },
   { name: 'Creative Cloud', src: '/images/tools/CreativeCloud_logo.png' },
-]
-
-const timeline = [
-  {
-    year: '2016', role: 'Asistente Audiovisual', place: 'RCN Televisión',
-    desc: 'Acompañamiento y realización de fotografías, videos y piezas gráficas.',
-  },
-  {
-    year: '2020', role: 'Diseñador Gráfico', place: 'Quality and Price',
-    desc: 'Generación de contenido, fotografía de producto, e-commerce y manejo de redes sociales.',
-  },
-  {
-    year: '2021', role: 'Diseñador Gráfico', place: 'Think Click · Neofy',
-    desc: 'Branding y creación de marca, diseño y prototipado web, creación de conceptos visuales.',
-  },
-  {
-    year: '2021', role: 'Diseñador E-Learning', place: 'ADN Training',
-    desc: 'Creación de key-visual, diseño y prototipado UI, diseño instruccional y piezas publicitarias.',
-  },
-  {
-    year: '2023', role: 'Diseñador Gráfico Junior', place: 'Hoytrabajas',
-    desc: 'Campañas de fortalecimiento de marca basadas en growth, P.O.P y estrategia visual en redes sociales de alto impacto.',
-  },
-  {
-    year: '2024', role: 'Designer Lead', place: 'ecomms — México & USA',
-    desc: 'Creación de marca, branding y retoque fotográfico para e-commerce en Estados Unidos y México.',
-  },
-  {
-    year: '2025', role: 'Creative Designer', place: 'Ariadna (Grupo Barnier) — cuenta LG Colombia',
-    desc: 'Apoyo creativo en piezas digitales, P.O.P y retail — optimización de piezas masivas y propuestas de campaña.',
-  },
-  {
-    year: 'Hoy', role: 'Fundador & Director Creativo', place: 'Relevvo Studio',
-    desc: 'Todo ese camino hoy vive dentro de Relevvo — una agencia hecha con la misma mezcla de criterio, curiosidad y ganas de anticiparse a lo que viene.',
-    current: true,
-  },
 ]
 
 export default function Founder() {
@@ -119,9 +70,13 @@ export default function Founder() {
               border: '1px solid rgba(124,58,237,0.25)',
             }}
           >
-            <img src="/founder.png" alt="Juan Camilo Papo León Mora"
-                 className="w-full h-full object-cover"
-                 style={{ filter: 'grayscale(15%) contrast(1.08)', objectPosition: 'center 15%' }} />
+            {/* next/image: founder.png pesa 2 MB en PNG. Servido así se
+                convierte a WebP y se redimensiona al ancho real del hueco. */}
+            <Image src="/founder.png" alt="Juan Camilo Papo León Mora"
+                   width={720} height={900}
+                   sizes="(max-width: 768px) 100vw, 480px"
+                   className="w-full h-full object-cover"
+                   style={{ filter: 'grayscale(15%) contrast(1.08)', objectPosition: 'center 15%' }} />
           </div>
 
           {/* Years badge */}

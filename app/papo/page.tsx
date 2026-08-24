@@ -4,10 +4,18 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
+import Image from 'next/image'
+import { STUDIES, TIMELINE, APTITUDES, METRICS } from '@/lib/founder'
 
 // ── Constants ──────────────────────────────────────────────────
 const WA = 'https://wa.me/573223094005?text=Hola%20Camilo%2C%20vi%20tu%20portafolio%20y%20quiero%20hablar%20sobre%20un%20proyecto'
 const WA_AGENCY = 'https://wa.me/573223094005?text=Hola%2C%20quiero%20trabajar%20con%20Relevvo%20Studio'
+
+// [COMPLETAR: falta un PDF de la hoja de vida en /public y una URL de
+// LinkedIn real]. Ninguno de los dos aparece en ningún archivo del repo —
+// no se inventa ni el archivo ni el enlace. El botón de descarga y el de
+// LinkedIn se omiten a propósito hasta que existan (ver ESTADO.md); un
+// botón roto es peor que ningún botón.
 
 const T = {
   bg: '#0A0A0A', accent: '#7C3AED', accentL: '#A78BFA',
@@ -64,16 +72,18 @@ const proceso = [
 function RevealLine({ children, delay = 0, style = {} }: {
   children: React.ReactNode; delay?: number; style?: React.CSSProperties
 }) {
-  const wrapRef = useRef<HTMLDivElement>(null)
-  const innerRef = useRef<HTMLDivElement>(null)
+  const wrapRef = useRef<HTMLSpanElement>(null)
+  const innerRef = useRef<HTMLSpanElement>(null)
   useEffect(() => {
     if (!innerRef.current) return
     gsap.from(innerRef.current, { y: '108%', duration: 1.05, ease: 'power4.out', delay })
   }, [delay])
+  // <span display:block> en vez de <div>: se ve igual, pero permite anidar
+  // este helper dentro de un <h1> sin producir HTML inválido.
   return (
-    <div ref={wrapRef} style={{ overflow: 'hidden', display: 'block', ...style }}>
-      <div ref={innerRef}>{children}</div>
-    </div>
+    <span ref={wrapRef} style={{ overflow: 'hidden', display: 'block', ...style }}>
+      <span ref={innerRef} style={{ display: 'block' }}>{children}</span>
+    </span>
   )
 }
 
@@ -204,24 +214,25 @@ export default function PapoPage() {
           </span>
         </div>
 
-        {/* Headline — clip-reveal per line */}
-        <div style={{ marginBottom: 28 }}>
+        {/* Headline — clip-reveal per line.
+            Un solo <h1>: las tres líneas son <span>. Antes eran tres <h1>. */}
+        <h1 style={{ margin: '0 0 28px' }}>
           <RevealLine delay={0.15}>
-            <h1 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(3.2rem,9vw,8.5rem)', lineHeight: 0.92, letterSpacing: '-0.05em', color: '#fff', margin: 0 }}>
+            <span style={{ display: 'block', fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(3.2rem,9vw,8.5rem)', lineHeight: 0.92, letterSpacing: '-0.05em', color: '#fff' }}>
               Diseño
-            </h1>
+            </span>
           </RevealLine>
           <RevealLine delay={0.28}>
-            <h1 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(3.2rem,9vw,8.5rem)', lineHeight: 0.92, letterSpacing: '-0.05em', color: '#fff', margin: 0 }}>
+            <span style={{ display: 'block', fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(3.2rem,9vw,8.5rem)', lineHeight: 0.92, letterSpacing: '-0.05em', color: '#fff' }}>
               que construye
-            </h1>
+            </span>
           </RevealLine>
           <RevealLine delay={0.42}>
-            <h1 style={{ fontFamily: T.fs, fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(3.2rem,9vw,8.5rem)', lineHeight: 0.92, color: T.accentL, margin: 0 }}>
+            <span style={{ display: 'block', fontFamily: T.fs, fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(3.2rem,9vw,8.5rem)', lineHeight: 0.92, color: T.accentL }}>
               marcas reales.
-            </h1>
+            </span>
           </RevealLine>
-        </div>
+        </h1>
 
         {/* Sub + meta */}
         <div ref={subRef} style={{ display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'flex-end', gap: 32, maxWidth: 900 }}>
@@ -247,12 +258,7 @@ export default function PapoPage() {
       {/* ── STATS BAR ── */}
       <div ref={statsRef} style={{ borderTop: `1px solid ${T.border}`, borderBottom: `1px solid ${T.border}`, background: 'rgba(255,255,255,0.015)' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4,1fr)' }} className="stats-grid">
-          {[
-            { num: '8+',   label: 'Marcas construidas' },
-            { num: '5+',   label: 'Años de experiencia' },
-            { num: '100%', label: 'Compromiso' },
-            { num: '2',    label: 'Países activos' },
-          ].map((s, i) => (
+          {METRICS.map((s, i) => (
             <div key={i} className="stat-item" style={{ padding: '28px 24px', textAlign: 'center', borderRight: i < 3 ? `1px solid ${T.border}` : 'none' }}>
               <div style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(1.8rem,3vw,2.75rem)', letterSpacing: '-0.05em', color: '#fff', lineHeight: 1 }}>{s.num}</div>
               <div style={{ fontSize: 11, color: T.muted, letterSpacing: '0.06em', textTransform: 'uppercase', marginTop: 6, fontFamily: T.fb }}>{s.label}</div>
@@ -272,7 +278,11 @@ export default function PapoPage() {
           <div style={{ position: 'absolute', inset: -6, borderRadius: 26, border: '1.5px solid rgba(124,58,237,0.4)', animation: 'ring-pulse 3s ease-in-out infinite', pointerEvents: 'none' }} />
           {/* Photo container */}
           <div style={{ borderRadius: 20, overflow: 'hidden', border: '2px solid rgba(124,58,237,0.55)', boxShadow: '0 0 0 1px rgba(124,58,237,0.15), 0 0 40px rgba(124,58,237,0.3), 0 24px 60px rgba(0,0,0,0.5)', aspectRatio: '4/5', maxWidth: 400, position: 'relative', animation: 'photo-float 6s ease-in-out infinite' }}>
-            <img src="/founder.png" alt="Juan Camilo León" style={{ width: '100%', height: '120%', objectFit: 'cover', objectPosition: 'center 10%', display: 'block', marginTop: '-8%' }} />
+            {/* next/image: el PNG original pesa 2 MB; así se sirve en WebP
+                y redimensionado. `priority` porque es el LCP de esta página. */}
+            <Image src="/founder.png" alt="Juan Camilo León" width={720} height={900} priority
+                   sizes="(max-width: 768px) 100vw, 400px"
+                   style={{ width: '100%', height: '120%', objectFit: 'cover', objectPosition: 'center 10%', display: 'block', marginTop: '-8%' }} />
             {/* Gradient overlay bottom */}
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '35%', background: 'linear-gradient(to top, rgba(10,10,10,0.55) 0%, transparent 100%)', pointerEvents: 'none' }} />
           </div>
@@ -425,9 +435,95 @@ export default function PapoPage() {
         </div>
       </section>
 
-      {/* ── 05 — PROCESO ── */}
+      {/* ── 05 — FORMACIÓN ── */}
+      <section style={{ padding: 'clamp(48px,6vw,80px) clamp(20px,6vw,80px)', maxWidth: 1200, margin: '0 auto', borderTop: `1px solid ${T.border}` }}>
+        <SLabel n="05" label="Formación" />
+        <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 0.95, margin: '0 0 36px', color: '#fff' }}>
+          Estudios
+        </h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 560 }}>
+          {STUDIES.map((s, i) => (
+            <div key={i} style={{ padding: '18px 22px', borderRadius: 14, background: T.card, border: `1px solid ${T.border}` }}>
+              <p style={{ fontFamily: T.fd, fontWeight: 700, fontSize: '1rem', color: '#fff', margin: '0 0 4px' }}>{s.title}</p>
+              <p style={{ fontSize: '0.8125rem', color: T.muted, margin: 0, fontFamily: T.fb }}>{s.detail}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── 06 — EXPERIENCIA ── */}
+      <section style={{ padding: 'clamp(48px,6vw,80px) clamp(20px,6vw,80px)', maxWidth: 1200, margin: '0 auto', borderTop: `1px solid ${T.border}` }}>
+        <SLabel n="06" label="Experiencia" />
+        <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 0.95, margin: '0 0 20px', color: '#fff' }}>
+          Trayectoria
+        </h2>
+
+        {/* Métricas agregadas — los únicos números reales que hay, ya
+            publicados más arriba en esta misma página (barra de stats).
+            No hay cifra por empleador en ningún archivo del repo. */}
+        <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', marginBottom: 40 }}>
+          {METRICS.map((m, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
+              <span style={{ fontFamily: T.fd, fontWeight: 900, fontSize: '1.5rem', color: T.accentL }}>{m.num}</span>
+              <span style={{ fontSize: 11, color: T.muted, textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: T.fb }}>{m.label}</span>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', maxWidth: 720 }}>
+          {TIMELINE.map((item, i) => (
+            <div key={i} style={{
+              display: 'grid', gridTemplateColumns: '70px 1fr', gap: 16, padding: '18px 0',
+              borderBottom: i === TIMELINE.length - 1 ? 'none' : `1px solid ${T.border}`,
+            }}>
+              <span style={{ fontFamily: T.fb, fontSize: 12, fontWeight: 700, color: item.current ? T.accentL : T.muted, letterSpacing: '0.04em' }}>
+                {item.year}
+              </span>
+              <div>
+                <p style={{ color: '#fff', fontSize: '0.9375rem', fontWeight: 700, margin: 0, fontFamily: T.fb }}>
+                  {item.role}
+                  <span style={{ color: T.muted, fontWeight: 400 }}> · {item.place}</span>
+                  {item.current && (
+                    <span style={{ marginLeft: 8, fontSize: 10, fontFamily: T.fb, fontWeight: 700, padding: '2px 9px', borderRadius: 99, background: 'rgba(124,58,237,0.15)', color: T.accentL, verticalAlign: 'middle' }}>
+                      hoy
+                    </span>
+                  )}
+                </p>
+                <p style={{ color: T.muted, fontSize: '0.8125rem', lineHeight: 1.6, margin: '4px 0 0', maxWidth: 560, fontFamily: T.fb }}>{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── 07 — COMPETENCIAS ── */}
+      <section style={{ padding: 'clamp(48px,6vw,80px) clamp(20px,6vw,80px)', maxWidth: 1200, margin: '0 auto', borderTop: `1px solid ${T.border}` }}>
+        <SLabel n="07" label="Competencias" />
+        <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 0.95, margin: '0 0 36px', color: '#fff' }}>
+          Aptitudes
+        </h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 360 }}>
+          {APTITUDES.map((a, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+              <span style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.9375rem', fontFamily: T.fb }}>{a.name}</span>
+              <span style={{ display: 'flex', gap: 3, flexShrink: 0 }} aria-label={`${a.level} de 5 estrellas`}>
+                {Array.from({ length: 5 }).map((_, s) => (
+                  <svg key={s} width="14" height="14" viewBox="0 0 24 24"
+                    fill={s < a.level ? T.accentL : 'none'}
+                    stroke={s < a.level ? T.accentL : 'rgba(255,255,255,0.2)'}
+                    strokeWidth="1.5">
+                    <path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6L12 2z" />
+                  </svg>
+                ))}
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── 08 — PROCESO ── */}
       <section ref={procesoRef} style={{ padding: 'clamp(48px,6vw,80px) clamp(20px,6vw,80px)', maxWidth: 1200, margin: '0 auto', borderTop: `1px solid ${T.border}` }}>
-        <SLabel n="05" label="Proceso" />
+        <SLabel n="08" label="Proceso" />
         <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 0.95, margin: '0 0 48px', color: '#fff' }}>
           Cómo trabajo
         </h2>
