@@ -4,12 +4,22 @@ import { useEffect } from 'react'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useReducedMotion } from '@/lib/useReducedMotion'
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
+  const reduceMotion = useReducedMotion()
+
   useEffect(() => {
     if (typeof window === 'undefined') return
 
     gsap.registerPlugin(ScrollTrigger)
+
+    // Con "reducir movimiento" activo no se instala Lenis: el scroll suave
+    // es justo el tipo de movimiento que esa preferencia pide desactivar, y
+    // además provoca mareo en usuarios con trastornos vestibulares.
+    // El navegador hace scroll nativo y las animaciones de GSAP las corta
+    // el bloque @media de globals.css.
+    if (reduceMotion) return
 
     const lenis = new Lenis({
       duration: 1.35,
@@ -33,7 +43,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       lenis.destroy()
       gsap.ticker.remove(rafCallback)
     }
-  }, [])
+  }, [reduceMotion])
 
   return <>{children}</>
 }

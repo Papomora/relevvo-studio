@@ -2,8 +2,10 @@
 
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
+import { useReducedMotion } from '@/lib/useReducedMotion'
 
 export function WebGLShader() {
+  const reduceMotion = useReducedMotion()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const sceneRef = useRef<{
     scene: THREE.Scene | null
@@ -47,7 +49,10 @@ export function WebGLShader() {
 
     refs.scene = new THREE.Scene()
     refs.renderer = new THREE.WebGLRenderer({ canvas, alpha: true })
-    refs.renderer.setPixelRatio(window.devicePixelRatio)
+    // Tope de 1.5x. Sin tope, en pantallas retina/4K el devicePixelRatio (2-3)
+    // multiplica x4-x9 el número de fragmentos de un shader a pantalla completa.
+    // Es un fondo ambiental al 18% de opacidad — no necesita resolución nativa.
+    refs.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     refs.renderer.setClearColor(new THREE.Color(0x000000), 0)
     refs.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, -1)
 
@@ -79,23 +84,51 @@ export function WebGLShader() {
     }
     handleResize()
 
-    const animate = () => {
-      if (refs.uniforms) refs.uniforms.time.value += 0.01
+    const renderFrame = () => {
       if (refs.renderer && refs.scene && refs.camera)
         refs.renderer.render(refs.scene, refs.camera)
+    }
+
+    const animate = () => {
+      if (refs.uniforms) refs.uniforms.time.value += 0.01
+      renderFrame()
       refs.animationId = requestAnimationFrame(animate)
     }
-    animate()
+
+    // Pausa el bucle cuando la pestaña no está visible. Antes seguía
+    // renderizando a 60fps en segundo plano, quemando batería sin que
+    // nadie lo viera.
+    const stop = () => {
+      if (refs.animationId) {
+        cancelAnimationFrame(refs.animationId)
+        refs.animationId = null
+      }
+    }
+    const onVisibility = () => {
+      if (document.hidden) stop()
+      else if (refs.animationId === null) animate()
+    }
+
+    if (reduceMotion) {
+      // Con "reducir movimiento" activo se pinta un solo fotograma estático
+      // en vez de animar. El fondo sigue ahí; deja de moverse.
+      renderFrame()
+    } else {
+      animate()
+      document.addEventListener('visibilitychange', onVisibility)
+    }
+
     window.addEventListener('resize', handleResize)
 
     return () => {
-      if (refs.animationId) cancelAnimationFrame(refs.animationId)
+      stop()
       window.removeEventListener('resize', handleResize)
+      document.removeEventListener('visibilitychange', onVisibility)
       refs.mesh?.geometry.dispose()
       if (refs.mesh?.material instanceof THREE.Material) refs.mesh.material.dispose()
       refs.renderer?.dispose()
     }
-  }, [])
+  }, [reduceMotion])
 
   return (
     <canvas
