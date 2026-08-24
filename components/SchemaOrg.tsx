@@ -1,3 +1,5 @@
+import { FAQ_ITEMS } from '@/lib/faq'
+
 export default function SchemaOrg() {
   const schema = {
     '@context': 'https://schema.org',
@@ -115,48 +117,11 @@ export default function SchemaOrg() {
       },
       {
         '@type': 'FAQPage',
-        mainEntity: [
-          {
-            '@type': 'Question',
-            name: '¿Relevvo Studio usa inteligencia artificial para diseñar?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Usamos IA como apoyo en investigación, moodboards e iteración rápida, para ganar tiempo en tareas operativas. Pero cada decisión estratégica de marca — colores, tipografía, mensaje, tono — es tomada por nuestro equipo humano. La IA acelera el proceso; el criterio del estudio decide el resultado.',
-            },
-          },
-          {
-            '@type': 'Question',
-            name: '¿En qué ciudades de Colombia operan?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Trabajamos con clientes en todo Colombia de forma 100% digital: Bogotá, Medellín, Cali, Barranquilla, Cartagena y cualquier otra ciudad. Todo el proceso es remoto y sin necesidad de reuniones presenciales.',
-            },
-          },
-          {
-            '@type': 'Question',
-            name: '¿Cuánto cuesta un estudio de diseño en Colombia?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'En Relevvo Studio manejamos planes mensuales según el volumen de trabajo y servicios requeridos, sin sobrecostos ocultos ni tarifas por revisión. Escríbenos y te armamos una cotización a la medida.',
-            },
-          },
-          {
-            '@type': 'Question',
-            name: '¿Qué servicios ofrece Relevvo Studio?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Ofrecemos: logos y branding, landing pages, páginas web, gestión de redes sociales, pauta digital, fotografía comercial, presentaciones corporativas y estrategia de marketing digital en Colombia.',
-            },
-          },
-          {
-            '@type': 'Question',
-            name: '¿Cómo puedo contratar a Relevvo Studio?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Puedes contactarnos directamente por WhatsApp al +57 322 309 4005 o a través de nuestra página web en relevvostudio.com. Agendamos una cita sin costo para entender tu marca y recomendarte el plan ideal.',
-            },
-          },
-        ],
+        mainEntity: FAQ_ITEMS.map(item => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: { '@type': 'Answer', text: item.answer },
+        })),
       },
       {
         '@type': 'ItemList',

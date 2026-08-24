@@ -13,8 +13,8 @@ function RevealLine({ children, delay = 0, className = '', style = {} }: {
   className?: string
   style?: React.CSSProperties
 }) {
-  const wrapRef = useRef<HTMLDivElement>(null)
-  const innerRef = useRef<HTMLDivElement>(null)
+  const wrapRef = useRef<HTMLSpanElement>(null)
+  const innerRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
     if (!innerRef.current) return
@@ -26,10 +26,12 @@ function RevealLine({ children, delay = 0, className = '', style = {} }: {
     })
   }, [delay])
 
+  // <span display:block> en vez de <div>: se ve igual, pero permite anidar
+  // este helper dentro de un <h1> sin producir HTML inválido.
   return (
-    <div ref={wrapRef} style={{ overflow: 'hidden', display: 'block', ...style }} className={className}>
-      <div ref={innerRef}>{children}</div>
-    </div>
+    <span ref={wrapRef} style={{ overflow: 'hidden', display: 'block', ...style }} className={className}>
+      <span ref={innerRef} style={{ display: 'block' }}>{children}</span>
+    </span>
   )
 }
 
@@ -101,13 +103,16 @@ export default function Hero() {
         </span>
       </div>
 
-      {/* ── Giant stacked headline (Hanzo-style) ── */}
-      <div style={{ position: 'relative', zIndex: 2, marginBottom: 32 }}>
+      {/* ── Giant stacked headline (Hanzo-style) ──
+          Un solo <h1> por página: las tres líneas son <span> dentro del mismo
+          heading. Antes eran tres <h1> hermanos y Google leía tres títulos. */}
+      <h1 style={{ position: 'relative', zIndex: 2, margin: '0 0 32px' }}>
 
         <RevealLine delay={0.15}>
-          <h1
+          <span
             className="heading-display text-white hero-headline"
             style={{
+              display: 'block',
               fontSize: 'clamp(4rem, 11vw, 10.5rem)',
               lineHeight: 0.9,
               letterSpacing: '-0.05em',
@@ -115,26 +120,28 @@ export default function Hero() {
             }}
           >
             Diseño
-          </h1>
+          </span>
         </RevealLine>
 
         <RevealLine delay={0.28}>
-          <h1
+          <span
             className="heading-serif text-white hero-headline"
             style={{
+              display: 'block',
               fontSize: 'clamp(4rem, 11vw, 10.5rem)',
               lineHeight: 0.9,
               letterSpacing: '-0.04em',
             }}
           >
             sin límites.
-          </h1>
+          </span>
         </RevealLine>
 
         <RevealLine delay={0.42}>
-          <h1
+          <span
             className="heading-display hero-headline"
             style={{
+              display: 'block',
               fontSize: 'clamp(4rem, 11vw, 10.5rem)',
               lineHeight: 0.9,
               letterSpacing: '-0.05em',
@@ -146,10 +153,10 @@ export default function Hero() {
             }}
           >
             Resultados.
-          </h1>
+          </span>
         </RevealLine>
 
-      </div>
+      </h1>
 
       {/* ── Sub + CTAs row ── */}
       <div
@@ -161,7 +168,7 @@ export default function Hero() {
         }}
       >
         <p style={{ fontSize: '1.125rem', lineHeight: 1.65, color: 'rgba(255,255,255,0.52)', maxWidth: 420 }}>
-          El estudio de diseño y marketing digital en Colombia que convierte tu marca en resultados reales. Rápido, estratégico, sin excusas.
+          Branding, contenido y fotografía propia. Con IA en la producción y criterio humano en la estrategia. Plan mensual fijo, sin cotizaciones sorpresa.
         </p>
 
         <div ref={ctasRef} style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0, flexWrap: 'wrap' }}>
@@ -169,11 +176,11 @@ export default function Hero() {
             <ButtonColorful label="Hablemos hoy" />
           </Link>
           <Link
-            href="/#portafolio"
+            href="/#planes"
             className="btn-secondary"
             style={{ padding: '13px 28px', borderRadius: '100px', fontSize: '0.9375rem' }}
           >
-            Ver portafolio
+            Ver planes
           </Link>
         </div>
       </div>

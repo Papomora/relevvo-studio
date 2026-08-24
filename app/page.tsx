@@ -5,11 +5,14 @@ import WhatIncluded from '@/components/WhatIncluded'
 import LogosStrip from '@/components/LogosStrip'
 import AIStory from '@/components/AIStory'
 import VideoParallaxSection from '@/components/VideoParallaxSection'
+import Problema from '@/components/Problema'
 import Proceso from '@/components/Proceso'
 import Features from '@/components/Features'
 import Solution from '@/components/Solution'
 import Portfolio from '@/components/Portfolio'
+import Pricing from '@/components/Pricing'
 import Founder from '@/components/Founder'
+import FAQ from '@/components/FAQ'
 import Testimonial from '@/components/Testimonial'
 import Footer from '@/components/Footer'
 
@@ -21,6 +24,7 @@ export default function Home() {
       <MovingBullets />
       <WhatIncluded />
       <LogosStrip />
+      <Problema />
 
       {/* ── Parallax divider 1: after logos, before agency story ── */}
       <VideoParallaxSection
@@ -47,7 +51,9 @@ export default function Home() {
       <Features />
       <Solution />
       <Portfolio />
+      <Pricing />
       <Founder />
+      <FAQ />
       <Testimonial />
 
       {/* ── Parallax divider 3: before pricing — final CTA ── */}
