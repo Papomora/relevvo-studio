@@ -87,13 +87,24 @@ export interface Metric {
 // agrega un año más viejo a TIMELINE, actualizar este número a mano —
 // no hay cálculo automático, y ya hubo una vez una versión vieja ("5+")
 // que se contradecía con su propia línea de tiempo en la misma página.
-// "Marcas construidas" confirmado por el usuario como 20+ (coincide con
-// AIStory.tsx: "Más de 20 marcas han crecido con Relevvo"). Distinto de
-// "marcas en portafolio" (11, brands.length en /papo) — esa es cuántas se
-// muestran con enlace, no cuántas se han construido en total. No fusionar
-// las dos cifras ni reusar la etiqueta de una para la otra.
+//
+// "Marcas": hay TRES cifras reales, cada una cuenta algo distinto — no son
+// versiones contradictorias entre sí, y no hay que fusionarlas:
+//   · 8+  → marcas construidas CON RELEVVO (este METRICS). [COMPLETAR]:
+//     este número venía así en el repo antes de esta sesión; se asume que
+//     cuenta solo Relevvo porque es la lectura que cuadra con las otras
+//     dos cifras, pero el usuario no lo confirmó explícitamente como tal
+//     — a diferencia de las otras dos, que sí están confirmadas.
+//   · 20+ → carrera completa de Juan Camilo, incluye trabajo en agencias
+//     previas (RCN, Hoytrabajas, ecomms, Ariadna). Confirmado por el
+//     usuario. Vive en AIStory.tsx y en el subtítulo del bento de /papo —
+//     NO en este archivo.
+//   · 11  → marcas en portafolio (`brands.length` en /papo), cuántas se
+//     muestran con enlace, no cuántas se han construido.
+// La etiqueta de cada una es lo que evita la contradicción — no cambies
+// el número de una sección sin revisar qué alcance afirma su etiqueta.
 export const METRICS: Metric[] = [
-  { num: '20+',  label: 'Marcas construidas' },
+  { num: '8+',   label: 'Marcas con Relevvo' },
   { num: '9+',   label: 'Años de experiencia' },
   { num: '100%', label: 'Compromiso' },
   { num: '2',    label: 'Países activos' },

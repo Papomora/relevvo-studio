@@ -116,7 +116,7 @@ export default function AIStory() {
             <span className="heading-serif text-white block">negocios.</span>
           </h2>
           <p className="text-white/45 text-lg mt-6 max-w-xl mx-auto leading-relaxed">
-            Más de 20 marcas han crecido con Relevvo. Esta es la diferencia entre tener diseño y tener una marca que realmente trabaja para ti.
+            Más de 20 marcas en nueve años de oficio. Esta es la diferencia entre tener diseño y tener una marca que realmente trabaja para ti.
           </p>
         </div>
 
@@ -259,7 +259,7 @@ export default function AIStory() {
         {/* Stats — counter animation on scroll */}
         <div ref={statsRef} className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           {[
-            { value: '20+', num: 20, suffix: '+', label: 'Marcas potenciadas en Colombia y LATAM', accent: '#7C3AED' },
+            { value: '20+', num: 20, suffix: '+', label: 'Marcas potenciadas en nueve años', accent: '#7C3AED' },
             { value: '9+',  num: 9,  suffix: '+', label: 'Años construyendo identidades que perduran', accent: '#41E575' },
             { value: '100%', num: 100, suffix: '%', label: 'De compromiso con cada cliente, sin importar el plan', accent: '#FFB0CD' },
           ].map((s, i) => (

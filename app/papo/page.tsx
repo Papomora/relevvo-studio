@@ -132,7 +132,7 @@ export default function PapoPage() {
   // cuarta ("marcas en portafolio") se calcula del array `brands` de arriba
   // en vez de escribirse a mano, para que nunca se desincronice con él.
   const bentoMetrics = [
-    { value: METRICS[0].num, label: 'marcas construidas' },
+    { value: METRICS[0].num, label: 'marcas con Relevvo' },
     { value: METRICS[1].num, label: 'años de oficio' },
     { value: METRICS[3].num, label: 'países activos' },
     { value: String(brands.length), label: 'marcas en portafolio' },
@@ -335,7 +335,7 @@ export default function PapoPage() {
             Trabajo en la intersección entre <strong style={{ color: '#fff' }}>estrategia y diseño</strong>: primero entiendo quién eres y a quién le hablas, luego construyo la identidad que lo comunica.
           </p>
           <p style={{ fontSize: '1rem', lineHeight: 1.75, color: T.muted, marginBottom: 28 }}>
-            Fotografía, producción visual y diseño de marca. Más de 20 marcas construidas, nueve años de oficio, un equipo detrás: <strong style={{ color: T.accentL }}>Relevvo Studio</strong>.
+            Fotografía, producción visual y diseño de marca. Más de 20 marcas en nueve años de oficio — hoy, ese camino vive dentro de un equipo: <strong style={{ color: T.accentL }}>Relevvo Studio</strong>.
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {[
@@ -389,7 +389,7 @@ export default function PapoPage() {
       <section ref={brandsRef} id="marcas" style={{ padding: 'clamp(48px,6vw,80px) clamp(20px,6vw,80px)', maxWidth: 1200, margin: '0 auto', borderTop: `1px solid ${T.border}` }}>
         <SLabel n="03" label="Portafolio" />
         <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 0.95, margin: '0 0 36px', color: '#fff' }}>
-          Marcas construidas
+          Marcas en portafolio
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 16 }} className="brands-grid">
           {brands.map((b, i) => (
