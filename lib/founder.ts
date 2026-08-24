@@ -83,9 +83,18 @@ export interface Metric {
   label: string
 }
 
+// "Años de experiencia" se deriva de TIMELINE (2016 → hoy = 9). Si se
+// agrega un año más viejo a TIMELINE, actualizar este número a mano —
+// no hay cálculo automático, y ya hubo una vez una versión vieja ("5+")
+// que se contradecía con su propia línea de tiempo en la misma página.
+// "Marcas construidas" confirmado por el usuario como 20+ (coincide con
+// AIStory.tsx: "Más de 20 marcas han crecido con Relevvo"). Distinto de
+// "marcas en portafolio" (11, brands.length en /papo) — esa es cuántas se
+// muestran con enlace, no cuántas se han construido en total. No fusionar
+// las dos cifras ni reusar la etiqueta de una para la otra.
 export const METRICS: Metric[] = [
-  { num: '8+',   label: 'Marcas construidas' },
-  { num: '5+',   label: 'Años de experiencia' },
+  { num: '20+',  label: 'Marcas construidas' },
+  { num: '9+',   label: 'Años de experiencia' },
   { num: '100%', label: 'Compromiso' },
   { num: '2',    label: 'Países activos' },
 ]

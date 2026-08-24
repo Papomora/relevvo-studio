@@ -110,8 +110,13 @@ function SLabel({ n, label }: { n: string; label: string }) {
   )
 }
 
+// Herramientas con filtro Todo/Diseño/IA — una sola lista en vez de dos
+// columnas etiquetadas (maqueta: design/BentoCV.dc.html).
+type ToolFilter = 'Todo' | 'Design' | 'AI'
+
 export default function PapoPage() {
   const [activeService, setActiveService] = useState<number | null>(null)
+  const [toolFilter, setToolFilter] = useState<ToolFilter>('Todo')
   const heroRef      = useRef<HTMLDivElement>(null)
   const badgeRef     = useRef<HTMLDivElement>(null)
   const subRef       = useRef<HTMLDivElement>(null)
@@ -120,9 +125,20 @@ export default function PapoPage() {
   const aboutRef     = useRef<HTMLElement>(null)
   const servicesRef  = useRef<HTMLElement>(null)
   const brandsRef    = useRef<HTMLElement>(null)
-  const stackRef     = useRef<HTMLElement>(null)
-  const procesoRef   = useRef<HTMLElement>(null)
+  const bentoRef     = useRef<HTMLElement>(null)
   const ctaRef       = useRef<HTMLDivElement>(null)
+
+  // Métricas del bento — 3 vienen de lib/founder.ts (fuente única), la
+  // cuarta ("marcas en portafolio") se calcula del array `brands` de arriba
+  // en vez de escribirse a mano, para que nunca se desincronice con él.
+  const bentoMetrics = [
+    { value: METRICS[0].num, label: 'marcas construidas' },
+    { value: METRICS[1].num, label: 'años de oficio' },
+    { value: METRICS[3].num, label: 'países activos' },
+    { value: String(brands.length), label: 'marcas en portafolio' },
+  ]
+
+  const filteredTools = tools.filter(t => toolFilter === 'Todo' || t.cat === toolFilter)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -149,17 +165,14 @@ export default function PapoPage() {
       scrollTrigger: { trigger: brandsRef.current, start: 'top bottom', once: true },
     })
 
-    // Tool chips stagger
-    const chips = stackRef.current?.querySelectorAll('.tool-chip')
-    if (chips) gsap.from(Array.from(chips), {
-      scale: 0.88, opacity: 0, stagger: 0.04, duration: 0.5, ease: 'back.out(1.4)',
-      immediateRender: false,
-      scrollTrigger: { trigger: stackRef.current, start: 'top bottom', once: true },
+    // Bento cells stagger — reemplaza las animaciones separadas que tenían
+    // Stack/Formación/Trayectoria/Competencias/Proceso cuando eran secciones
+    // independientes.
+    const bentoCells = bentoRef.current?.querySelectorAll('.bento-cell')
+    if (bentoCells) gsap.from(Array.from(bentoCells), {
+      y: 24, opacity: 0, stagger: 0.06, duration: 0.6, ease: 'power3.out',
+      scrollTrigger: { trigger: bentoRef.current, start: 'top 85%' },
     })
-
-    // Proceso steps
-    const steps = procesoRef.current?.querySelectorAll('.proc-step')
-    if (steps) gsap.from(Array.from(steps), { x: -20, opacity: 0, stagger: 0.15, duration: 0.7, ease: 'power3.out', scrollTrigger: { trigger: procesoRef.current, start: 'top 85%' } })
 
     // CTA reveal
     gsap.from(ctaRef.current, { y: 40, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: ctaRef.current, start: 'top 88%' } })
@@ -180,6 +193,24 @@ export default function PapoPage() {
         @media(max-width:900px){ .brands-grid{ grid-template-columns:repeat(2,1fr)!important; } }
         @media(max-width:500px){ .brands-grid{ grid-template-columns:1fr!important; } }
         @media(max-width:640px){ .stats-grid{ grid-template-columns:repeat(2,1fr)!important; } .stats-grid .stat-item:nth-child(2){ border-right:none!important; } }
+
+        /* ── Bento "Perfil profesional" (04) ── */
+        .bento-cell { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 26px; display: flex; flex-direction: column; }
+        .bento-row { border-radius: 10px; transition: background .2s ease; }
+        .bento-row:hover { background: rgba(124,58,237,0.09); }
+        .bento-chip { display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; border-radius: 100px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); font-size: 0.8125rem; color: rgba(255,255,255,0.72); transition: border-color .2s ease, background .2s ease; }
+        .bento-chip:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.07); }
+        .bento-filt { cursor: pointer; font-family: var(--font-inter); border: none; transition: background .2s ease, color .2s ease, border-color .2s ease; }
+        .bento-clamp1 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
+        .bento-grid { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 14px; }
+        .bento-traj { grid-column: span 7; }
+        .bento-right { grid-column: span 5; display: grid; gap: 14px; align-content: start; }
+        .bento-proceso { grid-column: span 12; }
+        .bento-metrics { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; }
+        .bento-apt-formacion { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+        .bento-proc-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 22px; }
+        @media(max-width:900px){ .bento-traj, .bento-right, .bento-proceso{ grid-column: span 12!important; } .bento-proc-grid{ grid-template-columns:repeat(2,1fr)!important; } }
+        @media(max-width:560px){ .bento-metrics, .bento-apt-formacion{ grid-template-columns:repeat(2,1fr)!important; } .bento-proc-grid{ grid-template-columns:1fr!important; } }
       `}</style>
 
       {/* ── NAV ── */}
@@ -288,7 +319,7 @@ export default function PapoPage() {
           </div>
           {/* Experience badge */}
           <div style={{ position: 'absolute', top: -8, right: -16, background: 'rgba(10,10,10,0.88)', backdropFilter: 'blur(12px)', border: `1px solid ${T.border}`, borderRadius: 12, padding: '10px 14px', textAlign: 'center' }}>
-            <div style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 22, color: '#fff', lineHeight: 1 }}>5+</div>
+            <div style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 22, color: '#fff', lineHeight: 1 }}>9+</div>
             <div style={{ fontSize: 10, color: T.muted, textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: 3 }}>años</div>
           </div>
         </div>
@@ -304,7 +335,7 @@ export default function PapoPage() {
             Trabajo en la intersección entre <strong style={{ color: '#fff' }}>estrategia y diseño</strong>: primero entiendo quién eres y a quién le hablas, luego construyo la identidad que lo comunica.
           </p>
           <p style={{ fontSize: '1rem', lineHeight: 1.75, color: T.muted, marginBottom: 28 }}>
-            Fotografía, producción visual y diseño de marca. Ocho marcas construidas, cinco años de oficio, un equipo detrás: <strong style={{ color: T.accentL }}>Relevvo Studio</strong>.
+            Fotografía, producción visual y diseño de marca. Más de 20 marcas construidas, nueve años de oficio, un equipo detrás: <strong style={{ color: T.accentL }}>Relevvo Studio</strong>.
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {[
@@ -392,154 +423,157 @@ export default function PapoPage() {
         </div>
       </section>
 
-      {/* ── 04 — STACK ── */}
-      <section ref={stackRef} style={{ padding: 'clamp(48px,6vw,80px) clamp(20px,6vw,80px)', maxWidth: 1200, margin: '0 auto', borderTop: `1px solid ${T.border}` }}>
-        <SLabel n="04" label="Stack" />
-        <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 0.95, margin: '0 0 36px', color: '#fff' }}>
-          Herramientas
-        </h2>
-        {/* Category labels */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, marginBottom: 20 }}>
-          {(['Design', 'AI'] as const).map(cat => (
-            <div key={cat} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <div style={{ width: 20, height: 1, background: T.accent }} />
-              <span style={{ fontSize: 10, fontWeight: 700, color: T.muted, textTransform: 'uppercase', letterSpacing: '0.12em', fontFamily: T.fb }}>
-                {cat === 'Design' ? 'Diseño' : 'Inteligencia Artificial'}
-              </span>
-            </div>
-          ))}
+      {/* ── 04 — PERFIL PROFESIONAL (bento) ──
+          Reemplaza lo que antes eran 5 secciones apiladas (Stack, Formación,
+          Trayectoria, Competencias, Proceso) — cada una pesaba lo mismo
+          visualmente aunque tuvieran contenido muy distinto (la trayectoria,
+          que es lo que de verdad se lee en una hoja de vida, valía lo mismo
+          que "Cantante: 1 estrella"). Maqueta: design/BentoCV.dc.html. */}
+      <section ref={bentoRef} style={{ padding: 'clamp(48px,6vw,80px) clamp(20px,6vw,80px)', maxWidth: 1200, margin: '0 auto', borderTop: `1px solid ${T.border}` }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 40, marginBottom: 28, flexWrap: 'wrap' }}>
+          <div>
+            <SLabel n="04" label="Perfil profesional" />
+            <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 1, margin: 0, color: '#fff' }}>
+              Quién soy, en corto.
+            </h2>
+          </div>
+          <p style={{ fontSize: '0.9375rem', lineHeight: 1.65, color: T.muted, maxWidth: 300, textAlign: 'right', margin: 0 }}>
+            Nueve años, más de 20 marcas, dos países. Todo lo que antes tomaba cinco pantallas.
+          </p>
         </div>
-        {/* Tool chips — compact pill grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          {(['Design', 'AI'] as const).map(cat => (
-            <div key={cat} style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignContent: 'flex-start' }}>
-              {tools.filter(t => t.cat === cat).map((tool, i) => (
-                <div key={i} className="tool-chip"
-                  onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = `${tool.color}55`; el.style.background = `${tool.color}12`; el.style.transform = 'translateY(-2px)' }}
-                  onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = T.border; el.style.background = 'rgba(255,255,255,0.04)'; el.style.transform = 'translateY(0)' }}
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '9px 14px', borderRadius: 100, background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(8px)', border: `1px solid ${T.border}`, cursor: 'default', transition: 'all .2s ease' }}>
-                  {tool.logo ? (
-                    <img src={tool.logo} alt={tool.name} style={{ width: 18, height: 18, objectFit: 'contain' }} />
-                  ) : (
-                    <span style={{ fontSize: 16, lineHeight: 1 }}>{tool.emoji}</span>
-                  )}
-                  <span style={{ fontSize: 12, fontWeight: 700, color: '#fff', fontFamily: T.fd, letterSpacing: '-0.01em', whiteSpace: 'nowrap' }}>{tool.name}</span>
+
+        <div className="bento-grid">
+
+          {/* ── Trayectoria — la celda más grande, a propósito ── */}
+          <div className="bento-cell bento-traj" style={{ gap: 18 }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+              <span className="font-mono" style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>Trayectoria</span>
+              <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.28)' }}>2016 — hoy</span>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              {TIMELINE.map((item, i) => (
+                <div key={i} className="bento-row" style={{ display: 'grid', gridTemplateColumns: '46px minmax(0,1fr)', gap: 14, padding: 10, alignItems: 'start' }}>
+                  <span style={{ fontFamily: T.fd, fontWeight: 800, fontSize: '0.75rem', paddingTop: 2, fontVariantNumeric: 'tabular-nums', color: item.current ? T.accentL : 'rgba(255,255,255,0.3)' }}>
+                    {item.year}
+                  </span>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 7, flexWrap: 'wrap' }}>
+                      <span style={{ fontFamily: T.fd, fontWeight: 700, fontSize: '0.9375rem', color: '#fff' }}>{item.role}</span>
+                      <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.35)' }}>· {item.place}</span>
+                      {item.current && (
+                        <span style={{ fontSize: 10, fontFamily: T.fb, fontWeight: 700, padding: '2px 9px', borderRadius: 99, background: 'rgba(124,58,237,0.15)', color: T.accentL }}>
+                          hoy
+                        </span>
+                      )}
+                    </div>
+                    <span className="bento-clamp1" style={{ fontSize: '0.8125rem', lineHeight: 1.45, color: 'rgba(255,255,255,0.38)' }}>{item.desc}</span>
+                  </div>
                 </div>
               ))}
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
 
-      {/* ── 05 — FORMACIÓN ── */}
-      <section style={{ padding: 'clamp(48px,6vw,80px) clamp(20px,6vw,80px)', maxWidth: 1200, margin: '0 auto', borderTop: `1px solid ${T.border}` }}>
-        <SLabel n="05" label="Formación" />
-        <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 0.95, margin: '0 0 36px', color: '#fff' }}>
-          Estudios
-        </h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 560 }}>
-          {STUDIES.map((s, i) => (
-            <div key={i} style={{ padding: '18px 22px', borderRadius: 14, background: T.card, border: `1px solid ${T.border}` }}>
-              <p style={{ fontFamily: T.fd, fontWeight: 700, fontSize: '1rem', color: '#fff', margin: '0 0 4px' }}>{s.title}</p>
-              <p style={{ fontSize: '0.8125rem', color: T.muted, margin: 0, fontFamily: T.fb }}>{s.detail}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+          {/* ── Columna derecha ── */}
+          <div className="bento-right">
 
-      {/* ── 06 — EXPERIENCIA ── */}
-      <section style={{ padding: 'clamp(48px,6vw,80px) clamp(20px,6vw,80px)', maxWidth: 1200, margin: '0 auto', borderTop: `1px solid ${T.border}` }}>
-        <SLabel n="06" label="Experiencia" />
-        <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 0.95, margin: '0 0 20px', color: '#fff' }}>
-          Trayectoria
-        </h2>
-
-        {/* Métricas agregadas — los únicos números reales que hay, ya
-            publicados más arriba en esta misma página (barra de stats).
-            No hay cifra por empleador en ningún archivo del repo. */}
-        <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', marginBottom: 40 }}>
-          {METRICS.map((m, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
-              <span style={{ fontFamily: T.fd, fontWeight: 900, fontSize: '1.5rem', color: T.accentL }}>{m.num}</span>
-              <span style={{ fontSize: 11, color: T.muted, textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: T.fb }}>{m.label}</span>
-            </div>
-          ))}
-        </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', maxWidth: 720 }}>
-          {TIMELINE.map((item, i) => (
-            <div key={i} style={{
-              display: 'grid', gridTemplateColumns: '70px 1fr', gap: 16, padding: '18px 0',
-              borderBottom: i === TIMELINE.length - 1 ? 'none' : `1px solid ${T.border}`,
-            }}>
-              <span style={{ fontFamily: T.fb, fontSize: 12, fontWeight: 700, color: item.current ? T.accentL : T.muted, letterSpacing: '0.04em' }}>
-                {item.year}
-              </span>
-              <div>
-                <p style={{ color: '#fff', fontSize: '0.9375rem', fontWeight: 700, margin: 0, fontFamily: T.fb }}>
-                  {item.role}
-                  <span style={{ color: T.muted, fontWeight: 400 }}> · {item.place}</span>
-                  {item.current && (
-                    <span style={{ marginLeft: 8, fontSize: 10, fontFamily: T.fb, fontWeight: 700, padding: '2px 9px', borderRadius: 99, background: 'rgba(124,58,237,0.15)', color: T.accentL, verticalAlign: 'middle' }}>
-                      hoy
-                    </span>
-                  )}
-                </p>
-                <p style={{ color: T.muted, fontSize: '0.8125rem', lineHeight: 1.6, margin: '4px 0 0', maxWidth: 560, fontFamily: T.fb }}>{item.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── 07 — COMPETENCIAS ── */}
-      <section style={{ padding: 'clamp(48px,6vw,80px) clamp(20px,6vw,80px)', maxWidth: 1200, margin: '0 auto', borderTop: `1px solid ${T.border}` }}>
-        <SLabel n="07" label="Competencias" />
-        <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 0.95, margin: '0 0 36px', color: '#fff' }}>
-          Aptitudes
-        </h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 360 }}>
-          {APTITUDES.map((a, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-              <span style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.9375rem', fontFamily: T.fb }}>{a.name}</span>
-              <span style={{ display: 'flex', gap: 3, flexShrink: 0 }} aria-label={`${a.level} de 5 estrellas`}>
-                {Array.from({ length: 5 }).map((_, s) => (
-                  <svg key={s} width="14" height="14" viewBox="0 0 24 24"
-                    fill={s < a.level ? T.accentL : 'none'}
-                    stroke={s < a.level ? T.accentL : 'rgba(255,255,255,0.2)'}
-                    strokeWidth="1.5">
-                    <path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.2l7.1-.6L12 2z" />
-                  </svg>
+            {/* Métricas — suben primero, es donde cae el ojo tras el titular */}
+            <div className="bento-cell" style={{ padding: '22px 26px' }}>
+              <div className="bento-metrics">
+                {bentoMetrics.map((m, i) => (
+                  <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                    <span style={{ fontFamily: T.fd, fontWeight: 800, fontSize: '1.5rem', letterSpacing: '-0.03em', color: T.accentL }}>{m.value}</span>
+                    <span style={{ fontSize: '0.6875rem', lineHeight: 1.3, color: 'rgba(255,255,255,0.38)' }}>{m.label}</span>
+                  </div>
                 ))}
-              </span>
+              </div>
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* ── 08 — PROCESO ── */}
-      <section ref={procesoRef} style={{ padding: 'clamp(48px,6vw,80px) clamp(20px,6vw,80px)', maxWidth: 1200, margin: '0 auto', borderTop: `1px solid ${T.border}` }}>
-        <SLabel n="08" label="Proceso" />
-        <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 0.95, margin: '0 0 48px', color: '#fff' }}>
-          Cómo trabajo
-        </h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 0, maxWidth: 640 }}>
-          {proceso.map((step, i) => (
-            <div key={i} className="proc-step" style={{ display: 'flex', gap: 24, position: 'relative', paddingBottom: i < proceso.length - 1 ? 40 : 0 }}>
-              {/* Line */}
-              {i < proceso.length - 1 && (
-                <div style={{ position: 'absolute', left: 19, top: 40, bottom: 0, width: 1, background: `linear-gradient(to bottom, rgba(124,58,237,0.4), transparent)` }} />
-              )}
-              {/* Dot */}
-              <div style={{ width: 40, height: 40, borderRadius: '50%', background: T.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: T.fb, fontWeight: 800, fontSize: 12, color: '#fff', flexShrink: 0, boxShadow: '0 0 0 4px rgba(124,58,237,0.15), 0 0 0 8px rgba(124,58,237,0.07)' }}>
-                {step.n}
+            {/* Aptitudes + Formación */}
+            <div className="bento-apt-formacion">
+              <div className="bento-cell" style={{ gap: 14, padding: 22 }}>
+                <span className="font-mono" style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>Aptitudes</span>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
+                  {APTITUDES.map((a, i) => (
+                    <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+                      <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.7)' }}>{a.name}</span>
+                      <span style={{ display: 'flex', gap: 2, flexShrink: 0 }} aria-label={`${a.level} de 5 estrellas`}>
+                        {Array.from({ length: 5 }).map((_, s) => (
+                          <span key={s} style={{ display: 'block', width: 5, height: 5, borderRadius: '50%', background: s < a.level ? T.accentL : 'rgba(255,255,255,0.14)' }} />
+                        ))}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div style={{ paddingTop: 8 }}>
-                <h3 style={{ fontFamily: T.fd, fontWeight: 800, fontSize: '1.125rem', letterSpacing: '-0.025em', color: '#fff', margin: '0 0 8px' }}>{step.title}</h3>
-                <p style={{ fontSize: '0.9375rem', lineHeight: 1.65, color: T.muted, margin: 0, fontFamily: T.fb }}>{step.desc}</p>
+
+              <div className="bento-cell" style={{ gap: 14, padding: 22 }}>
+                <span className="font-mono" style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>Formación</span>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                  {STUDIES.map((s, i) => (
+                    <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                      <span style={{ fontFamily: T.fd, fontWeight: 700, fontSize: '0.875rem', lineHeight: 1.3, color: '#fff' }}>{s.title}</span>
+                      <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.35)' }}>{s.detail}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          ))}
+
+            {/* Herramientas — una sola lista, filtro Todo/Diseño/IA */}
+            <div className="bento-cell" style={{ gap: 16, padding: '22px 26px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                <span className="font-mono" style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>Herramientas</span>
+                <div style={{ display: 'flex', gap: 6 }}>
+                  {([
+                    { id: 'Todo' as ToolFilter, label: 'Todo' },
+                    { id: 'Design' as ToolFilter, label: 'Diseño' },
+                    { id: 'AI' as ToolFilter, label: 'IA' },
+                  ]).map(f => (
+                    <button
+                      key={f.id}
+                      className="bento-filt"
+                      onClick={() => setToolFilter(f.id)}
+                      style={{
+                        padding: '4px 11px', borderRadius: 100, fontSize: '0.6875rem', fontWeight: 600,
+                        background: toolFilter === f.id ? T.accent : 'transparent',
+                        color: toolFilter === f.id ? '#fff' : 'rgba(255,255,255,0.4)',
+                        border: toolFilter === f.id ? '1px solid transparent' : `1px solid ${T.border}`,
+                      }}
+                    >
+                      {f.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7 }}>
+                {filteredTools.map((tool, i) => (
+                  <span key={i} className="bento-chip">
+                    <img src={tool.logo} alt="" style={{ width: 14, height: 14, objectFit: 'contain' }} />
+                    {tool.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+          </div>
+
+          {/* ── Proceso — ancho completo ── */}
+          <div className="bento-cell bento-proceso" style={{ gap: 20, padding: '26px 28px' }}>
+            <span className="font-mono" style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>Cómo trabajo</span>
+            <div className="bento-proc-grid">
+              {proceso.map((step, i) => (
+                <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <span style={{ fontFamily: T.fd, fontWeight: 800, fontSize: '0.75rem', color: T.accentL }}>{step.n}</span>
+                    <span style={{ display: 'block', height: 1, flexGrow: 1, background: 'rgba(255,255,255,0.1)' }} />
+                  </div>
+                  <span style={{ fontFamily: T.fd, fontWeight: 700, fontSize: '0.9375rem', lineHeight: 1.25, color: '#fff' }}>{step.title}</span>
+                  <span style={{ fontSize: '0.8125rem', lineHeight: 1.55, color: 'rgba(255,255,255,0.4)' }}>{step.desc}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </section>
 

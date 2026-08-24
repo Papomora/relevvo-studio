@@ -260,7 +260,7 @@ export default function AIStory() {
         <div ref={statsRef} className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           {[
             { value: '20+', num: 20, suffix: '+', label: 'Marcas potenciadas en Colombia y LATAM', accent: '#7C3AED' },
-            { value: '5+',  num: 5,  suffix: '+', label: 'Años construyendo identidades que perduran', accent: '#41E575' },
+            { value: '9+',  num: 9,  suffix: '+', label: 'Años construyendo identidades que perduran', accent: '#41E575' },
             { value: '100%', num: 100, suffix: '%', label: 'De compromiso con cada cliente, sin importar el plan', accent: '#FFB0CD' },
           ].map((s, i) => (
             <div

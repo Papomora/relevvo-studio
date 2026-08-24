@@ -76,7 +76,7 @@ export const SERVICIOS: Servicio[] = [
       'Entrega de archivos de diseño listos para desarrollo',
     ],
     faq: [
-      { question: '¿El diseño web está incluido en los planes mensuales?', answer: 'El diseño web se cotiza según el alcance del sitio — no es una línea fija dentro de los 3 planes. Escríbenos y te decimos el rango según lo que necesites.' },
+      { question: '¿El diseño web está incluido en los planes mensuales?', answer: 'No — ningún plan mensual lo trae incluido. Se cotiza aparte, como proyecto puntual: en /planes, en el bloque "Proyecto a la medida", con un solo pago según el alcance del sitio.' },
       { question: '¿También desarrollan el sitio, o solo lo diseñan?', answer: 'El foco es el diseño y prototipado. Para el desarrollo trabajamos con el equipo técnico que el cliente ya tenga o coordinamos uno de confianza.' },
       { question: '¿Puedo pedir solo una landing page, no el sitio completo?', answer: 'Sí, es de hecho lo más común — una landing page para una campaña o un lanzamiento específico.' },
     ],

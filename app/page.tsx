@@ -51,7 +51,7 @@ export default function Home() {
       <Features />
       <Solution />
       <Portfolio />
-      <Pricing />
+      <Pricing compact />
       <Founder />
       <FAQ />
       <Testimonial />

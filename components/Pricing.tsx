@@ -7,7 +7,13 @@ import Link from 'next/link'
 import { WA_URL } from '@/lib/constants'
 import { PLANS as plans, MARKET_COMPARISON } from '@/lib/planes'
 
-export default function Pricing() {
+// `compact`: usa la cifra abreviada (`short`) del banner de mercado. El
+// home la necesita — celda angosta, tipografía de display, la cifra
+// completa partía a dos líneas y descuadraba las tres tarjetas. /planes
+// tiene espacio de sobra y llama a este componente sin la prop, así que
+// sigue mostrando la cifra completa (`figure`). Mismo dato en lib/planes.ts,
+// dos presentaciones.
+export default function Pricing({ compact = false }: { compact?: boolean } = {}) {
   const sectionRef  = useRef<HTMLDivElement>(null)
   const headingRef  = useRef<HTMLDivElement>(null)
   const bannerRef   = useRef<HTMLDivElement>(null)
@@ -94,7 +100,7 @@ export default function Pricing() {
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           {MARKET_COMPARISON.map((m, i) => (
             <div key={i} className="rounded-xl border border-white/10 p-5 text-center">
-              <p className="heading-display text-white mb-1" style={{ fontSize: '1.5rem' }}>{m.figure}</p>
+              <p className="heading-display text-white mb-1" style={{ fontSize: '1.5rem', whiteSpace: compact ? 'nowrap' : 'normal' }}>{compact ? m.short : m.figure}</p>
               <p className="text-white/45 text-sm">{m.desc}</p>
             </div>
           ))}
@@ -189,10 +195,46 @@ export default function Pricing() {
       </div>
 
       {/* ── Bottom note ─────────────────────────────────────── */}
-      <p className="text-center text-white/30 text-sm">
+      <p className="text-center text-white/30 text-sm mb-10">
         Todos los planes incluyen onboarding, estrategia inicial y comunicación directa con el equipo.
         <br />Precios de referencia — si tu proyecto necesita algo distinto, lo ajustamos hablando.
       </p>
+
+      {/* ── Proyecto a la medida ── alternativa, no un cuarto plan: ancho
+          completo y tratamiento distinto a propósito, para que no compita
+          visualmente con las 3 tarjetas de arriba. Sin precio — no hay
+          cifra real que mostrar, se cotiza según alcance. */}
+      <div
+        className="relative overflow-hidden rounded-2xl border border-white/10 p-8 md:p-10"
+        style={{ background: 'rgba(255,255,255,0.02)' }}
+      >
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-center">
+          <div>
+            <span className="font-mono text-xs text-white/40 uppercase tracking-widest mb-3 inline-flex">Proyecto a la medida</span>
+            <h3 className="heading-display text-white mb-3" style={{ fontSize: 'clamp(1.4rem, 3vw, 1.875rem)', letterSpacing: '-0.03em' }}>
+              ¿No encajas en un plan mensual?
+            </h3>
+            <p className="text-white/50 text-base leading-relaxed max-w-xl mb-4">
+              Un branding puntual, una web o una sesión de fotos sueltos — sin suscripción. Alcance
+              definido contigo, cotización según lo que pidas, un solo pago en vez de mensualidad.
+              El{' '}
+              <Link href="/servicios/diseno-web" className="text-accent hover:text-accent-light underline underline-offset-2">
+                diseño web
+              </Link>
+              {' '}es el caso más común: ningún plan mensual lo trae incluido, así que se cotiza acá.
+            </p>
+          </div>
+          <Link
+            href="/contacto"
+            className="btn-secondary inline-flex items-center gap-2 px-8 py-3.5 whitespace-nowrap"
+          >
+            Cotizar mi proyecto
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </Link>
+        </div>
+      </div>
     </section>
   )
 }

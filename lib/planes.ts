@@ -70,14 +70,18 @@ export const PLANS: Plan[] = [
 ]
 
 // Cifras verificadas en SEO_SEM_RESEARCH.md — no extrapolar ninguna otra
-// a partir de estas tres.
+// a partir de estas tres. `short` es la misma cifra abreviada a millones,
+// solo para el home (celda angosta, tipografía grande) — /planes tiene
+// espacio de sobra y usa `figure` completo. Mismo dato, dos formatos; no
+// dos fuentes.
 export interface MarketFigure {
   figure: string
+  short: string
   desc: string
 }
 
 export const MARKET_COMPARISON: MarketFigure[] = [
-  { figure: 'Desde $2.300.000', desc: 'Piso de un plan mensual de agencia en Colombia' },
-  { figure: '$2.300.000 – $3.500.000', desc: 'Rango típico de un plan pyme mensual' },
-  { figure: '$5.000.000 – $20.000.000', desc: 'Branding completo cobrado por proyecto' },
+  { figure: 'Desde $2.300.000', short: 'Desde $2,3M', desc: 'Piso de un plan mensual de agencia en Colombia' },
+  { figure: '$2.300.000 – $3.500.000', short: '$2,3M – $3,5M', desc: 'Rango típico de un plan pyme mensual' },
+  { figure: '$5.000.000 – $20.000.000', short: '$5M – $20M', desc: 'Branding completo cobrado por proyecto' },
 ]
