@@ -1,5 +1,6 @@
 import { getAllPosts } from '@/lib/blog'
 import Link from 'next/link'
+import Image from 'next/image'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
@@ -87,9 +88,12 @@ export default function BlogPage() {
                 }}
               >
                 {post.image && (
-                  <img
+                  <Image
                     src={post.image}
                     alt={post.title}
+                    width={520}
+                    height={200}
+                    sizes="(max-width: 768px) 100vw, 360px"
                     style={{ width: '100%', height: 200, objectFit: 'cover' }}
                   />
                 )}

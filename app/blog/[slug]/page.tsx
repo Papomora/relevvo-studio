@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export async function generateStaticParams() {
   return getAllPosts().map(post => ({ slug: post.slug }))
@@ -36,8 +37,46 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
   const { frontmatter, content } = post
   const paragraphs = content.split('\n').filter(l => l.trim())
 
+  // Los artículos no tenían structured data: Google no sabía que eran
+  // artículos, quién los firmaba ni cuándo se publicaron. BlogPosting es lo
+  // que habilita la tarjeta enriquecida y la atribución de autoría.
+  // BreadcrumbList da la miga de pan en los resultados de búsqueda.
+  const BASE = 'https://relevvostudio.com'
+  const url = `${BASE}/blog/${params.slug}`
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'BlogPosting',
+        '@id': `${url}#article`,
+        headline: frontmatter.title,
+        description: frontmatter.description,
+        datePublished: frontmatter.date,
+        dateModified: frontmatter.date,
+        inLanguage: 'es-CO',
+        mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+        author: { '@type': 'Person', name: frontmatter.author ?? 'Relevvo Studio' },
+        publisher: { '@id': `${BASE}/#organization` },
+        ...(frontmatter.image ? { image: `${BASE}${frontmatter.image}` } : {}),
+        ...(frontmatter.keyword ? { keywords: frontmatter.keyword } : {}),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Inicio', item: BASE },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE}/blog` },
+          { '@type': 'ListItem', position: 3, name: frontmatter.title, item: url },
+        ],
+      },
+    ],
+  }
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
 
       <article style={{
@@ -86,11 +125,17 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
           </p>
 
           {frontmatter.image && (
-            <img
+            /* priority: es el LCP del artículo, va sobre el fold */
+            <Image
               src={frontmatter.image}
               alt={frontmatter.title}
+              width={800}
+              height={400}
+              priority
+              sizes="(max-width: 768px) 100vw, 760px"
               style={{
                 width: '100%',
+                height: 'auto',
                 borderRadius: 12,
                 marginBottom: 36,
                 maxHeight: 400,
