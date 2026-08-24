@@ -16,6 +16,7 @@ const navLinks = [
   { label: 'Clientes',   href: '/#clientes' },
   { label: 'Portafolio', href: '/#portafolio' },
   { label: 'Blog',       href: '/blog' },
+  { label: 'Contacto',   href: '/contacto' },
 ]
 
 const WA_ICON = (
