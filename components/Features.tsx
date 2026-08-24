@@ -3,7 +3,9 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Link from 'next/link'
 import { DotPattern } from '@/components/ui/dot-pattern'
+import { SERVICIOS } from '@/lib/servicios'
 
 export default function Features() {
   const headingRef = useRef<HTMLDivElement>(null)
@@ -284,6 +286,21 @@ export default function Features() {
           </div>
         </div>
 
+      </div>
+
+      {/* ── Enlaces a las 4 landings de servicio — SEO interno, no
+          decorativo: sin esto /servicios/* no recibe enlaces desde el home. ── */}
+      <div className="mt-10 flex flex-wrap items-center gap-3">
+        {SERVICIOS.map(s => (
+          <Link
+            key={s.slug}
+            href={`/servicios/${s.slug}`}
+            className="text-xs font-mono px-4 py-2 rounded-full border border-white/[0.08] text-white/45
+              hover:border-accent/40 hover:text-white/80 transition-all duration-300"
+          >
+            {s.label}
+          </Link>
+        ))}
       </div>
     </section>
   )

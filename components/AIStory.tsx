@@ -143,7 +143,7 @@ export default function AIStory() {
           </h3>
           <p className="text-white/55 text-lg leading-relaxed relative z-10 max-w-2xl">
             El problema no es el diseño — es la estrategia que falta detrás. En Relevvo no te damos solo piezas gráficas.
-            Te damos una marca con identidad, contenido con propósito y ejecución sin excusas.
+            Te damos una marca con identidad, contenido con propósito y entregas que llegan cuando dijimos que llegaban.
           </p>
         </div>
 
@@ -168,7 +168,7 @@ export default function AIStory() {
           {[
             { stage: 'Freelancer', problem: '"Entrega rápido, pero no entiende mi marca ni tiene visión estratégica."', color: 'rgba(59,130,246,0.15)', border: 'rgba(59,130,246,0.25)', text: '#60A5FA' },
             { stage: 'Agencia tradicional', problem: '"Cobra mucho, tarda semanas y nunca hablas con quien hace el trabajo."', color: 'rgba(245,158,11,0.1)', border: 'rgba(245,158,11,0.25)', text: '#F59E0B' },
-            { stage: 'Relevvo', problem: '"Velocidad de freelancer, estrategia de agencia. Precio justo. Sin excusas."', color: 'rgba(124,58,237,0.12)', border: 'rgba(124,58,237,0.3)', text: '#A78BFA' },
+            { stage: 'Relevvo', problem: '"Velocidad de freelancer, estrategia de agencia. Precio fijo y publicado."', color: 'rgba(124,58,237,0.12)', border: 'rgba(124,58,237,0.3)', text: '#A78BFA' },
           ].map((item, i) => (
             <div key={i} className="rounded-2xl p-6" style={{ background: item.color, border: `1px solid ${item.border}` }}>
               <span className="font-mono text-xs mb-3 block" style={{ color: item.text, letterSpacing: '0.1em' }}>{item.stage}</span>
@@ -310,7 +310,7 @@ export default function AIStory() {
             className="heading-display text-white mb-5"
             style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)', letterSpacing: '-0.025em', lineHeight: 1.2 }}
           >
-            Sin burocracia. Sin sorpresas. Sin excusas.
+            Como si la marca fuera nuestra.
           </h3>
           <p className="text-white/50 text-base md:text-lg leading-relaxed">
             Trabajamos como si tu marca fuera nuestra. Con el mismo nivel de exigencia, atención al detalle
@@ -376,7 +376,7 @@ export default function AIStory() {
             className="heading-display text-white mb-5"
             style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)', letterSpacing: '-0.025em', lineHeight: 1.2 }}
           >
-            Para marcas que están listas para el siguiente nivel.
+            No somos para todo el mundo.
           </h3>
           <p className="text-white/50 text-base md:text-lg leading-relaxed mb-6">
             No somos para todo el mundo — y eso es intencional. Somos para quienes ya saben que el diseño

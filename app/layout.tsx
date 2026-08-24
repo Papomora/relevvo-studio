@@ -38,7 +38,10 @@ export const metadata: Metadata = {
     template: '%s | Relevvo Studio',
   },
   description:
-    'Estudio de diseño gráfico y marketing digital en Colombia. Creamos logos, branding, landing pages y estrategia digital con criterio humano. Planes mensuales sin sobrecostos. ¡Resultados reales para tu marca!',
+    // Máx ~155 caracteres: es lo que Google muestra bajo el título. Es el
+    // texto más leído del sitio, así que dice qué entregamos y bajo qué
+    // modelo, no adjetivos que cualquier agencia podría copiar.
+    'Estudio de diseño y branding en Colombia. Logos, identidad de marca, contenido y fotografía propia. Plan mensual fijo, sin cotizaciones sorpresa.',
   keywords: [
     'estudio de diseño Colombia',
     'estudio de branding Colombia',

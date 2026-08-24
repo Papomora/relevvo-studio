@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
 import Image from 'next/image'
 import { STUDIES, TIMELINE, APTITUDES, METRICS } from '@/lib/founder'
+import { PROCESO_GENERICO } from '@/lib/servicios'
 
 // ── Constants ──────────────────────────────────────────────────
 const WA = 'https://wa.me/573223094005?text=Hola%20Camilo%2C%20vi%20tu%20portafolio%20y%20quiero%20hablar%20sobre%20un%20proyecto'
@@ -61,12 +62,7 @@ const tools: { name: string; logo?: string; emoji?: string; cat: 'Design' | 'AI'
   { name: 'Freepik',       logo: '/images/tools/Freepik_logo.png',    cat: 'AI', color: '#1273EB' },
 ]
 
-const proceso = [
-  { n: '01', title: 'Escucho tu historia',  desc: 'Antes de diseñar una sola línea entiendo tu negocio, tus clientes y qué te hace diferente.' },
-  { n: '02', title: 'Defino la estrategia', desc: 'Posicionamiento, arquetipo de marca y oportunidades. La estrategia siempre va antes que la estética.' },
-  { n: '03', title: 'Diseño con propósito', desc: 'Cada elemento visual tiene un argumento. No decoro — comunico.' },
-  { n: '04', title: 'Entrego listo',        desc: 'Archivos completos, guía de aplicación y acompañamiento post-entrega.' },
-]
+const proceso = PROCESO_GENERICO
 
 // ── Clip-reveal helper ─────────────────────────────────────────
 function RevealLine({ children, delay = 0, style = {} }: {
@@ -315,7 +311,7 @@ export default function PapoPage() {
               '🎯 Estrategia antes que estética',
               '⚡ Entregas rápidas sin perder calidad',
               '🤖 IA + criterio humano en cada pieza',
-              '📊 Diseño orientado a resultados reales',
+              '📊 Diseño que se mide en ventas, no en likes',
             ].map((attr, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderRadius: 10, background: T.card, border: `1px solid ${T.border}`, fontSize: 13, color: 'rgba(255,255,255,0.7)', fontFamily: T.fb }}>
                 {attr}

@@ -168,7 +168,7 @@ export default function Hero() {
         }}
       >
         <p style={{ fontSize: '1.125rem', lineHeight: 1.65, color: 'rgba(255,255,255,0.52)', maxWidth: 420 }}>
-          Branding, contenido y fotografía propia. Con IA en la producción y criterio humano en la estrategia. Plan mensual fijo, sin cotizaciones sorpresa.
+          Branding, contenido y fotografía propia, todo bajo un mismo techo. Plan mensual fijo, sin cotizaciones sorpresa ni cobros por revisión.
         </p>
 
         <div ref={ctasRef} style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0, flexWrap: 'wrap' }}>

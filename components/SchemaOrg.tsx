@@ -79,7 +79,7 @@ export default function SchemaOrg() {
         '@type': 'ProfessionalService',
         '@id': 'https://relevvostudio.com/#professionalservice',
         name: 'Relevvo Studio — Estudio de Diseño y Branding',
-        description: 'Estudio de diseño gráfico y marketing digital en Colombia. Creamos marcas que crecen con criterio, estrategia y resultados reales.',
+        description: 'Estudio de diseño gráfico y marketing digital en Colombia. Branding, contenido y fotografía propia bajo un mismo plan mensual.',
         url: 'https://relevvostudio.com',
         areaServed: 'Colombia',
         serviceType: [
