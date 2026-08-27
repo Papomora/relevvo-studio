@@ -1,8 +1,5 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
 import { WA_URL } from '@/lib/constants'
 import { PLANS as plans, MARKET_COMPARISON } from '@/lib/planes'
@@ -13,47 +10,22 @@ import { PLANS as plans, MARKET_COMPARISON } from '@/lib/planes'
 // tiene espacio de sobra y llama a este componente sin la prop, así que
 // sigue mostrando la cifra completa (`figure`). Mismo dato en lib/planes.ts,
 // dos presentaciones.
+//
+// Sin animación de scroll-reveal a propósito. La tenía (GSAP + ScrollTrigger,
+// como el resto del sitio) pero se reportó dos veces la misma tarjeta de
+// planes invisible en el navegador — el reveal se quedaba atascado en su
+// estado inicial (opacity: 0) cuando el disparador de scroll no calculaba
+// bien el momento, algo que se agrava con Lenis (scroll suave) de por medio.
+// Esta es la sección donde el visitante decide si contratar o no: el riesgo
+// de que quede invisible pesa más que el valor decorativo de la animación.
+// No reintroducir scroll-reveal acá sin una red de seguridad que garantice
+// visibilidad si el trigger falla.
 export default function Pricing({ compact = false }: { compact?: boolean } = {}) {
-  const sectionRef  = useRef<HTMLDivElement>(null)
-  const headingRef  = useRef<HTMLDivElement>(null)
-  const bannerRef   = useRef<HTMLDivElement>(null)
-  const cardsRef    = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    gsap.registerPlugin(ScrollTrigger)
-
-    gsap.from(headingRef.current, {
-      y: 40, opacity: 0, duration: 0.8, ease: 'power3.out',
-      scrollTrigger: { trigger: headingRef.current, start: 'top 80%' },
-    })
-    gsap.from(bannerRef.current, {
-      y: 30, opacity: 0, duration: 0.8, ease: 'power3.out', delay: 0.1,
-      scrollTrigger: { trigger: bannerRef.current, start: 'top 82%' },
-    })
-    const cards = cardsRef.current?.children
-    if (cards) {
-      gsap.from(Array.from(cards), {
-        y: 60, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.18,
-        scrollTrigger: { trigger: cardsRef.current, start: 'top 82%' },
-      })
-      // Featured card gets extra scale punch
-      const featured = cardsRef.current?.querySelector('.plan-featured')
-      if (featured) {
-        gsap.from(featured, {
-          scale: 0.92, duration: 0.9, ease: 'back.out(1.5)',
-          scrollTrigger: { trigger: cardsRef.current, start: 'top 82%' },
-          delay: 0.18,
-        })
-      }
-    }
-  }, [])
-
   return (
-    <section ref={sectionRef} id="planes" className="py-24 px-4 max-w-5xl mx-auto">
+    <section id="planes" className="py-24 px-4 max-w-5xl mx-auto">
 
       {/* ── Heading ─────────────────────────────────────────── */}
-      <div ref={headingRef} className="text-center mb-10">
+      <div className="text-center mb-10">
         <span className="pill-badge mb-6 inline-flex">Planes de trabajo</span>
         <h2 className="mb-4">
           <span className="heading-display text-white" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}>
@@ -73,7 +45,6 @@ export default function Pricing({ compact = false }: { compact?: boolean } = {})
           Cifras verificadas en SEO_SEM_RESEARCH.md — no extrapolar
           ninguna otra a partir de estas tres. */}
       <div
-        ref={bannerRef}
         className="relative overflow-hidden rounded-2xl border border-accent/25 mb-12 p-8"
         style={{
           background: 'rgba(124,58,237,0.07)',
@@ -122,7 +93,7 @@ export default function Pricing({ compact = false }: { compact?: boolean } = {})
       </div>
 
       {/* ── Plan cards (sin precios) ─────────────────────────── */}
-      <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
         {plans.map((plan, i) => (
           <div
             key={i}
