@@ -64,6 +64,65 @@ const tools: { name: string; logo?: string; emoji?: string; cat: 'Design' | 'AI'
 
 const proceso = PROCESO_GENERICO
 
+// ── Íconos de servicios — SVG dibujados a mano, stroke-based, sin emoji ni
+// icon pack, para que los 6 tengan un mismo lenguaje visual. Uno por
+// concepto; donde el concepto no tiene una forma obvia, se usa una figura
+// abstracta simple (círculo, capas, rombo) en vez de algo confuso. ──
+function IconMark({ color }: { color: string }) {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="8.5" stroke={color} strokeWidth="1.6" />
+      <circle cx="12" cy="12" r="3" fill={color} />
+    </svg>
+  )
+}
+function IconLayers({ color }: { color: string }) {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M12 3 L21 8 L12 13 L3 8 Z" stroke={color} strokeWidth="1.6" strokeLinejoin="round" />
+      <path d="M3 13 L12 18 L21 13" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M3 17.5 L12 22.5 L21 17.5" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
+    </svg>
+  )
+}
+function IconRefresh({ color }: { color: string }) {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M4.5 12a7.5 7.5 0 0 1 12.6-5.5" stroke={color} strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M19.5 12a7.5 7.5 0 0 1-12.6 5.5" stroke={color} strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M17.5 4.5 V7.5 H14.5" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M6.5 19.5 V16.5 H9.5" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+function IconTag({ color }: { color: string }) {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <rect x="5" y="5" width="14" height="14" rx="3" transform="rotate(45 12 12)" stroke={color} strokeWidth="1.6" />
+      <circle cx="12" cy="12" r="1.6" fill={color} />
+    </svg>
+  )
+}
+function IconImage({ color }: { color: string }) {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="4" width="18" height="16" rx="2.5" stroke={color} strokeWidth="1.6" />
+      <circle cx="8.5" cy="9.5" r="1.6" stroke={color} strokeWidth="1.6" />
+      <path d="M4 17 L9 12 L13 15.5 L16 12.5 L20 16.5" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+function IconSpark({ color }: { color: string }) {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M12 3 C12.6 8 13.8 10.4 19 11 C13.8 11.6 12.6 14 12 19 C11.4 14 10.2 11.6 5 11 C10.2 10.4 11.4 8 12 3 Z" stroke={color} strokeWidth="1.4" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+// Un ícono por servicio, en el mismo orden que el array `services`.
+const SERVICE_ICONS = [IconMark, IconLayers, IconRefresh, IconTag, IconImage, IconSpark]
+
 // ── Scroll reveal helper ───────────────────────────────────────
 function useReveal(ref: React.RefObject<HTMLElement | null>, opts?: { y?: number; delay?: number; stagger?: number }) {
   useEffect(() => {
@@ -124,8 +183,8 @@ export default function PapoPage() {
     gsap.from(headerRef.current, { opacity: 0, duration: 0.6, ease: 'power2.out' })
 
     // Services stagger
-    const svcs = servicesRef.current?.querySelectorAll('.svc-row')
-    if (svcs) gsap.from(Array.from(svcs), { x: -30, opacity: 0, stagger: 0.08, duration: 0.65, ease: 'power3.out', scrollTrigger: { trigger: servicesRef.current, start: 'top 85%' } })
+    const svcs = servicesRef.current?.querySelectorAll('.svc-card')
+    if (svcs) gsap.from(Array.from(svcs), { y: 24, opacity: 0, stagger: 0.08, duration: 0.6, ease: 'power2.out', scrollTrigger: { trigger: servicesRef.current, start: 'top 85%' } })
 
     // Brand cards stagger — immediateRender:false prevents invisible-on-mount bug
     const cards = brandsRef.current?.querySelectorAll('.brand-card')
@@ -154,6 +213,15 @@ export default function PapoPage() {
         @media(max-width:640px){ .cta-grid{ grid-template-columns:1fr!important; } }
         @media(max-width:900px){ .brands-grid{ grid-template-columns:repeat(2,1fr)!important; } }
         @media(max-width:500px){ .brands-grid{ grid-template-columns:1fr!important; } }
+
+        /* ── Encabezado / banner ── */
+        .papo-header-grid { display: grid; grid-template-columns: minmax(140px,220px) 1fr; gap: 36px; align-items: center; }
+        @media(max-width:640px){ .papo-header-grid{ grid-template-columns: 1fr!important; gap: 20px; } .papo-header-grid > div:first-child{ max-width: 150px!important; } }
+
+        /* ── Servicios: tarjetas con icono ── */
+        .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        @media(max-width:900px){ .svc-grid{ grid-template-columns: repeat(2,1fr)!important; } }
+        @media(max-width:560px){ .svc-grid{ grid-template-columns: 1fr!important; } }
 
         /* ── Bento "Perfil profesional" (01) ── */
         .bento-cell { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 26px; display: flex; flex-direction: column; }
@@ -191,32 +259,35 @@ export default function PapoPage() {
         </div>
       </nav>
 
-      {/* ── ENCABEZADO MÍNIMO ──
-          Reemplaza el hero anterior (titular gigante + reveal cinematográfico)
-          y la sección "Sobre mí" que traía foto grande con glow/anillo
-          animados — el usuario dijo que se sentía "una presentación". Esto
-          es una franja compacta: foto pequeña, nombre, rol, una línea de
-          bio. Va directo al contenido debajo, sin pitch. */}
-      <div ref={headerRef} style={{ padding: 'clamp(130px,14vw,160px) clamp(20px,6vw,80px) 48px', maxWidth: 1200, margin: '0 auto' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
-          <div style={{ width: 64, height: 64, borderRadius: '50%', overflow: 'hidden', flexShrink: 0, border: `1px solid ${T.border}` }}>
-            <Image src="/founder.png" alt="Juan Camilo León" width={128} height={128}
+      {/* ── ENCABEZADO / BANNER ──
+          No es el hero viejo (titular gigante + reveal cinematográfico +
+          pitch) ni la franja mínima de la versión anterior (foto de 64px en
+          línea con el nombre) — es un punto medio que el usuario pidió
+          después de ver ambas: foto con presencia real, sin volver al
+          drama. Dos columnas en desktop (foto ~40%, texto ~60%), apiladas
+          en mobile. Fundido simple al cargar, sin RevealLine. */}
+      <div ref={headerRef} style={{ padding: 'clamp(120px,14vw,150px) clamp(20px,6vw,80px) 56px', maxWidth: 1200, margin: '0 auto' }}>
+        <div className="papo-header-grid">
+          <div style={{ width: '100%', maxWidth: 220, aspectRatio: '1 / 1', borderRadius: 24, overflow: 'hidden', border: `1px solid ${T.border}` }}>
+            <Image src="/founder.png" alt="Juan Camilo León" width={440} height={440} priority
+                   sizes="(max-width: 640px) 45vw, 220px"
                    style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }} />
           </div>
           <div>
             {/* Único <h1> de la página. */}
-            <h1 style={{ fontFamily: T.fd, fontWeight: 800, fontSize: 'clamp(1.5rem,3vw,2rem)', letterSpacing: '-0.02em', margin: 0, color: '#fff' }}>
+            <h1 style={{ fontFamily: T.fd, fontWeight: 800, fontSize: 'clamp(1.875rem,4.5vw,2.75rem)', letterSpacing: '-0.03em', lineHeight: 1.05, margin: 0, color: '#fff' }}>
               Juan Camilo "Papo" León Mora
             </h1>
-            <p style={{ fontSize: '0.9375rem', color: T.muted, margin: '4px 0 0', fontFamily: T.fb }}>
-              Fundador &amp; Director Creativo — Relevvo Studio · Colombia 🇨🇴
+            <p style={{ fontSize: '1rem', color: T.muted, margin: '10px 0 0', fontFamily: T.fb }}>
+              Fundador &amp; Director Creativo — Relevvo Studio · Colombia
+            </p>
+            <p style={{ fontSize: '1rem', lineHeight: 1.65, color: T.muted, maxWidth: 560, margin: '18px 0 0', fontFamily: T.fb }}>
+              Diseño de marca con estrategia primero: entender el negocio antes de diseñar la
+              identidad que lo comunica. Nueve años de oficio, hoy dentro de un equipo — el
+              detalle está debajo.
             </p>
           </div>
         </div>
-        <p style={{ fontSize: '1rem', lineHeight: 1.65, color: T.muted, maxWidth: 620, margin: '20px 0 0', fontFamily: T.fb }}>
-          Diseño de marca con estrategia primero: entender el negocio antes de diseñar la identidad
-          que lo comunica. Nueve años de oficio, hoy dentro de un equipo — el detalle está debajo.
-        </p>
       </div>
 
       {/* ── 01 — PERFIL PROFESIONAL (bento) ──
@@ -372,30 +443,37 @@ export default function PapoPage() {
         <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 0.95, margin: '0 0 40px', color: '#fff' }}>
           Servicios
         </h2>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {services.map((s, i) => (
-            <div key={i} className="svc-row"
-              onMouseEnter={() => setActiveService(i)}
-              onMouseLeave={() => setActiveService(null)}
-              style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                padding: '20px 0', borderBottom: `1px solid ${T.border}`,
-                cursor: 'default', transition: 'background .2s',
-                borderRadius: activeService === i ? 10 : 0,
-                paddingLeft: activeService === i ? 14 : 0,
-                paddingRight: activeService === i ? 14 : 0,
-              }}>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: 16 }}>
-                <span style={{ fontFamily: T.fb, fontSize: 11, fontWeight: 700, color: activeService === i ? s.color : T.muted, letterSpacing: '0.1em', minWidth: 28 }}>{s.n}</span>
-                <h3 style={{ fontFamily: T.fd, fontWeight: 800, fontSize: 'clamp(1.25rem,3vw,2rem)', letterSpacing: '-0.03em', color: activeService === i ? '#fff' : 'rgba(255,255,255,0.75)', margin: 0, transition: 'color .2s' }}>
+        <div className="svc-grid">
+          {services.map((s, i) => {
+            const Icon = SERVICE_ICONS[i]
+            const active = activeService === i
+            return (
+              <div key={i} className="svc-card"
+                onMouseEnter={() => setActiveService(i)}
+                onMouseLeave={() => setActiveService(null)}
+                style={{
+                  padding: 24, borderRadius: 16,
+                  border: `1px solid ${active ? `${s.color}55` : T.border}`,
+                  background: active ? `${s.color}0d` : 'rgba(255,255,255,0.03)',
+                  transition: 'border-color .2s ease, background .2s ease, transform .2s ease',
+                  transform: active ? 'translateY(-3px)' : 'none',
+                }}>
+                <div style={{
+                  width: 44, height: 44, borderRadius: 12, marginBottom: 16,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  background: `${s.color}18`,
+                }}>
+                  <Icon color={s.color} />
+                </div>
+                <h3 style={{ fontFamily: T.fd, fontWeight: 800, fontSize: '1.0625rem', letterSpacing: '-0.02em', color: '#fff', margin: '0 0 6px' }}>
                   {s.title}
                 </h3>
+                <p style={{ fontSize: '0.8125rem', color: T.muted, fontFamily: T.fb, lineHeight: 1.5, margin: 0 }}>
+                  {s.sub}
+                </p>
               </div>
-              <span style={{ fontSize: 12, color: activeService === i ? s.color : T.muted, fontFamily: T.fb, textAlign: 'right', maxWidth: 200, transition: 'color .2s', letterSpacing: '0.02em' }}>
-                {s.sub}
-              </span>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </section>
 
@@ -489,7 +567,7 @@ export default function PapoPage() {
         <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)', fontFamily: T.fb, margin: 0 }}>
           © 2025 Juan Camilo León Mora &nbsp;·&nbsp;
           <Link href="/" style={{ color: T.accentL, textDecoration: 'none' }}>Relevvo Studio</Link>
-          &nbsp;·&nbsp; Colombia 🇨🇴
+          &nbsp;·&nbsp; Colombia
         </p>
       </footer>
 
