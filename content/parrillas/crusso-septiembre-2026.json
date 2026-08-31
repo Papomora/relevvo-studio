@@ -1,0 +1,148 @@
+{
+  "slug": "crusso-septiembre-2026",
+  "cliente": "Crussó",
+  "handle": "@tiendacrusso",
+  "mes": "Septiembre 2026",
+  "protagonistas": "Campaña \"Un detalle que se siente como amor\" · Libernova · Silla Spider · Silla E3 Pro · Silla Praga · Silla Ballet · Silla Icloud · Silla Star · Silla S300 · Silla C300",
+  "pilar": "Campaña de temporada (Amor y Amistad) — activar la oferta (envío nacional gratis + regalo) y mover al público de descubrimiento a decisión de compra durante todo septiembre",
+  "formato": "13 piezas para el mes — una más que las 12 contempladas en el plan mensual; confirmar con el cliente si se deja así o se ajusta. Cadencia martes/jueves/sábado. Reels y videos en 9:16, carruseles e imagen en 4:5 (+ versión cuadrada para pauta). Toda pieza requiere grabación/fotografía presencial, excepto la del 12 de septiembre (Silla Praga), generada con IA. Validar con el equipo técnico de la web la ampliación del envío gratis a nacional y el stock del cable multiusos antes del 1 de septiembre.",
+  "whatsappNumero": "573229393554",
+  "cupoPlan": 12,
+  "piezas": [
+    {
+      "numero": 1, "semana": 1, "tipo": "Reel", "categoria": "Expectativa", "protagonista": "Campaña — teaser",
+      "hook": "Este septiembre, algo especial se está preparando…",
+      "guion": [
+        "(Plano detalle de una silla con luz cálida, sin mostrar el producto completo, textos apareciendo poco a poco) Este septiembre, algo especial se está preparando…",
+        "Para ti. O para alguien que quieres.",
+        "(Cierre en negro con logo) Un detalle que se siente como amor. Muy pronto en CRUSSÓ."
+      ],
+      "caption": "💚 Este septiembre estamos preparando algo especial… y no, no se trata de encontrar pareja. Muy pronto te contamos de qué se trata. Síguenos para no perdértelo. #Crusso #UnDetalleQueSeSienteComoAmor"
+    },
+    {
+      "numero": 2, "semana": 1, "tipo": "Carrusel", "categoria": "Lanzamiento de campaña", "protagonista": "Un detalle que se siente como amor",
+      "hook": "Un detalle que se siente como amor",
+      "slides": [
+        "Este septiembre, la comodidad también es amor.",
+        "Regálate (o regálale a alguien) un detalle especial.",
+        "LiberNova: el detalle perfecto para quien merece sentirse cuidado.",
+        "Silla Spider: un detalle con personalidad, para quien trabaja como un héroe.",
+        "Envío nacional gratis + un detalle de regalo, desde $2.000.000 — incluido desde hoy.",
+        "Toda la campaña, durante todo septiembre. Descúbrelo en crusso.com.co"
+      ],
+      "caption": "💚 Este septiembre no se trata de encontrar pareja, se trata de regalarte (o regalarle a alguien que quieres) un detalle especial. La comodidad también es amor, y la ergonomía también es dulzura. Desde hoy y durante todo septiembre: envío nacional gratis + un detalle de regalo, en compras desde $2.000.000. #UnDetalleQueSeSienteComoAmor #Crusso #AmorYAmistad"
+    },
+    {
+      "numero": 3, "semana": 1, "tipo": "Reel", "categoria": "Punto físico", "protagonista": "Showroom — Sede Calle 30 y Sede Calle 109",
+      "hook": "¿Prefieres verlo y sentirlo antes de decidir?",
+      "guion": [
+        "(Recorrido corto por el showroom, aprovechando material ya grabado en Sede Calle 30 y Sede Calle 109; verificar calidad y disponibilidad antes de editar, complementar con grabación breve en sede si falta metraje) ¿Prefieres verlo y sentirlo antes de decidir?",
+        "Recorrido rápido por el showroom, distintos modelos.",
+        "(Cierre) Visítanos en nuestras sedes de Bogotá y encuentra tu detalle."
+      ],
+      "caption": "📍 A veces el mejor detalle es el que puedes probar antes de llevártelo. Visítanos en nuestras sedes de Bogotá: Cra. 30 #73-15 (Barrio 12 de Octubre) y Cl. 109 #16-08 (Barrio San Patricio). Ven, siéntate y encuentra tu detalle. #Crusso #ShowroomCrusso #Bogotá"
+    },
+    {
+      "numero": 4, "semana": 2, "tipo": "Reel de producto", "categoria": "Lanzamiento de color", "protagonista": "Silla E3 Pro (bicolor)",
+      "hook": "Hay detalles que se notan desde el primer vistazo.",
+      "guion": [
+        "(Giro de cámara mostrando ambos colores de la Silla E3 Pro bicolor, primeros planos de tapizado y mecanismo, luz de estudio) Hay detalles que se notan desde el primer vistazo.",
+        "Giro 360° mostrando ambos tonos de la E3 Pro.",
+        "(Cierre) Silla E3 Pro, bicolor. Encuentra tu tono en CRUSSÓ."
+      ],
+      "caption": "🎨 No todos los detalles pasan desapercibidos. La Silla E3 Pro llega en versión bicolor, para que tu espacio también hable de ti. Conócela en crusso.com.co #SillaE3Pro #Crusso #UnDetalleQueSeSienteComoAmor"
+    },
+    {
+      "numero": 5, "semana": 2, "tipo": "Reel", "categoria": "Prueba social", "protagonista": "Testimonio — cliente o colaborador Crussó (definir con tiempo)",
+      "hook": "Llevo [X] horas al día con ella, y no me arrepiento.",
+      "guion": [
+        "(Testimonio real de un cliente o colaborador de Crussó, grabado en su puesto de trabajo, contando su experiencia con la silla) Llevo [X] horas al día con ella, y no me arrepiento.",
+        "Testimonio libre: por qué la eligió, qué cambió.",
+        "(Cierre) Regálate comodidad. Regálate CRUSSO."
+      ],
+      "caption": "🗣️ Nada cuenta mejor una historia que quien la vive todos los días. Así se siente trabajar con una silla que sí te cuida la espalda. ¿Ya te regalaste ese detalle? #Testimonio #Crusso #UnDetalleQueSeSienteComoAmor"
+    },
+    {
+      "numero": 6, "semana": 2, "tipo": "Video de producto (generado con IA)", "categoria": "Transformación", "protagonista": "Silla Praga",
+      "hook": "Cambiar tu espacio también es un detalle que te regalas.",
+      "guion": [
+        "(Video generado con IA, sin grabación presencial: transición visual de un espacio de oficina antiguo y desordenado a uno renovado y moderno, con la Silla Praga como protagonista del cambio) Cambiar tu espacio también es un detalle que te regalas.",
+        "Transición: oficina vieja → oficina nueva con Silla Praga.",
+        "(Cierre) Silla Praga. El detalle que transforma tu día a día."
+      ],
+      "caption": "✨ A veces el mejor regalo no es un objeto, es un cambio. Con la Silla Praga, tu espacio de trabajo también puede tener su propia transformación. #SillaPraga #Crusso #UnDetalleQueSeSienteComoAmor"
+    },
+    {
+      "numero": 7, "semana": 3, "tipo": "Carrusel", "categoria": "Recomendados parte 2", "protagonista": "Libernovo · Finix · Swan · Nexus Pro",
+      "hook": "¿Ya viste la primera parte? Aquí va la segunda.",
+      "slides": [
+        "¿Ya viste la primera parte? Aquí va la segunda.",
+        "Libernovo: exclusiva en Colombia. Un detalle que no cualquiera puede regalar.",
+        "Finix: elegante y silenciosa. El tipo de detalle que no necesita explicación.",
+        "Swan: con curvas pensadas para acompañarte todo el día.",
+        "Nexus Pro: solo viene en verde, y solo tiene un propósito: tu comodidad.",
+        "Recuerda: tu compra ya incluye envío nacional gratis + un detalle de regalo, desde el lanzamiento de la campaña."
+      ],
+      "caption": "🪑 Segunda tanda de detalles para regalar (o regalarte). Y recuerda: el envío nacional gratis + tu detalle de regalo ya vienen incluidos desde que arrancó la campaña, no son un adicional aparte. \"Un detalle que se siente como amor\" sigue activa durante todo septiembre. #Crusso #UnDetalleQueSeSienteComoAmor"
+    },
+    {
+      "numero": 8, "semana": 3, "tipo": "Reel", "categoria": "Obsequio", "protagonista": "Cable multiusos de regalo",
+      "hook": "¿Ya viste lo que trae tu detalle?",
+      "guion": [
+        "(Unboxing real del cable multiusos, mostrando sus tres entradas: USB-A, USB-C, Lightning) ¿Ya viste lo que trae tu detalle?",
+        "Unboxing del cable multiusos: USB-A, USB-C, Lightning.",
+        "(Cierre, mencionando los bonos de regalo como alternativa) Cable multiusos de regalo, o un bono para que ella o él elija. Incluido en toda la campaña."
+      ],
+      "caption": "🎁 Cada compra desde $2.000.000 viene con un cable multiusos de regalo (USB-A, USB-C y Lightning), incluido desde el lanzamiento de la campaña. ¿Prefieres que la otra persona elija? También tenemos bonos de regalo Crussó. #Regalo #Crusso #UnDetalleQueSeSienteComoAmor"
+    },
+    {
+      "numero": 9, "semana": 3, "tipo": "Post + Historias", "categoria": "Día real de Amor y Amistad", "protagonista": "Fotografía institucional Crussó",
+      "copy": "Texto en imagen: \"Feliz Día del Amor y la Amistad\" — Gracias por hacer de la comodidad un acto de cariño. Fotografía cálida de producto o equipo Crussó, panel institucional. Complementar con historias durante el día. No se plantea como cierre de campaña: la oferta y el concepto continúan el resto de septiembre.",
+      "caption": "💚 Hoy es el día. Gracias por acompañarnos regalando y regalándose detalles que se sienten como amor. Y como esto no termina hoy: el envío nacional gratis + tu detalle de regalo siguen activos el resto de septiembre. #FelizDiaDelAmorYLaAmistad #Crusso"
+    },
+    {
+      "numero": 10, "semana": 4, "tipo": "Reel", "categoria": "Lanzamiento de modelo", "protagonista": "Silla Ballet",
+      "hook": "Hay sillas que simplemente se sienten distintas.",
+      "guion": [
+        "(Presentación/lanzamiento del modelo, video real de producto, giros y detalles de tapizado) Hay sillas que simplemente se sienten distintas.",
+        "Detalles de diseño y tapizado de la Ballet.",
+        "(Cierre; la oferta de la campaña sigue activa, puede mencionarse al cierre) Silla Ballet, ya disponible en CRUSSÓ."
+      ],
+      "caption": "🩰 Te presentamos la Silla Ballet: diseño, elegancia y la comodidad que ya conoces en Crussó. Descúbrela en crusso.com.co #SillaBallet #Crusso"
+    },
+    {
+      "numero": 11, "semana": 4, "tipo": "Carrusel", "categoria": "Comparativo", "protagonista": "Silla Icloud · Silla Star",
+      "hook": "Dos formas distintas de sentirte cómodo.",
+      "slides": [
+        "Dos formas distintas de sentirte cómodo.",
+        "Silla Icloud: para quien busca ligereza y estilo.",
+        "Silla Star: para quien busca presencia y soporte.",
+        "Conoce cuál se ajusta más a ti.",
+        "Descúbrelas en crusso.com.co"
+      ],
+      "caption": "✨ Icloud o Star: dos estilos distintos, la misma promesa de comodidad Crussó. Desliza y encuentra la que va contigo. #SillaIcloud #SillaStar #Crusso"
+    },
+    {
+      "numero": 12, "semana": 4, "tipo": "Carrusel", "categoria": "Catálogo clásico", "protagonista": "Silla S300 (gris y negra) · Silla C300",
+      "hook": "Hay diseños que nunca pasan de moda.",
+      "slides": [
+        "Hay diseños que nunca pasan de moda.",
+        "Silla S300, en gris.",
+        "Silla S300, en negro.",
+        "Silla C300: clásica, y nunca pasada de moda.",
+        "Conócelas en crusso.com.co"
+      ],
+      "caption": "🖤 Clásicas por diseño, cómodas por dentro. Conoce la Silla S300 (gris y negra) y la Silla C300, dos opciones que llevan años haciendo felices a las oficinas de Bogotá. #SillaS300 #SillaC300 #Crusso"
+    },
+    {
+      "numero": 13, "semana": 5, "tipo": "Video", "categoria": "Confianza / Logística", "protagonista": "Proceso de entrega Crussó",
+      "hook": "Detrás de cada silla, hay un equipo cuidando cada detalle.",
+      "guion": [
+        "(Video real del proceso de entrega, desde bodega hasta la puerta del cliente; cierre de mes con contenido de confianza) Detrás de cada silla, hay un equipo cuidando cada detalle.",
+        "Proceso real de empaque y entrega.",
+        "(Cierre) Así llega tu detalle a la puerta de tu casa."
+      ],
+      "caption": "🚚 Cuidamos cada detalle, incluso después de la compra. Así es como tu silla Crussó llega hasta tu puerta, lista para acompañarte todos los días. #EntregaCrusso #Crusso"
+    }
+  ]
+}
