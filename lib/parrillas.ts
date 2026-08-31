@@ -34,6 +34,7 @@ export interface Parrilla {
   cupoPlan?: number
   piezas: ParrillaPieza[]
   historias?: ParrillaHistoria[]
+  pendientes?: string[]
 }
 
 const DIR = path.join(process.cwd(), 'content/parrillas')

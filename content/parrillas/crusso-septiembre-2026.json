@@ -5,9 +5,12 @@
   "mes": "Septiembre 2026",
   "protagonistas": "Campaña \"Un detalle que se siente como amor\" · Libernova · Silla Spider · Silla E3 Pro · Silla Praga · Silla Ballet · Silla Icloud · Silla Star · Silla S300 · Silla C300",
   "pilar": "Campaña de temporada (Amor y Amistad) — activar la oferta (envío nacional gratis + regalo) y mover al público de descubrimiento a decisión de compra durante todo septiembre",
-  "formato": "13 piezas para el mes — una más que las 12 contempladas en el plan mensual; confirmar con el cliente si se deja así o se ajusta. Cadencia martes/jueves/sábado. Reels y videos en 9:16, carruseles e imagen en 4:5 (+ versión cuadrada para pauta). Toda pieza requiere grabación/fotografía presencial, excepto la del 12 de septiembre (Silla Praga), generada con IA. Validar con el equipo técnico de la web la ampliación del envío gratis a nacional y el stock del cable multiusos antes del 1 de septiembre.",
+  "formato": "13 piezas para el mes, confirmadas por el cliente (una más que las 12 del plan mensual). Calendario ajustado para arrancar el 2 de septiembre. Cadencia martes/jueves/sábado. Reels y videos en 9:16, carruseles e imagen en 4:5 (+ versión cuadrada para pauta). Toda pieza requiere grabación/fotografía presencial, excepto la del 13 de septiembre (Silla Praga), generada con IA.",
   "whatsappNumero": "573229393554",
-  "cupoPlan": 12,
+  "cupoPlan": 13,
+  "pendientes": [
+    "Confirmar con el equipo técnico de la web la ampliación del envío gratis a nacional y el stock del cable multiusos, antes del 2 de septiembre (arranque del calendario)."
+  ],
   "piezas": [
     {
       "numero": 1, "semana": 1, "tipo": "Reel", "categoria": "Expectativa", "protagonista": "Campaña — teaser",

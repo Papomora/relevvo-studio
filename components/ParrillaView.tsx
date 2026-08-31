@@ -222,6 +222,25 @@ export default function ParrillaView({ parrilla: p }: { parrilla: Parrilla }) {
         </div>
       </div>
 
+      {/* ── PENDIENTES: decisiones/validaciones abiertas antes de aprobar ── */}
+      {p.pendientes && p.pendientes.length > 0 && (
+        <div style={{ padding: '0 clamp(20px, 5vw, 80px) 40px', maxWidth: 900, margin: '0 auto' }}>
+          <div style={{
+            borderRadius: 16, padding: 'clamp(18px, 3vw, 26px)',
+            background: 'rgba(251,191,36,0.06)', border: '1px solid rgba(251,191,36,0.25)',
+          }}>
+            <p style={{ fontSize: '.68rem', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '.1em', color: '#FBBF24', marginBottom: 12 }}>
+              ⚠ Pendientes antes de aprobar
+            </p>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingLeft: 18, margin: 0 }}>
+              {p.pendientes.map((item, i) => (
+                <li key={i} style={{ fontSize: '.85rem', color: 'rgba(255,255,255,0.7)', lineHeight: 1.6 }}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+
       {/* ── SELECTOR: elige tus piezas del mes ── */}
       {cupo && (
         <div style={{ padding: '0 clamp(20px, 5vw, 80px) 40px', maxWidth: 900, margin: '0 auto' }}>
@@ -294,21 +313,14 @@ export default function ParrillaView({ parrilla: p }: { parrilla: Parrilla }) {
           </div>
 
           {p.piezas.filter(pz => pz.semana === sem).map(pz => (
-            <div key={pz.numero}>
-              <PiezaCard
-                pieza={pz}
-                numero={`Pieza ${pz.numero}`}
-                checked={selected.has(pz.numero)}
-                onToggle={pz.fueraDeCalendario ? undefined : () => toggle(pz.numero)}
-                showCheckbox={!pz.fueraDeCalendario}
-              />
-              <div style={{ marginTop: -6, marginBottom: 18 }}>
-                <ApproveBtn
-                  href={waLink(p.whatsappNumero, `Aprobado ✅ - Pieza ${pz.numero} - ${pz.tipo} ${pz.categoria}${pz.protagonista ? ` (${pz.protagonista})` : ''} - ${p.cliente}`)}
-                  label={`Aprobar Pieza ${pz.numero}`}
-                />
-              </div>
-            </div>
+            <PiezaCard
+              key={pz.numero}
+              pieza={pz}
+              numero={`Pieza ${pz.numero}`}
+              checked={selected.has(pz.numero)}
+              onToggle={pz.fueraDeCalendario ? undefined : () => toggle(pz.numero)}
+              showCheckbox={!pz.fueraDeCalendario}
+            />
           ))}
 
           {historiasPorSemana.has(sem) && (
