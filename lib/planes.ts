@@ -35,7 +35,7 @@ export const PLANS: Plan[] = [
   {
     id: 'mid',
     name: 'Relevvo MID',
-    price: '$2.390.000',
+    price: '$2.990.000',
     tag: 'El plan más balanceado y vendible',
     featured: true,
     badge: 'Más popular',
@@ -53,7 +53,7 @@ export const PLANS: Plan[] = [
   {
     id: 'full',
     name: 'Relevvo FULL',
-    price: '$4.990.000',
+    price: '$6.490.000',
     tag: 'Para marcas que quieren resultados, no solo contenido',
     featured: false,
     badge: 'Premium',
