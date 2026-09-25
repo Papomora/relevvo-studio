@@ -56,24 +56,34 @@ const cases: Case[] = [
   { name: 'Alhambra',    services: ['Branding'] },
 ]
 
-function CaseMeta({ c, dark = true }: { c: Featured; dark?: boolean }) {
+type Tone = 'grape' | 'night' | 'butter'
+
+// Rotación de bloques sólidos del mockup aprobado: Crussó uva, Verslä noche,
+// LímiteLegal mantequilla, Osadí noche, Eretz mantequilla, Alhambra uva.
+const TONES: Tone[] = ['grape', 'night', 'butter', 'night', 'butter', 'grape']
+
+const TONE_CLASS: Record<Tone, string> = {
+  grape: 'bg-grape text-butter',
+  night: 'bg-night-2 text-butter border border-[color:var(--border)]',
+  butter: 'bg-butter text-night',
+}
+
+function CaseMeta({ c }: { c: Featured }) {
   return (
-    <div className="flex flex-wrap items-end justify-between gap-3">
-      <div>
-        <p className="text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-white/70 mb-1">
-          {c.category}
-        </p>
-        <h3 className="heading-display text-white text-2xl md:text-3xl">{c.client}</h3>
-        {c.note && <p className="text-white/70 text-sm mt-1">{c.note}</p>}
-      </div>
-      <ul className="flex flex-wrap gap-1.5" aria-label="Servicios">
+    <div>
+      <p className="font-mono text-[0.6875rem] font-medium uppercase tracking-[0.1em] opacity-85">
+        {c.category}
+      </p>
+      <h3
+        className="font-display font-bold mt-1.5"
+        style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.3rem)', lineHeight: 1, letterSpacing: '-0.035em' }}
+      >
+        {c.client}
+      </h3>
+      {c.note && <p className="text-sm mt-1 opacity-80">{c.note}</p>}
+      <ul className="flex flex-wrap gap-1.5 mt-3" aria-label="Servicios">
         {c.services.map((s) => (
-          <li
-            key={s}
-            className={`text-xs font-medium px-2.5 py-1 rounded-full border ${
-              dark ? 'border-white/20 bg-black/40 text-white/85' : 'border-white/15 bg-white/5 text-white/80'
-            } backdrop-blur-sm`}
-          >
+          <li key={s} className="text-xs px-2.5 py-[3px] rounded-full border border-current opacity-80">
             {s}
           </li>
         ))}
@@ -88,7 +98,7 @@ function IgLink({ url, label }: { url: string; label: string }) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/85 hover:text-white underline-offset-4 hover:underline"
+      className="relative z-[3] inline-flex items-center gap-1.5 mt-4 text-sm font-semibold underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current rounded-sm"
     >
       {label}
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -97,6 +107,9 @@ function IgLink({ url, label }: { url: string; label: string }) {
     </a>
   )
 }
+
+// Degradado inferior para leer texto sobre foto (sin brillos ni vidrio).
+const PHOTO_SHADE = 'absolute inset-0 pointer-events-none bg-[linear-gradient(to_top,rgba(0,0,0,0.8),transparent_55%)]'
 
 export default function Portfolio() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -121,94 +134,117 @@ export default function Portfolio() {
 
   return (
     <section ref={sectionRef} id="portafolio" className="py-24 px-4 max-w-6xl mx-auto">
-      <div className="pf-heading text-center mb-14">
-        <span className="pill-badge mb-6 inline-flex">Portafolio</span>
-        <h2 className="mb-4">
-          <span className="heading-display text-white" style={{ fontSize: 'clamp(2.2rem, 5vw, 3.8rem)' }}>
-            Trabajo que{' '}
-          </span>
-          <span className="heading-serif text-white" style={{ fontSize: 'clamp(2.2rem, 5vw, 3.8rem)' }}>
-            salió del estudio.
-          </span>
-        </h2>
-        <p className="text-white/70 text-base max-w-lg mx-auto leading-relaxed">
+      <div className="pf-heading flex flex-wrap items-end justify-between gap-5 mb-11">
+        <div>
+          <span className="section-label">Portafolio</span>
+          <h2
+            className="heading-display mt-[18px]"
+            style={{ fontSize: 'clamp(2.3rem, 5.4vw, 4.2rem)', lineHeight: 1, fontWeight: 700, letterSpacing: '-0.035em' }}
+          >
+            Trabajo que <span className="heading-serif text-lilac">salió del estudio.</span>
+          </h2>
+        </div>
+        <p className="text-muted text-base leading-relaxed max-w-[40ch]">
           Branding, contenido y visuales de producto para marcas reales. Esto es lo que hacemos cada mes.
         </p>
       </div>
 
-      <div className="pf-grid grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="pf-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
         {/* ── 1. Más Brownie — caso grande ── */}
-        <article className="pf-card group lg:col-span-2 relative rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03]">
-          <div className="relative aspect-[3/2] overflow-hidden">
-            <Image
-              src="/clientes/masbrownie/banner1.png"
-              alt="Empaque de Más Brownie, brownie de chocolate 0 g de azúcares añadidos, flotando entre trozos de brownie"
-              fill
-              sizes="(max-width: 1024px) 100vw, 760px"
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent pointer-events-none" />
-            <div className="absolute inset-x-0 bottom-0 p-5 md:p-7">
-              <CaseMeta c={brownie} />
-            </div>
+        <article className="pf-card group relative sm:col-span-2 flex flex-col rounded-[18px] overflow-hidden bg-night-2 text-white min-h-[380px] sm:min-h-[420px] lg:min-h-[520px]">
+          <Image
+            src="/clientes/masbrownie/banner1.png"
+            alt="Empaque de Más Brownie, brownie de chocolate 0 g de azúcares añadidos, flotando entre trozos de brownie"
+            fill
+            sizes="(max-width: 1024px) 100vw, 760px"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transition-none"
+          />
+          <div className={PHOTO_SHADE} />
+          <div className="relative z-[2] mt-auto p-[22px]">
+            <CaseMeta c={brownie} />
           </div>
-          <div className="grid grid-cols-3 gap-1 p-1">
+          <div className="relative z-[2] grid grid-cols-3 gap-1 px-1 pb-1">
             {[
               { src: '/clientes/masbrownie/banner2.png', alt: 'Empaque Más Brownie sobre cama de brownies' },
               { src: '/clientes/masbrownie/banner3.png', alt: 'Empaque Más Brownie en escena de panadería con chispas de chocolate' },
               { src: '/clientes/masbrownie/banner4.png', alt: 'Empaque Más Brownie frente a brownies apilados' },
             ].map((img) => (
-              <div key={img.src} className="relative aspect-[3/2] overflow-hidden rounded-lg">
+              <div key={img.src} className="relative aspect-[3/2] overflow-hidden rounded-[10px]">
                 <Image src={img.src} alt={img.alt} fill sizes="(max-width: 1024px) 33vw, 250px" className="object-cover" />
               </div>
             ))}
           </div>
         </article>
 
-
         {/* ── 2. Relevvo Studio — contenido propio ── */}
-        <article className="pf-card relative rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03] flex flex-col">
-          <div className="relative aspect-[3/4] overflow-hidden">
-            <Image
-              src="/images/nosotros/cliente-logo-word.png"
-              alt="Pieza para Instagram de Relevvo Studio: «El cliente que llegó con un logo de Word»"
-              fill
-              sizes="(max-width: 1024px) 100vw, 380px"
-              className="object-cover"
-            />
-          </div>
-          <div className="p-5 md:p-6 flex flex-col gap-4">
-            <CaseMeta c={relevvo} dark={false} />
+        <article className="pf-card group relative flex flex-col rounded-[18px] overflow-hidden bg-night-2 text-white min-h-[380px] lg:min-h-[520px]">
+          <Image
+            src="/images/nosotros/cliente-logo-word.png"
+            alt="Pieza para Instagram de Relevvo Studio: «El cliente que llegó con un logo de Word»"
+            fill
+            sizes="(max-width: 1024px) 100vw, 380px"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transition-none"
+          />
+          <div className={PHOTO_SHADE} />
+          <div className="relative z-[2] mt-auto p-[22px]">
+            <CaseMeta c={relevvo} />
             {relevvo.url && <IgLink url={relevvo.url} label="Ver en Instagram" />}
           </div>
         </article>
 
-        {/* ── Casos por marca ── */}
-        {cases.map((c) => {
-          const media = (
-            <div className="relative aspect-[4/3] overflow-hidden bg-white/[0.04]">
-              {c.cover ? (
+        {/* ── Casos por marca: bloques de color sólido ── */}
+        {cases.map((c, i) => {
+          const tone = TONES[i % TONES.length]
+          const meta = { client: c.name, category: c.category ?? c.services[0], services: c.services }
+
+          if (c.cover) {
+            return (
+              <article key={c.name} className="pf-card group relative flex flex-col rounded-[18px] overflow-hidden bg-night-2 text-white min-h-[260px] sm:min-h-[320px]">
                 <Image
                   src={c.cover}
                   alt={`Trabajo de Relevvo Studio para ${c.name}`}
                   fill
                   sizes="(max-width: 1024px) 100vw, 380px"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transition-none"
                 />
-              ) : c.logo ? (
-                <Image src={c.logo} alt={`Logo de ${c.name}`} fill sizes="(max-width: 1024px) 60vw, 240px" className="object-contain p-14" />
+                <div className={PHOTO_SHADE} />
+                <div className="relative z-[2] mt-auto p-[22px]">
+                  <CaseMeta c={meta} />
+                  {c.url && <IgLink url={c.url} label="Ver en Instagram" />}
+                </div>
+              </article>
+            )
+          }
+
+          return (
+            <article
+              key={c.name}
+              className={`pf-card relative flex flex-col justify-between rounded-[18px] overflow-hidden min-h-[260px] sm:min-h-[320px] ${TONE_CLASS[tone]}`}
+            >
+              {c.logo ? (
+                <div className="flex-1 flex items-center justify-center p-7">
+                  <div className="relative w-full h-[110px]">
+                    <Image
+                      src={c.logo}
+                      alt={`Logo de ${c.name}`}
+                      fill
+                      sizes="(max-width: 1024px) 60vw, 240px"
+                      className="object-contain"
+                      style={tone === 'butter' ? { filter: 'invert(1) brightness(.2)' } : undefined}
+                    />
+                  </div>
+                </div>
               ) : (
-                <span className="absolute inset-0 flex items-center justify-center heading-display text-white/90 text-4xl md:text-5xl">
+                <span
+                  aria-hidden="true"
+                  className="flex-1 flex items-center justify-center p-7 font-display font-extrabold"
+                  style={{ fontSize: 'clamp(2.4rem, 4.6vw, 3.6rem)', letterSpacing: '-0.05em', lineHeight: 1 }}
+                >
                   {c.name}
                 </span>
               )}
-            </div>
-          )
-          return (
-            <article key={c.name} className="pf-card group relative rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03] flex flex-col">
-              {media}
-              <div className="p-5 md:p-6 flex flex-col gap-4 flex-1 justify-between">
-                <CaseMeta c={{ client: c.name, category: c.category ?? c.services[0], services: c.services }} dark={false} />
+              <div className="p-[22px]">
+                <CaseMeta c={meta} />
                 {c.url && <IgLink url={c.url} label="Ver en Instagram" />}
               </div>
             </article>
