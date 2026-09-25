@@ -74,7 +74,7 @@ export default function ContactForm() {
 
   const inputStyle: React.CSSProperties = {
     width: '100%',
-    background: 'rgba(255,255,255,0.03)',
+    background: 'var(--night-2)',
     border: '1px solid var(--border)',
     borderRadius: 12,
     padding: '13px 16px',
@@ -97,9 +97,9 @@ export default function ContactForm() {
     fontSize: '0.8125rem',
     fontWeight: 600,
     cursor: 'pointer',
-    border: `1px solid ${active ? 'var(--accent)' : 'var(--border)'}`,
-    background: active ? 'rgba(124,58,237,0.12)' : 'transparent',
-    color: active ? 'var(--text)' : 'var(--text-muted)',
+    border: `1px solid ${active ? 'var(--grape)' : 'var(--border)'}`,
+    background: active ? 'var(--grape)' : 'transparent',
+    color: active ? 'var(--butter)' : 'var(--text-muted)',
     transition: 'all 0.2s ease',
   })
 
@@ -111,7 +111,7 @@ export default function ContactForm() {
         className="card"
         style={{ padding: 'clamp(32px,5vw,48px)', textAlign: 'center' }}
       >
-        <p className="type-heading" style={{ marginBottom: 8 }}>Se abrió WhatsApp con tu mensaje listo</p>
+        <p className="type-heading" style={{ marginBottom: 8, color: 'var(--butter)' }}>Se abrió WhatsApp con tu mensaje listo</p>
         <p className="type-body" style={{ color: 'var(--text-muted)' }}>
           Solo confirma el envío allá.
         </p>

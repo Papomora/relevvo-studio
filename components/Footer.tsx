@@ -101,7 +101,7 @@ export default function Footer({ showCta = true }: { showCta?: boolean }) {
           </nav>
 
           <p>
-            © 2025 Relevvo Studio. Todos los derechos reservados.
+            © {new Date().getFullYear()} Relevvo Studio. Todos los derechos reservados.
           </p>
         </div>
       </div>

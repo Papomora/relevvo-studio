@@ -106,10 +106,10 @@ export default function PlanesPage() {
         <div className="text-center mb-12">
           <span className="section-label" style={{ justifyContent: 'center' }}>Comparación</span>
           <h2>
-            <span className="heading-display text-white" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.2rem)' }}>
+            <span className="heading-display" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.2rem)' }}>
               Plan por{' '}
             </span>
-            <span className="heading-serif text-white" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.2rem)' }}>
+            <span className="heading-serif text-lilac" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.2rem)' }}>
               plan.
             </span>
           </h2>
@@ -119,15 +119,15 @@ export default function PlanesPage() {
           <table style={{ width: '100%', minWidth: 620, borderCollapse: 'collapse' }}>
             <thead>
               <tr>
-                <th style={{ textAlign: 'left', padding: '14px 16px', color: 'var(--text-muted)', fontSize: '0.8125rem', fontWeight: 500, borderBottom: '1px solid rgba(255,255,255,0.1)' }} />
+                <th style={{ textAlign: 'left', padding: '14px 16px', color: 'var(--text-muted)', fontSize: '0.8125rem', fontWeight: 500, borderBottom: '1px solid var(--border)' }} />
                 {PLANS.map(p => (
                   <th
                     key={p.id}
                     style={{
                       textAlign: 'left', padding: '14px 16px',
-                      color: p.featured ? 'var(--accent)' : '#fff',
+                      color: p.featured ? 'var(--lilac)' : 'var(--butter)',
                       fontSize: '0.9375rem', fontWeight: 700,
-                      borderBottom: '1px solid rgba(255,255,255,0.1)',
+                      borderBottom: '1px solid var(--border)',
                     }}
                   >
                     {p.name}
@@ -138,11 +138,11 @@ export default function PlanesPage() {
             <tbody>
               {COMPARISON_ROWS.map((row, i) => (
                 <tr key={i}>
-                  <td style={{ padding: '14px 16px', color: 'var(--text-muted)', fontSize: '0.875rem', borderBottom: '1px solid rgba(255,255,255,0.06)', whiteSpace: 'nowrap' }}>
+                  <td style={{ padding: '14px 16px', color: 'var(--text-muted)', fontSize: '0.875rem', borderBottom: '1px solid var(--border)', whiteSpace: 'nowrap' }}>
                     {row.label}
                   </td>
                   {row.values.map((v, j) => (
-                    <td key={j} style={{ padding: '14px 16px', color: v === '—' ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.85)', fontSize: '0.875rem', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                    <td key={j} style={{ padding: '14px 16px', color: v === '—' ? 'rgba(245,242,201,0.28)' : 'var(--text)', fontSize: '0.875rem', borderBottom: '1px solid var(--border)' }}>
                       {v}
                     </td>
                   ))}
@@ -161,10 +161,10 @@ export default function PlanesPage() {
         <div className="text-center mb-14">
           <span className="section-label" style={{ justifyContent: 'center' }}>Preguntas sobre precios</span>
           <h2>
-            <span className="heading-display text-white" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.2rem)' }}>
+            <span className="heading-display" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.2rem)' }}>
               Antes de{' '}
             </span>
-            <span className="heading-serif text-white" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.2rem)' }}>
+            <span className="heading-serif text-lilac" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.2rem)' }}>
               escribirnos.
             </span>
           </h2>
@@ -173,7 +173,7 @@ export default function PlanesPage() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {FAQ_PLANES.map((item, i) => (
             <details key={i} className="card" style={{ padding: '18px 22px' }}>
-              <summary style={{ cursor: 'pointer', fontWeight: 600, fontSize: '0.9375rem', listStyle: 'none' }}>
+              <summary style={{ cursor: 'pointer', fontWeight: 600, fontSize: '0.9375rem', listStyle: 'none', color: 'var(--butter)' }}>
                 {item.q}
               </summary>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginTop: 12, lineHeight: 1.65 }}>
@@ -187,14 +187,14 @@ export default function PlanesPage() {
       {/* ── CTA final ── */}
       <section className="py-24 px-4 text-center max-w-2xl mx-auto">
         <h2 className="mb-6">
-          <span className="heading-display text-white block" style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)' }}>
+          <span className="heading-display block" style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)' }}>
             ¿Cuál plan es
           </span>
-          <span className="heading-serif text-white block" style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)' }}>
+          <span className="heading-serif text-lilac block" style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)' }}>
             para tu marca?
           </span>
         </h2>
-        <p className="text-white/60 mb-10 max-w-md mx-auto">
+        <p className="text-muted mb-10 max-w-md mx-auto">
           Cuéntanos qué necesitas y te decimos, sin rodeos, cuál plan encaja.
         </p>
         <Link href="/contacto" className="btn-primary btn-glow inline-flex items-center px-8 py-3.5">

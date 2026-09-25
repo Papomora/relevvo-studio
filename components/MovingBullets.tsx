@@ -40,11 +40,11 @@ function Pill({ icon, label }: { icon: ReactNode; label: string }) {
         gap: 9,
         padding: '10px 22px',
         borderRadius: '100px',
-        border: '1px solid rgba(255,255,255,0.09)',
-        background: 'rgba(255,255,255,0.03)',
+        border: '1px solid var(--border)',
+        background: 'var(--night-2)',
         fontSize: '0.875rem',
         fontWeight: 600,
-        color: 'rgba(255,255,255,0.7)',
+        color: 'var(--text)',
         whiteSpace: 'nowrap',
         flexShrink: 0,
         transition: 'border-color .25s, color .25s, background .25s',
@@ -52,15 +52,15 @@ function Pill({ icon, label }: { icon: ReactNode; label: string }) {
       }}
       onMouseEnter={e => {
         const el = e.currentTarget as HTMLElement
-        el.style.borderColor = 'rgba(124,58,237,0.5)'
-        el.style.color = '#fff'
-        el.style.background = 'rgba(124,58,237,0.07)'
+        el.style.borderColor = 'var(--grape)'
+        el.style.color = 'var(--butter)'
+        el.style.background = 'var(--grape)'
       }}
       onMouseLeave={e => {
         const el = e.currentTarget as HTMLElement
-        el.style.borderColor = 'rgba(255,255,255,0.09)'
-        el.style.color = 'rgba(255,255,255,0.7)'
-        el.style.background = 'rgba(255,255,255,0.03)'
+        el.style.borderColor = 'var(--border)'
+        el.style.color = 'var(--text)'
+        el.style.background = 'var(--night-2)'
       }}
     >
       <span style={{ lineHeight: 1, display: 'flex' }}>{icon}</span>
@@ -113,9 +113,8 @@ export default function MovingBullets() {
         display: 'flex',
         flexDirection: 'column',
         gap: 12,
-        borderTop: '1px solid rgba(255,255,255,0.08)',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
-        background: 'rgba(255,255,255,0.012)',
+        borderTop: '1px solid var(--border)',
+        borderBottom: '1px solid var(--border)',
         maskImage: 'linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%)',
         WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%)',
       }}

@@ -90,7 +90,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             fontWeight: 600,
             letterSpacing: '.1em',
             textTransform: 'uppercase' as const,
-            color: 'rgba(255,255,255,0.35)',
+            color: 'var(--text-muted)',
             textDecoration: 'none',
             marginBottom: 24,
             display: 'inline-block',
@@ -102,7 +102,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             fontWeight: 700,
             letterSpacing: '.14em',
             textTransform: 'uppercase' as const,
-            color: '#7C3AED',
+            color: 'var(--lilac)',
             marginBottom: 12,
           }}>{frontmatter.category}</span>
 
@@ -111,14 +111,14 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
             fontWeight: 900,
             letterSpacing: '-.02em',
-            color: '#F2F2F2',
+            color: 'var(--butter)',
             lineHeight: 1.12,
             marginBottom: 16,
           }}>{frontmatter.title}</h1>
 
           <p style={{
             fontSize: '.8rem',
-            color: 'rgba(255,255,255,0.35)',
+            color: 'var(--text-muted)',
             marginBottom: 28,
           }}>
             {frontmatter.date} · {frontmatter.readTime} · Por {frontmatter.author}
@@ -148,7 +148,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         <div style={{
           fontSize: '1.05rem',
           lineHeight: 1.75,
-          color: 'rgba(255,255,255,0.7)',
+          color: 'var(--text)',
         }}>
           {paragraphs.map((line, i) => {
             const trimmed = line.trim()
@@ -158,14 +158,14 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                   fontFamily: 'var(--font-bricolage), sans-serif',
                   fontSize: '1.4rem',
                   fontWeight: 800,
-                  color: '#A78BFA',
+                  color: 'var(--butter)',
                   marginTop: 36,
                   marginBottom: 12,
                 }}>{trimmed.replace('## ', '')}</h2>
               )
             }
             if (trimmed.startsWith('# ')) return null
-            if (trimmed.startsWith('---')) return <hr key={i} style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.06)', margin: '32px 0' }} />
+            if (trimmed.startsWith('---')) return <hr key={i} style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '32px 0' }} />
             return <p key={i} style={{ marginBottom: 18 }}>{trimmed}</p>
           })}
         </div>
@@ -173,18 +173,18 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         <div style={{
           marginTop: 48,
           padding: 32,
-          background: '#7C3AED',
-          borderRadius: 12,
+          background: 'var(--grape)',
+          borderRadius: 20,
           textAlign: 'center',
         }}>
           <h3 style={{
             fontFamily: 'var(--font-bricolage), sans-serif',
             fontSize: '1.3rem',
             fontWeight: 800,
-            color: '#fff',
+            color: 'var(--butter)',
             marginBottom: 8,
           }}>¿Necesitas ayuda con tu marca?</h3>
-          <p style={{ fontSize: '.85rem', color: 'rgba(255,255,255,0.75)', marginBottom: 16 }}>
+          <p style={{ fontSize: '.85rem', color: 'rgba(245,242,201,0.85)', marginBottom: 16 }}>
             Hacemos diagnósticos gratis. 30 minutos para entender tu marca.
           </p>
           <a
@@ -193,9 +193,9 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             style={{
               display: 'inline-block',
               padding: '12px 32px',
-              background: '#fff',
-              color: '#7C3AED',
-              borderRadius: 8,
+              background: 'var(--butter)',
+              color: 'var(--night)',
+              borderRadius: 999,
               fontWeight: 700,
               fontSize: '.85rem',
               textDecoration: 'none',

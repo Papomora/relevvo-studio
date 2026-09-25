@@ -36,7 +36,7 @@ function RevealLine({ children, delay = 0, className = '', style = {} }: {
   // <span display:block> en vez de <div>: se ve igual, pero permite anidar
   // este helper dentro de un <h1> sin producir HTML inválido.
   return (
-    <span style={{ overflow: 'hidden', display: 'block', ...style }} className={className}>
+    <span style={{ overflow: 'hidden', display: 'block', paddingBottom: '0.14em', marginBottom: '-0.14em', ...style }} className={className}>
       <span ref={innerRef} style={{ display: 'block' }}>{children}</span>
     </span>
   )

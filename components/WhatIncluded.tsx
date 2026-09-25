@@ -70,18 +70,18 @@ export default function WhatIncluded() {
       {/* ── Left: heading + checklist ── */}
       <div ref={leftRef}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-          <div style={{ width: 20, height: 1, background: 'rgba(124,58,237,0.8)' }} />
-          <span style={{ fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.14em', color: 'rgba(167,139,250,0.8)', fontFamily: 'var(--font-inter)' }}>
+          <div style={{ width: 20, height: 1, background: 'var(--lilac)' }} />
+          <span style={{ fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--lilac)', fontFamily: 'var(--font-inter)' }}>
             Precio fijo, sin límites
           </span>
         </div>
 
         <h2
-          className="heading-display text-white"
+          className="heading-display"
           style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.75rem)', lineHeight: 0.95, letterSpacing: '-0.04em', marginBottom: 36 }}
         >
           Todo lo que<br />
-          <span className="heading-serif">necesitas,</span><br />
+          <span className="heading-serif text-lilac">necesitas,</span><br />
           incluido.
         </h2>
 
@@ -92,18 +92,18 @@ export default function WhatIncluded() {
               style={{
                 display: 'flex', alignItems: 'center', gap: 14,
                 padding: '13px 0',
-                borderBottom: '1px solid rgba(255,255,255,0.06)',
+                borderBottom: '1px solid var(--border)',
                 fontSize: '0.9375rem',
-                color: 'rgba(255,255,255,0.65)',
+                color: 'var(--text)',
                 transition: 'color .2s',
               }}
-              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#fff'}
-              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.65)'}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = 'var(--butter)'}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'var(--text)'}
             >
-              {/* Hanzo check circle */}
+              {/* Check en lila, paleta del logo */}
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0 }}>
-                <circle cx="10" cy="10" r="9" stroke="rgba(65,229,117,0.4)" strokeWidth="1" />
-                <path d="M6.5 10 L9 12.5 L13.5 7.5" stroke="#41E575" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <circle cx="10" cy="10" r="9" stroke="var(--lilac)" strokeOpacity="0.45" strokeWidth="1" />
+                <path d="M6.5 10 L9 12.5 L13.5 7.5" stroke="var(--lilac)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               {item}
             </li>
@@ -130,31 +130,30 @@ export default function WhatIncluded() {
         {/* Booking card — sin escasez inventada ("solo N cupos") */}
         <div
           style={{
-            background: 'rgba(124,58,237,0.08)',
-            border: '1px solid rgba(124,58,237,0.3)',
+            background: 'var(--grape)',
             borderRadius: 20,
             padding: '32px 28px',
             position: 'relative',
             overflow: 'hidden',
           }}
         >
-          <div style={{ position: 'absolute', top: -40, right: -40, width: 160, height: 160, borderRadius: '50%', background: 'radial-gradient(circle, rgba(124,58,237,0.2) 0%, transparent 70%)' }} />
+          <div aria-hidden style={{ position: 'absolute', top: -70, right: -70, width: 200, height: 200, borderRadius: '50%', border: '40px solid rgba(245,242,201,0.08)', pointerEvents: 'none' }} />
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#41E575', animation: 'pulse 2s ease-in-out infinite' }} />
-            <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#41E575', fontFamily: 'var(--font-inter)' }}>
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--butter)', animation: 'pulse 2s ease-in-out infinite' }} />
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--butter)', fontFamily: 'var(--font-inter)' }}>
               Agenda abierta
             </span>
           </div>
 
           <h3
-            className="heading-display text-white"
+            className="heading-display"
             style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', letterSpacing: '-0.03em', lineHeight: 1.2, marginBottom: 12 }}
           >
             Agenda una llamada<br />de diagnóstico gratis
           </h3>
 
-          <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.65)', lineHeight: 1.6, marginBottom: 24 }}>
+          <p style={{ fontSize: '0.9rem', color: 'rgba(245,242,201,0.85)', lineHeight: 1.6, marginBottom: 24 }}>
             30 minutos para entender tu marca, tus metas y si somos la opción correcta para ti.
           </p>
 
@@ -164,13 +163,13 @@ export default function WhatIncluded() {
             rel="noopener noreferrer"
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-              background: '#fff', color: '#0A0A0A',
+              background: 'var(--butter)', color: 'var(--night)',
               borderRadius: '100px', padding: '12px 24px',
               fontSize: '0.9rem', fontWeight: 700, textDecoration: 'none',
               transition: 'background .2s, transform .2s',
             }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#f0f0f0'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)' }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#fff'; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)' }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#FFFFFF'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)' }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'var(--butter)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)' }}
           >
             Reservar llamada gratuita →
           </Link>
@@ -179,27 +178,27 @@ export default function WhatIncluded() {
         {/* Testimonial snippet */}
         <div
           style={{
-            background: 'rgba(255,255,255,0.025)',
-            border: '1px solid rgba(255,255,255,0.08)',
+            background: 'var(--night-2)',
+            border: '1px solid var(--border)',
             borderRadius: 20,
             padding: '28px',
           }}
         >
           <div style={{ display: 'flex', gap: 2, marginBottom: 14 }}>
             {[...Array(5)].map((_, i) => (
-              <svg key={i} width="16" height="16" viewBox="0 0 20 20" fill="#F59E0B">
+              <svg key={i} width="16" height="16" viewBox="0 0 20 20" fill="var(--butter)">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
             ))}
           </div>
-          <p style={{ fontSize: '0.9375rem', color: 'rgba(255,255,255,0.65)', lineHeight: 1.65, fontStyle: 'italic', marginBottom: 18 }}>
+          <p style={{ fontSize: '0.9375rem', color: 'var(--text)', lineHeight: 1.65, fontStyle: 'italic', marginBottom: 18 }}>
             "Relevvo transformó nuestra marca en semanas. Velocidad de freelancer, calidad de gran agencia. Sin broncas."
           </p>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, rgba(124,58,237,0.4), rgba(167,139,250,0.2))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700, color: 'rgba(167,139,250,0.9)' }}>CR</div>
+            <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--grape)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700, color: 'var(--butter)' }}>CR</div>
             <div>
-              <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#fff' }}>Carlos Ramírez</div>
-              <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)' }}>CEO · Marca Digital MX</div>
+              <div style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--butter)' }}>Carlos Ramírez</div>
+              <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>CEO · Marca Digital MX</div>
             </div>
           </div>
         </div>

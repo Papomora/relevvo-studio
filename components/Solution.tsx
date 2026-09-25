@@ -5,17 +5,18 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const services = [
-  { num: '01', label: 'Logos & Branding',     color: '#A78BFA' },
-  { num: '02', label: 'Landing Pages',         color: '#60A5FA' },
-  { num: '03', label: 'Páginas Web',           color: '#34D399' },
-  { num: '04', label: 'Productos Digitales',   color: '#F472B6' },
-  { num: '05', label: 'Presentaciones',        color: '#FBBF24' },
-  { num: '06', label: 'Inteligencia Artificial',color: '#C084FC' },
-  { num: '07', label: 'Fotografía',            color: '#FB923C' },
-  { num: '08', label: 'Estrategia',            color: '#41E575' },
+  { num: '01', label: 'Logos & Branding' },
+  { num: '02', label: 'Landing Pages' },
+  { num: '03', label: 'Páginas Web' },
+  { num: '04', label: 'Productos Digitales' },
+  { num: '05', label: 'Presentaciones' },
+  { num: '06', label: 'Inteligencia Artificial' },
+  { num: '07', label: 'Fotografía' },
+  { num: '08', label: 'Estrategia' },
 ]
 
-function Pill({ num, label, color }: { num: string; label: string; color: string }) {
+// Hover = bloque uva sólido con texto mantequilla (sin resplandor).
+function Pill({ num, label }: { num: string; label: string }) {
   const ref = useRef<HTMLDivElement>(null)
 
   return (
@@ -24,25 +25,23 @@ function Pill({ num, label, color }: { num: string; label: string; color: string
       className="flex-shrink-0 mx-2 cursor-default select-none"
       onMouseEnter={() => {
         if (!ref.current) return
-        ref.current.style.background = `${color}18`
-        ref.current.style.borderColor = `${color}60`
-        ref.current.style.boxShadow = `0 0 24px ${color}30, 0 0 8px ${color}20`
+        ref.current.style.background = 'var(--grape)'
+        ref.current.style.borderColor = 'var(--grape)'
         ref.current.style.transform = 'scale(1.04)'
         const num = ref.current.querySelector('.pill-num') as HTMLElement
         const lbl = ref.current.querySelector('.pill-label') as HTMLElement
-        if (num) num.style.color = color
-        if (lbl) lbl.style.color = '#fff'
+        if (num) num.style.color = 'var(--butter)'
+        if (lbl) lbl.style.color = 'var(--butter)'
       }}
       onMouseLeave={() => {
         if (!ref.current) return
-        ref.current.style.background = 'rgba(255,255,255,0.04)'
-        ref.current.style.borderColor = 'rgba(255,255,255,0.1)'
-        ref.current.style.boxShadow = 'none'
+        ref.current.style.background = 'var(--night-2)'
+        ref.current.style.borderColor = 'var(--border)'
         ref.current.style.transform = 'scale(1)'
         const num = ref.current.querySelector('.pill-num') as HTMLElement
         const lbl = ref.current.querySelector('.pill-label') as HTMLElement
-        if (num) num.style.color = 'rgba(124,58,237,0.5)'
-        if (lbl) lbl.style.color = 'rgba(255,255,255,0.55)'
+        if (num) num.style.color = 'var(--lilac)'
+        if (lbl) lbl.style.color = 'var(--text)'
       }}
       style={{
         display: 'inline-flex',
@@ -50,22 +49,21 @@ function Pill({ num, label, color }: { num: string; label: string; color: string
         gap: 10,
         padding: '12px 22px',
         borderRadius: 999,
-        border: '1px solid rgba(255,255,255,0.1)',
-        background: 'rgba(255,255,255,0.04)',
-        backdropFilter: 'blur(8px)',
-        transition: 'background 0.25s ease, border-color 0.25s ease, box-shadow 0.3s ease, transform 0.2s ease',
+        border: '1px solid var(--border)',
+        background: 'var(--night-2)',
+        transition: 'background 0.25s ease, border-color 0.25s ease, transform 0.2s ease',
         willChange: 'transform',
       }}
     >
       <span
         className="pill-num font-mono text-xs"
-        style={{ color: 'rgba(124,58,237,0.5)', letterSpacing: '0.1em', transition: 'color 0.25s ease' }}
+        style={{ color: 'var(--lilac)', letterSpacing: '0.1em', transition: 'color 0.25s ease' }}
       >
         {num}
       </span>
       <span
         className="pill-label heading-display whitespace-nowrap"
-        style={{ fontSize: 'clamp(1rem, 2vw, 1.5rem)', letterSpacing: '-0.02em', color: 'rgba(255,255,255,0.55)', transition: 'color 0.25s ease' }}
+        style={{ fontSize: 'clamp(1rem, 2vw, 1.5rem)', letterSpacing: '-0.02em', color: 'var(--text)', transition: 'color 0.25s ease' }}
       >
         {label}
       </span>
@@ -118,14 +116,14 @@ export default function Solution() {
       <div ref={headingRef} className="text-center px-4 mb-14 max-w-4xl mx-auto">
         <span className="section-label" style={{ justifyContent: 'center' }}>Solución</span>
         <h2 className="mb-6">
-          <span className="heading-display text-white block" style={{ fontSize: 'clamp(2.4rem, 5.5vw, 4.5rem)' }}>
+          <span className="heading-display block" style={{ fontSize: 'clamp(2.4rem, 5.5vw, 4.5rem)' }}>
             Todas las necesidades,
           </span>
-          <span className="heading-serif text-white block" style={{ fontSize: 'clamp(2.4rem, 5.5vw, 4.5rem)' }}>
+          <span className="heading-serif text-lilac block" style={{ fontSize: 'clamp(2.4rem, 5.5vw, 4.5rem)' }}>
             un solo aliado.
           </span>
         </h2>
-        <p className="text-white/60 text-lg max-w-xl mx-auto leading-relaxed">
+        <p className="text-[color:var(--text)] text-lg max-w-xl mx-auto leading-relaxed">
           En Relevvo cubrimos de forma integral tus necesidades visuales y estratégicas,
           para que no tengas que coordinar múltiples proveedores.
         </p>
@@ -134,9 +132,9 @@ export default function Solution() {
       {/* Pill marquee */}
       <div className="relative">
         <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-          style={{ background: 'linear-gradient(to right, #0A0A0A, transparent)' }} />
+          style={{ background: 'linear-gradient(to right, var(--night), transparent)' }} />
         <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-          style={{ background: 'linear-gradient(to left, #0A0A0A, transparent)' }} />
+          style={{ background: 'linear-gradient(to left, var(--night), transparent)' }} />
 
         <div
           ref={trackRef}
@@ -144,7 +142,7 @@ export default function Solution() {
           style={{ width: 'max-content', gap: 0 }}
         >
           {doubled.map((s, i) => (
-            <Pill key={i} num={s.num} label={s.label} color={s.color} />
+            <Pill key={i} num={s.num} label={s.label} />
           ))}
         </div>
       </div>

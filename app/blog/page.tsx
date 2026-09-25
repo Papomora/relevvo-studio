@@ -26,7 +26,7 @@ export default function BlogPage() {
           fontWeight: 700,
           letterSpacing: '.18em',
           textTransform: 'uppercase' as const,
-          color: '#7C3AED',
+          color: 'var(--lilac)',
           marginBottom: 12,
         }}>Blog</p>
 
@@ -35,16 +35,16 @@ export default function BlogPage() {
           fontSize: 'clamp(2rem, 4vw, 3rem)',
           fontWeight: 900,
           letterSpacing: '-.03em',
-          color: '#F2F2F2',
+          color: 'var(--butter)',
           lineHeight: 1.08,
           marginBottom: 12,
         }}>
-          Ideas, estrategia<br />y diseño <span style={{ fontFamily: 'var(--font-instrument), serif', fontStyle: 'italic', color: '#A78BFA' }}>sin filtro.</span>
+          Ideas, estrategia<br />y diseño <span style={{ fontFamily: 'var(--font-instrument), serif', fontStyle: 'italic', fontWeight: 400, color: 'var(--lilac)' }}>sin filtro.</span>
         </h1>
 
         <p style={{
           fontSize: '.9rem',
-          color: 'rgba(255,255,255,0.5)',
+          color: 'var(--text-muted)',
           maxWidth: 480,
           lineHeight: 1.7,
           marginBottom: 48,
@@ -56,14 +56,14 @@ export default function BlogPage() {
           <div style={{
             padding: '60px 32px',
             textAlign: 'center',
-            border: '1px solid rgba(255,255,255,0.06)',
+            border: '1px solid var(--border)',
             borderRadius: 12,
-            background: 'rgba(255,255,255,0.02)',
+            background: 'var(--night-2)',
           }}>
-            <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.4)', marginBottom: 8 }}>
+            <p style={{ fontSize: '1.1rem', color: 'var(--butter)', marginBottom: 8 }}>
               Próximamente
             </p>
-            <p style={{ fontSize: '.82rem', color: 'rgba(255,255,255,0.25)' }}>
+            <p style={{ fontSize: '.82rem', color: 'var(--text-muted)' }}>
               Estamos preparando contenido que vale la pena leer. Vuelve pronto.
             </p>
           </div>
@@ -81,8 +81,8 @@ export default function BlogPage() {
                   display: 'block',
                   borderRadius: 12,
                   overflow: 'hidden',
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.06)',
+                  background: 'var(--night-2)',
+                  border: '1px solid var(--border)',
                   textDecoration: 'none',
                   transition: 'transform .2s, border-color .2s',
                 }}
@@ -103,24 +103,24 @@ export default function BlogPage() {
                     fontWeight: 700,
                     letterSpacing: '.1em',
                     textTransform: 'uppercase' as const,
-                    color: '#7C3AED',
+                    color: 'var(--lilac)',
                   }}>{post.category}</span>
                   <h2 style={{
                     fontSize: '1.05rem',
                     fontWeight: 700,
-                    color: '#F2F2F2',
+                    color: 'var(--butter)',
                     margin: '8px 0',
                     lineHeight: 1.3,
                   }}>{post.title}</h2>
                   <p style={{
                     fontSize: '.8rem',
-                    color: 'rgba(255,255,255,0.4)',
+                    color: 'var(--text-muted)',
                     lineHeight: 1.6,
                     marginBottom: 12,
                   }}>{post.description}</p>
                   <span style={{
                     fontSize: '.72rem',
-                    color: 'rgba(255,255,255,0.25)',
+                    color: 'var(--text-muted)',
                   }}>{post.date} · {post.readTime}</span>
                 </div>
               </Link>

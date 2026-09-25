@@ -18,51 +18,62 @@ const WA_AGENCY = 'https://wa.me/573223094005?text=Hola%2C%20quiero%20trabajar%2
 // LinkedIn se omiten a propósito hasta que existan (ver ESTADO.md); un
 // botón roto es peor que ningún botón.
 
+// Tokens del sistema (app/globals.css) — paleta del logo, sin el violeta
+// por defecto de Tailwind ni colores por marca.
 const T = {
-  bg: '#0A0A0A', accent: '#7C3AED', accentL: '#A78BFA',
-  green: '#41E575', muted: 'rgba(255,255,255,0.45)',
-  border: 'rgba(255,255,255,0.08)', card: 'rgba(255,255,255,0.03)',
+  grape: 'var(--grape)', lilac: 'var(--lilac)', butter: 'var(--butter)',
+  night: 'var(--night)', text: 'var(--text)', muted: 'var(--text-muted)',
+  border: 'var(--border)', borderHover: 'var(--border-hover)',
+  card: 'var(--night-2)', card2: 'var(--night-3)',
   fd: 'var(--font-bricolage)', fs: 'var(--font-instrument)', fb: 'var(--font-inter)',
 }
 
 const services = [
-  { n: '01', title: 'Identidad de Marca', sub: 'Logo · Paleta · Tipografía · Tono de voz', color: '#A259FF' },
-  { n: '02', title: 'Brandbook Completo', sub: 'Manual de marca · Guías de aplicación', color: '#FF6B6B' },
-  { n: '03', title: 'Rediseño de Marca',  sub: 'Evolución de identidad · Sin perder esencia', color: '#67E8F9' },
-  { n: '04', title: 'Naming & Concepto',  sub: 'Posicionamiento · Nombre estratégico', color: '#F9A8D4' },
-  { n: '05', title: 'Contenido Visual',   sub: 'Social · Ecommerce · Fotografía', color: '#6EE7B7' },
-  { n: '06', title: 'Prompting IA',       sub: 'Midjourney · Firefly · DALL·E · Claude', color: '#D4A27F' },
+  { n: '01', title: 'Identidad de Marca', sub: 'Logo · Paleta · Tipografía · Tono de voz' },
+  { n: '02', title: 'Brandbook Completo', sub: 'Manual de marca · Guías de aplicación' },
+  { n: '03', title: 'Rediseño de Marca',  sub: 'Evolución de identidad · Sin perder esencia' },
+  { n: '04', title: 'Naming & Concepto',  sub: 'Posicionamiento · Nombre estratégico' },
+  { n: '05', title: 'Contenido Visual',   sub: 'Social · Ecommerce · Fotografía' },
+  { n: '06', title: 'Prompting IA',       sub: 'Midjourney · Firefly · DALL·E · Claude' },
 ]
 
 const brands = [
-  { name: 'Osadí',             cat: 'Accesorios Premium',    color: '#C9B882', year: '2024', tags: ['Identidad', 'Brandbook'], href: 'https://camiloleonfotografia.wixsite.com/papodiseno/copia-de-quien-soy' },
-  { name: 'Crusso',            cat: 'Mobiliario Premium',    color: '#C0392B', year: '2024', tags: ['Branding', 'Motion'],    href: 'https://www.instagram.com/tiendacrusso/' },
-  { name: 'Molicié',          cat: 'Hogar & Decoración',    color: '#D4A757', year: '2023', tags: ['Identidad', 'Contenido'], href: 'https://www.instagram.com/moliciehogar/' },
-  { name: 'Verslä',            cat: 'Moda Femenina',         color: '#F472B6', year: '2024', tags: ['Branding', 'Social'],    href: 'https://www.instagram.com/verslafeminite/' },
-  { name: 'Khalifa',           cat: 'Marketing Digital',     color: '#60A5FA', year: '2023', tags: ['Identidad', 'Web'],      href: 'https://camiloleonfotografia.wixsite.com/papodiseno/copia-de-brand-khalifa' },
-  { name: 'Gadotec',           cat: 'Tecnología',            color: '#34D399', year: '2023', tags: ['Branding', 'Naming'],   href: 'https://camiloleonfotografia.wixsite.com/papodiseno/copia-de-brand-gadotec' },
-  { name: 'Ecomms',            cat: 'Comercio Digital',      color: '#A78BFA', year: '2024', tags: ['Identidad', 'Ecommerce'], href: 'https://camiloleonfotografia.wixsite.com/papodiseno/copia-de-brand-ecomms' },
-  { name: 'Visuality',         cat: 'Publicidad Exterior',   color: '#F87171', year: '2024', tags: ['Branding', 'OOH'],      href: 'https://instagram.com' },
-  { name: 'Metro 73',          cat: 'Estilo de vida',        color: '#818CF8', year: '2024', tags: ['Branding', 'Social'],   href: 'https://www.instagram.com/vivemetro73/' },
-  { name: 'LímiteLegal',       cat: 'Legal & Consultoría',   color: '#94A3B8', year: '2024', tags: ['Identidad', 'Web'],     href: 'https://www.instagram.com/limite_legalco/' },
-  { name: 'Forjar',            cat: 'Inversiones',           color: '#FBBF24', year: '2024', tags: ['Branding', 'Naming'],  href: 'https://www.instagram.com/forjar_inversiones/' },
+  { name: 'Osadí',             cat: 'Accesorios Premium', year: '2024', tags: ['Identidad', 'Brandbook'], href: 'https://camiloleonfotografia.wixsite.com/papodiseno/copia-de-quien-soy' },
+  { name: 'Crusso',            cat: 'Mobiliario Premium', year: '2024', tags: ['Branding', 'Motion'],    href: 'https://www.instagram.com/tiendacrusso/' },
+  { name: 'Molicié',          cat: 'Hogar & Decoración', year: '2023', tags: ['Identidad', 'Contenido'], href: 'https://www.instagram.com/moliciehogar/' },
+  { name: 'Verslä',            cat: 'Moda Femenina', year: '2024', tags: ['Branding', 'Social'],    href: 'https://www.instagram.com/verslafeminite/' },
+  { name: 'Khalifa',           cat: 'Marketing Digital', year: '2023', tags: ['Identidad', 'Web'],      href: 'https://camiloleonfotografia.wixsite.com/papodiseno/copia-de-brand-khalifa' },
+  { name: 'Gadotec',           cat: 'Tecnología', year: '2023', tags: ['Branding', 'Naming'],   href: 'https://camiloleonfotografia.wixsite.com/papodiseno/copia-de-brand-gadotec' },
+  { name: 'Ecomms',            cat: 'Comercio Digital', year: '2024', tags: ['Identidad', 'Ecommerce'], href: 'https://camiloleonfotografia.wixsite.com/papodiseno/copia-de-brand-ecomms' },
+  { name: 'Visuality',         cat: 'Publicidad Exterior', year: '2024', tags: ['Branding', 'OOH'],      href: 'https://instagram.com' },
+  { name: 'Metro 73',          cat: 'Estilo de vida', year: '2024', tags: ['Branding', 'Social'],   href: 'https://www.instagram.com/vivemetro73/' },
+  { name: 'LímiteLegal',       cat: 'Legal & Consultoría', year: '2024', tags: ['Identidad', 'Web'],     href: 'https://www.instagram.com/limite_legalco/' },
+  { name: 'Forjar',            cat: 'Inversiones', year: '2024', tags: ['Branding', 'Naming'],  href: 'https://www.instagram.com/forjar_inversiones/' },
 ]
 
-const tools: { name: string; logo?: string; emoji?: string; cat: 'Design' | 'AI'; color: string }[] = [
-  { name: 'Figma',         logo: '/images/tools/Figma_logo.png',         cat: 'Design', color: '#A259FF' },
-  { name: 'Illustrator',   logo: '/images/tools/Illustrator_logo.png',   cat: 'Design', color: '#FF7C00' },
-  { name: 'Photoshop',     logo: '/images/tools/Photoshop_logo.png',     cat: 'Design', color: '#31A8FF' },
-  { name: 'After Effects', logo: '/images/tools/AfterEffects_logo.png',  cat: 'Design', color: '#9999FF' },
-  { name: 'Premiere Pro',  logo: '/images/tools/PremierePro_logo.png',   cat: 'Design', color: '#9999FF' },
-  { name: 'Claude',        logo: '/images/tools/Claude_logo.png',     cat: 'AI', color: '#D4A27F' },
-  { name: 'Midjourney',    logo: '/images/tools/Midjourney_logo.png', cat: 'AI', color: '#7C9FD4' },
-  { name: 'ChatGPT',       logo: '/images/tools/ChatGPT_logo.png',    cat: 'AI', color: '#10A37F' },
-  { name: 'Firefly',       logo: '/images/tools/Firefly_logo.png',    cat: 'AI', color: '#FF6B6B' },
-  { name: 'Gemini',        logo: '/images/tools/Gemini_logo.png',     cat: 'AI', color: '#4285F4' },
-  { name: 'Freepik',       logo: '/images/tools/Freepik_logo.png',    cat: 'AI', color: '#1273EB' },
+const tools: { name: string; logo?: string; emoji?: string; cat: 'Design' | 'AI' }[] = [
+  { name: 'Figma',         logo: '/images/tools/Figma_logo.png',         cat: 'Design' },
+  { name: 'Illustrator',   logo: '/images/tools/Illustrator_logo.png',   cat: 'Design' },
+  { name: 'Photoshop',     logo: '/images/tools/Photoshop_logo.png',     cat: 'Design' },
+  { name: 'After Effects', logo: '/images/tools/AfterEffects_logo.png',  cat: 'Design' },
+  { name: 'Premiere Pro',  logo: '/images/tools/PremierePro_logo.png',   cat: 'Design' },
+  { name: 'Claude',        logo: '/images/tools/Claude_logo.png',     cat: 'AI' },
+  { name: 'Midjourney',    logo: '/images/tools/Midjourney_logo.png', cat: 'AI' },
+  { name: 'ChatGPT',       logo: '/images/tools/ChatGPT_logo.png',    cat: 'AI' },
+  { name: 'Firefly',       logo: '/images/tools/Firefly_logo.png',    cat: 'AI' },
+  { name: 'Gemini',        logo: '/images/tools/Gemini_logo.png',     cat: 'AI' },
+  { name: 'Freepik',       logo: '/images/tools/Freepik_logo.png',    cat: 'AI' },
 ]
 
 const proceso = PROCESO_GENERICO
+
+// Inicial de cada marca en bloques sólidos alternos (uva / mantequilla /
+// noche), el mismo ritmo de color del portafolio del home.
+const AVATARS: React.CSSProperties[] = [
+  { background: 'var(--grape)', color: 'var(--butter)' },
+  { background: 'var(--butter)', color: 'var(--night)' },
+  { background: 'var(--night-3)', color: 'var(--butter)', border: '1px solid var(--border)' },
+]
 
 // ── Íconos de servicios — SVG dibujados a mano, stroke-based, sin emoji ni
 // icon pack, para que los 6 tengan un mismo lenguaje visual. Uno por
@@ -142,8 +153,8 @@ function SLabel({ n, label }: { n: string; label: string }) {
   useReveal(ref, { y: 16 })
   return (
     <div ref={ref} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-      <div style={{ width: 22, height: 1, background: T.accent }} />
-      <span style={{ fontFamily: T.fb, fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.14em', color: T.accentL }}>
+      <div style={{ width: 22, height: 1, background: T.lilac }} />
+      <span style={{ fontFamily: T.fb, fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.14em', color: T.lilac }}>
         {n} — {label}
       </span>
     </div>
@@ -208,7 +219,7 @@ export default function PapoPage() {
   }, [])
 
   return (
-    <main style={{ background: 'transparent', minHeight: '100vh', color: '#fff', position: 'relative' }}>
+    <main style={{ background: 'transparent', minHeight: '100vh', color: 'var(--text)', position: 'relative' }}>
       <style jsx global>{`
         @media(max-width:640px){ .cta-grid{ grid-template-columns:1fr!important; } }
         @media(max-width:900px){ .brands-grid{ grid-template-columns:repeat(2,1fr)!important; } }
@@ -224,11 +235,11 @@ export default function PapoPage() {
         @media(max-width:560px){ .svc-grid{ grid-template-columns: 1fr!important; } }
 
         /* ── Bento "Perfil profesional" (01) ── */
-        .bento-cell { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 26px; display: flex; flex-direction: column; }
+        .bento-cell { background: var(--night-2); border: 1px solid var(--border); border-radius: 20px; padding: 26px; display: flex; flex-direction: column; }
         .bento-row { border-radius: 10px; transition: background .2s ease; }
-        .bento-row:hover { background: rgba(124,58,237,0.09); }
-        .bento-chip { display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; border-radius: 100px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); font-size: 0.8125rem; color: rgba(255,255,255,0.72); transition: border-color .2s ease, background .2s ease; }
-        .bento-chip:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.07); }
+        .bento-row:hover { background: var(--night-3); }
+        .bento-chip { display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; border-radius: 100px; background: var(--night-3); border: 1px solid var(--border); font-size: 0.8125rem; color: var(--text); transition: border-color .2s ease, background .2s ease; }
+        .bento-chip:hover { border-color: var(--border-hover); }
         .bento-filt { cursor: pointer; font-family: var(--font-inter); border: none; transition: background .2s ease, color .2s ease, border-color .2s ease; }
         .bento-clamp1 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
         .bento-grid { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap: 14px; }
@@ -243,17 +254,17 @@ export default function PapoPage() {
       `}</style>
 
       {/* ── NAV ── */}
-      <nav style={{ position: 'sticky', top: 0, zIndex: 50, padding: '14px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(10,10,10,0.88)', backdropFilter: 'blur(20px)', borderBottom: `1px solid ${T.border}` }}>
+      <nav style={{ position: 'sticky', top: 0, zIndex: 50, padding: '14px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(18,14,24,0.9)', backdropFilter: 'blur(10px)', borderBottom: `1px solid ${T.border}` }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          <span style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 17, letterSpacing: '-0.04em', color: '#fff' }}>Papo</span>
-          <span style={{ fontFamily: T.fs, fontStyle: 'italic', fontSize: 17, color: T.muted }}>León</span>
+          <span style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 17, letterSpacing: '-0.04em', color: T.butter }}>Papo</span>
+          <span style={{ fontFamily: T.fs, fontStyle: 'italic', fontSize: 17, color: T.lilac }}>León</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <Link href="/" style={{ fontSize: 12, color: T.muted, textDecoration: 'none', padding: '6px 12px', borderRadius: 99, border: `1px solid ${T.border}`, transition: 'color .2s' }}>
             Relevvo Studio ↗
           </Link>
           <Link href={WA} target="_blank" rel="noopener noreferrer"
-            style={{ fontSize: 12, fontWeight: 700, padding: '8px 18px', borderRadius: 99, background: T.accent, color: '#fff', textDecoration: 'none' }}>
+            style={{ fontSize: 12, fontWeight: 700, padding: '8px 18px', borderRadius: 99, background: T.butter, color: T.night, textDecoration: 'none' }}>
             Trabajemos juntos
           </Link>
         </div>
@@ -275,13 +286,13 @@ export default function PapoPage() {
           </div>
           <div>
             {/* Único <h1> de la página. */}
-            <h1 style={{ fontFamily: T.fd, fontWeight: 800, fontSize: 'clamp(1.875rem,4.5vw,2.75rem)', letterSpacing: '-0.03em', lineHeight: 1.05, margin: 0, color: '#fff' }}>
+            <h1 style={{ fontFamily: T.fd, fontWeight: 800, fontSize: 'clamp(1.875rem,4.5vw,2.75rem)', letterSpacing: '-0.03em', lineHeight: 1.05, margin: 0, color: T.butter }}>
               Juan Camilo "Papo" León Mora
             </h1>
             <p style={{ fontSize: '1rem', color: T.muted, margin: '10px 0 0', fontFamily: T.fb }}>
               Fundador &amp; Director Creativo — Relevvo Studio · Colombia
             </p>
-            <p style={{ fontSize: '1rem', lineHeight: 1.65, color: T.muted, maxWidth: 560, margin: '18px 0 0', fontFamily: T.fb }}>
+            <p style={{ fontSize: '1rem', lineHeight: 1.65, color: T.text, maxWidth: 560, margin: '18px 0 0', fontFamily: T.fb }}>
               Diseño de marca con estrategia primero: entender el negocio antes de diseñar la
               identidad que lo comunica. Nueve años de oficio, hoy dentro de un equipo — el
               detalle está debajo.
@@ -297,7 +308,7 @@ export default function PapoPage() {
       <section ref={bentoRef} style={{ padding: 'clamp(48px,6vw,80px) clamp(20px,6vw,80px)', maxWidth: 1200, margin: '0 auto', borderTop: `1px solid ${T.border}` }}>
         <div style={{ marginBottom: 28 }}>
           <SLabel n="01" label="Perfil profesional" />
-          <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 1, margin: 0, color: '#fff' }}>
+          <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 1, margin: 0, color: T.butter }}>
             Quién soy, en corto.
           </h2>
         </div>
@@ -307,26 +318,26 @@ export default function PapoPage() {
           {/* ── Trayectoria — la celda más grande, a propósito ── */}
           <div className="bento-cell bento-traj" style={{ gap: 18 }}>
             <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
-              <span className="font-mono" style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>Trayectoria</span>
-              <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.28)' }}>2016 — hoy</span>
+              <span className="font-mono" style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: T.muted }}>Trayectoria</span>
+              <span style={{ fontSize: '0.75rem', color: T.muted }}>2016 — hoy</span>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               {TIMELINE.map((item, i) => (
                 <div key={i} className="bento-row" style={{ display: 'grid', gridTemplateColumns: '46px minmax(0,1fr)', gap: 14, padding: 10, alignItems: 'start' }}>
-                  <span style={{ fontFamily: T.fd, fontWeight: 800, fontSize: '0.75rem', paddingTop: 2, fontVariantNumeric: 'tabular-nums', color: item.current ? T.accentL : 'rgba(255,255,255,0.3)' }}>
+                  <span style={{ fontFamily: T.fd, fontWeight: 800, fontSize: '0.75rem', paddingTop: 2, fontVariantNumeric: 'tabular-nums', color: item.current ? T.lilac : T.muted }}>
                     {item.year}
                   </span>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 0 }}>
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: 7, flexWrap: 'wrap' }}>
-                      <span style={{ fontFamily: T.fd, fontWeight: 700, fontSize: '0.9375rem', color: '#fff' }}>{item.role}</span>
-                      <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.35)' }}>· {item.place}</span>
+                      <span style={{ fontFamily: T.fd, fontWeight: 700, fontSize: '0.9375rem', color: T.butter }}>{item.role}</span>
+                      <span style={{ fontSize: '0.8125rem', color: T.muted }}>· {item.place}</span>
                       {item.current && (
-                        <span style={{ fontSize: 10, fontFamily: T.fb, fontWeight: 700, padding: '2px 9px', borderRadius: 99, background: 'rgba(124,58,237,0.15)', color: T.accentL }}>
+                        <span style={{ fontSize: 10, fontFamily: T.fb, fontWeight: 700, padding: '2px 9px', borderRadius: 99, background: T.grape, color: T.butter }}>
                           hoy
                         </span>
                       )}
                     </div>
-                    <span className="bento-clamp1" style={{ fontSize: '0.8125rem', lineHeight: 1.45, color: 'rgba(255,255,255,0.38)' }}>{item.desc}</span>
+                    <span className="bento-clamp1" style={{ fontSize: '0.8125rem', lineHeight: 1.45, color: T.muted }}>{item.desc}</span>
                   </div>
                 </div>
               ))}
@@ -341,8 +352,8 @@ export default function PapoPage() {
               <div className="bento-metrics">
                 {bentoMetrics.map((m, i) => (
                   <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-                    <span style={{ fontFamily: T.fd, fontWeight: 800, fontSize: '1.5rem', letterSpacing: '-0.03em', color: T.accentL }}>{m.value}</span>
-                    <span style={{ fontSize: '0.6875rem', lineHeight: 1.3, color: 'rgba(255,255,255,0.38)' }}>{m.label}</span>
+                    <span style={{ fontFamily: T.fd, fontWeight: 800, fontSize: '1.5rem', letterSpacing: '-0.03em', color: T.butter }}>{m.value}</span>
+                    <span style={{ fontSize: '0.6875rem', lineHeight: 1.3, color: T.muted }}>{m.label}</span>
                   </div>
                 ))}
               </div>
@@ -351,14 +362,14 @@ export default function PapoPage() {
             {/* Aptitudes + Formación */}
             <div className="bento-apt-formacion">
               <div className="bento-cell" style={{ gap: 14, padding: 22 }}>
-                <span className="font-mono" style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>Aptitudes</span>
+                <span className="font-mono" style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: T.muted }}>Aptitudes</span>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
                   {APTITUDES.map((a, i) => (
                     <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-                      <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.7)' }}>{a.name}</span>
+                      <span style={{ fontSize: '0.8125rem', color: T.text }}>{a.name}</span>
                       <span style={{ display: 'flex', gap: 2, flexShrink: 0 }} aria-label={`${a.level} de 5 estrellas`}>
                         {Array.from({ length: 5 }).map((_, s) => (
-                          <span key={s} style={{ display: 'block', width: 5, height: 5, borderRadius: '50%', background: s < a.level ? T.accentL : 'rgba(255,255,255,0.14)' }} />
+                          <span key={s} style={{ display: 'block', width: 5, height: 5, borderRadius: '50%', background: s < a.level ? T.lilac : 'rgba(245,242,201,0.14)' }} />
                         ))}
                       </span>
                     </div>
@@ -367,12 +378,12 @@ export default function PapoPage() {
               </div>
 
               <div className="bento-cell" style={{ gap: 14, padding: 22 }}>
-                <span className="font-mono" style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>Formación</span>
+                <span className="font-mono" style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: T.muted }}>Formación</span>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                   {STUDIES.map((s, i) => (
                     <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-                      <span style={{ fontFamily: T.fd, fontWeight: 700, fontSize: '0.875rem', lineHeight: 1.3, color: '#fff' }}>{s.title}</span>
-                      <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.35)' }}>{s.detail}</span>
+                      <span style={{ fontFamily: T.fd, fontWeight: 700, fontSize: '0.875rem', lineHeight: 1.3, color: T.butter }}>{s.title}</span>
+                      <span style={{ fontSize: '0.75rem', color: T.muted }}>{s.detail}</span>
                     </div>
                   ))}
                 </div>
@@ -382,7 +393,7 @@ export default function PapoPage() {
             {/* Herramientas — una sola lista, filtro Todo/Diseño/IA */}
             <div className="bento-cell" style={{ gap: 16, padding: '22px 26px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-                <span className="font-mono" style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>Herramientas</span>
+                <span className="font-mono" style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: T.muted }}>Herramientas</span>
                 <div style={{ display: 'flex', gap: 6 }}>
                   {([
                     { id: 'Todo' as ToolFilter, label: 'Todo' },
@@ -395,8 +406,8 @@ export default function PapoPage() {
                       onClick={() => setToolFilter(f.id)}
                       style={{
                         padding: '4px 11px', borderRadius: 100, fontSize: '0.6875rem', fontWeight: 600,
-                        background: toolFilter === f.id ? T.accent : 'transparent',
-                        color: toolFilter === f.id ? '#fff' : 'rgba(255,255,255,0.4)',
+                        background: toolFilter === f.id ? T.grape : 'transparent',
+                        color: toolFilter === f.id ? T.butter : T.muted,
                         border: toolFilter === f.id ? '1px solid transparent' : `1px solid ${T.border}`,
                       }}
                     >
@@ -419,16 +430,16 @@ export default function PapoPage() {
 
           {/* ── Proceso — ancho completo ── */}
           <div className="bento-cell bento-proceso" style={{ gap: 20, padding: '26px 28px' }}>
-            <span className="font-mono" style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>Cómo trabajo</span>
+            <span className="font-mono" style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: T.muted }}>Cómo trabajo</span>
             <div className="bento-proc-grid">
               {proceso.map((step, i) => (
                 <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <span style={{ fontFamily: T.fd, fontWeight: 800, fontSize: '0.75rem', color: T.accentL }}>{step.n}</span>
-                    <span style={{ display: 'block', height: 1, flexGrow: 1, background: 'rgba(255,255,255,0.1)' }} />
+                    <span style={{ fontFamily: T.fd, fontWeight: 800, fontSize: '0.75rem', color: T.lilac }}>{step.n}</span>
+                    <span style={{ display: 'block', height: 1, flexGrow: 1, background: T.border }} />
                   </div>
-                  <span style={{ fontFamily: T.fd, fontWeight: 700, fontSize: '0.9375rem', lineHeight: 1.25, color: '#fff' }}>{step.title}</span>
-                  <span style={{ fontSize: '0.8125rem', lineHeight: 1.55, color: 'rgba(255,255,255,0.4)' }}>{step.desc}</span>
+                  <span style={{ fontFamily: T.fd, fontWeight: 700, fontSize: '0.9375rem', lineHeight: 1.25, color: T.butter }}>{step.title}</span>
+                  <span style={{ fontSize: '0.8125rem', lineHeight: 1.55, color: T.muted }}>{step.desc}</span>
                 </div>
               ))}
             </div>
@@ -440,7 +451,7 @@ export default function PapoPage() {
       {/* ── 02 — SERVICIOS ── */}
       <section ref={servicesRef} style={{ padding: 'clamp(48px,6vw,80px) clamp(20px,6vw,80px)', maxWidth: 1200, margin: '0 auto', borderTop: `1px solid ${T.border}` }}>
         <SLabel n="02" label="Qué hago" />
-        <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 0.95, margin: '0 0 40px', color: '#fff' }}>
+        <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 0.95, margin: '0 0 40px', color: T.butter }}>
           Servicios
         </h2>
         <div className="svc-grid">
@@ -453,22 +464,22 @@ export default function PapoPage() {
                 onMouseLeave={() => setActiveService(null)}
                 style={{
                   padding: 24, borderRadius: 16,
-                  border: `1px solid ${active ? `${s.color}55` : T.border}`,
-                  background: active ? `${s.color}0d` : 'rgba(255,255,255,0.03)',
+                  border: `1px solid ${active ? 'transparent' : T.border}`,
+                  background: active ? T.grape : T.card,
                   transition: 'border-color .2s ease, background .2s ease, transform .2s ease',
                   transform: active ? 'translateY(-3px)' : 'none',
                 }}>
                 <div style={{
                   width: 44, height: 44, borderRadius: 12, marginBottom: 16,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  background: `${s.color}18`,
+                  background: active ? 'rgba(245,242,201,0.12)' : T.card2,
                 }}>
-                  <Icon color={s.color} />
+                  <Icon color={active ? 'var(--butter)' : 'var(--lilac)'} />
                 </div>
-                <h3 style={{ fontFamily: T.fd, fontWeight: 800, fontSize: '1.0625rem', letterSpacing: '-0.02em', color: '#fff', margin: '0 0 6px' }}>
+                <h3 style={{ fontFamily: T.fd, fontWeight: 800, fontSize: '1.0625rem', letterSpacing: '-0.02em', color: T.butter, margin: '0 0 6px' }}>
                   {s.title}
                 </h3>
-                <p style={{ fontSize: '0.8125rem', color: T.muted, fontFamily: T.fb, lineHeight: 1.5, margin: 0 }}>
+                <p style={{ fontSize: '0.8125rem', color: active ? 'rgba(245,242,201,0.85)' : T.muted, fontFamily: T.fb, lineHeight: 1.5, margin: 0, transition: 'color .2s ease' }}>
                   {s.sub}
                 </p>
               </div>
@@ -480,35 +491,31 @@ export default function PapoPage() {
       {/* ── 03 — MARCAS ── */}
       <section ref={brandsRef} id="marcas" style={{ padding: 'clamp(48px,6vw,80px) clamp(20px,6vw,80px)', maxWidth: 1200, margin: '0 auto', borderTop: `1px solid ${T.border}` }}>
         <SLabel n="03" label="Portafolio" />
-        <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 0.95, margin: '0 0 36px', color: '#fff' }}>
+        <h2 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(2rem,4.5vw,3.5rem)', letterSpacing: '-0.04em', lineHeight: 0.95, margin: '0 0 36px', color: T.butter }}>
           Marcas en portafolio
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 16 }} className="brands-grid">
           {brands.map((b, i) => (
             <a key={i} href={b.href} target="_blank" rel="noopener noreferrer" className="brand-card"
-              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = `${b.color}55`; el.style.transform = 'translateY(-5px)'; el.style.boxShadow = `0 16px 40px ${b.color}20` }}
-              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = T.border; el.style.transform = 'translateY(0)'; el.style.boxShadow = 'none' }}
-              style={{ padding: '28px 24px', borderRadius: 18, background: 'rgba(255,255,255,0.03)', backdropFilter: 'blur(12px)', border: `1px solid ${T.border}`, cursor: 'pointer', transition: 'all .3s ease', position: 'relative', overflow: 'hidden', minHeight: 200, textDecoration: 'none', display: 'block' }}>
-              {/* Gradient bg tint on hover side */}
-              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: `linear-gradient(135deg, ${b.color}08 0%, transparent 60%)`, pointerEvents: 'none' }} />
-              {/* Color accent top */}
-              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${b.color} 0%, ${b.color}40 70%, transparent 100%)` }} />
+              onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = T.borderHover; el.style.transform = 'translateY(-5px)' }}
+              onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = T.border; el.style.transform = 'translateY(0)' }}
+              style={{ padding: '28px 24px', borderRadius: 18, background: T.card, border: `1px solid ${T.border}`, cursor: 'pointer', transition: 'border-color .3s ease, transform .3s ease', position: 'relative', overflow: 'hidden', minHeight: 200, textDecoration: 'none', display: 'block' }}>
               {/* Year + Avatar row */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
-                <div style={{ width: 52, height: 52, borderRadius: 12, background: `${b.color}22`, border: `1.5px solid ${b.color}45`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: T.fd, fontWeight: 900, fontSize: 22, color: b.color }}>
+                <div style={{ width: 52, height: 52, borderRadius: 12, ...AVATARS[i % AVATARS.length], display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: T.fd, fontWeight: 900, fontSize: 22 }}>
                   {b.name[0]}
                 </div>
                 <span style={{ fontSize: 11, color: T.muted, letterSpacing: '0.06em', fontFamily: T.fb }}>{b.year}</span>
               </div>
-              <p style={{ fontFamily: T.fd, fontWeight: 800, fontSize: '1.125rem', letterSpacing: '-0.025em', margin: '0 0 4px', color: '#fff' }}>{b.name}</p>
+              <p style={{ fontFamily: T.fd, fontWeight: 800, fontSize: '1.125rem', letterSpacing: '-0.025em', margin: '0 0 4px', color: T.butter }}>{b.name}</p>
               <p style={{ fontFamily: T.fb, fontSize: 10, color: T.muted, margin: '0 0 14px', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{b.cat}</p>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 6 }}>
                 <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
                   {b.tags.map((t, j) => (
-                    <span key={j} style={{ fontSize: 10, fontWeight: 600, padding: '3px 9px', borderRadius: 20, background: `${b.color}18`, color: b.color, border: `1px solid ${b.color}35`, fontFamily: T.fb }}>{t}</span>
+                    <span key={j} style={{ fontSize: 10, fontWeight: 600, padding: '3px 9px', borderRadius: 20, background: 'transparent', color: T.muted, border: `1px solid ${T.border}`, fontFamily: T.fb }}>{t}</span>
                   ))}
                 </div>
-                <span style={{ fontSize: 11, color: b.color, opacity: 0.8, fontWeight: 600 }}>↗</span>
+                <span style={{ fontSize: 11, color: T.lilac, fontWeight: 600 }}>↗</span>
               </div>
             </a>
           ))}
@@ -520,29 +527,28 @@ export default function PapoPage() {
         <div ref={ctaRef} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }} className="cta-grid">
 
           {/* Personal CTA */}
-          <div style={{ padding: '36px 32px', borderRadius: 20, background: `rgba(124,58,237,0.08)`, border: `1px solid rgba(124,58,237,0.25)`, position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', top: -30, right: -30, width: 120, height: 120, borderRadius: '50%', background: 'radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%)' }} />
+          <div style={{ padding: '36px 32px', borderRadius: 20, background: T.grape, position: 'relative', overflow: 'hidden' }}>
+            <div aria-hidden style={{ position: 'absolute', top: -60, right: -60, width: 180, height: 180, borderRadius: '50%', border: '36px solid rgba(245,242,201,0.08)', pointerEvents: 'none' }} />
             <span style={{ fontSize: 32, display: 'block', marginBottom: 14 }}>🤝</span>
-            <h3 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(1.4rem,2.5vw,1.875rem)', letterSpacing: '-0.035em', margin: '0 0 10px', color: '#fff' }}>
+            <h3 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(1.4rem,2.5vw,1.875rem)', letterSpacing: '-0.035em', margin: '0 0 10px', color: T.butter }}>
               ¿Tu marca necesita<br />
-              <span style={{ fontFamily: T.fs, fontStyle: 'italic', fontWeight: 400, color: 'rgba(255,255,255,0.6)' }}>una identidad sólida?</span>
+              <span style={{ fontFamily: T.fs, fontStyle: 'italic', fontWeight: 400, color: T.butter }}>una identidad sólida?</span>
             </h3>
-            <p style={{ fontSize: '0.9rem', color: T.muted, margin: '0 0 24px', lineHeight: 1.6, fontFamily: T.fb }}>
+            <p style={{ fontSize: '0.9rem', color: 'rgba(245,242,201,0.85)', margin: '0 0 24px', lineHeight: 1.6, fontFamily: T.fb }}>
               Cuéntame tu proyecto. Sin formularios, sin esperas.
             </p>
             <Link href={WA} target="_blank" rel="noopener noreferrer"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '11px 22px', borderRadius: 99, background: T.accent, color: '#fff', fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none', boxShadow: '0 8px 28px rgba(124,58,237,0.4)' }}>
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '11px 22px', borderRadius: 99, background: T.butter, color: T.night, fontWeight: 700, fontSize: '0.9rem', textDecoration: 'none' }}>
               💬 Escríbeme
             </Link>
           </div>
 
           {/* Agency CTA */}
           <div style={{ padding: '36px 32px', borderRadius: 20, background: T.card, border: `1px solid ${T.border}`, position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 100%, rgba(124,58,237,0.07) 0%, transparent 70%)', pointerEvents: 'none' }} />
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: `1px solid ${T.border}`, fontSize: 11, color: T.muted, marginBottom: 14, fontFamily: T.fb }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 99, background: T.card2, border: `1px solid ${T.border}`, fontSize: 11, color: T.muted, marginBottom: 14, fontFamily: T.fb }}>
               🏢 Parte de
             </div>
-            <h3 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(1.4rem,2.5vw,1.875rem)', letterSpacing: '-0.035em', margin: '0 0 10px', color: '#fff' }}>
+            <h3 style={{ fontFamily: T.fd, fontWeight: 900, fontSize: 'clamp(1.4rem,2.5vw,1.875rem)', letterSpacing: '-0.035em', margin: '0 0 10px', color: T.butter }}>
               Relevvo Studio 🚀
             </h3>
             <p style={{ fontSize: '0.9rem', color: T.muted, margin: '0 0 24px', lineHeight: 1.6, fontFamily: T.fb }}>
@@ -550,11 +556,11 @@ export default function PapoPage() {
             </p>
             <div style={{ display: 'flex', gap: 10 }}>
               <Link href="/"
-                style={{ display: 'inline-block', padding: '10px 20px', borderRadius: 99, background: '#fff', color: '#0A0A0A', fontWeight: 700, fontSize: '0.875rem', textDecoration: 'none' }}>
+                style={{ display: 'inline-block', padding: '10px 20px', borderRadius: 99, background: T.butter, color: T.night, fontWeight: 700, fontSize: '0.875rem', textDecoration: 'none' }}>
                 🌐 Ver agencia
               </Link>
               <Link href={WA_AGENCY} target="_blank" rel="noopener noreferrer"
-                style={{ display: 'inline-block', padding: '10px 20px', borderRadius: 99, border: `1px solid ${T.border}`, color: T.muted, fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none' }}>
+                style={{ display: 'inline-block', padding: '10px 20px', borderRadius: 99, border: `1px solid ${T.borderHover}`, color: T.butter, fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none' }}>
                 💬 Contactar
               </Link>
             </div>
@@ -564,9 +570,9 @@ export default function PapoPage() {
 
       {/* ── FOOTER ── */}
       <footer style={{ borderTop: `1px solid ${T.border}`, padding: '28px clamp(20px,6vw,80px)', textAlign: 'center' }}>
-        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)', fontFamily: T.fb, margin: 0 }}>
+        <p style={{ fontSize: 12, color: T.muted, fontFamily: T.fb, margin: 0 }}>
           © 2025 Juan Camilo León Mora &nbsp;·&nbsp;
-          <Link href="/" style={{ color: T.accentL, textDecoration: 'none' }}>Relevvo Studio</Link>
+          <Link href="/" style={{ color: T.lilac, textDecoration: 'none' }}>Relevvo Studio</Link>
           &nbsp;·&nbsp; Colombia
         </p>
       </footer>

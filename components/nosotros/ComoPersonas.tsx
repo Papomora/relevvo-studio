@@ -49,15 +49,15 @@ export default function ComoPersonas() {
         {/* Content (left) */}
         <div ref={contentRef} style={{ willChange: 'transform, opacity' }}>
           <h2 className="mb-8">
-            <span className="type-display heading-display text-white">Como{' '}</span>
-            <span className="type-display heading-serif text-white">personas</span>
+            <span className="type-display heading-display">Como{' '}</span>
+            <span className="type-display heading-serif text-lilac">personas</span>
           </h2>
 
           <div className="flex flex-col gap-7">
             {points.map((p, i) => (
               <div key={i}>
-                <h3 className="font-display font-bold text-white text-lg mb-2">{p.title}</h3>
-                <p className="text-white/55 text-sm leading-relaxed">{p.body}</p>
+                <h3 className="font-display font-bold text-butter text-lg mb-2">{p.title}</h3>
+                <p className="text-muted text-sm leading-relaxed">{p.body}</p>
               </div>
             ))}
           </div>
@@ -73,7 +73,7 @@ export default function ComoPersonas() {
             sizes="(max-width: 768px) 100vw, 50vw"
             unoptimized
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-night/40 to-transparent pointer-events-none" />
         </div>
       </div>
     </section>
