@@ -33,34 +33,30 @@ export default function NosotrosHero() {
 
   return (
     <section className="relative min-h-[65vh] flex flex-col items-center justify-center text-center px-4 pt-28 pb-16 overflow-hidden">
-      {/* Subtle radial glow */}
-      <div className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 50% 55%, rgba(124,58,237,0.14) 0%, transparent 60%)' }} />
-
       {/* Heading */}
       <div ref={headingRef} style={{ willChange: 'transform, opacity' }} className="mb-14">
         <span className="section-label mb-6 inline-flex justify-center">Sobre nosotros</span>
         <h1 className="mb-6">
-          <span className="type-hero heading-display text-white">Diseño con{' '}</span>
-          <span className="type-hero heading-serif text-white">propósito.</span>
+          <span className="type-hero heading-display">Diseño con{' '}</span>
+          <span className="type-hero heading-serif text-lilac">propósito.</span>
         </h1>
-        <p className="max-w-2xl mx-auto text-white/60 text-lg leading-relaxed">
-          En <strong className="text-white font-semibold">Relevvo Studio</strong> creemos que las marcas se construyen
+        <p className="max-w-2xl mx-auto text-[color:var(--text)] text-lg leading-relaxed">
+          En <strong className="text-butter font-semibold">Relevvo Studio</strong> creemos que las marcas se construyen
           con estrategia, pero se sostienen con personas. Combinamos{' '}
-          <strong className="text-white font-semibold">criterio profesional</strong> con una forma de trabajar
-          <strong className="text-white font-semibold"> cercana, clara y honesta.</strong>
+          <strong className="text-butter font-semibold">criterio profesional</strong> con una forma de trabajar
+          <strong className="text-butter font-semibold"> cercana, clara y honesta.</strong>
         </p>
       </div>
 
       {/* Logo grid — white/monochrome, basement.studio style */}
       <div className="w-full max-w-3xl">
-        <p className="text-white/25 text-xs mb-8 tracking-[0.2em] uppercase font-mono">
+        <p className="text-muted text-xs mb-8 tracking-[0.2em] uppercase font-mono">
           Nuestros diseños hacen parte de
         </p>
         <div
           ref={logosRef}
           className="grid grid-cols-2 sm:grid-cols-4 gap-px overflow-hidden"
-          style={{ border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px' }}
+          style={{ border: '1px solid var(--border)', borderRadius: '12px' }}
         >
           {logos.map((logo, i) => (
             <a
@@ -72,19 +68,19 @@ export default function NosotrosHero() {
               className="ns-logo group flex items-center justify-center"
               style={{
                 aspectRatio: '2/1',
-                background: 'rgba(255,255,255,0.02)',
+                background: 'var(--night-2)',
                 transition: 'background 0.3s ease, box-shadow 0.3s ease',
               }}
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLElement
-                el.style.background = 'rgba(124,58,237,0.07)'
-                el.style.boxShadow = 'inset 0 0 0 1px rgba(124,58,237,0.4)'
+                el.style.background = 'var(--night-3)'
+                el.style.boxShadow = 'inset 0 0 0 1px var(--border-hover)'
                 const img = el.querySelector('img') as HTMLElement | null
                 if (img) { img.style.filter = 'none'; img.style.opacity = '1' }
               }}
               onMouseLeave={e => {
                 const el = e.currentTarget as HTMLElement
-                el.style.background = 'rgba(255,255,255,0.02)'
+                el.style.background = 'var(--night-2)'
                 el.style.boxShadow = 'none'
                 const img = el.querySelector('img') as HTMLElement | null
                 if (img) { img.style.filter = 'grayscale(55%) brightness(1.3)'; img.style.opacity = '0.85' }
@@ -103,7 +99,7 @@ export default function NosotrosHero() {
               ) : (
                 <span
                   className="font-display font-bold text-xs tracking-widest uppercase transition-all duration-300 group-hover:opacity-100"
-                  style={{ color: 'rgba(255,255,255,0.45)', letterSpacing: '0.1em' }}
+                  style={{ color: 'var(--text-muted)', letterSpacing: '0.1em' }}
                 >
                   {logo.name}
                 </span>

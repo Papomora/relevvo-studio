@@ -1,7 +1,7 @@
 'use client'
 
 // ── Sección "El equipo" del home — Juan Camilo "Papo" León Mora ──
-// Foto: /public/founder.png (portrait, editorial dark bg)
+// Foto: /public/founder.png, en marco sólido uva (mockup "home final").
 //
 // Reencuadrada por pedido del usuario (ago 2026): esto ya no es un perfil
 // personal completo — esa hoja de vida entera (estudios, aptitudes,
@@ -14,12 +14,15 @@
 // nombres. El copy de abajo describe el modelo (núcleo + especialistas por
 // proyecto) sin afirmar una cifra, porque es lo único que es verificable.
 
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { WA_URL } from '@/lib/constants'
+
+gsap.registerPlugin(ScrollTrigger, useGSAP)
 
 const tools = [
   { name: 'Photoshop', src: '/images/tools/Photoshop_logo.png' },
@@ -36,10 +39,7 @@ export default function Founder() {
   const photoRef   = useRef<HTMLDivElement>(null)
   const textRef    = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    gsap.registerPlugin(ScrollTrigger)
-
+  useGSAP(() => {
     // Opacity-only reveals — an x/y-transform reveal that never fires (e.g.
     // ScrollTrigger's cached trigger position going stale once below-the-
     // fold images finish loading and shift document height) leaves content
@@ -52,93 +52,76 @@ export default function Founder() {
       opacity: 0, duration: 1, ease: 'power2.out', delay: 0.1,
       scrollTrigger: { trigger: sectionRef.current, start: 'top 78%' },
     })
-  }, [])
+  }, { scope: sectionRef })
 
   return (
-    <section ref={sectionRef} className="py-24 px-4 max-w-5xl mx-auto">
-      <span className="pill-badge mb-10 inline-flex">El equipo</span>
+    <section
+      ref={sectionRef}
+      className="max-w-[1200px] mx-auto px-4 sm:px-8 lg:px-12 py-16 md:py-24"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-10 md:gap-16 lg:gap-[72px] items-center">
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
-
-        {/* ── Foto ── */}
-        <div ref={photoRef} className="relative" style={{ willChange: 'opacity' }}>
+        {/* ── Foto: marco sólido uva ── */}
+        <div ref={photoRef} style={{ willChange: 'opacity' }}>
           <div
-            className="w-full rounded-3xl overflow-hidden"
-            style={{
-              aspectRatio: '4/5',
-              background: 'linear-gradient(160deg, rgba(124,58,237,0.12) 0%, rgba(10,10,10,0.95) 100%)',
-              border: '1px solid rgba(124,58,237,0.25)',
-            }}
+            className="w-full max-w-[420px] md:max-w-none rounded-[20px] overflow-hidden bg-grape"
+            style={{ aspectRatio: '4/5' }}
           >
             {/* next/image: founder.png pesa 2 MB en PNG. Servido así se
                 convierte a WebP y se redimensiona al ancho real del hueco. */}
             <Image src="/founder.png" alt="Juan Camilo Papo León Mora"
                    width={720} height={900}
                    sizes="(max-width: 768px) 100vw, 480px"
-                   className="w-full h-full object-cover"
-                   style={{ filter: 'grayscale(15%) contrast(1.08)', objectPosition: 'center 15%' }} />
+                   className="w-full h-full object-cover object-top" />
           </div>
-
-          {/* Years badge */}
-          <div
-            className="absolute top-6 -right-3 px-4 py-3 rounded-xl text-center"
-            style={{ background: '#0A0A0A', border: '1px solid rgba(124,58,237,0.4)' }}
-          >
-            <p className="heading-display text-white" style={{ fontSize: '1.7rem', letterSpacing: '-0.05em', lineHeight: 1 }}>9+</p>
-            <p className="font-mono text-xs text-white/40 mt-1" style={{ letterSpacing: '0.08em' }}>años</p>
-          </div>
-
-          {/* International badge */}
-          <div
-            className="absolute -bottom-3 -left-3 px-4 py-2 rounded-xl"
-            style={{ background: '#0A0A0A', border: '1px solid rgba(65,229,117,0.35)' }}
-          >
-            <p className="font-mono text-xs" style={{ color: '#41E575', letterSpacing: '0.08em' }}>🌎 Col · Méx</p>
-          </div>
-
-          {/* Purple accent block */}
-          <div
-            className="absolute -bottom-5 -right-5 w-24 h-24 rounded-2xl"
-            style={{ background: 'rgba(124,58,237,0.1)', border: '1px solid rgba(124,58,237,0.25)', zIndex: -1 }}
-          />
         </div>
 
         {/* ── Texto ── */}
         <div ref={textRef} style={{ willChange: 'opacity' }}>
-          <span
-            className="font-mono text-xs uppercase mb-4 block"
-            style={{ color: 'rgba(124,58,237,0.8)', letterSpacing: '0.14em' }}
-          >
-            Fundador & Director Creativo
-          </span>
+          <span className="section-label font-mono" style={{ marginBottom: 0 }}>Quién está detrás</span>
 
           <h2
-            className="heading-display text-white mb-2"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', letterSpacing: '-0.035em', lineHeight: 1 }}
+            className="heading-display mt-[18px] mb-6 [text-wrap:balance]"
+            style={{ fontSize: 'clamp(2.3rem, 5.4vw, 4.2rem)', letterSpacing: '-0.035em', lineHeight: 1, fontWeight: 700 }}
           >
-            Juan Camilo
-          </h2>
-          <h2
-            className="heading-serif text-white mb-6"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', letterSpacing: '-0.02em', lineHeight: 1.1 }}
-          >
-            "Papo" León Mora
+            Juan Camilo{' '}
+            <span className="heading-serif text-lilac">&ldquo;Papo&rdquo;</span>{' '}
+            León Mora
           </h2>
 
-          <p className="text-white/60 text-base leading-relaxed mb-4">
+          <p className="text-base leading-relaxed mb-4 max-w-[54ch]" style={{ color: 'var(--text)' }}>
             Relevvo trabaja con un núcleo pequeño y estable, liderado desde la dirección
             creativa. Cuando un proyecto lo pide, ese núcleo se amplía con especialistas
             del área que haga falta — fotografía, motion, pauta — en vez de tercerizar a
             ciegas o inflar un equipo fijo que no todos los proyectos necesitan.
           </p>
 
-          <p className="text-white/40 text-sm leading-relaxed mb-8">
+          <p className="text-muted text-sm leading-relaxed max-w-[54ch]">
             No diseñamos para que algo se vea bien: diseñamos para que funcione, conecte y venda.
           </p>
 
+          {/* Datos: fila de 3 con filete superior */}
+          <dl className="grid grid-cols-3 mt-[34px]" style={{ borderTop: '1px solid var(--border)' }}>
+            {[
+              { n: '9+', label: 'años de oficio, desde 2016' },
+              { n: '20+', label: 'marcas en su carrera' },
+              { n: '2', label: 'países: Colombia y México' },
+            ].map(f => (
+              <div key={f.n} className="pt-[18px] pr-4 flex flex-col-reverse justify-end">
+                <dt className="text-sm text-muted">{f.label}</dt>
+                <dd
+                  className="font-display font-extrabold text-butter"
+                  style={{ fontSize: 'clamp(1.9rem, 3.2vw, 2.4rem)', lineHeight: 1, letterSpacing: '-0.04em' }}
+                >
+                  {f.n}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
           {/* Herramientas — del estudio, no de una sola persona */}
-          <div className="mb-8">
-            <span className="font-mono text-xs text-white/25 uppercase mb-3 block" style={{ letterSpacing: '0.12em' }}>
+          <div className="mt-10 mb-8">
+            <span className="font-mono text-xs text-muted uppercase mb-3 block" style={{ letterSpacing: '0.12em' }}>
               Herramientas del estudio
             </span>
             <div className="flex flex-wrap gap-3">
@@ -146,8 +129,8 @@ export default function Founder() {
                 <div
                   key={i}
                   title={t.name}
-                  className="w-10 h-10 rounded-xl flex items-center justify-center transition-transform duration-200 hover:scale-110"
-                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)' }}
+                  className="w-10 h-10 rounded-xl flex items-center justify-center bg-night-2 transition-transform duration-200 hover:scale-110 motion-reduce:transition-none motion-reduce:hover:scale-100"
+                  style={{ border: '1px solid var(--border)' }}
                 >
                   <Image src={t.src} alt={t.name} width={24} height={24} className="object-contain" unoptimized />
                 </div>
@@ -163,16 +146,16 @@ export default function Founder() {
               className="btn-secondary text-sm px-6 py-3 inline-flex items-center gap-2"
             >
               Hablemos directamente
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </Link>
             <Link
               href="/papo"
-              className="text-sm px-6 py-3 inline-flex items-center gap-2 text-white/50 hover:text-white/85 transition-colors"
+              className="text-sm px-6 py-3 inline-flex items-center gap-2 text-muted hover:text-butter transition-colors"
             >
               Conoce al fundador
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </Link>

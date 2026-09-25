@@ -65,10 +65,10 @@ function CanalCard({ icon, label, value, href }: { icon: React.ReactNode; label:
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit', display: 'block', height: '100%' }}>
       <div className="card" style={{ padding: '20px 22px', display: 'flex', alignItems: 'center', gap: 14, height: '100%' }}>
-        <div style={{ color: 'var(--accent)', flexShrink: 0 }}>{icon}</div>
+        <div style={{ color: 'var(--lilac)', flexShrink: 0 }}>{icon}</div>
         <div>
           <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 2 }}>{label}</p>
-          <p style={{ fontSize: '0.9375rem', fontWeight: 600 }}>{value}</p>
+          <p style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--butter)' }}>{value}</p>
         </div>
       </div>
     </a>
@@ -124,7 +124,7 @@ export default function ContactoPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
             {FAQ_CONTACTO.map((item, i) => (
               <details key={i} className="card" style={{ padding: '18px 22px', marginBottom: 12 }}>
-                <summary style={{ cursor: 'pointer', fontWeight: 600, fontSize: '0.9375rem', listStyle: 'none' }}>
+                <summary style={{ cursor: 'pointer', fontWeight: 600, fontSize: '0.9375rem', listStyle: 'none', color: 'var(--butter)' }}>
                   {item.q}
                 </summary>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginTop: 12, lineHeight: 1.65 }}>

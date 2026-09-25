@@ -1,132 +1,152 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import * as THREE from 'three'
 import { useReducedMotion } from '@/lib/useReducedMotion'
+
+// WebGL crudo, sin three.js: un solo triángulo a pantalla completa y el mismo
+// fragment shader. three.js pesaba ~340KB en cada página solo para esto.
+
+const VERT = `
+attribute vec2 position;
+void main() { gl_Position = vec4(position, 0.0, 1.0); }
+`
+
+const FRAG = `
+precision highp float;
+uniform vec2 resolution;
+uniform float time;
+const float xScale = 1.0;
+const float yScale = 0.45;
+const float distortion = 0.04;
+void main() {
+  vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
+  float d = length(p) * distortion;
+  float rx = p.x * (1.0 + d);
+  float gx = p.x;
+  float bx = p.x * (1.0 - d);
+  float r = 0.05 / abs(p.y + sin((rx + time) * xScale) * yScale);
+  float g = 0.05 / abs(p.y + sin((gx + time) * xScale) * yScale);
+  float b = 0.05 / abs(p.y + sin((bx + time) * xScale) * yScale);
+  gl_FragColor = vec4(r, g, b, 1.0);
+}
+`
+
+function compile(gl: WebGLRenderingContext, type: number, src: string) {
+  const s = gl.createShader(type)
+  if (!s) return null
+  gl.shaderSource(s, src)
+  gl.compileShader(s)
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+    gl.deleteShader(s)
+    return null
+  }
+  return s
+}
 
 export function WebGLShader() {
   const reduceMotion = useReducedMotion()
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const sceneRef = useRef<{
-    scene: THREE.Scene | null
-    camera: THREE.OrthographicCamera | null
-    renderer: THREE.WebGLRenderer | null
-    mesh: THREE.Mesh | null
-    uniforms: any
-    animationId: number | null
-  }>({
-    scene: null, camera: null, renderer: null, mesh: null, uniforms: null, animationId: null,
-  })
 
   useEffect(() => {
-    if (!canvasRef.current) return
     const canvas = canvasRef.current
-    const { current: refs } = sceneRef
-
-    const vertexShader = `
-      attribute vec3 position;
-      void main() { gl_Position = vec4(position, 1.0); }
-    `
-    const fragmentShader = `
-      precision highp float;
-      uniform vec2 resolution;
-      uniform float time;
-      uniform float xScale;
-      uniform float yScale;
-      uniform float distortion;
-      void main() {
-        vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
-        float d = length(p) * distortion;
-        float rx = p.x * (1.0 + d);
-        float gx = p.x;
-        float bx = p.x * (1.0 - d);
-        float r = 0.05 / abs(p.y + sin((rx + time) * xScale) * yScale);
-        float g = 0.05 / abs(p.y + sin((gx + time) * xScale) * yScale);
-        float b = 0.05 / abs(p.y + sin((bx + time) * xScale) * yScale);
-        gl_FragColor = vec4(r, g, b, 1.0);
-      }
-    `
-
-    refs.scene = new THREE.Scene()
-    refs.renderer = new THREE.WebGLRenderer({ canvas, alpha: true })
-    // Tope de 1.5x. Sin tope, en pantallas retina/4K el devicePixelRatio (2-3)
-    // multiplica x4-x9 el número de fragmentos de un shader a pantalla completa.
-    // Es un fondo ambiental al 18% de opacidad — no necesita resolución nativa.
-    refs.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
-    refs.renderer.setClearColor(new THREE.Color(0x000000), 0)
-    refs.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, -1)
-
-    refs.uniforms = {
-      resolution: { value: [window.innerWidth, window.innerHeight] },
-      time:       { value: 0.0 },
-      xScale:     { value: 1.0 },
-      yScale:     { value: 0.45 },
-      distortion: { value: 0.04 },
-    }
-
-    const positions = new THREE.BufferAttribute(
-      new Float32Array([-1,-1,0, 1,-1,0, -1,1,0, 1,-1,0, -1,1,0, 1,1,0]), 3
-    )
-    const geometry = new THREE.BufferGeometry()
-    geometry.setAttribute('position', positions)
-
-    const material = new THREE.RawShaderMaterial({
-      vertexShader, fragmentShader, uniforms: refs.uniforms, side: THREE.DoubleSide,
+    if (!canvas) return
+    const gl = canvas.getContext('webgl', {
+      alpha: true,
+      antialias: false,
+      depth: false,
+      stencil: false,
+      powerPreference: 'low-power',
     })
-
-    refs.mesh = new THREE.Mesh(geometry, material)
-    refs.scene.add(refs.mesh)
-
-    const handleResize = () => {
-      if (!refs.renderer || !refs.uniforms) return
-      refs.renderer.setSize(window.innerWidth, window.innerHeight, false)
-      refs.uniforms.resolution.value = [window.innerWidth, window.innerHeight]
-    }
-    handleResize()
-
-    const renderFrame = () => {
-      if (refs.renderer && refs.scene && refs.camera)
-        refs.renderer.render(refs.scene, refs.camera)
+    if (!gl) {
+      canvas.style.display = 'none'
+      return
     }
 
-    const animate = () => {
-      if (refs.uniforms) refs.uniforms.time.value += 0.01
-      renderFrame()
-      refs.animationId = requestAnimationFrame(animate)
+    const vs = compile(gl, gl.VERTEX_SHADER, VERT)
+    const fs = compile(gl, gl.FRAGMENT_SHADER, FRAG)
+    const program = gl.createProgram()
+    if (!vs || !fs || !program) {
+      canvas.style.display = 'none'
+      return
+    }
+    gl.attachShader(program, vs)
+    gl.attachShader(program, fs)
+    gl.linkProgram(program)
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      canvas.style.display = 'none'
+      return
+    }
+    gl.useProgram(program)
+
+    // Triángulo que cubre todo el viewport (más barato que dos triángulos).
+    const buffer = gl.createBuffer()
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW)
+    const loc = gl.getAttribLocation(program, 'position')
+    gl.enableVertexAttribArray(loc)
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0)
+
+    const uRes = gl.getUniformLocation(program, 'resolution')
+    const uTime = gl.getUniformLocation(program, 'time')
+    gl.clearColor(0, 0, 0, 0)
+
+    let time = 0
+    let raf: number | null = null
+
+    const draw = () => {
+      gl.uniform1f(uTime, time)
+      gl.drawArrays(gl.TRIANGLES, 0, 3)
     }
 
-    // Pausa el bucle cuando la pestaña no está visible. Antes seguía
-    // renderizando a 60fps en segundo plano, quemando batería sin que
-    // nadie lo viera.
+    // Tope de DPR: fondo ambiental al 18% de opacidad, no necesita resolución
+    // nativa. En pantallas pequeñas (móvil) se baja a 1x para ahorrar batería.
+    const resize = () => {
+      const w = window.innerWidth
+      const h = window.innerHeight
+      const dpr = Math.min(window.devicePixelRatio || 1, w < 768 ? 1 : 1.5)
+      canvas.width = Math.round(w * dpr)
+      canvas.height = Math.round(h * dpr)
+      gl.viewport(0, 0, canvas.width, canvas.height)
+      gl.uniform2f(uRes, canvas.width, canvas.height)
+      if (raf === null) draw()
+    }
+
+    const loop = () => {
+      time += 0.01
+      draw()
+      raf = requestAnimationFrame(loop)
+    }
     const stop = () => {
-      if (refs.animationId) {
-        cancelAnimationFrame(refs.animationId)
-        refs.animationId = null
-      }
+      if (raf !== null) cancelAnimationFrame(raf)
+      raf = null
     }
     const onVisibility = () => {
       if (document.hidden) stop()
-      else if (refs.animationId === null) animate()
+      else if (raf === null) loop()
     }
 
-    if (reduceMotion) {
-      // Con "reducir movimiento" activo se pinta un solo fotograma estático
-      // en vez de animar. El fondo sigue ahí; deja de moverse.
-      renderFrame()
-    } else {
-      animate()
+    resize()
+    window.addEventListener('resize', resize)
+    if (!reduceMotion) {
+      // Con "reducir movimiento" solo queda el fotograma estático de resize().
       document.addEventListener('visibilitychange', onVisibility)
+      if (!document.hidden) loop()
     }
-
-    window.addEventListener('resize', handleResize)
 
     return () => {
       stop()
-      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('resize', resize)
       document.removeEventListener('visibilitychange', onVisibility)
-      refs.mesh?.geometry.dispose()
-      if (refs.mesh?.material instanceof THREE.Material) refs.mesh.material.dispose()
-      refs.renderer?.dispose()
+      gl.deleteBuffer(buffer)
+      gl.deleteProgram(program)
+      gl.deleteShader(vs)
+      gl.deleteShader(fs)
+      // Solo se pierde el contexto si el canvas se desmontó de verdad. Si el
+      // efecto se re-ejecuta (cambia reduceMotion, StrictMode) el canvas sigue
+      // en el DOM y getContext() devolvería un contexto ya perdido.
+      setTimeout(() => {
+        if (!canvas.isConnected) gl.getExtension('WEBGL_lose_context')?.loseContext()
+      }, 0)
     }
   }, [reduceMotion])
 

@@ -47,6 +47,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = 'Button'
 
 // ── Colorful Button ────────────────────────────────────────────
+// Nombre histórico: con el diseño aprobado ya no lleva degradado ni glow.
+// Es un botón sólido mantequilla con texto noche (igual que .btn-primary).
 interface ButtonColorfulProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label?: string
 }
@@ -55,25 +57,17 @@ export function ButtonColorful({ className, label = 'Hablemos hoy', ...props }: 
   return (
     <Button
       className={cn(
-        'relative h-11 px-6 overflow-hidden rounded-full',
-        'bg-zinc-900',
-        'transition-all duration-200 group',
+        'h-11 px-6 rounded-full gap-2',
+        'bg-butter text-night font-semibold',
+        'hover:bg-white hover:-translate-y-0.5 motion-reduce:hover:translate-y-0',
+        'transition-[background-color,transform] duration-200',
+        'focus-visible:ring-butter focus-visible:ring-offset-night',
         className
       )}
       {...props}
     >
-      {/* Gradient glow */}
-      <div className={cn(
-        'absolute inset-0',
-        'bg-gradient-to-r from-violet-600 via-purple-500 to-pink-500',
-        'opacity-50 group-hover:opacity-100',
-        'blur transition-opacity duration-500'
-      )} />
-      {/* Content */}
-      <div className="relative flex items-center justify-center gap-2">
-        <span className="text-white font-semibold">{label}</span>
-        <ArrowUpRight className="w-4 h-4 text-white/90" />
-      </div>
+      <span>{label}</span>
+      <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
     </Button>
   )
 }

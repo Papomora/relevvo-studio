@@ -65,9 +65,9 @@ export default function ServiciosHubPage() {
               className="card"
               style={{ padding: 'clamp(28px, 3vw, 36px)', textDecoration: 'none', color: 'inherit', display: 'block' }}
             >
-              <p className="type-heading text-white" style={{ marginBottom: 10, fontSize: '1.25rem' }}>{s.h1}</p>
+              <p className="type-heading text-butter" style={{ marginBottom: 10, fontSize: '1.25rem' }}>{s.h1}</p>
               <p className="type-body" style={{ color: 'var(--text-muted)', fontSize: '0.9375rem', marginBottom: 16 }}>{s.problemaHeading}</p>
-              <span style={{ color: 'var(--accent)', fontSize: '0.875rem', fontWeight: 600 }}>Ver servicio →</span>
+              <span style={{ color: 'var(--lilac)', fontSize: '0.875rem', fontWeight: 600 }}>Ver servicio →</span>
             </Link>
           ))}
         </div>

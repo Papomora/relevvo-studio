@@ -60,21 +60,21 @@ export default function ComoProfesionales() {
             unoptimized
           />
           {/* Subtle overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-night/40 to-transparent pointer-events-none" />
         </div>
 
         {/* Content */}
         <div ref={contentRef} style={{ willChange: 'transform, opacity' }}>
           <h2 className="mb-8">
-            <span className="type-display heading-display text-white">Como{' '}</span>
-            <span className="type-display heading-serif text-white">profesionales</span>
+            <span className="type-display heading-display">Como{' '}</span>
+            <span className="type-display heading-serif text-lilac">profesionales</span>
           </h2>
 
           <div className="flex flex-col gap-7">
             {points.map((p, i) => (
-              <div key={i} className={`${p.highlight ? 'border border-accent/40 rounded-xl p-4 bg-accent/5' : ''}`}>
-                <h3 className="font-display font-bold text-white text-lg mb-2">{p.title}</h3>
-                <p className="text-white/55 text-sm leading-relaxed">{p.body}</p>
+              <div key={i} className={`${p.highlight ? 'rounded-xl p-5 bg-grape' : ''}`}>
+                <h3 className="font-display font-bold text-butter text-lg mb-2">{p.title}</h3>
+                <p className={`${p.highlight ? 'text-butter/85' : 'text-muted'} text-sm leading-relaxed`}>{p.body}</p>
               </div>
             ))}
           </div>

@@ -36,15 +36,15 @@ export default function InstagramTeaser() {
         <div>
           <span className="pill-badge mb-6 inline-flex">Detrás de cámara</span>
           <h2 className="mb-6">
-            <span className="type-display heading-display text-white">Estamos construyendo{' '}</span>
-            <span className="type-display heading-serif text-white">nuestro Instagram.</span>
+            <span className="type-display heading-display">Estamos construyendo{' '}</span>
+            <span className="type-display heading-serif text-lilac">nuestro Instagram.</span>
           </h2>
-          <p className="text-white/60 text-base leading-relaxed mb-4">
+          <p className="text-[color:var(--text)] text-base leading-relaxed mb-4">
             Además de las marcas que gestionamos, estamos empezando a mostrar cómo se ve
             Relevvo por dentro: el proceso, el equipo, los aciertos y los que no salieron
             a la primera. Contenido real, no una vitrina.
           </p>
-          <p className="text-white/40 text-sm leading-relaxed mb-8">
+          <p className="text-muted text-sm leading-relaxed mb-8">
             Si quieres ver ese lado del estudio antes que nadie, síguenos — apenas estamos empezando.
           </p>
 
@@ -69,8 +69,8 @@ export default function InstagramTeaser() {
           className="relative rounded-3xl overflow-hidden mx-auto"
           style={{
             aspectRatio: '9/16', maxWidth: 340, width: '100%',
-            border: '1px solid rgba(124,58,237,0.25)',
-            background: '#0A0A0A',
+            border: '1px solid var(--border)',
+            background: 'var(--night-2)',
           }}
         >
           <video
@@ -89,17 +89,16 @@ export default function InstagramTeaser() {
               onClick={handlePlay}
               aria-label="Reproducir video"
               className="absolute inset-0 flex items-center justify-center group"
-              style={{ background: 'rgba(0,0,0,0.15)' }}
+              style={{ background: 'rgba(18,14,24,0.15)' }}
             >
               <span
                 className="flex items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
                 style={{
                   width: 64, height: 64,
-                  background: 'rgba(124,58,237,0.9)',
-                  boxShadow: '0 8px 30px rgba(124,58,237,0.5)',
+                  background: 'var(--butter)',
                 }}
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="white" style={{ marginLeft: 3 }}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--night)" style={{ marginLeft: 3 }}>
                   <path d="M8 5v14l11-7z" />
                 </svg>
               </span>
@@ -109,7 +108,7 @@ export default function InstagramTeaser() {
           {/* Reel-style pill */}
           <div
             className="absolute top-4 left-4 px-3 py-1.5 rounded-full font-mono text-[10px]"
-            style={{ background: 'rgba(0,0,0,0.5)', color: 'rgba(255,255,255,0.8)', letterSpacing: '0.06em' }}
+            style={{ background: 'rgba(18,14,24,0.7)', color: 'var(--butter)', letterSpacing: '0.06em' }}
           >
             @relevvo_studio
           </div>

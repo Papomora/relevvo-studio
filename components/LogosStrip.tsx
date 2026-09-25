@@ -1,135 +1,121 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Image from 'next/image'
+import { useGSAP } from '@gsap/react'
 
-const logos: { name: string; src: string | null; href: string | null; cta?: boolean }[] = [
-  { name: 'Molicié',           src: '/images/Logos/MOLICIE.png',         href: 'https://www.instagram.com/moliciehogar/' },
-  { name: 'Crusso',            src: '/images/Logos/CRUSSO.png',          href: 'https://www.instagram.com/tiendacrusso/' },
-  { name: 'Verslä',            src: '/images/Logos/versla.png',          href: 'https://www.instagram.com/verslafeminite/' },
-  { name: 'Metro 73',          src: '/images/Logos/METRO73.png',         href: 'https://www.instagram.com/vivemetro73/' },
-  { name: 'LimiteLegal',       src: '/images/Logos/limitelegal.png',     href: 'https://www.instagram.com/limite_legalco/' },
-  { name: 'Forjar',            src: '/images/Logos/Forjar.png',          href: 'https://www.instagram.com/forjar_inversiones/' },
-  { name: 'cta',               src: null,                                 href: null, cta: true },
+gsap.registerPlugin(ScrollTrigger, useGSAP)
+
+// Banda marquee con los nombres de las marcas (diseño aprobado): nombres en
+// Bricolage mantequilla separados por un ✺ uva. La primera copia es la lista
+// real (la leen los lectores de pantalla); la segunda es el duplicado que
+// hace el loop continuo y va con aria-hidden.
+const BRANDS = [
+  'Crussó',
+  'Verslä',
+  'LímiteLegal',
+  'Osadí',
+  'Eretz',
+  'Alhambra',
+  'Más Brownie',
+  'Molicie',
+  'Metro 73',
+  'Forjar',
 ]
 
+function BrandList({ hidden = false }: { hidden?: boolean }) {
+  return (
+    <ul
+      className={`mq-list${hidden ? ' mq-dup' : ''}`}
+      aria-hidden={hidden || undefined}
+    >
+      {BRANDS.map(name => (
+        <li key={name} className="mq-item">
+          <span className="mq-name">{name}</span>
+          <span className="mq-sep" aria-hidden="true">✺</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 export default function LogosStrip() {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const gridRef    = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    gsap.registerPlugin(ScrollTrigger)
-
-    const items = gridRef.current?.querySelectorAll('.logo-card')
-    if (items) {
-      gsap.from(Array.from(items), {
-        y: 24, opacity: 0,
-        duration: 0.65,
+  useGSAP(() => {
+    const mm = gsap.matchMedia()
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      gsap.from(sectionRef.current, {
+        opacity: 0,
+        y: 16,
+        duration: 0.7,
         ease: 'power3.out',
-        stagger: 0.07,
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 84%' },
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 92%' },
       })
-    }
-  }, [])
+    })
+  }, { scope: sectionRef })
 
   return (
-    <section ref={sectionRef} id="clientes" className="py-20 px-4 max-w-5xl mx-auto">
-
-      {/* Label */}
-      <div className="flex items-center justify-center mb-12">
-        <span className="section-label" style={{ justifyContent: 'center' }}>
-          Nuestros diseños hacen parte de
-        </span>
+    <section
+      ref={sectionRef}
+      id="clientes"
+      aria-label="Marcas con las que trabajamos"
+      className="mq"
+    >
+      <div className="mq-track">
+        <BrandList />
+        <BrandList hidden />
       </div>
 
-      {/* Grid de cuadros — basement.studio style */}
-      <div
-        ref={gridRef}
-        className="grid grid-cols-2 sm:grid-cols-4 gap-px"
-        style={{ border: '1px solid rgba(255,255,255,0.06)', borderRadius: '16px', overflow: 'hidden' }}
-      >
-        {logos.map((logo, i) => {
-          const sharedStyle: React.CSSProperties = logo.cta ? {
-            aspectRatio: '1 / 1',
-            background: 'rgba(124,58,237,0.06)',
-            cursor: 'default',
-            transition: 'background 0.3s ease, box-shadow 0.3s ease',
-            boxShadow: 'inset 0 0 0 1px rgba(124,58,237,0.2)',
-          } : {
-            aspectRatio: '1 / 1',
-            background: 'rgba(255,255,255,0.025)',
-            cursor: logo.href ? 'pointer' : 'default',
-            transition: 'background 0.3s ease, box-shadow 0.3s ease',
-          }
-
-          const inner = logo.cta ? (
-            <div className="text-center px-4 flex flex-col items-center gap-2">
-              <div className="w-5 h-px mb-1" style={{ background: 'rgba(124,58,237,0.6)' }} />
-              <span className="font-display font-bold uppercase text-white/35 leading-tight"
-                style={{ fontSize: '0.65rem', letterSpacing: '0.18em' }}>
-                Tu marca
-              </span>
-              <span className="font-display font-bold uppercase leading-tight"
-                style={{ fontSize: '0.7rem', letterSpacing: '0.14em', color: 'rgba(124,58,237,0.7)' }}>
-                es la siguiente
-              </span>
-            </div>
-          ) : (
-            <>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                style={{ background: 'radial-gradient(circle at 50% 50%, rgba(124,58,237,0.12) 0%, transparent 70%)' }} />
-              {logo.src ? (
-                <Image
-                  src={logo.src}
-                  alt={logo.name}
-                  width={260}
-                  height={110}
-                  className="object-contain w-auto transition-all duration-300 group-hover:brightness-125 group-hover:drop-shadow-[0_0_8px_rgba(124,58,237,0.7)]"
-                  style={{ maxHeight: '96px', maxWidth: '78%', filter: 'grayscale(50%) brightness(1.35)', opacity: 0.9 }}
-                  unoptimized
-                />
-              ) : (
-                <span
-                  className="font-display font-bold text-sm tracking-widest uppercase transition-all duration-300 group-hover:drop-shadow-[0_0_8px_rgba(124,58,237,0.7)]"
-                  style={{ color: 'rgba(255,255,255,0.45)', letterSpacing: '0.12em' }}
-                >
-                  {logo.name}
-                </span>
-              )}
-            </>
-          )
-
-          const neonEnter = (e: React.MouseEvent<HTMLElement>) => {
-            const el = e.currentTarget
-            el.style.background = 'rgba(124,58,237,0.08)'
-            el.style.boxShadow = 'inset 0 0 0 1px rgba(124,58,237,0.55), 0 0 24px rgba(124,58,237,0.2), 0 0 60px rgba(124,58,237,0.08)'
-          }
-          const neonLeave = (e: React.MouseEvent<HTMLElement>) => {
-            const el = e.currentTarget
-            el.style.background = 'rgba(255,255,255,0.025)'
-            el.style.boxShadow = 'none'
-          }
-
-          return logo.href ? (
-            <a key={i} href={logo.href} target="_blank" rel="noopener noreferrer"
-              className="logo-card group relative flex items-center justify-center"
-              style={sharedStyle} data-cursor
-              onMouseEnter={neonEnter} onMouseLeave={neonLeave}>
-              {inner}
-            </a>
-          ) : (
-            <div key={i}
-              className="logo-card group relative flex items-center justify-center"
-              style={sharedStyle}
-              onMouseEnter={neonEnter} onMouseLeave={neonLeave}>
-              {inner}
-            </div>
-          )
-        })}
-      </div>
+      <style jsx>{`
+        .mq {
+          margin-top: clamp(16px, 4vw, 40px);
+          border-top: 1px solid var(--border);
+          border-bottom: 1px solid var(--border);
+          overflow: hidden;
+          white-space: nowrap;
+        }
+        .mq-track {
+          display: inline-flex;
+          width: max-content;
+          animation: mq-scroll 34s linear infinite;
+        }
+        .mq:hover .mq-track { animation-play-state: paused; }
+        .mq :global(.mq-list) {
+          display: flex;
+          align-items: center;
+          list-style: none;
+          margin: 0;
+          padding: 18px 0;
+        }
+        .mq :global(.mq-item) {
+          display: inline-flex;
+          align-items: center;
+        }
+        .mq :global(.mq-name) {
+          font-family: var(--font-bricolage), sans-serif;
+          font-weight: 700;
+          font-size: clamp(1.3rem, 2.4vw, 2rem);
+          letter-spacing: -0.02em;
+          color: var(--butter);
+          margin: 0 26px;
+        }
+        .mq :global(.mq-sep) {
+          color: var(--grape);
+          font-size: clamp(1.7rem, 3.1vw, 2.6rem);
+          line-height: 1;
+        }
+        @keyframes mq-scroll {
+          to { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .mq { white-space: normal; }
+          .mq-track { animation: none; display: block; width: auto; }
+          .mq :global(.mq-list) { flex-wrap: wrap; justify-content: center; row-gap: 8px; }
+          .mq :global(.mq-dup) { display: none; }
+        }
+      `}</style>
     </section>
   )
 }

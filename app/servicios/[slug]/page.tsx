@@ -88,7 +88,7 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
 
       {/* ── El problema ── */}
       <section className="py-16 px-4 max-w-3xl mx-auto">
-        <p className="type-heading text-white" style={{ marginBottom: 12, fontSize: '1.375rem' }}>
+        <p className="type-heading text-butter" style={{ marginBottom: 12, fontSize: '1.375rem' }}>
           {servicio.problemaHeading}
         </p>
         <p className="type-body" style={{ color: 'var(--text-muted)', fontSize: '1.0625rem', lineHeight: 1.7 }}>
@@ -103,8 +103,8 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
           {servicio.incluye.map((item, i) => (
             <div key={i} className="card" style={{ padding: '16px 20px', display: 'flex', alignItems: 'flex-start', gap: 12 }}>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 3 }}>
-                <circle cx="8" cy="8" r="7" stroke="var(--accent)" strokeOpacity="0.5" strokeWidth="1" />
-                <path d="M5 8 L7 10 L11 6" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <circle cx="8" cy="8" r="7" stroke="var(--lilac)" strokeOpacity="0.5" strokeWidth="1" />
+                <path d="M5 8 L7 10 L11 6" stroke="var(--lilac)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <p className="type-body" style={{ fontSize: '0.9375rem', margin: 0 }}>{item}</p>
             </div>
@@ -120,13 +120,13 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
             <div key={i} style={{ display: 'flex', gap: 20, paddingBottom: i < PROCESO_GENERICO.length - 1 ? 32 : 0 }}>
               <div style={{
                 width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
-                background: 'var(--accent)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: 'var(--grape)', color: 'var(--butter)', display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: '0.75rem', fontWeight: 700,
               }}>
                 {step.n}
               </div>
               <div>
-                <p className="type-heading text-white" style={{ fontSize: '1rem', marginBottom: 6 }}>{step.title}</p>
+                <p className="type-heading text-butter" style={{ fontSize: '1rem', marginBottom: 6 }}>{step.title}</p>
                 <p className="type-body" style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>{step.desc}</p>
               </div>
             </div>
@@ -136,10 +136,10 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
 
       {/* ── Precio ── */}
       <section className="py-16 px-4 max-w-3xl mx-auto">
-        <div className="card" style={{ padding: 'clamp(28px, 4vw, 40px)', textAlign: 'center' }}>
-          <p className="type-body" style={{ color: 'var(--text-muted)', marginBottom: 8, fontSize: '0.875rem' }}>Precio desde</p>
-          <p className="heading-display text-white" style={{ fontSize: 'clamp(2rem, 4vw, 2.75rem)', marginBottom: 16 }}>
-            {PLANS[0].price} <span style={{ fontSize: '1rem', color: 'var(--text-muted)', fontWeight: 400 }}>COP/mes</span>
+        <div style={{ padding: 'clamp(28px, 4vw, 40px)', textAlign: 'center', background: 'var(--grape)', borderRadius: 20 }}>
+          <p className="type-body" style={{ color: 'var(--butter)', opacity: 0.8, marginBottom: 8, fontSize: '0.875rem' }}>Precio desde</p>
+          <p className="heading-display" style={{ fontSize: 'clamp(2rem, 4vw, 2.75rem)', marginBottom: 16 }}>
+            {PLANS[0].price} <span style={{ fontSize: '1rem', color: 'var(--butter)', opacity: 0.75, fontWeight: 400 }}>COP/mes</span>
           </p>
           <Link href="/planes" className="btn-primary btn-glow" style={{ display: 'inline-flex', padding: '13px 32px' }}>
             Ver todos los planes
@@ -156,7 +156,7 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {servicio.faq.map((item, i) => (
             <details key={i} className="card" style={{ padding: '18px 22px' }}>
-              <summary style={{ cursor: 'pointer', fontWeight: 600, fontSize: '0.9375rem', listStyle: 'none' }}>
+              <summary style={{ cursor: 'pointer', fontWeight: 600, fontSize: '0.9375rem', listStyle: 'none', color: 'var(--butter)' }}>
                 {item.question}
               </summary>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginTop: 12, lineHeight: 1.65 }}>
@@ -170,10 +170,10 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
       {/* ── CTA ── */}
       <section className="py-24 px-4 text-center max-w-2xl mx-auto">
         <h2 className="mb-6">
-          <span className="heading-display text-white block" style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)' }}>
+          <span className="heading-display block" style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)' }}>
             ¿Hablamos de
           </span>
-          <span className="heading-serif text-white block" style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)' }}>
+          <span className="heading-serif text-lilac block" style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)' }}>
             tu proyecto?
           </span>
         </h2>
