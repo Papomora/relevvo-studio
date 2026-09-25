@@ -69,6 +69,58 @@ export const PLANS: Plan[] = [
   },
 ]
 
+// "Arma tu plan" (components/PlanBuilder.tsx): cada opción marcable dice
+// cuál es el plan MÁS BAJO que la incluye. La recomendación es el plan más
+// alto entre lo marcado. Los planes se tratan como acumulativos (cada uno
+// trae lo del anterior); si eso deja de ser cierto comercialmente, este es
+// el único lugar a cambiar. Cada `label` tiene respaldo en PLANS arriba.
+export interface BuilderOption {
+  id: string
+  label: string
+  minPlan: Plan['id']
+}
+
+export interface BuilderGroup {
+  title: string
+  options: BuilderOption[]
+}
+
+export const BUILDER_GROUPS: BuilderGroup[] = [
+  {
+    title: 'Identidad',
+    options: [
+      { id: 'logo', label: 'Logo o ajuste de logo', minPlan: 'basic' },
+      { id: 'brandkit', label: 'Mini brand kit', minPlan: 'basic' },
+      { id: 'branding', label: 'Branding continuo', minPlan: 'mid' },
+    ],
+  },
+  {
+    title: 'Contenido',
+    options: [
+      { id: 'piezas12', label: 'Hasta 12 piezas al mes', minPlan: 'basic' },
+      { id: 'piezas24', label: '24 piezas al mes', minPlan: 'full' },
+      { id: 'redes', label: 'Gestión de redes', minPlan: 'basic' },
+      { id: 'planeacion', label: 'Planeación mensual de contenido', minPlan: 'mid' },
+      { id: 'cm', label: 'Community Manager', minPlan: 'mid' },
+      { id: 'cm-dedicado', label: 'Community Manager dedicado', minPlan: 'full' },
+    ],
+  },
+  {
+    title: 'Foto y video',
+    options: [
+      { id: 'foto', label: 'Sesión de fotografía', minPlan: 'mid' },
+      { id: 'video', label: 'Videos', minPlan: 'mid' },
+    ],
+  },
+  {
+    title: 'Pauta y estrategia',
+    options: [
+      { id: 'pauta', label: 'Pauta publicitaria', minPlan: 'full' },
+      { id: 'estrategia', label: 'Estrategia de contenido y campañas', minPlan: 'full' },
+    ],
+  },
+]
+
 // Cifras verificadas en SEO_SEM_RESEARCH.md — no extrapolar ninguna otra
 // a partir de estas tres. `short` es la misma cifra abreviada a millones,
 // solo para el home (celda angosta, tipografía grande) — /planes tiene

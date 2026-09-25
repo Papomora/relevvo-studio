@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Pricing from '@/components/Pricing'
+import PlanBuilder from '@/components/PlanBuilder'
 import { PLANS, MARKET_COMPARISON } from '@/lib/planes'
 
 // El layout raíz ya añade " | Relevvo Studio" vía title.template — no
@@ -99,6 +100,7 @@ export default function PlanesPage() {
 
       {/* Reutiliza el mismo componente del home: comparación con el mercado
           + las 3 tarjetas de plan. Fuente única, ver lib/planes.ts. */}
+      <PlanBuilder />
       <Pricing />
 
       {/* ── Tabla comparativa ── */}
