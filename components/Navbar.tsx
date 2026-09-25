@@ -80,12 +80,10 @@ export default function Navbar() {
             height: BAR_H,
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12,
             padding: '0 48px 0 24px',
-            background: 'rgba(124,58,237,0.11)',
-            borderBottom: '1px solid rgba(124,58,237,0.2)',
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
+            background: 'var(--night-3)',
+            borderBottom: '1px solid var(--border)',
             fontSize: '0.8125rem',
-            color: 'rgba(167,139,250,0.9)',
+            color: 'var(--butter-dim)',
           }}
         >
           <span className="hidden sm:inline">✦ Estudio creativo 360° en Colombia &amp; México</span>
@@ -96,10 +94,10 @@ export default function Navbar() {
             style={{
               position: 'absolute', right: 14,
               background: 'none', border: 'none', cursor: 'pointer',
-              color: 'rgba(255,255,255,0.6)', fontSize: '1rem', lineHeight: 1, padding: '4px',
+              fontSize: '1rem', lineHeight: 1, padding: '4px',
               transition: 'color .2s',
             }}
-            className="hover:text-white"
+            className="text-muted hover:text-butter"
           >
             ✕
           </button>
@@ -113,10 +111,8 @@ export default function Navbar() {
         style={{ top: navTop }}
       >
         <div
-          className={`flex items-center gap-6 px-5 py-3 rounded-full border transition-all duration-300 ${
-            scrolled
-              ? 'bg-[rgba(10,10,10,0.90)] backdrop-blur-xl border-white/15 shadow-lg shadow-black/40'
-              : 'bg-[rgba(10,10,10,0.55)] backdrop-blur-md border-white/10'
+          className={`flex items-center gap-6 py-2 pr-2 pl-5 rounded-full border border-[color:var(--border)] bg-[rgba(18,14,24,0.9)] backdrop-blur-[10px] transition-all duration-300 ${
+            scrolled ? 'shadow-lg shadow-black/40' : ''
           }`}
         >
           {/* Logo */}
@@ -134,7 +130,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-5">
             {navLinks.map(link => (
               <Link key={link.label} href={link.href}
-                className="text-sm text-white/70 hover:text-white transition-colors duration-200 font-medium">
+                className="text-sm text-[color:var(--text)] hover:text-butter transition-colors duration-200 font-medium">
                 {link.label}
               </Link>
             ))}
@@ -143,20 +139,20 @@ export default function Navbar() {
           {/* Desktop CTA — oculto en móvil a propósito: ahí ya está el FAB de
               WhatsApp (tras pasar el hero) y el botón dentro del menú. */}
           <Link href={WA_URL} target="_blank" rel="noopener noreferrer"
-            className="btn-primary btn-glow py-2 px-5 text-sm ml-2 max-md:!hidden md:flex items-center gap-1.5">
+            className="btn-primary !py-2.5 !px-[18px] !text-sm ml-2 max-md:!hidden md:flex items-center gap-1.5">
             {WA_ICON} Escríbenos
           </Link>
 
           {/* Hamburger */}
           <button
-            className="md:hidden flex flex-col justify-center items-center gap-[5px] w-9 h-9 rounded-lg border border-white/15 bg-white/5 hover:bg-white/10 transition-colors"
+            className="md:hidden flex flex-col justify-center items-center gap-[5px] w-9 h-9 rounded-full border border-[color:var(--border)] bg-night-2 hover:bg-night-3 transition-colors"
             onClick={toggle}
             aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
             aria-expanded={menuOpen}
           >
-            <span className={`block w-[18px] h-[2px] bg-white rounded-full transition-all duration-300 origin-center ${menuOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
-            <span className={`block w-[18px] h-[2px] bg-white rounded-full transition-all duration-200 ${menuOpen ? 'opacity-0 scale-x-0' : ''}`} />
-            <span className={`block w-[18px] h-[2px] bg-white rounded-full transition-all duration-300 origin-center ${menuOpen ? '-rotate-45 -translate-y-[7px]' : ''}`} />
+            <span className={`block w-[18px] h-[2px] bg-butter rounded-full transition-all duration-300 origin-center ${menuOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
+            <span className={`block w-[18px] h-[2px] bg-butter rounded-full transition-all duration-200 ${menuOpen ? 'opacity-0 scale-x-0' : ''}`} />
+            <span className={`block w-[18px] h-[2px] bg-butter rounded-full transition-all duration-300 origin-center ${menuOpen ? '-rotate-45 -translate-y-[7px]' : ''}`} />
           </button>
         </div>
       </nav>
@@ -168,27 +164,27 @@ export default function Navbar() {
         className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${menuOpen ? 'visible' : 'invisible pointer-events-none'}`}
       >
         <div
-          className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${menuOpen ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute inset-0 bg-night/70 transition-opacity duration-300 ${menuOpen ? 'opacity-100' : 'opacity-0'}`}
           onClick={close}
         />
         <div
-          className={`absolute top-0 left-0 right-0 bg-[#0d0d0d] border-b border-white/10 px-6 pt-24 pb-8 flex flex-col gap-2 shadow-2xl transition-transform duration-[380ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${menuOpen ? 'translate-y-0' : '-translate-y-full'}`}
+          className={`absolute top-0 left-0 right-0 bg-night-2 border-b border-[color:var(--border)] px-6 pt-24 pb-8 flex flex-col gap-2 shadow-2xl transition-transform duration-[380ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${menuOpen ? 'translate-y-0' : '-translate-y-full'}`}
         >
           {navLinks.map((link, i) => (
             <Link
               key={link.label}
               href={link.href}
               onClick={close}
-              className="flex items-center justify-between py-4 text-[1.05rem] font-semibold text-white/80 hover:text-white border-b border-white/[0.08] transition-colors last:border-0"
+              className="flex items-center justify-between py-4 text-[1.05rem] font-semibold text-[color:var(--text)] hover:text-butter border-b border-[color:var(--border)] transition-colors last:border-0"
               style={{ transitionDelay: menuOpen ? `${i * 40}ms` : '0ms' }}
             >
               {link.label}
-              <span className="text-white/40" aria-hidden="true">→</span>
+              <span className="text-lilac" aria-hidden="true">→</span>
             </Link>
           ))}
           <Link
             href={WA_URL} target="_blank" rel="noopener noreferrer" onClick={close}
-            className="btn-primary btn-glow mt-4 py-3.5 flex items-center justify-center gap-2 text-sm font-semibold rounded-full"
+            className="btn-primary mt-4 py-3.5 flex items-center justify-center gap-2 text-sm font-semibold rounded-full"
           >
             {WA_ICON} Escríbenos por WhatsApp
           </Link>
