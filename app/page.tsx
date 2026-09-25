@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
+import { getWorkThumbs } from '@/lib/work'
 import LogosStrip from '@/components/LogosStrip'
 import VideoParallaxSection from '@/components/VideoParallaxSection'
 import Problema from '@/components/Problema'
@@ -34,7 +35,7 @@ export default function Home() {
       <Navbar />
       {/* #inicio: WhatsAppFAB lo observa para aparecer solo después del hero */}
       <div id="inicio">
-        <Hero />
+        <Hero thumbs={getWorkThumbs()} />
       </div>
       <LogosStrip />
       <Problema />
