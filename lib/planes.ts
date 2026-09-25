@@ -58,7 +58,7 @@ export const PLANS: Plan[] = [
     featured: false,
     badge: 'Premium',
     features: [
-      '24 piezas mensuales',
+      '16 piezas mensuales',
       'Flujo de producción a máxima velocidad',
       'Fotografía profesional',
       'Community Manager dedicado',
@@ -98,7 +98,7 @@ export const BUILDER_GROUPS: BuilderGroup[] = [
     title: 'Contenido',
     options: [
       { id: 'piezas12', label: 'Hasta 12 piezas al mes', minPlan: 'basic' },
-      { id: 'piezas24', label: '24 piezas al mes', minPlan: 'full' },
+      { id: 'piezas16', label: '16 piezas al mes', minPlan: 'full' },
       { id: 'redes', label: 'Gestión de redes', minPlan: 'basic' },
       { id: 'planeacion', label: 'Planeación mensual de contenido', minPlan: 'mid' },
       { id: 'cm', label: 'Community Manager', minPlan: 'mid' },
