@@ -3,7 +3,6 @@ import Script from 'next/script'
 import { Bricolage_Grotesque, Instrument_Serif, Inter } from 'next/font/google'
 import './globals.css'
 import WhatsAppFAB from '@/components/WhatsAppFAB'
-import { WebGLShader } from '@/components/ui/web-gl-shader'
 import SchemaOrg from '@/components/SchemaOrg'
 import SmoothScroll from '@/components/SmoothScroll'
 import PageFade from '@/components/PageFade'
@@ -131,7 +130,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <PageFade />
         <ScrollTriggerRefresh />
-        <WebGLShader />
         <SmoothScroll>
           {children}
         </SmoothScroll>

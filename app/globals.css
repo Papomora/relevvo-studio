@@ -9,22 +9,31 @@
   font-size: clamp(4rem, 11vw, 10.5rem);
   line-height: 0.9;
   letter-spacing: -0.05em;
-  background: linear-gradient(135deg, rgba(124,58,237,0.95) 0%, rgba(167,139,250,0.85) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--lilac);
 }
 
 :root {
-  --bg: #0A0A0A;
-  --accent: #7C3AED;
-  --accent-hover: #6D28D9;
-  --text: #FFFFFF;
-  /* ≥0.6 sobre #0A0A0A para cuerpo de texto (WCAG AA 4.5:1 con margen) */
-  --text-muted: rgba(255, 255, 255, 0.65);
-  --border: rgba(255, 255, 255, 0.1);
-  --border-hover: rgba(255, 255, 255, 0.2);
-  --card-bg: rgba(255, 255, 255, 0.04);
+  /* Paleta del logo (mantequilla + uva) sobre noche con tinte uva.
+     Aprobada en el mockup "Relevvo: home final". No volver al violeta
+     por defecto de Tailwind (#7C3AED). */
+  --night: #120E18;
+  --night-2: #1B1623;
+  --night-3: #221A30;
+  --butter: #F5F2C9;
+  --butter-dim: #D9D5B0;
+  --grape: #5E3F97;
+  --grape-hover: #6E4DAB;
+  --lilac: #B7A2E6;
+
+  --bg: var(--night);
+  --accent: var(--grape);
+  --accent-hover: var(--grape-hover);
+  --text: #E7E3CC;          /* cuerpo: mantequilla atenuada, ~13:1 */
+  --heading: var(--butter); /* titulares */
+  --text-muted: #ADA8A0;    /* secundario, ~7:1 */
+  --border: rgba(245, 242, 201, 0.12);
+  --border-hover: rgba(245, 242, 201, 0.24);
+  --card-bg: var(--night-2);
 }
 
 * {
@@ -80,6 +89,7 @@ body {
 
 /* Typography helpers (retro-compat) */
 .heading-display {
+  color: var(--heading);
   font-family: var(--font-bricolage), sans-serif;
   font-weight: 800;
   line-height: 1.05;
@@ -115,40 +125,28 @@ body {
   justify-content: center;
   padding: 14px 28px;
   border-radius: 100px;
-  background: var(--accent);
-  color: white;
+  background: var(--butter);
+  color: var(--night);
   font-weight: 600;
   font-size: 0.9375rem;
-  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  transition: background 0.25s ease, transform 0.2s ease;
   cursor: pointer;
   border: none;
   text-decoration: none;
 }
 
 .btn-primary:hover {
-  background: var(--accent-hover);
+  background: #FFFFFF;
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.4);
 }
 
 .btn-primary:active {
   transform: translateY(0px) scale(0.97);
 }
 
-/* Pulsing glow variant for main CTAs */
-@keyframes btn-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
-  50%       { box-shadow: 0 0 0 8px rgba(124, 58, 237, 0.18); }
-}
-
-.btn-glow {
-  animation: btn-pulse 2.8s ease-in-out infinite;
-}
-
-.btn-glow:hover {
-  animation: none;
-  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.5);
-}
+/* .btn-glow se mantiene por compatibilidad pero ya no brilla: el diseño
+   aprobado no usa resplandores. */
+.btn-glow {}
 
 .btn-secondary {
   display: inline-flex;
@@ -157,7 +155,7 @@ body {
   padding: 14px 28px;
   border-radius: 100px;
   background: transparent;
-  color: white;
+  color: var(--butter);
   font-weight: 600;
   font-size: 0.9375rem;
   transition: background 0.25s ease, transform 0.2s ease;
@@ -167,7 +165,7 @@ body {
 }
 
 .btn-secondary:hover {
-  background: rgba(255,255,255,0.06);
+  background: rgba(245,242,201,0.08);
   transform: translateY(-1px);
 }
 
@@ -187,7 +185,7 @@ body {
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: rgba(245,242,201,0.18); border-radius: 3px; }
 
 /* ─── Grain texture overlay ─── */
 body::after {
@@ -199,16 +197,13 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 180px 180px;
-  opacity: 0.028;
+  opacity: 0.09;
   mix-blend-mode: overlay;
 }
 
 /* ─── Accent text gradient ─── */
 .text-accent-gradient {
-  background: linear-gradient(135deg, #a78bfa 0%, #7C3AED 50%, #5b21b6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--lilac);
 }
 
 /* ─── Editorial section label ─── */
@@ -220,7 +215,7 @@ body::after {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--lilac);
   margin-bottom: 1.5rem;
 }
 
@@ -229,7 +224,7 @@ body::after {
   display: block;
   width: 24px;
   height: 1px;
-  background: var(--accent);
+  background: var(--lilac);
 }
 
 /* ─── Enhanced cards with gradient border on hover ─── */
@@ -252,7 +247,7 @@ body::after {
 }
 
 .card:hover::before {
-  background: linear-gradient(135deg, rgba(124,58,237,0.6) 0%, rgba(167,139,250,0.2) 100%);
+  background: none;
 }
 
 /* ─── Horizontal divider with accent ─── */
@@ -271,7 +266,7 @@ body::after {
   top: 0;
   width: 48px;
   height: 1px;
-  background: var(--accent);
+  background: var(--lilac);
 }
 
 /* ─── Number display for editorial lists ─── */
@@ -280,7 +275,7 @@ body::after {
   font-style: italic;
   font-size: 3.5rem;
   line-height: 1;
-  color: rgba(124,58,237,0.25);
+  color: var(--grape);
   font-weight: 300;
   transition: color 0.3s ease;
   user-select: none;
@@ -295,18 +290,15 @@ body::after {
 }
 
 .glass-purple {
-  background: rgba(124, 58, 237, 0.09);
-  backdrop-filter: blur(18px) saturate(200%);
-  -webkit-backdrop-filter: blur(18px) saturate(200%);
-  border: 1px solid rgba(124, 58, 237, 0.22);
+  background: var(--grape);
+  border: 1px solid transparent;
 }
 
 .glass-dark {
-  background: rgba(10, 10, 10, 0.6);
-  backdrop-filter: blur(22px) saturate(180%);
-  -webkit-backdrop-filter: blur(22px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  box-shadow: 0 0 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  background: rgba(18, 14, 24, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
 }
 
 /* ─── Lenis smooth scroll — disable native smooth ─── */
@@ -332,8 +324,8 @@ html.lenis {
 /* ─── Video parallax depth lines ─── */
 .depth-grid {
   background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(245,242,201,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,242,201,0.04) 1px, transparent 1px);
   background-size: 80px 80px;
 }
 
@@ -363,14 +355,14 @@ html.lenis {
   position: absolute;
   bottom: -2px; left: 0;
   width: 0; height: 1px;
-  background: var(--accent);
+  background: var(--butter);
   transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .link-slide:hover::after { width: 100%; }
 
 /* ─── Focus ring ─── */
 :focus-visible {
-  outline: 2px solid rgba(124, 58, 237, 0.7);
+  outline: 2px solid var(--butter);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -380,11 +372,7 @@ html.lenis {
   transition: box-shadow 0.35s ease, border-color 0.35s ease !important;
 }
 .neon-card:hover {
-  box-shadow:
-    0 0 0 1px rgba(124,58,237,0.5),
-    0 0 24px rgba(124,58,237,0.18),
-    0 0 60px rgba(124,58,237,0.07);
-  border-color: rgba(124,58,237,0.4) !important;
+  border-color: var(--border-hover) !important;
 }
 
 /* Reduced motion */
