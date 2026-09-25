@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Pricing from '@/components/Pricing'
+import PlanBuilder from '@/components/PlanBuilder'
 import { PLANS, MARKET_COMPARISON } from '@/lib/planes'
 
 // El layout raíz ya añade " | Relevvo Studio" vía title.template — no
@@ -41,7 +42,7 @@ const jsonLd = {
 // vacía solo significa que ese plan no lista esa línea.
 const COMPARISON_ROWS: { label: string; values: [string, string, string] }[] = [
   { label: 'Precio', values: [PLANS[0].price + '/mes', PLANS[1].price + '/mes', PLANS[2].price + '/mes'] },
-  { label: 'Piezas mensuales', values: ['Hasta 12', '12', '24'] },
+  { label: 'Piezas mensuales', values: ['Hasta 12', '12', '16'] },
   { label: 'Revisiones por pieza', values: ['2', '3', '4'] },
   { label: 'Logo / branding', values: ['Logo básico o ajuste de logo', 'Branding continuo y coherencia visual', '—'] },
   { label: 'Fotografía', values: ['—', 'Sesión de fotografía profesional', 'Fotografía profesional'] },
@@ -99,6 +100,7 @@ export default function PlanesPage() {
 
       {/* Reutiliza el mismo componente del home: comparación con el mercado
           + las 3 tarjetas de plan. Fuente única, ver lib/planes.ts. */}
+      <PlanBuilder />
       <Pricing />
 
       {/* ── Tabla comparativa ── */}

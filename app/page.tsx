@@ -7,6 +7,7 @@ import Proceso from '@/components/Proceso'
 import Features from '@/components/Features'
 import Portfolio from '@/components/Portfolio'
 import Pricing from '@/components/Pricing'
+import PlanBuilder from '@/components/PlanBuilder'
 import Founder from '@/components/Founder'
 import FAQ from '@/components/FAQ'
 import Testimonial from '@/components/Testimonial'
@@ -42,6 +43,7 @@ export default function Home() {
       <div id="solucion">
         <Features />
       </div>
+      <PlanBuilder />
       <Pricing compact />
       <Founder />
       <Testimonial />
