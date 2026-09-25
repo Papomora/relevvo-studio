@@ -9,13 +9,10 @@ import { WA_URL } from '@/lib/constants'
 
 gsap.registerPlugin(useGSAP)
 
-// Miniaturas de trabajo real (mismos assets que el Portafolio).
-const THUMBS: { src: string; label: string; client: string; position?: string }[] = [
-  { src: '/clientes/masbrownie/banner1.png',         label: 'Producto',   client: 'Más Brownie' },
-  { src: '/clientes/masbrownie/banner2.png',         label: 'Visuales',   client: 'Más Brownie' },
-  { src: '/images/nosotros/cliente-logo-word.png',   label: 'Social',     client: 'Relevvo Studio', position: 'center 35%' },
-  { src: '/clientes/masbrownie/banner3.png',         label: 'Campaña',    client: 'Más Brownie' },
-]
+import type { WorkThumb } from '@/lib/work'
+
+// Las miniaturas llegan por props desde app/page.tsx (getWorkThumbs lee
+// public/work/<marca>/ en build) y avanzan en loop infinito.
 
 // ── Hanzo-style clip reveal: line slides up from hidden bottom ──
 function RevealLine({ children, delay = 0, className = '', style = {} }: {
@@ -42,12 +39,15 @@ function RevealLine({ children, delay = 0, className = '', style = {} }: {
   )
 }
 
-export default function Hero() {
+export default function Hero({ thumbs }: { thumbs: WorkThumb[] }) {
   const sectionRef = useRef<HTMLElement>(null)
   const badgeRef   = useRef<HTMLDivElement>(null)
   const subRef     = useRef<HTMLDivElement>(null)
   const ctasRef    = useRef<HTMLDivElement>(null)
   const thumbsRef  = useRef<HTMLDivElement>(null)
+
+  const loop: WorkThumb[] = []
+  if (thumbs.length) while (loop.length < 8) loop.push(...thumbs)
 
   // useGSAP revierte todos los tweens al desmontar.
   useGSAP(() => {
@@ -157,36 +157,43 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ── Miniaturas de trabajo real → llevan al portafolio ── */}
+      {/* ── Loop de trabajo real → lleva al portafolio ──
+          La lista se repite hasta tener al menos 8 por vuelta (si hay pocas
+          fotos, el loop no deja huecos) y luego se duplica: la animación
+          mueve la pista -50% y vuelve a empezar sin salto visible. La copia
+          va aria-hidden y fuera del tab. Se pausa con hover/foco; con
+          reduced motion queda quieta y se puede desplazar a mano. */}
       <div
         ref={thumbsRef}
-        className="thumbs-scroll"
-        style={{
-          position: 'relative', zIndex: 2,
-          display: 'flex', gap: 12,
-        }}
+        className="thumbs-loop"
+        style={{ position: 'relative', zIndex: 2, ['--loop-duration' as string]: `${Math.max(loop.length, 8) * 4}s` }}
+        aria-label="Trabajo reciente"
+        role="region"
       >
-        {THUMBS.map((thumb, i) => (
-          <a
-            key={thumb.src}
-            href="/#portafolio"
-            className={`thumb-card${i === 0 ? ' thumb-card--wide' : ''}`}
-            aria-label={`${thumb.label}: ${thumb.client} — ver en el portafolio`}
-          >
-            <Image
-              src={thumb.src}
-              alt=""
-              fill
-              sizes="(max-width: 767px) 160px, 260px"
-              style={{ objectFit: 'cover', objectPosition: thumb.position ?? 'center' }}
-            />
-            <span className="thumb-shade" aria-hidden="true" />
-            <span className="thumb-label">
-              <span className="thumb-kind">{thumb.label}</span>
-              <span className="thumb-client">{thumb.client}</span>
-            </span>
-          </a>
-        ))}
+        <div className="thumbs-track">
+          {[0, 1].map((copy) =>
+            loop.map((thumb, i) => (
+              <a
+                key={`${copy}-${i}`}
+                href="/#portafolio"
+                className="thumb-card"
+                aria-hidden={copy === 1 || undefined}
+                tabIndex={copy === 1 ? -1 : undefined}
+                aria-label={copy === 0 ? `${thumb.client}: ver en el portafolio` : undefined}
+              >
+                <Image
+                  src={thumb.src}
+                  alt=""
+                  fill
+                  sizes="(max-width: 767px) 200px, 280px"
+                  style={{ objectFit: 'cover' }}
+                />
+                <span className="thumb-shade" aria-hidden="true" />
+                <span className="thumb-label" aria-hidden="true">{thumb.client}</span>
+              </a>
+            )),
+          )}
+        </div>
       </div>
 
       <style jsx>{`
@@ -225,60 +232,63 @@ export default function Hero() {
           -webkit-box-decoration-break: clone;
           box-decoration-break: clone;
         }
+        .thumbs-loop {
+          overflow: hidden;
+          margin: 0 calc(-1 * clamp(20px, 5vw, 80px));
+          mask-image: linear-gradient(90deg, transparent 0, black 6%, black 94%, transparent 100%);
+          -webkit-mask-image: linear-gradient(90deg, transparent 0, black 6%, black 94%, transparent 100%);
+        }
+        .thumbs-track {
+          display: flex;
+          gap: 12px;
+          width: max-content;
+          animation: thumbs-loop var(--loop-duration, 32s) linear infinite;
+        }
+        .thumbs-loop:hover .thumbs-track,
+        .thumbs-loop:focus-within .thumbs-track { animation-play-state: paused; }
+        @keyframes thumbs-loop {
+          to { transform: translateX(calc(-50% - 6px)); }
+        }
         .thumb-card {
           position: relative;
-          flex: 1 0 auto;
-          min-width: 96px;
-          height: 120px;
+          flex: none;
+          width: 280px;
+          height: 150px;
           border-radius: 16px;
           overflow: hidden;
           border: 1px solid var(--border);
           background: var(--night-2);
           display: block;
-          transition: transform .3s ease, border-color .3s ease;
+          transition: border-color .3s ease;
         }
-        .thumb-card--wide { flex: 2 0 auto; }
         .thumb-card :global(img) { transition: transform .5s ease; }
-        .thumb-card:hover,
-        .thumb-card:focus-visible {
-          transform: translateY(-3px);
-          border-color: var(--border-hover);
-        }
+        .thumb-card:hover { border-color: var(--border-hover); }
         .thumb-card:hover :global(img) { transform: scale(1.05); }
-        .thumb-card:focus-visible { outline: 2px solid var(--butter); outline-offset: 3px; }
+        .thumb-card:focus-visible { outline: 2px solid var(--butter); outline-offset: -2px; }
         .thumb-shade {
           position: absolute; inset: 0;
-          background: linear-gradient(180deg, rgba(18,14,24,0) 35%, rgba(18,14,24,0.8) 100%);
+          background: linear-gradient(180deg, rgba(18,14,24,0) 40%, rgba(18,14,24,0.85) 100%);
           pointer-events: none;
         }
         .thumb-label {
-          position: absolute; left: 12px; right: 12px; bottom: 10px;
-          display: flex; flex-direction: column; gap: 2px;
+          position: absolute; left: 14px; right: 14px; bottom: 11px;
           font-family: ui-monospace, 'JetBrains Mono', SFMono-Regular, Menlo, monospace;
           font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.08em;
           text-transform: uppercase; color: var(--butter);
           text-shadow: 0 1px 8px rgba(0,0,0,0.65);
         }
-        .thumb-kind { color: var(--butter); }
-        .thumb-client { color: var(--butter-dim); }
         @media (prefers-reduced-motion: reduce) {
-          .thumb-card, .thumb-card :global(img) { transition: none; }
-          .thumb-card:hover, .thumb-card:hover :global(img) { transform: none; }
+          .thumbs-loop { overflow-x: auto; }
+          .thumbs-track { animation: none; }
+          .thumbs-track > :global(a[aria-hidden]) { display: none; }
+          .thumb-card :global(img) { transition: none; }
+          .thumb-card:hover :global(img) { transform: none; }
         }
         @media (max-width: 480px) {
           .hero-headline { font-size: clamp(2.75rem, 15vw, 4rem) !important; }
         }
         @media (max-width: 767px) {
-          .thumbs-scroll {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scroll-snap-type: x proximity;
-            margin: 0 -20px;
-            padding: 0 20px 4px;
-            mask-image: linear-gradient(90deg, transparent 0, black 12px, black calc(100% - 12px), transparent 100%);
-            -webkit-mask-image: linear-gradient(90deg, transparent 0, black 12px, black calc(100% - 12px), transparent 100%);
-          }
-          .thumb-card { min-width: 128px; scroll-snap-align: start; }
+          .thumb-card { width: 200px; height: 120px; }
         }
       `}</style>
     </section>
