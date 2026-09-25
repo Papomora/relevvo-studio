@@ -5,13 +5,18 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { FAQ_ITEMS } from '@/lib/faq'
 
-function FaqRow({ question, answer, idBase, isOpen, onToggle }: {
-  question: string; answer: string; idBase: string; isOpen: boolean; onToggle: () => void
+function FaqRow({ question, answer, idBase, isOpen, onToggle, isLast }: {
+  question: string; answer: string; idBase: string; isOpen: boolean; onToggle: () => void; isLast: boolean
 }) {
   const panelId = `${idBase}-panel`
   const buttonId = `${idBase}-button`
   return (
-    <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+    <div
+      style={{
+        borderTop: '1px solid var(--border)',
+        borderBottom: isLast ? '1px solid var(--border)' : undefined,
+      }}
+    >
       <h3 style={{ margin: 0 }}>
         <button
           id={buttonId}
@@ -19,33 +24,21 @@ function FaqRow({ question, answer, idBase, isOpen, onToggle }: {
           aria-expanded={isOpen}
           aria-controls={panelId}
           onClick={onToggle}
-          style={{
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: 16,
-            padding: '20px 22px',
-            background: 'transparent',
-            border: 'none',
-            cursor: 'pointer',
-            textAlign: 'left',
-            color: 'var(--text)',
-            font: 'inherit',
-          }}
+          className="w-full flex justify-between items-start gap-4 py-[22px] text-left bg-transparent border-0 cursor-pointer font-display font-semibold text-butter focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-butter"
+          style={{ fontSize: '1.12rem', lineHeight: 1.35, letterSpacing: '-0.01em' }}
         >
-          <span style={{ fontSize: '0.9375rem', fontWeight: 600 }}>{question}</span>
-          <svg
-            width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+          <span>{question}</span>
+          <span
+            aria-hidden="true"
+            className="shrink-0 text-lilac font-sans font-normal transition-transform duration-200 motion-reduce:transition-none"
             style={{
-              flexShrink: 0, color: 'var(--accent)',
+              fontSize: '1.6rem',
+              lineHeight: 1,
               transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)',
-              transition: 'transform 0.25s ease',
             }}
           >
-            <path d="M12 5v14M5 12h14" />
-          </svg>
+            +
+          </span>
         </button>
       </h3>
       <div
@@ -53,9 +46,8 @@ function FaqRow({ question, answer, idBase, isOpen, onToggle }: {
         role="region"
         aria-labelledby={buttonId}
         hidden={!isOpen}
-        style={{ padding: isOpen ? '0 22px 20px' : 0 }}
       >
-        <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', lineHeight: 1.65, margin: 0 }}>
+        <p className="text-muted max-w-[62ch]" style={{ lineHeight: 1.65, margin: '0 0 22px' }}>
           {answer}
         </p>
       </div>
@@ -78,30 +70,36 @@ export default function FAQ() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-24 px-4 max-w-3xl mx-auto" style={{ willChange: 'opacity' }}>
-      <div className="text-center mb-14">
-        <span className="section-label" style={{ justifyContent: 'center' }}>Preguntas frecuentes</span>
-        <h2>
-          <span className="heading-display text-white" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.2rem)' }}>
-            Lo que más{' '}
-          </span>
-          <span className="heading-serif text-white" style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.2rem)' }}>
-            preguntan.
-          </span>
-        </h2>
-      </div>
+    <section
+      ref={sectionRef}
+      className="max-w-[1200px] mx-auto px-4 sm:px-8 lg:px-12 py-16 md:py-24"
+      style={{ willChange: 'opacity' }}
+    >
+      <div className="grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-10 md:gap-16 lg:gap-[72px]">
+        <div>
+          <span className="section-label font-mono" style={{ marginBottom: 0 }}>Preguntas frecuentes</span>
+          <h2
+            className="heading-display mt-[18px] [text-wrap:balance]"
+            style={{ fontSize: 'clamp(2.3rem, 5.4vw, 4.2rem)', lineHeight: 1, letterSpacing: '-0.035em', fontWeight: 700 }}
+          >
+            Lo que{' '}
+            <span className="heading-serif text-lilac">siempre nos preguntan.</span>
+          </h2>
+        </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        {FAQ_ITEMS.map((item, i) => (
-          <FaqRow
-            key={i}
-            idBase={`${idBase}-${i}`}
-            question={item.question}
-            answer={item.answer}
-            isOpen={openIndex === i}
-            onToggle={() => setOpenIndex(prev => (prev === i ? null : i))}
-          />
-        ))}
+        <div>
+          {FAQ_ITEMS.map((item, i) => (
+            <FaqRow
+              key={i}
+              idBase={`${idBase}-${i}`}
+              question={item.question}
+              answer={item.answer}
+              isOpen={openIndex === i}
+              isLast={i === FAQ_ITEMS.length - 1}
+              onToggle={() => setOpenIndex(prev => (prev === i ? null : i))}
+            />
+          ))}
+        </div>
       </div>
     </section>
   )
