@@ -35,7 +35,7 @@ const services = [
 ]
 
 const brands = [
-  { name: 'ARü',               cat: 'Accesorios Premium',    color: '#C9B882', year: '2024', tags: ['Identidad', 'Brandbook'], href: 'https://camiloleonfotografia.wixsite.com/papodiseno/copia-de-quien-soy' },
+  { name: 'Osadí',             cat: 'Accesorios Premium',    color: '#C9B882', year: '2024', tags: ['Identidad', 'Brandbook'], href: 'https://camiloleonfotografia.wixsite.com/papodiseno/copia-de-quien-soy' },
   { name: 'Crusso',            cat: 'Mobiliario Premium',    color: '#C0392B', year: '2024', tags: ['Branding', 'Motion'],    href: 'https://www.instagram.com/tiendacrusso/' },
   { name: 'Molicié',          cat: 'Hogar & Decoración',    color: '#D4A757', year: '2023', tags: ['Identidad', 'Contenido'], href: 'https://www.instagram.com/moliciehogar/' },
   { name: 'Verslä',            cat: 'Moda Femenina',         color: '#F472B6', year: '2024', tags: ['Branding', 'Social'],    href: 'https://www.instagram.com/verslafeminite/' },

@@ -13,7 +13,7 @@ gsap.registerPlugin(useGSAP)
 // Miniaturas de trabajo real (mismos assets que el Portafolio).
 const THUMBS: { src: string; label: string; client: string; position?: string }[] = [
   { src: '/clientes/masbrownie/banner1.png',         label: 'Producto',   client: 'Más Brownie' },
-  { src: '/images/factory-demo/hotwheels-despues.jpg', label: 'Ecommerce',  client: 'Factory Artesanías' },
+  { src: '/clientes/masbrownie/banner2.png',         label: 'Visuales',   client: 'Más Brownie' },
   { src: '/images/nosotros/cliente-logo-word.png',   label: 'Social',     client: 'Relevvo Studio', position: 'center 35%' },
   { src: '/clientes/masbrownie/banner3.png',         label: 'Campaña',    client: 'Más Brownie' },
 ]
