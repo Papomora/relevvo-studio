@@ -3,6 +3,7 @@ import NosotrosHero from '@/components/nosotros/NosotrosHero'
 import ComoProfesionales from '@/components/nosotros/ComoProfesionales'
 import ComoPersonas from '@/components/nosotros/ComoPersonas'
 import InstagramTeaser from '@/components/nosotros/InstagramTeaser'
+import AIStory from '@/components/AIStory'
 import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
 
@@ -30,6 +31,8 @@ export default function NosotrosPage() {
       <NosotrosHero />
       <ComoProfesionales />
       <ComoPersonas />
+      {/* Historia larga del estudio — salió del home para acortarlo */}
+      <AIStory />
       <InstagramTeaser />
       <Footer />
     </main>

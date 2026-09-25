@@ -20,7 +20,8 @@
   --accent: #7C3AED;
   --accent-hover: #6D28D9;
   --text: #FFFFFF;
-  --text-muted: rgba(255, 255, 255, 0.55);
+  /* ≥0.6 sobre #0A0A0A para cuerpo de texto (WCAG AA 4.5:1 con margen) */
+  --text-muted: rgba(255, 255, 255, 0.65);
   --border: rgba(255, 255, 255, 0.1);
   --border-hover: rgba(255, 255, 255, 0.2);
   --card-bg: rgba(255, 255, 255, 0.04);

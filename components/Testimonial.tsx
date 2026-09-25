@@ -1,22 +1,26 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
 import Image from 'next/image'
+
+gsap.registerPlugin(ScrollTrigger, useGSAP)
 
 export default function Testimonial() {
   const cardRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    gsap.registerPlugin(ScrollTrigger)
-
-    gsap.from(cardRef.current, {
-      y: 50, scale: 0.97, duration: 0.9, ease: 'power3.out',
-      scrollTrigger: { trigger: cardRef.current, start: 'top 80%' },
+  // useGSAP revierte el tween y su ScrollTrigger al desmontar.
+  useGSAP(() => {
+    const mm = gsap.matchMedia()
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      gsap.from(cardRef.current, {
+        y: 50, scale: 0.97, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: cardRef.current, start: 'top 80%', once: true },
+      })
     })
-  }, [])
+  }, { scope: cardRef })
 
   return (
     <section className="py-12 px-4 max-w-4xl mx-auto">
@@ -42,7 +46,7 @@ export default function Testimonial() {
 
           <div>
             <p className="font-semibold text-white">Eliana García</p>
-            <p className="text-white/50 text-sm">CEO de Etología Canina Colombia</p>
+            <p className="text-white/65 text-sm">CEO de Etología Canina Colombia</p>
           </div>
         </div>
 

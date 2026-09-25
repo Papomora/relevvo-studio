@@ -194,7 +194,7 @@ export default function PlanesPage() {
             para tu marca?
           </span>
         </h2>
-        <p className="text-white/50 mb-10 max-w-md mx-auto">
+        <p className="text-white/60 mb-10 max-w-md mx-auto">
           Cuéntanos qué necesitas y te decimos, sin rodeos, cuál plan encaja.
         </p>
         <Link href="/contacto" className="btn-primary btn-glow inline-flex items-center px-8 py-3.5">

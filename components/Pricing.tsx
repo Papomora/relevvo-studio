@@ -20,6 +20,20 @@ import { PLANS as plans, MARKET_COMPARISON } from '@/lib/planes'
 // de que quede invisible pesa más que el valor decorativo de la animación.
 // No reintroducir scroll-reveal acá sin una red de seguridad que garantice
 // visibilidad si el trigger falla.
+//
+// Bloque "Frente al mercado": el argumento es VALOR, no precio. MID
+// ($2.990.000) cae dentro del rango pyme de MARKET_COMPARISON y FULL lo
+// supera, así que no se puede decir "somos más baratos". Cada punto de
+// VALUE_POINTS tiene respaldo en lib/planes.ts o en Features.tsx — no
+// agregar promesas que un plan no liste.
+const VALUE_POINTS = [
+  'Precio mensual fijo y publicado, sin cotizaciones sorpresa',
+  'Revisiones por pieza incluidas en cada plan (de 2 a 4)',
+  'Fotografía profesional incluida desde el plan MID',
+  'Avances visibles en Figma mientras trabajamos',
+  'Un solo equipo para branding, contenido y fotografía',
+]
+
 export default function Pricing({ compact = false }: { compact?: boolean } = {}) {
   return (
     <section id="planes" className="py-24 px-4 max-w-5xl mx-auto">
@@ -35,7 +49,7 @@ export default function Pricing({ compact = false }: { compact?: boolean } = {})
             marca.
           </span>
         </h2>
-        <p className="text-white/55 text-lg max-w-xl mx-auto">
+        <p className="text-white/60 text-lg max-w-xl mx-auto">
           Precios fijos, sin letra pequeña. Si tu proyecto necesita algo distinto,
           lo ajustamos hablando — no a ciegas con un formulario.
         </p>
@@ -61,10 +75,11 @@ export default function Pricing({ compact = false }: { compact?: boolean } = {})
           </div>
           <h3 className="heading-display text-white mb-3"
             style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', letterSpacing: '-0.03em' }}>
-            Lo mismo, sin la estructura de agencia grande.
+            La diferencia no está en la tarifa, está en lo que incluye.
           </h3>
-          <p className="text-white/50 text-base leading-relaxed max-w-2xl mx-auto">
-            Esto es lo que cuesta hoy contratar diseño y marketing en Colombia por fuera de Relevvo.
+          <p className="text-white/60 text-base leading-relaxed max-w-2xl mx-auto">
+            Estas son las cifras de referencia para contratar diseño y marketing en Colombia.
+            Con Relevvo la inversión también es real — la diferencia es que sabes desde el primer día qué recibes cada mes.
           </p>
         </div>
 
@@ -72,10 +87,22 @@ export default function Pricing({ compact = false }: { compact?: boolean } = {})
           {MARKET_COMPARISON.map((m, i) => (
             <div key={i} className="rounded-xl border border-white/10 p-5 text-center">
               <p className="heading-display text-white mb-1" style={{ fontSize: '1.5rem', whiteSpace: compact ? 'nowrap' : 'normal' }}>{compact ? m.short : m.figure}</p>
-              <p className="text-white/45 text-sm">{m.desc}</p>
+              <p className="text-white/60 text-sm">{m.desc}</p>
             </div>
           ))}
         </div>
+
+        <ul className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 max-w-3xl mx-auto mb-8 text-left">
+          {VALUE_POINTS.map((v, i) => (
+            <li key={i} className="flex items-start gap-2.5 text-sm text-white/70">
+              <svg className="flex-shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="8" r="7" stroke="rgba(124,58,237,0.5)" strokeWidth="1" />
+                <path d="M5 8 L7 10 L11 6" stroke="rgba(124,58,237,0.9)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              {v}
+            </li>
+          ))}
+        </ul>
 
         <div className="relative z-10 text-center">
           <Link
@@ -92,7 +119,7 @@ export default function Pricing({ compact = false }: { compact?: boolean } = {})
         </div>
       </div>
 
-      {/* ── Plan cards (sin precios) ─────────────────────────── */}
+      {/* ── Plan cards ─────────────────────────────────────────── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
         {plans.map((plan, i) => (
           <div
@@ -128,18 +155,18 @@ export default function Pricing({ compact = false }: { compact?: boolean } = {})
               <span className="heading-display text-white" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.25rem)', letterSpacing: '-0.03em' }}>
                 {plan.price}
               </span>
-              <span className="text-white/40 text-sm">COP/mes</span>
+              <span className="text-white/60 text-sm">COP/mes</span>
             </div>
 
             {/* Tag */}
-            <p className="text-white/45 text-sm leading-relaxed mb-6 italic">
+            <p className="text-white/60 text-sm leading-relaxed mb-6 italic">
               "{plan.tag}"
             </p>
 
             {/* Features */}
             <ul className="space-y-2.5 mb-8 flex-1">
               {plan.features.map((feat, j) => (
-                <li key={j} className="flex items-start gap-2.5 text-sm text-white/55">
+                <li key={j} className="flex items-start gap-2.5 text-sm text-white/65">
                   <svg className="flex-shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 16 16" fill="none">
                     <circle cx="8" cy="8" r="7" stroke="rgba(124,58,237,0.5)" strokeWidth="1" />
                     <path d="M5 8 L7 10 L11 6" stroke="rgba(124,58,237,0.9)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -166,9 +193,9 @@ export default function Pricing({ compact = false }: { compact?: boolean } = {})
       </div>
 
       {/* ── Bottom note ─────────────────────────────────────── */}
-      <p className="text-center text-white/30 text-sm mb-10">
+      <p className="text-center text-white/60 text-sm mb-10">
         Todos los planes incluyen onboarding, estrategia inicial y comunicación directa con el equipo.
-        <br />Precios de referencia — si tu proyecto necesita algo distinto, lo ajustamos hablando.
+        <br />Precios mensuales fijos en pesos colombianos, antes de impuestos.
       </p>
 
       {/* ── Proyecto a la medida ── alternativa, no un cuarto plan: ancho
@@ -185,7 +212,7 @@ export default function Pricing({ compact = false }: { compact?: boolean } = {})
             <h3 className="heading-display text-white mb-3" style={{ fontSize: 'clamp(1.4rem, 3vw, 1.875rem)', letterSpacing: '-0.03em' }}>
               ¿No encajas en un plan mensual?
             </h3>
-            <p className="text-white/50 text-base leading-relaxed max-w-xl mb-4">
+            <p className="text-white/60 text-base leading-relaxed max-w-xl mb-4">
               Un branding puntual, una web o una sesión de fotos sueltos — sin suscripción. Alcance
               definido contigo, cotización según lo que pidas, un solo pago en vez de mensualidad.
               El{' '}

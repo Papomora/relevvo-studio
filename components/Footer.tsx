@@ -1,38 +1,46 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
 import { WA_URL } from '@/lib/constants'
 
-export default function Footer() {
+gsap.registerPlugin(ScrollTrigger, useGSAP)
+
+// showCta=false oculta el banner grande: el home ya cierra con su propio CTA
+// (VideoParallaxSection) y dos llamados seguidos se sentían repetidos.
+export default function Footer({ showCta = true }: { showCta?: boolean }) {
+  const footerRef = useRef<HTMLElement>(null)
   const headingRef = useRef<HTMLDivElement>(null)
   const btnRef = useRef<HTMLAnchorElement>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    gsap.registerPlugin(ScrollTrigger)
-
-    gsap.from(headingRef.current, {
-      y: 50, duration: 1, ease: 'power3.out',
-      scrollTrigger: { trigger: headingRef.current, start: 'top 85%' },
-    })
-    gsap.from(btnRef.current, {
-      y: 24, duration: 0.7, ease: 'back.out(1.6)', delay: 0.15,
-      scrollTrigger: { trigger: btnRef.current, start: 'top 90%' },
-    })
+  useGSAP(() => {
+    if (headingRef.current) {
+      gsap.from(headingRef.current, {
+        y: 50, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: headingRef.current, start: 'top 85%' },
+      })
+    }
+    if (btnRef.current) {
+      gsap.from(btnRef.current, {
+        y: 24, duration: 0.7, ease: 'back.out(1.6)', delay: 0.15,
+        scrollTrigger: { trigger: btnRef.current, start: 'top 90%' },
+      })
+    }
     gsap.from(bottomRef.current, {
       y: 20, duration: 0.6, ease: 'power2.out',
       scrollTrigger: { trigger: bottomRef.current, start: 'top 95%' },
     })
-  }, [])
+  }, { scope: footerRef, dependencies: [showCta] })
 
   return (
-    <footer id="contacto" className="border-t border-white/10 mt-16">
+    <footer ref={footerRef} id="contacto" className="border-t border-white/10 mt-16">
       {/* CTA Banner */}
+      {showCta && (
       <div className="py-20 px-4 text-center max-w-3xl mx-auto">
         <div ref={headingRef}>
           <h2 className="mb-6">
@@ -43,7 +51,7 @@ export default function Footer() {
               simple?
             </span>
           </h2>
-          <p className="text-white/55 text-lg mb-8">
+          <p className="text-white/70 text-lg mb-8">
             Agenda una cita y hablemos de tu marca.
           </p>
         </div>
@@ -60,6 +68,7 @@ export default function Footer() {
           Agenda una cita
         </Link>
       </div>
+      )}
 
       {/* Bottom bar */}
       <div ref={bottomRef} className="border-t border-white/10 py-8 px-6">
@@ -68,7 +77,7 @@ export default function Footer() {
             <Image src="/images/Relevvostd@3x.png" alt="Relevvo Studio" width={100} height={32} className="object-contain" />
           </Link>
 
-          <div className="flex items-center gap-6 text-sm text-white/50">
+          <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-sm text-white/65">
             <Link href="/nosotros" className="hover:text-white transition-colors">Nosotros</Link>
             <Link href="/papo" className="hover:text-white transition-colors">Sobre mí</Link>
             <Link href="/contacto" className="hover:text-white transition-colors">Contacto</Link>
@@ -76,7 +85,7 @@ export default function Footer() {
             <Link href="/#portafolio" className="hover:text-white transition-colors">Portafolio</Link>
           </div>
 
-          <p className="text-white/30 text-sm">
+          <p className="text-white/60 text-sm">
             © 2025 Relevvo Studio. Todos los derechos reservados.
           </p>
         </div>

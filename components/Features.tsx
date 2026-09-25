@@ -52,9 +52,9 @@ export default function Features() {
             </span>
           </h2>
         </div>
-        <p className="text-white/50 text-base leading-relaxed mt-6 md:mt-0 md:pb-1">
+        <p className="text-white/60 text-base leading-relaxed mt-6 md:mt-0 md:pb-1">
           Después de Relevvo, no vuelves a contratar diseño de la misma manera.
-          Método, claridad y resultados medibles.
+          Método, claridad y un proceso que ves avanzar.
         </p>
       </div>
 
@@ -115,7 +115,7 @@ export default function Features() {
                 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', letterSpacing: '-0.04em', lineHeight: 1.05 }}>
                 Figma en<br />tiempo real
               </h3>
-              <p className="text-white/45 leading-relaxed mt-3 max-w-xs group-hover:text-white/65 transition-colors duration-300" style={{ fontSize: '0.9375rem', lineHeight: 1.65 }}>
+              <p className="text-white/60 leading-relaxed mt-3 max-w-xs group-hover:text-white/75 transition-colors duration-300" style={{ fontSize: '0.9375rem', lineHeight: 1.65 }}>
                 Sigue el trabajo directamente en Figma, comenta sobre el archivo y visualiza avances en vivo.
               </p>
             </div>
@@ -155,7 +155,7 @@ export default function Features() {
               <h3 className="heading-display text-white mb-2" style={{ fontSize: '1.25rem', letterSpacing: '-0.025em', lineHeight: 1.25 }}>
                 Entrega ágil<br />y continua
               </h3>
-              <p className="text-white/45 group-hover:text-white/65 transition-colors" style={{ fontSize: '0.9rem', lineHeight: 1.65 }}>
+              <p className="text-white/60 group-hover:text-white/75 transition-colors" style={{ fontSize: '0.9rem', lineHeight: 1.65 }}>
                 Entregas constantes, sin perder el ritmo.
               </p>
             </div>
@@ -180,8 +180,8 @@ export default function Features() {
               <h3 className="heading-display text-white mb-2" style={{ fontSize: '1.25rem', letterSpacing: '-0.025em', lineHeight: 1.25 }}>
                 Tarifa mensual clara
               </h3>
-              <p className="text-white/45 group-hover:text-white/65 transition-colors" style={{ fontSize: '0.9rem', lineHeight: 1.65 }}>
-                Sin sorpresas ni cobros ocultos.
+              <p className="text-white/60 group-hover:text-white/75 transition-colors" style={{ fontSize: '0.9rem', lineHeight: 1.65 }}>
+                Precio fijo publicado. Sin cotizaciones sorpresa.
               </p>
             </div>
           </div>
@@ -208,35 +208,35 @@ export default function Features() {
               <h3 className="heading-display text-white mb-2" style={{ fontSize: '1.25rem', letterSpacing: '-0.025em', lineHeight: 1.25 }}>
                 Diseño con impacto
               </h3>
-              <p className="text-white/45 group-hover:text-white/65 transition-colors" style={{ fontSize: '0.9rem', lineHeight: 1.65 }}>
+              <p className="text-white/60 group-hover:text-white/75 transition-colors" style={{ fontSize: '0.9rem', lineHeight: 1.65 }}>
                 Para vender y posicionar.
               </p>
             </div>
           </div>
         </div>
 
-        {/* ── 05 — Iteración continua (2col, 1 row) ─────── */}
+        {/* ── 05 — Revisiones incluidas (2col, 1 row) ───── */}
         <div className="feat-card neon-card group relative overflow-hidden rounded-2xl border border-white/[0.07]
           lg:col-start-1 lg:col-end-3 lg:row-start-3 lg:row-end-4"
           style={{ background: 'rgba(255,255,255,0.03)', minHeight: '155px' }}>
 
           <div className="absolute inset-0 bg-gradient-to-r from-violet-900/20 to-transparent pointer-events-none" />
 
-          {/* Big ∞ background char */}
+          {/* Big ↻ background char — no ∞: las revisiones son fijas por plan */}
           <div className="absolute right-4 top-1/2 -translate-y-1/2 font-black text-[7rem] select-none pointer-events-none
             opacity-[0.055] group-hover:opacity-[0.12] transition-opacity duration-500"
             style={{ color: 'rgba(124,58,237,1)', lineHeight: 1, fontFamily: 'var(--font-bricolage)' }}>
-            ∞
+            ↻
           </div>
 
           <div className="relative z-10 p-7 h-full flex flex-col justify-between">
             <span className="font-mono text-xs text-accent/35" style={{ letterSpacing: '0.12em' }}>05</span>
             <div>
               <h3 className="heading-display text-white mb-2" style={{ fontSize: '1.25rem', letterSpacing: '-0.025em', lineHeight: 1.25 }}>
-                Iteración continua
+                Revisiones incluidas
               </h3>
-              <p className="text-white/45 leading-relaxed group-hover:text-white/65 transition-colors" style={{ fontSize: '0.9rem', lineHeight: 1.65 }}>
-                Refinamos cada pieza hasta que cumpla el objetivo.
+              <p className="text-white/60 leading-relaxed group-hover:text-white/75 transition-colors" style={{ fontSize: '0.9rem', lineHeight: 1.65 }}>
+                De 2 a 4 revisiones por pieza según tu plan, sin cobros extra.
               </p>
             </div>
           </div>
@@ -279,8 +279,8 @@ export default function Features() {
               <h3 className="heading-display text-white mb-2" style={{ fontSize: '1.25rem', letterSpacing: '-0.025em', lineHeight: 1.25 }}>
                 Siempre a tu lado
               </h3>
-              <p className="text-white/45 leading-relaxed group-hover:text-white/65 transition-colors max-w-xs" style={{ fontSize: '0.9rem', lineHeight: 1.65 }}>
-                Comunicación directa, revisiones sin burocracia y equipo dedicado.
+              <p className="text-white/60 leading-relaxed group-hover:text-white/75 transition-colors max-w-xs" style={{ fontSize: '0.9rem', lineHeight: 1.65 }}>
+                Comunicación directa y un solo equipo para branding, contenido y fotografía.
               </p>
             </div>
           </div>
@@ -295,7 +295,7 @@ export default function Features() {
           <Link
             key={s.slug}
             href={`/servicios/${s.slug}`}
-            className="text-xs font-mono px-4 py-2 rounded-full border border-white/[0.08] text-white/45
+            className="text-xs font-mono px-4 py-2 rounded-full border border-white/[0.08] text-white/60
               hover:border-accent/40 hover:text-white/80 transition-all duration-300"
           >
             {s.label}

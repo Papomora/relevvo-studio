@@ -70,6 +70,8 @@ export default function AIStory() {
   // Counter animation on stats
   useEffect(() => {
     if (typeof window === 'undefined') return
+    // Con movimiento reducido se quedan las cifras finales del SSR.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const counters = document.querySelectorAll('.stat-counter')
     counters.forEach(el => {
       const num = parseInt(el.getAttribute('data-num') || '0')
@@ -115,8 +117,8 @@ export default function AIStory() {
             <span className="heading-display text-white block">Diseño que mueve</span>
             <span className="heading-serif text-white block">negocios.</span>
           </h2>
-          <p className="text-white/45 text-lg mt-6 max-w-xl mx-auto leading-relaxed">
-            Más de 20 marcas en nueve años de oficio. Esta es la diferencia entre tener diseño y tener una marca que realmente trabaja para ti.
+          <p className="text-white/60 text-lg mt-6 max-w-xl mx-auto leading-relaxed">
+            Más de 20 marcas y nueve años de oficio detrás de cada entrega. Esta es la diferencia entre tener diseño y tener una marca que realmente trabaja para ti.
           </p>
         </div>
 
@@ -141,7 +143,7 @@ export default function AIStory() {
               WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
             }}>pero no consigue clientes?</span>
           </h3>
-          <p className="text-white/55 text-lg leading-relaxed relative z-10 max-w-2xl">
+          <p className="text-white/60 text-lg leading-relaxed relative z-10 max-w-2xl">
             El problema no es el diseño — es la estrategia que falta detrás. En Relevvo no te damos solo piezas gráficas.
             Te damos una marca con identidad, contenido con propósito y entregas que llegan cuando dijimos que llegaban.
           </p>
@@ -157,7 +159,7 @@ export default function AIStory() {
           >
             Las marcas invierten en diseño sin invertir en posicionamiento.
           </h3>
-          <p className="text-white/50 text-base md:text-lg leading-relaxed mb-4">
+          <p className="text-white/60 text-base md:text-lg leading-relaxed mb-4">
             Un logo bonito no garantiza ventas. Una publicación bien diseñada no garantiza visibilidad.
             Siempre hace falta algo más: una estrategia clara, una voz consistente y un equipo que entienda tu negocio.
           </p>
@@ -167,12 +169,12 @@ export default function AIStory() {
         <div ref={toolsRef} className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-16">
           {[
             { stage: 'Freelancer', problem: '"Entrega rápido, pero no entiende mi marca ni tiene visión estratégica."', color: 'rgba(59,130,246,0.15)', border: 'rgba(59,130,246,0.25)', text: '#60A5FA' },
-            { stage: 'Agencia tradicional', problem: '"Cobra mucho, tarda semanas y nunca hablas con quien hace el trabajo."', color: 'rgba(245,158,11,0.1)', border: 'rgba(245,158,11,0.25)', text: '#F59E0B' },
+            { stage: 'Agencia tradicional', problem: '"Cotiza pieza por pieza, tarda semanas y nunca hablas con quien hace el trabajo."', color: 'rgba(245,158,11,0.1)', border: 'rgba(245,158,11,0.25)', text: '#F59E0B' },
             { stage: 'Relevvo', problem: '"Velocidad de freelancer, estrategia de agencia. Precio fijo y publicado."', color: 'rgba(124,58,237,0.12)', border: 'rgba(124,58,237,0.3)', text: '#A78BFA' },
           ].map((item, i) => (
             <div key={i} className="rounded-2xl p-6" style={{ background: item.color, border: `1px solid ${item.border}` }}>
               <span className="font-mono text-xs mb-3 block" style={{ color: item.text, letterSpacing: '0.1em' }}>{item.stage}</span>
-              <p className="text-white/60 text-sm leading-relaxed italic">"{item.problem}"</p>
+              <p className="text-white/60 text-sm leading-relaxed italic">{item.problem}</p>
             </div>
           ))}
         </div>
@@ -189,7 +191,7 @@ export default function AIStory() {
           >
             No somos un proveedor de diseño.<br />Somos tu socio de crecimiento.
           </h3>
-          <p className="text-white/50 text-base md:text-lg leading-relaxed">
+          <p className="text-white/60 text-base md:text-lg leading-relaxed">
             La mayoría de las agencias te entregan archivos. Nosotros te entregamos resultados. La diferencia
             está en cómo entendemos tu marca antes de abrir cualquier programa.
           </p>
@@ -209,7 +211,7 @@ export default function AIStory() {
                   'Poca comunicación con el cliente',
                   'Cobra por proyecto (impredecible)',
                   'Diseña sin entender el negocio',
-                  'Revisiones limitadas y costosas',
+                  'Revisiones extra cobradas aparte',
                 ],
                 color: '#F87171', bg: 'rgba(248,113,113,0.08)', border: 'rgba(248,113,113,0.2)',
               },
@@ -220,7 +222,7 @@ export default function AIStory() {
                   'Comunicación directa, sin burocracia',
                   'Plan mensual claro y predecible',
                   'Estrategia antes que estética',
-                  'Iteramos hasta que funcione',
+                  'Revisiones por pieza incluidas en cada plan',
                 ],
                 color: '#41E575', bg: 'rgba(65,229,117,0.08)', border: 'rgba(65,229,117,0.2)',
               },
@@ -248,20 +250,26 @@ export default function AIStory() {
             className="heading-display text-white mb-5"
             style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)', letterSpacing: '-0.025em', lineHeight: 1.2 }}
           >
-            Marcas reales. Resultados medibles.
+            Marcas reales. Oficio comprobable.
           </h3>
-          <p className="text-white/50 text-base md:text-lg leading-relaxed">
-            No hablamos de potencial — hablamos de lo que ya hemos construido: identidades, comunidades, ventas.
-            Cada cliente que crece con nosotros es la prueba de que el método funciona.
+          <p className="text-white/60 text-base md:text-lg leading-relaxed">
+            No hablamos de potencial — hablamos de lo que ya está construido: identidades, contenido y
+            comunidades para marcas reales, que puedes ver en nuestro portafolio.
           </p>
         </div>
 
         {/* Stats — counter animation on scroll */}
         <div ref={statsRef} className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           {[
-            { value: '20+', num: 20, suffix: '+', label: 'Marcas potenciadas en nueve años', accent: '#7C3AED' },
-            { value: '9+',  num: 9,  suffix: '+', label: 'Años construyendo identidades que perduran', accent: '#41E575' },
-            { value: '100%', num: 100, suffix: '%', label: 'De compromiso con cada cliente, sin importar el plan', accent: '#FFB0CD' },
+            // Cifras con respaldo en lib/founder.ts: 20+ = marcas en la carrera
+            // completa del director creativo (confirmado por el dueño); 9+ =
+            // años desde 2016 según TIMELINE; 2 = países activos (Col · Méx).
+            // Etiquetas sin cruzar cifras entre tarjetas: el contador anima
+            // cada una por separado y a mitad de animación "14+ en nueve años"
+            // junto a "6+ años" se leía como contradicción.
+            { value: '20+', num: 20, suffix: '+', label: 'Marcas trabajadas por nuestro director creativo', accent: '#7C3AED' },
+            { value: '9+',  num: 9,  suffix: '+', label: 'Años de oficio en diseño, desde 2016', accent: '#41E575' },
+            { value: '2',   num: 2,  suffix: '',  label: 'Países con marcas activas: Colombia y México', accent: '#FFB0CD' },
           ].map((s, i) => (
             <div
               key={i}
@@ -278,7 +286,7 @@ export default function AIStory() {
               >
                 {s.value}
               </p>
-              <p className="text-white/45 text-sm leading-snug">{s.label}</p>
+              <p className="text-white/60 text-sm leading-snug">{s.label}</p>
             </div>
           ))}
         </div>
@@ -296,8 +304,8 @@ export default function AIStory() {
             Una marca no crece por tener un logo bonito.<br />
             Crece cuando el mensaje correcto llega a la persona correcta, en el momento exacto.
           </h3>
-          <p className="text-white/55 text-base leading-relaxed max-w-2xl">
-            Diseñamos para que tu audiencia te recuerde. Estrategiamos para que te elija. Ejecutamos para que te recomiende.
+          <p className="text-white/60 text-base leading-relaxed max-w-2xl">
+            Diseñamos para que tu audiencia te recuerde. Planeamos la estrategia para que te elija. Ejecutamos para que te recomiende.
             Eso es lo que construimos en Relevvo.
           </p>
         </div>
@@ -312,7 +320,7 @@ export default function AIStory() {
           >
             Como si la marca fuera nuestra.
           </h3>
-          <p className="text-white/50 text-base md:text-lg leading-relaxed">
+          <p className="text-white/60 text-base md:text-lg leading-relaxed">
             Trabajamos como si tu marca fuera nuestra. Con el mismo nivel de exigencia, atención al detalle
             y urgencia que tendría el dueño del negocio.
           </p>
@@ -353,14 +361,14 @@ export default function AIStory() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="rounded-2xl p-6" style={{ background: 'rgba(96,165,250,0.06)', border: '1px solid rgba(96,165,250,0.18)' }}>
               <h5 className="font-mono text-xs mb-4 uppercase" style={{ color: '#60A5FA', letterSpacing: '0.1em' }}>Proyecto pequeño</h5>
-              <p className="text-white/55 text-sm leading-relaxed">
+              <p className="text-white/60 text-sm leading-relaxed">
                 Piezas puntuales, prototipos rápidos, primeras versiones. Ahí la IA acelera muchísimo el proceso —
                 y lo usamos sin pena, porque el objetivo es velocidad sin sacrificar criterio.
               </p>
             </div>
             <div className="rounded-2xl p-6" style={{ background: 'rgba(124,58,237,0.08)', border: '1px solid rgba(124,58,237,0.25)' }}>
               <h5 className="font-mono text-xs mb-4 uppercase" style={{ color: '#A78BFA', letterSpacing: '0.1em' }}>Proyecto corporativo</h5>
-              <p className="text-white/55 text-sm leading-relaxed">
+              <p className="text-white/60 text-sm leading-relaxed">
                 Sistemas de marca completos, manuales, señalética, papelería, decenas de piezas coherentes entre sí.
                 Ahí la IA sola no basta: se necesita dominio real de herramientas profesionales y visión estratégica humana.
               </p>
@@ -378,12 +386,12 @@ export default function AIStory() {
           >
             No somos para todo el mundo.
           </h3>
-          <p className="text-white/50 text-base md:text-lg leading-relaxed mb-6">
+          <p className="text-white/60 text-base md:text-lg leading-relaxed mb-6">
             No somos para todo el mundo — y eso es intencional. Somos para quienes ya saben que el diseño
             es una inversión, no un gasto. Para quienes están cansados de los freelancers inconsistentes
             y las agencias que no responden.
           </p>
-          <p className="text-white/50 text-base md:text-lg leading-relaxed">
+          <p className="text-white/60 text-base md:text-lg leading-relaxed">
             Si tu marca ya vende pero quiere crecer. Si estás lanzando y quieres hacerlo bien desde el principio.
             Si necesitas un equipo que entienda tu negocio tanto como tú — estás en el lugar correcto.
           </p>
@@ -407,7 +415,7 @@ export default function AIStory() {
             No somos más rápidos porque hacemos menos.<br />
             Somos más rápidos porque sabemos exactamente qué hacer.
           </h3>
-          <p className="text-white/45 text-base relative z-10">
+          <p className="text-white/60 text-base relative z-10">
             Eso es Relevvo.
           </p>
         </div>

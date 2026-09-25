@@ -19,12 +19,12 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: '¿En qué ciudades de Colombia operan?',
     answer:
-      'Trabajamos con clientes en todo Colombia de forma 100% digital: Bogotá, Medellín, Cali, Barranquilla, Cartagena y cualquier otra ciudad. Todo el proceso es remoto y sin necesidad de reuniones presenciales.',
+      'Trabajamos con clientes en todo Colombia — Bogotá, Medellín, Cali, Barranquilla, Cartagena y cualquier otra ciudad — y también con marcas en México. La estrategia, el diseño y las revisiones son 100% digitales, sin necesidad de reuniones presenciales; las sesiones de fotografía de los planes que las incluyen se coordinan contigo.',
   },
   {
     question: '¿Cuánto cuesta un estudio de diseño en Colombia?',
     answer:
-      'En Relevvo Studio manejamos planes mensuales según el volumen de trabajo y servicios requeridos, sin sobrecostos ocultos ni tarifas por revisión. Escríbenos y te armamos una cotización a la medida.',
+      'En Relevvo Studio trabajamos con tres planes mensuales de precio fijo (BASIC, MID y FULL), publicados en relevvostudio.com/planes. Cada plan incluye un número fijo de revisiones por pieza, sin sobrecostos ocultos ni cotizaciones sorpresa. Si necesitas un proyecto puntual, como una página web, lo cotizamos según su alcance.',
   },
   {
     question: '¿Qué servicios ofrece Relevvo Studio?',

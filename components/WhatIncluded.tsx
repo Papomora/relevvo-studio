@@ -1,10 +1,13 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
 import Link from 'next/link'
 import { WA_URL } from '@/lib/constants'
+
+gsap.registerPlugin(ScrollTrigger, useGSAP)
 
 // Hanzo-style "What's included" — clean checklist + testimonial side-by-side
 
@@ -25,10 +28,7 @@ export default function WhatIncluded() {
   const rightRef   = useRef<HTMLDivElement>(null)
   const itemsRef   = useRef<HTMLUListElement>(null)
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    gsap.registerPlugin(ScrollTrigger)
-
+  useGSAP(() => {
     gsap.from(leftRef.current, {
       x: -40, opacity: 0, duration: 0.9, ease: 'power3.out',
       scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' },
@@ -45,7 +45,7 @@ export default function WhatIncluded() {
         scrollTrigger: { trigger: itemsRef.current, start: 'top 82%' },
       })
     }
-  }, [])
+  }, { scope: sectionRef })
 
   return (
     <section
@@ -127,7 +127,7 @@ export default function WhatIncluded() {
       {/* ── Right: booking card + testimonial ── */}
       <div ref={rightRef} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
 
-        {/* Booking card — Hanzo "only 2 spots left" */}
+        {/* Booking card — sin escasez inventada ("solo N cupos") */}
         <div
           style={{
             background: 'rgba(124,58,237,0.08)',
@@ -143,7 +143,7 @@ export default function WhatIncluded() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#41E575', animation: 'pulse 2s ease-in-out infinite' }} />
             <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#41E575', fontFamily: 'var(--font-inter)' }}>
-              Agenda abierta — solo 3 cupos
+              Agenda abierta
             </span>
           </div>
 
@@ -154,7 +154,7 @@ export default function WhatIncluded() {
             Agenda una llamada<br />de diagnóstico gratis
           </h3>
 
-          <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, marginBottom: 24 }}>
+          <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.65)', lineHeight: 1.6, marginBottom: 24 }}>
             30 minutos para entender tu marca, tus metas y si somos la opción correcta para ti.
           </p>
 
@@ -199,7 +199,7 @@ export default function WhatIncluded() {
             <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, rgba(124,58,237,0.4), rgba(167,139,250,0.2))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 700, color: 'rgba(167,139,250,0.9)' }}>CR</div>
             <div>
               <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#fff' }}>Carlos Ramírez</div>
-              <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)' }}>CEO · Marca Digital MX</div>
+              <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)' }}>CEO · Marca Digital MX</div>
             </div>
           </div>
         </div>

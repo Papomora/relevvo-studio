@@ -4,7 +4,10 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { gsap } from 'gsap'
+import { useGSAP } from '@gsap/react'
 import { WA_URL } from '@/lib/constants'
+
+gsap.registerPlugin(useGSAP)
 
 const navLinks = [
   { label: 'Nosotros',   href: '/nosotros' },
@@ -50,9 +53,13 @@ export default function Navbar() {
     return () => window.removeEventListener('keydown', onKey)
   }, [close])
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return
+  // useGSAP revierte el tween al desmontar (evita tweens huérfanos en
+  // navegación cliente y en el doble montaje de StrictMode).
+  useGSAP(() => {
     gsap.from(navRef.current, { y: -20, opacity: 0, duration: 0.7, ease: 'power3.out', delay: 0.1 })
+  }, { scope: navRef })
+
+  useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -62,7 +69,10 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ── Announcement bar ── */}
+      {/* ── Announcement bar ──
+          Solo informativa. Antes tenía "Cupos disponibles" (escasez que no es
+          real) y un link "Hablemos ahora" a WhatsApp: en móvil sumaba un 4.º CTA
+          de WhatsApp sobre el pliegue. El único CTA primario arriba es el del Hero. */}
       {barOpen && (
         <div
           style={{
@@ -78,22 +88,15 @@ export default function Navbar() {
             color: 'rgba(167,139,250,0.9)',
           }}
         >
-          <span className="hidden sm:inline">✦ Estudio creativo 360° en Colombia &amp; México — Cupos disponibles</span>
-          <span className="sm:hidden">✦ Cupos disponibles</span>
-          <Link
-            href={WA_URL} target="_blank" rel="noopener noreferrer"
-            style={{ color: '#fff', fontWeight: 600, textDecoration: 'none', whiteSpace: 'nowrap' }}
-            className="hover:text-accent-light transition-colors"
-          >
-            Hablemos ahora →
-          </Link>
+          <span className="hidden sm:inline">✦ Estudio creativo 360° en Colombia &amp; México</span>
+          <span className="sm:hidden">✦ Estudio creativo 360° · Col &amp; Méx</span>
           <button
             onClick={() => setBarOpen(false)}
             aria-label="Cerrar aviso"
             style={{
               position: 'absolute', right: 14,
               background: 'none', border: 'none', cursor: 'pointer',
-              color: 'rgba(255,255,255,0.35)', fontSize: '1rem', lineHeight: 1, padding: '4px',
+              color: 'rgba(255,255,255,0.6)', fontSize: '1rem', lineHeight: 1, padding: '4px',
               transition: 'color .2s',
             }}
             className="hover:text-white"
@@ -137,9 +140,10 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Desktop CTA */}
+          {/* Desktop CTA — oculto en móvil a propósito: ahí ya está el FAB de
+              WhatsApp (tras pasar el hero) y el botón dentro del menú. */}
           <Link href={WA_URL} target="_blank" rel="noopener noreferrer"
-            className="btn-primary btn-glow py-2 px-5 text-sm ml-2 hidden md:flex items-center gap-1.5">
+            className="btn-primary btn-glow py-2 px-5 text-sm ml-2 max-md:!hidden md:flex items-center gap-1.5">
             {WA_ICON} Escríbenos
           </Link>
 
@@ -179,7 +183,7 @@ export default function Navbar() {
               style={{ transitionDelay: menuOpen ? `${i * 40}ms` : '0ms' }}
             >
               {link.label}
-              <span className="text-white/25">→</span>
+              <span className="text-white/40" aria-hidden="true">→</span>
             </Link>
           ))}
           <Link

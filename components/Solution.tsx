@@ -125,7 +125,7 @@ export default function Solution() {
             un solo aliado.
           </span>
         </h2>
-        <p className="text-white/50 text-lg max-w-xl mx-auto leading-relaxed">
+        <p className="text-white/60 text-lg max-w-xl mx-auto leading-relaxed">
           En Relevvo cubrimos de forma integral tus necesidades visuales y estratégicas,
           para que no tengas que coordinar múltiples proveedores.
         </p>

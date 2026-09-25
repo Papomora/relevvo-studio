@@ -1,10 +1,22 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { gsap } from 'gsap'
+import { useGSAP } from '@gsap/react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { WA_URL } from '@/lib/constants'
 import { ButtonColorful } from '@/components/ui/button-colorful'
+
+gsap.registerPlugin(useGSAP)
+
+// Miniaturas de trabajo real (mismos assets que el Portafolio).
+const THUMBS: { src: string; label: string; client: string; position?: string }[] = [
+  { src: '/clientes/masbrownie/banner1.png',         label: 'Producto',   client: 'Más Brownie' },
+  { src: '/images/factory-demo/hotwheels-despues.jpg', label: 'Ecommerce',  client: 'Factory Artesanías' },
+  { src: '/images/nosotros/cliente-logo-word.png',   label: 'Social',     client: 'Relevvo Studio', position: 'center 35%' },
+  { src: '/clientes/masbrownie/banner3.png',         label: 'Campaña',    client: 'Más Brownie' },
+]
 
 // ── Hanzo-style clip reveal: line slides up from hidden bottom ──
 function RevealLine({ children, delay = 0, className = '', style = {} }: {
@@ -13,50 +25,50 @@ function RevealLine({ children, delay = 0, className = '', style = {} }: {
   className?: string
   style?: React.CSSProperties
 }) {
-  const wrapRef = useRef<HTMLSpanElement>(null)
   const innerRef = useRef<HTMLSpanElement>(null)
 
-  useEffect(() => {
-    if (!innerRef.current) return
-    gsap.from(innerRef.current, {
-      y: '105%',
-      duration: 1.0,
-      ease: 'power4.out',
-      delay,
+  useGSAP(() => {
+    const mm = gsap.matchMedia()
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      gsap.from(innerRef.current, { y: '105%', duration: 1.0, ease: 'power4.out', delay })
     })
-  }, [delay])
+  }, { dependencies: [delay] })
 
   // <span display:block> en vez de <div>: se ve igual, pero permite anidar
   // este helper dentro de un <h1> sin producir HTML inválido.
   return (
-    <span ref={wrapRef} style={{ overflow: 'hidden', display: 'block', ...style }} className={className}>
+    <span style={{ overflow: 'hidden', display: 'block', ...style }} className={className}>
       <span ref={innerRef} style={{ display: 'block' }}>{children}</span>
     </span>
   )
 }
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null)
   const badgeRef   = useRef<HTMLDivElement>(null)
   const subRef     = useRef<HTMLDivElement>(null)
   const ctasRef    = useRef<HTMLDivElement>(null)
   const thumbsRef  = useRef<HTMLDivElement>(null)
   const glowRef    = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return
+  // useGSAP revierte todos los tweens (incluido el glow infinito) al desmontar.
+  useGSAP(() => {
+    const mm = gsap.matchMedia()
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      // Fade-ins after the line reveals
+      gsap.from(badgeRef.current,  { y: 16, opacity: 0, duration: 0.6, ease: 'power3.out', delay: 0.05 })
+      gsap.from(subRef.current,    { y: 20, opacity: 0, duration: 0.7, ease: 'power3.out', delay: 1.1 })
+      gsap.from(ctasRef.current,   { y: 20, opacity: 0, duration: 0.7, ease: 'power3.out', delay: 1.25 })
+      gsap.from(thumbsRef.current, { y: 32, opacity: 0, duration: 0.8, ease: 'power3.out', delay: 1.4 })
 
-    // Fade-ins after the line reveals
-    gsap.from(badgeRef.current,  { y: 16, opacity: 0, duration: 0.6, ease: 'power3.out', delay: 0.05 })
-    gsap.from(subRef.current,    { y: 20, opacity: 0, duration: 0.7, ease: 'power3.out', delay: 1.1 })
-    gsap.from(ctasRef.current,   { y: 20, opacity: 0, duration: 0.7, ease: 'power3.out', delay: 1.25 })
-    gsap.from(thumbsRef.current, { y: 32, opacity: 0, duration: 0.8, ease: 'power3.out', delay: 1.4 })
-
-    // Ambient glow pulse
-    gsap.to(glowRef.current, { scale: 1.18, duration: 6, ease: 'sine.inOut', yoyo: true, repeat: -1 })
-  }, [])
+      // Ambient glow pulse
+      gsap.to(glowRef.current, { scale: 1.18, duration: 6, ease: 'sine.inOut', yoyo: true, repeat: -1 })
+    })
+  }, { scope: sectionRef })
 
   return (
     <section
+      ref={sectionRef}
       className="relative overflow-hidden"
       style={{
         minHeight: '100vh',
@@ -86,20 +98,20 @@ export default function Hero() {
         }}
       />
 
-      {/* ── Booking badge ── */}
+      {/* ── Badge (sin escasez inventada) ── */}
       <div ref={badgeRef} className="mb-8" style={{ position: 'relative', zIndex: 2 }}>
         <span
           style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
-            background: 'rgba(65,229,117,0.1)',
-            border: '1px solid rgba(65,229,117,0.25)',
+            background: 'rgba(167,139,250,0.1)',
+            border: '1px solid rgba(167,139,250,0.3)',
             borderRadius: 100, padding: '6px 16px',
-            fontSize: '0.75rem', fontWeight: 700, color: '#41E575',
+            fontSize: '0.75rem', fontWeight: 700, color: '#C4B5FD',
             letterSpacing: '0.04em',
           }}
         >
-          <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#41E575', animation: 'pulse 2s ease-in-out infinite' }} />
-          Cupos abiertos — solo 3 marcas este mes
+          <span aria-hidden="true" style={{ width: 7, height: 7, borderRadius: '50%', background: '#A78BFA' }} />
+          Estudio creativo en Colombia y México
         </span>
       </div>
 
@@ -119,7 +131,7 @@ export default function Hero() {
               fontWeight: 900,
             }}
           >
-            Diseño
+            Branding,
           </span>
         </RevealLine>
 
@@ -133,7 +145,7 @@ export default function Hero() {
               letterSpacing: '-0.04em',
             }}
           >
-            sin límites.
+            contenido y
           </span>
         </RevealLine>
 
@@ -152,7 +164,7 @@ export default function Hero() {
               backgroundClip: 'text',
             }}
           >
-            Resultados.
+            fotografía.
           </span>
         </RevealLine>
 
@@ -167,8 +179,8 @@ export default function Hero() {
           marginBottom: 56,
         }}
       >
-        <p style={{ fontSize: '1.125rem', lineHeight: 1.65, color: 'rgba(255,255,255,0.52)', maxWidth: 420 }}>
-          Branding, contenido y fotografía propia, todo bajo un mismo techo. Plan mensual fijo, sin cotizaciones sorpresa ni cobros por revisión.
+        <p style={{ fontSize: '1.125rem', lineHeight: 1.65, color: 'rgba(255,255,255,0.72)', maxWidth: 440 }}>
+          Todo hecho por nuestro equipo, con fotografía propia y un plan mensual fijo: sin cotizaciones sorpresa ni cobros por revisión.
         </p>
 
         <div ref={ctasRef} style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0, flexWrap: 'wrap' }}>
@@ -185,7 +197,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ── Hanzo-style project thumbnails row ── */}
+      {/* ── Miniaturas de trabajo real → llevan al portafolio ── */}
       <div
         ref={thumbsRef}
         className="thumbs-scroll"
@@ -194,63 +206,70 @@ export default function Hero() {
           display: 'flex', gap: 12,
         }}
       >
-        {[
-          { label: 'Branding',   accent: '#7C3AED', emoji: '🎨' },
-          { label: 'Social',     accent: '#41E575', emoji: '📱' },
-          { label: 'Ecommerce',  accent: '#FFB0CD', emoji: '🛒' },
-          { label: 'Campañas',   accent: '#F59E0B', emoji: '📈' },
-          { label: 'Fotografía', accent: '#A78BFA', emoji: '📸' },
-        ].map((thumb, i) => (
-          <div
-            key={i}
-            className="thumb-card"
-            style={{
-              flex: i === 0 ? '2 0 auto' : '1 0 auto',
-              height: 120,
-              borderRadius: 16,
-              background: `linear-gradient(135deg, ${thumb.accent}22 0%, ${thumb.accent}0a 100%)`,
-              border: `1px solid ${thumb.accent}35`,
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              justifyContent: 'space-between',
-              padding: '16px',
-              transition: 'transform .3s ease, border-color .3s, background .3s',
-              cursor: 'pointer',
-              position: 'relative',
-            }}
-            onMouseEnter={e => {
-              const el = e.currentTarget as HTMLElement
-              el.style.transform = 'translateY(-3px)'
-              el.style.borderColor = `${thumb.accent}70`
-              el.style.background = `linear-gradient(135deg, ${thumb.accent}33 0%, ${thumb.accent}15 100%)`
-            }}
-            onMouseLeave={e => {
-              const el = e.currentTarget as HTMLElement
-              el.style.transform = 'translateY(0)'
-              el.style.borderColor = `${thumb.accent}35`
-              el.style.background = `linear-gradient(135deg, ${thumb.accent}22 0%, ${thumb.accent}0a 100%)`
-            }}
+        {THUMBS.map((thumb, i) => (
+          <a
+            key={thumb.src}
+            href="/#portafolio"
+            className={`thumb-card${i === 0 ? ' thumb-card--wide' : ''}`}
+            aria-label={`${thumb.label}: ${thumb.client} — ver en el portafolio`}
           >
-            <span style={{ fontSize: '1.75rem', lineHeight: 1 }}>{thumb.emoji}</span>
-            <span style={{
-              fontSize: '0.6875rem', fontWeight: 700,
-              color: thumb.accent,
-              letterSpacing: '0.1em', textTransform: 'uppercase',
-              fontFamily: 'var(--font-inter)',
-            }}>{thumb.label}</span>
-          </div>
+            <Image
+              src={thumb.src}
+              alt=""
+              fill
+              sizes="(max-width: 767px) 160px, 260px"
+              style={{ objectFit: 'cover', objectPosition: thumb.position ?? 'center' }}
+            />
+            <span className="thumb-shade" aria-hidden="true" />
+            <span className="thumb-label">
+              <span className="thumb-kind">{thumb.label}</span>
+              <span className="thumb-client">{thumb.client}</span>
+            </span>
+          </a>
         ))}
       </div>
 
       <style jsx>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50%       { opacity: 0.5; transform: scale(0.8); }
+        .thumb-card {
+          position: relative;
+          flex: 1 0 auto;
+          min-width: 96px;
+          height: 120px;
+          border-radius: 16px;
+          overflow: hidden;
+          border: 1px solid rgba(255,255,255,0.12);
+          background: rgba(255,255,255,0.04);
+          display: block;
+          transition: transform .3s ease, border-color .3s ease;
         }
-        .thumb-card { min-width: 96px; }
+        .thumb-card--wide { flex: 2 0 auto; }
+        .thumb-card :global(img) { transition: transform .5s ease; }
+        .thumb-card:hover,
+        .thumb-card:focus-visible {
+          transform: translateY(-3px);
+          border-color: rgba(167,139,250,0.6);
+        }
+        .thumb-card:hover :global(img) { transform: scale(1.05); }
+        .thumb-card:focus-visible { outline: 2px solid #A78BFA; outline-offset: 3px; }
+        .thumb-shade {
+          position: absolute; inset: 0;
+          background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.78) 100%);
+          pointer-events: none;
+        }
+        .thumb-label {
+          position: absolute; left: 12px; right: 12px; bottom: 10px;
+          display: flex; flex-direction: column; gap: 2px;
+          font-family: var(--font-inter);
+        }
+        .thumb-kind {
+          font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em;
+          text-transform: uppercase; color: #fff;
+        }
+        .thumb-client { font-size: 0.75rem; color: rgba(255,255,255,0.8); }
+        @media (prefers-reduced-motion: reduce) {
+          .thumb-card, .thumb-card :global(img) { transition: none; }
+          .thumb-card:hover, .thumb-card:hover :global(img) { transform: none; }
+        }
         @media (max-width: 480px) {
           .hero-headline { font-size: clamp(2.75rem, 15vw, 4rem) !important; }
         }

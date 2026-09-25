@@ -1,9 +1,12 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
 import Image from 'next/image'
+
+gsap.registerPlugin(ScrollTrigger, useGSAP)
 
 const logos: { name: string; src: string | null; href: string | null; cta?: boolean }[] = [
   { name: 'Molicié',           src: '/images/Logos/MOLICIE.png',         href: 'https://www.instagram.com/moliciehogar/' },
@@ -19,10 +22,7 @@ export default function LogosStrip() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const gridRef    = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    gsap.registerPlugin(ScrollTrigger)
-
+  useGSAP(() => {
     const items = gridRef.current?.querySelectorAll('.logo-card')
     if (items) {
       gsap.from(Array.from(items), {
@@ -33,7 +33,7 @@ export default function LogosStrip() {
         scrollTrigger: { trigger: sectionRef.current, start: 'top 84%' },
       })
     }
-  }, [])
+  }, { scope: sectionRef })
 
   return (
     <section ref={sectionRef} id="clientes" className="py-20 px-4 max-w-5xl mx-auto">
@@ -68,12 +68,12 @@ export default function LogosStrip() {
           const inner = logo.cta ? (
             <div className="text-center px-4 flex flex-col items-center gap-2">
               <div className="w-5 h-px mb-1" style={{ background: 'rgba(124,58,237,0.6)' }} />
-              <span className="font-display font-bold uppercase text-white/35 leading-tight"
+              <span className="font-display font-bold uppercase text-white/60 leading-tight"
                 style={{ fontSize: '0.65rem', letterSpacing: '0.18em' }}>
                 Tu marca
               </span>
               <span className="font-display font-bold uppercase leading-tight"
-                style={{ fontSize: '0.7rem', letterSpacing: '0.14em', color: 'rgba(124,58,237,0.7)' }}>
+                style={{ fontSize: '0.7rem', letterSpacing: '0.14em', color: 'rgba(167,139,250,0.9)' }}>
                 es la siguiente
               </span>
             </div>
@@ -94,7 +94,7 @@ export default function LogosStrip() {
               ) : (
                 <span
                   className="font-display font-bold text-sm tracking-widest uppercase transition-all duration-300 group-hover:drop-shadow-[0_0_8px_rgba(124,58,237,0.7)]"
-                  style={{ color: 'rgba(255,255,255,0.45)', letterSpacing: '0.12em' }}
+                  style={{ color: 'rgba(255,255,255,0.65)', letterSpacing: '0.12em' }}
                 >
                   {logo.name}
                 </span>

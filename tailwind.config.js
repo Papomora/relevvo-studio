@@ -14,7 +14,7 @@ module.exports = {
       },
       fontFamily: {
         display: ['var(--font-bricolage)', 'sans-serif'],
-        serif: ['var(--font-cormorant)', 'serif'],
+        serif: ['var(--font-instrument)', 'serif'],
         sans: ['var(--font-inter)', 'sans-serif'],
       },
     },

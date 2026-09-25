@@ -2,9 +2,13 @@
 
 // No tuve acceso al prototipo del artifact citado en el prompt (no puedo
 // abrir enlaces de claude.ai/code/artifact desde esta sesión) — el copy de
-// abajo es propio, siguiendo el ángulo que sí venía especificado: contratar
-// diseño hoy es caro, lento y opaco. Si el prototipo dice otra cosa,
-// ajústalo — la estructura (4 dolores, grid 2x2) sí sigue el pedido.
+// abajo es propio, siguiendo el ángulo que sí venía especificado. Ángulo
+// ajustado (sep 2026) de "caro" a "impredecible": con MID en $2.990.000 y
+// FULL en $6.490.000 ya no podemos criticar una cifra ("$2M+ al mes") que
+// nuestros propios planes superan. El dolor es lo que se recibe por el
+// dinero (piezas sueltas, cobros por revisión, cotizaciones sorpresa), no
+// el monto. No reintroducir cifras de precio acá.
+// La estructura (4 dolores, grid 2x2) sí sigue el pedido.
 
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
@@ -12,8 +16,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const DOLORES = [
   {
-    title: 'Agencias que cobran caro por poco',
-    body: 'Tarifas de $2M+ al mes por un par de piezas y una llamada de estado. El presupuesto se va en estructura, no en resultado.',
+    title: 'Pagas mucho y no sabes bien por qué',
+    body: 'Piezas sueltas sin un hilo de marca, cada revisión extra se cobra aparte y la cotización cambia a mitad de camino. El presupuesto se va en sorpresas, no en resultado.',
   },
   {
     title: 'Entregas que se demoran semanas',
@@ -59,7 +63,7 @@ export default function Problema() {
             Contratar diseño hoy es{' '}
           </span>
           <span className="heading-serif text-white" style={{ fontSize: 'clamp(2.2rem, 5vw, 3.6rem)' }}>
-            caro, lento y opaco.
+            impredecible, lento y opaco.
           </span>
         </h2>
       </div>

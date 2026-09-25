@@ -1,10 +1,13 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
 import Link from 'next/link'
 import { WA_URL } from '@/lib/constants'
+
+gsap.registerPlugin(ScrollTrigger, useGSAP)
 
 // ── Types ─────────────────────────────────────────────────────
 interface Props {
@@ -35,10 +38,9 @@ export default function VideoParallaxSection({
   const subtextRef  = useRef<HTMLParagraphElement>(null)
   const lineRef     = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    gsap.registerPlugin(ScrollTrigger)
-
+  // useGSAP = gsap.context + revert al desmontar: mata timeline, tweens y
+  // ScrollTriggers (antes quedaban vivos tras navegar entre páginas).
+  useGSAP(() => {
     const tl = gsap.timeline({
       scrollTrigger: { trigger: sectionRef.current, start: 'top 72%' },
     })
@@ -71,7 +73,7 @@ export default function VideoParallaxSection({
         scrub: true,
       },
     })
-  }, [])
+  }, { scope: sectionRef })
 
   return (
     <section
@@ -143,7 +145,7 @@ export default function VideoParallaxSection({
             <span
               ref={eyebrowRef}
               className="font-mono text-xs uppercase block mb-5"
-              style={{ color: 'rgba(124,58,237,0.8)', letterSpacing: '0.16em' }}
+              style={{ color: 'rgba(167,139,250,0.9)', letterSpacing: '0.16em' }}
             >
               {eyebrow}
             </span>
@@ -160,7 +162,7 @@ export default function VideoParallaxSection({
           {subtext && (
             <p
               ref={subtextRef}
-              className="text-white/50 text-lg leading-relaxed max-w-2xl"
+              className="text-white/70 text-lg leading-relaxed max-w-2xl"
               style={{ marginBottom: showCta ? '2.5rem' : 0 }}
             >
               {subtext}

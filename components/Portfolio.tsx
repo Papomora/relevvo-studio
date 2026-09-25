@@ -1,211 +1,277 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import Link from 'next/link'
+import { useRef } from 'react'
+import Image from 'next/image'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
 
-const brands = [
-  {
-    name: 'ARü',
-    category: 'Accesorios Premium',
-    services: ['Branding', 'Contenido', 'Pauta'],
-    url: 'https://www.instagram.com/aru.accesorios/',
-    palette: ['#4B5E3A', '#C9B882', '#F5F0E8'],
-    accent: 'rgba(201,184,130,0.15)',
-    border: 'rgba(201,184,130,0.3)',
-    textAccent: '#C9B882',
-    desc: 'Identidad de marca y estrategia de contenido para accesorios de lujo artesanal.',
-  },
-  {
-    name: 'Crusso',
-    category: 'Retail & Moda',
-    services: ['Branding', 'Diseño', 'Fotografía'],
-    url: 'https://www.instagram.com/tiendacrusso/',
-    palette: ['#1A0A0A', '#8B1A1A', '#C0392B'],
-    accent: 'rgba(192,57,43,0.15)',
-    border: 'rgba(192,57,43,0.35)',
-    textAccent: '#E74C3C',
-    desc: 'Lanzamiento de marca premium para sillas y muebles de alta gama en Bogotá.',
-  },
-  {
-    name: 'Molicie',
-    category: 'Hogar & Decoración',
-    services: ['Contenido', 'Estrategia', 'Pauta'],
-    url: 'https://www.instagram.com/moliciehogar/',
-    palette: ['#2C1A0E', '#8B5E3C', '#D4A574'],
-    accent: 'rgba(180,83,9,0.15)',
-    border: 'rgba(180,83,9,0.35)',
-    textAccent: '#F59E0B',
-    desc: 'Posicionamiento de marca y crecimiento orgánico para almohadas y cojines premium.',
-  },
-  {
-    name: 'Verslä',
-    category: 'Moda Femenina',
-    services: ['Contenido', 'Pauta', 'Diseño'],
-    url: 'https://www.instagram.com/verslafeminite/',
-    palette: ['#0A0A0A', '#C9A84C', '#1C1C1C'],
-    accent: 'rgba(157,23,77,0.15)',
-    border: 'rgba(244,114,182,0.3)',
-    textAccent: '#F472B6',
-    desc: 'Estrategia digital y contenido fashion para moda femenina denim de autor.',
-  },
-  {
-    name: 'Visuality',
-    category: 'Publicidad Exterior',
-    services: ['Estrategia', 'Diseño', 'Web'],
-    url: '#',
-    palette: ['#0A0A0A', '#CC0000', '#1A1A1A'],
-    accent: 'rgba(204,0,0,0.12)',
-    border: 'rgba(204,0,0,0.35)',
-    textAccent: '#EF4444',
-    desc: 'Marca y presencia digital para empresa de publicidad exterior y hologramas.',
-  },
-  {
-    name: 'Groi',
-    category: 'Consultoría',
-    services: ['Branding', 'Web', 'Estrategia'],
-    url: '#',
-    palette: ['#0A0F1A', '#1E40AF', '#3B82F6'],
-    accent: 'rgba(59,130,246,0.12)',
-    border: 'rgba(59,130,246,0.3)',
-    textAccent: '#60A5FA',
-    desc: 'Identidad corporativa y presencia digital para consultoría de crecimiento empresarial.',
-  },
+gsap.registerPlugin(ScrollTrigger, useGSAP)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Solo trabajo real que existe en el repo. NO usar /images/portfolio/* — son
+// mockups de stock marcados "(EXAMPLE ONLY)".
+// Cuando haya fotos reales de otras marcas, súbelas a /public/images/work/ y
+// muévelas de `otherBrands` a `featured`.
+// ─────────────────────────────────────────────────────────────────────────────
+
+type Featured = {
+  client: string
+  category: string
+  services: string[]
+  note?: string
+  url?: string
+}
+
+const brownie: Featured = {
+  client: 'Más Brownie',
+  category: 'Snack saludable',
+  services: ['Visuales de producto', 'Landing'],
+}
+
+const factory: Featured = {
+  client: 'Factory Artesanías',
+  category: 'Artesanías en madera · Tienda Shopify',
+  services: ['Retoque de producto', 'Ficha ecommerce'],
+  note: 'Muestra hecha sobre la foto real de su catálogo.',
+}
+
+const relevvo: Featured = {
+  client: 'Relevvo Studio',
+  category: 'Marca propia · Redes',
+  services: ['Contenido social', 'Dirección de arte'],
+  url: 'https://www.instagram.com/relevvo_studio/',
+}
+
+type Brand = {
+  name: string
+  category: string
+  services: string[]
+  logo?: string
+  url?: string
+}
+
+const otherBrands: Brand[] = [
+  { name: 'Crussó',      category: 'Mobiliario premium',   services: ['Branding', 'Contenido mensual'], logo: '/images/Logos/CRUSSO.png',      url: 'https://www.instagram.com/tiendacrusso/' },
+  { name: 'Molicié',     category: 'Hogar & decoración',   services: ['Contenido', 'Estrategia', 'Pauta'], logo: '/images/Logos/MOLICIE.png', url: 'https://www.instagram.com/moliciehogar/' },
+  { name: 'Verslä',      category: 'Moda femenina',        services: ['Contenido', 'Pauta', 'Diseño'], logo: '/images/Logos/versla.png',       url: 'https://www.instagram.com/verslafeminite/' },
+  { name: 'Metro 73',    category: 'Estilo de vida',       services: ['Branding', 'Social'],           logo: '/images/Logos/METRO73.png',      url: 'https://www.instagram.com/vivemetro73/' },
+  { name: 'LímiteLegal', category: 'Legal & consultoría',  services: ['Identidad', 'Web'],             logo: '/images/Logos/limitelegal.png',  url: 'https://www.instagram.com/limite_legalco/' },
+  { name: 'Forjar',      category: 'Inversiones',          services: ['Branding', 'Naming'],           logo: '/images/Logos/Forjar.png',       url: 'https://www.instagram.com/forjar_inversiones/' },
+  { name: 'ARü',         category: 'Accesorios premium',   services: ['Branding', 'Contenido', 'Pauta'],                                         url: 'https://www.instagram.com/aru.accesorios/' },
+  { name: 'Visuality',   category: 'Publicidad exterior',  services: ['Estrategia', 'Diseño', 'Web'] },
+  { name: 'Groi',        category: 'Consultoría',          services: ['Branding', 'Web', 'Estrategia'] },
 ]
 
+function CaseMeta({ c, dark = true }: { c: Featured; dark?: boolean }) {
+  return (
+    <div className="flex flex-wrap items-end justify-between gap-3">
+      <div>
+        <p className="text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-white/70 mb-1">
+          {c.category}
+        </p>
+        <h3 className="heading-display text-white text-2xl md:text-3xl">{c.client}</h3>
+        {c.note && <p className="text-white/70 text-sm mt-1">{c.note}</p>}
+      </div>
+      <ul className="flex flex-wrap gap-1.5" aria-label="Servicios">
+        {c.services.map((s) => (
+          <li
+            key={s}
+            className={`text-xs font-medium px-2.5 py-1 rounded-full border ${
+              dark ? 'border-white/20 bg-black/40 text-white/85' : 'border-white/15 bg-white/5 text-white/80'
+            } backdrop-blur-sm`}
+          >
+            {s}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+function IgLink({ url, label }: { url: string; label: string }) {
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/85 hover:text-white underline-offset-4 hover:underline"
+    >
+      {label}
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <path d="M3.5 8.5l5-5M4.5 3.5h4v4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </a>
+  )
+}
+
 export default function Portfolio() {
-  const headingRef  = useRef<HTMLDivElement>(null)
-  const gridRef     = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    gsap.registerPlugin(ScrollTrigger)
-
-    gsap.from(headingRef.current, {
-      y: 40, duration: 0.8, ease: 'power3.out',
-      scrollTrigger: { trigger: headingRef.current, start: 'top 80%' },
-    })
-
-    const cards = gridRef.current?.querySelectorAll('.brand-card')
-    if (cards) {
-      gsap.from(Array.from(cards), {
-        y: 50,
-        duration: 0.7,
-        ease: 'power3.out',
-        stagger: { amount: 0.45, from: 'start' },
-        scrollTrigger: { trigger: gridRef.current, start: 'top 80%' },
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia()
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.from('.pf-heading', {
+          y: 40, opacity: 0, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: '.pf-heading', start: 'top 80%', once: true },
+        })
+        gsap.from('.pf-card', {
+          y: 50, opacity: 0, duration: 0.8, ease: 'power3.out',
+          stagger: 0.12,
+          scrollTrigger: { trigger: '.pf-grid', start: 'top 80%', once: true },
+        })
       })
-    }
-  }, [])
+    },
+    { scope: sectionRef },
+  )
 
   return (
-    <section id="portafolio" className="py-24 px-4 max-w-6xl mx-auto">
-      <div ref={headingRef} className="text-center mb-14">
+    <section ref={sectionRef} id="portafolio" className="py-24 px-4 max-w-6xl mx-auto">
+      <div className="pf-heading text-center mb-14">
         <span className="pill-badge mb-6 inline-flex">Portafolio</span>
         <h2 className="mb-4">
           <span className="heading-display text-white" style={{ fontSize: 'clamp(2.2rem, 5vw, 3.8rem)' }}>
-            Marcas que{' '}
+            Trabajo que{' '}
           </span>
           <span className="heading-serif text-white" style={{ fontSize: 'clamp(2.2rem, 5vw, 3.8rem)' }}>
-            construimos juntos.
+            salió del estudio.
           </span>
         </h2>
-        <p className="text-white/50 text-base max-w-lg mx-auto leading-relaxed">
-          Cada proyecto es una historia de marca. Aquí están algunas de las que hemos construido.
+        <p className="text-white/70 text-base max-w-lg mx-auto leading-relaxed">
+          Visuales de producto, retoque para ecommerce y contenido para redes. Esto es lo que hacemos cada mes.
         </p>
       </div>
 
-      <div
-        ref={gridRef}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-      >
-        {brands.map((brand, i) => (
-          <Link
-            key={i}
-            href={brand.url}
-            target={brand.url !== '#' ? '_blank' : undefined}
-            rel="noopener noreferrer"
-            className="brand-card group relative flex flex-col justify-between p-7 rounded-2xl overflow-hidden transition-all duration-400 hover:scale-[1.02]"
-            style={{
-              background: brand.accent,
-              border: `1px solid ${brand.border}`,
-              backdropFilter: 'blur(10px)',
-              minHeight: 220,
-              willChange: 'transform',
-            }}
-          >
-            {/* Hover glow */}
-            <div
-              className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-              style={{ background: brand.accent.replace('0.15', '0.25') }}
+      <div className="pf-grid grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {/* ── 1. Más Brownie — caso grande ── */}
+        <article className="pf-card group lg:col-span-2 relative rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03]">
+          <div className="relative aspect-[3/2] overflow-hidden">
+            <Image
+              src="/clientes/masbrownie/banner1.png"
+              alt="Empaque de Más Brownie, brownie de chocolate 0 g de azúcares añadidos, flotando entre trozos de brownie"
+              fill
+              sizes="(max-width: 1024px) 100vw, 760px"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             />
-
-            {/* Color palette swatch */}
-            <div className="flex gap-1.5 mb-6 relative z-10">
-              {brand.palette.map((color, ci) => (
-                <div
-                  key={ci}
-                  className="rounded-full transition-transform duration-300 group-hover:scale-110"
-                  style={{
-                    width: ci === 0 ? 28 : 20,
-                    height: ci === 0 ? 28 : 20,
-                    background: color,
-                    border: '1.5px solid rgba(255,255,255,0.1)',
-                  }}
-                />
-              ))}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent pointer-events-none" />
+            <div className="absolute inset-x-0 bottom-0 p-5 md:p-7">
+              <CaseMeta c={brownie} />
             </div>
-
-            {/* Brand name */}
-            <div className="relative z-10 flex-1">
-              <h3
-                className="heading-display text-white mb-1 transition-colors duration-300"
-                style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', letterSpacing: '-0.03em' }}
-              >
-                {brand.name}
-              </h3>
-              <p
-                className="font-mono text-xs mb-4"
-                style={{ color: brand.textAccent, letterSpacing: '0.08em' }}
-              >
-                {brand.category}
-              </p>
-              <p className="text-white/40 text-sm leading-relaxed group-hover:text-white/60 transition-colors duration-400">
-                {brand.desc}
-              </p>
-            </div>
-
-            {/* Service tags */}
-            <div className="relative z-10 flex flex-wrap gap-2 mt-5">
-              {brand.services.map((s, si) => (
-                <span
-                  key={si}
-                  className="text-[11px] font-medium px-2.5 py-1 rounded-full"
-                  style={{
-                    background: brand.border.replace('0.35', '0.12').replace('0.3', '0.12'),
-                    border: `1px solid ${brand.border}`,
-                    color: 'rgba(255,255,255,0.6)',
-                  }}
-                >
-                  {s}
-                </span>
-              ))}
-            </div>
-
-            {/* Arrow icon */}
-            {brand.url !== '#' && (
-              <div
-                className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-0 -translate-x-2"
-                style={{ color: brand.textAccent }}
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M7 17L17 7M17 7H7M17 7v10"/>
-                </svg>
+          </div>
+          <div className="grid grid-cols-3 gap-1 p-1">
+            {[
+              { src: '/clientes/masbrownie/banner2.png', alt: 'Empaque Más Brownie sobre cama de brownies' },
+              { src: '/clientes/masbrownie/banner3.png', alt: 'Empaque Más Brownie en escena de panadería con chispas de chocolate' },
+              { src: '/clientes/masbrownie/banner4.png', alt: 'Empaque Más Brownie frente a brownies apilados' },
+            ].map((img) => (
+              <div key={img.src} className="relative aspect-[3/2] overflow-hidden rounded-lg">
+                <Image src={img.src} alt={img.alt} fill sizes="(max-width: 1024px) 33vw, 250px" className="object-cover" />
               </div>
-            )}
-          </Link>
-        ))}
+            ))}
+          </div>
+        </article>
+
+        {/* ── 2. Factory Artesanías — antes / después ── */}
+        <article className="pf-card relative rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03] flex flex-col">
+          <div className="grid grid-cols-2 gap-1 p-1 flex-1">
+            <figure className="relative min-h-[260px] overflow-hidden rounded-xl bg-white">
+              <Image
+                src="/images/factory-demo/hotwheels-antes.jpg"
+                alt="Antes: foto original del organizador de pared Hot Wheels en madera, con sombra y fondo gris"
+                fill
+                sizes="(max-width: 1024px) 50vw, 190px"
+                className="object-cover"
+              />
+              <figcaption className="absolute top-2 left-2 text-[0.6875rem] font-bold uppercase tracking-wider px-2 py-1 rounded-full bg-black/75 text-white">
+                Antes
+              </figcaption>
+            </figure>
+            <figure className="relative min-h-[260px] overflow-hidden rounded-xl bg-white">
+              <Image
+                src="/images/factory-demo/hotwheels-despues.jpg"
+                alt="Después: el mismo organizador Hot Wheels retocado, con fondo blanco limpio y colores consistentes"
+                fill
+                sizes="(max-width: 1024px) 50vw, 190px"
+                className="object-contain"
+              />
+              <figcaption className="absolute top-2 left-2 text-[0.6875rem] font-bold uppercase tracking-wider px-2 py-1 rounded-full bg-violet-600 text-white">
+                Después
+              </figcaption>
+            </figure>
+          </div>
+          <div className="p-5 md:p-6">
+            <CaseMeta c={factory} dark={false} />
+          </div>
+        </article>
+
+        {/* ── 3. Relevvo Studio — contenido propio ── */}
+        <article className="pf-card relative rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03] flex flex-col">
+          <div className="relative aspect-[3/4] overflow-hidden">
+            <Image
+              src="/images/nosotros/cliente-logo-word.png"
+              alt="Pieza para Instagram de Relevvo Studio: «El cliente que llegó con un logo de Word»"
+              fill
+              sizes="(max-width: 1024px) 100vw, 380px"
+              className="object-cover"
+            />
+          </div>
+          <div className="p-5 md:p-6 flex flex-col gap-4">
+            <CaseMeta c={relevvo} dark={false} />
+            {relevvo.url && <IgLink url={relevvo.url} label="Ver en Instagram" />}
+          </div>
+        </article>
+
+        {/* ── Otras marcas — lista compacta ── */}
+        <div className="pf-card lg:col-span-2 rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8">
+          <h3 className="heading-display text-white text-xl mb-1">Otras marcas con las que trabajamos</h3>
+          <p className="text-white/65 text-sm mb-6">
+            Branding, contenido y pauta. Las que tienen enlace abren su Instagram.
+          </p>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6">
+            {otherBrands.map((b) => {
+              const inner = (
+                <>
+                  <span className="relative w-10 h-10 shrink-0 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center overflow-hidden">
+                    {b.logo ? (
+                      <Image src={b.logo} alt="" fill sizes="40px" className="object-contain p-1" />
+                    ) : (
+                      <span className="text-sm font-bold text-white/80" aria-hidden="true">{b.name.charAt(0)}</span>
+                    )}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block font-semibold text-white">{b.name}</span>
+                    <span className="block text-xs text-white/65 truncate">
+                      {b.category} · {b.services.join(', ')}
+                    </span>
+                  </span>
+                  {b.url && (
+                    <svg width="14" height="14" viewBox="0 0 12 12" fill="none" aria-hidden="true" className="text-white/50 group-hover:text-white transition-colors shrink-0">
+                      <path d="M3.5 8.5l5-5M4.5 3.5h4v4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  )}
+                </>
+              )
+              return (
+                <li key={b.name} className="border-b border-white/[0.08]">
+                  {b.url ? (
+                    <a
+                      href={b.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${b.name} en Instagram`}
+                      className="group flex items-center gap-3 py-3 rounded-md transition-colors hover:bg-white/[0.03]"
+                    >
+                      {inner}
+                    </a>
+                  ) : (
+                    <div className="flex items-center gap-3 py-3">{inner}</div>
+                  )}
+                </li>
+              )
+            })}
+          </ul>
+        </div>
       </div>
     </section>
   )

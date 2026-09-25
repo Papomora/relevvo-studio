@@ -1,10 +1,13 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
 import Link from 'next/link'
 import { WA_URL } from '@/lib/constants'
+
+gsap.registerPlugin(ScrollTrigger, useGSAP)
 
 // ── Shared typography scale (all bento cards use the same) ──
 const CARD_TITLE: React.CSSProperties = {
@@ -20,7 +23,7 @@ const CARD_TITLE: React.CSSProperties = {
 const CARD_DESC: React.CSSProperties = {
   fontSize: '0.9375rem',       // fixed — same on all cards
   lineHeight: 1.65,
-  color: 'rgba(255,255,255,0.52)',
+  color: 'rgba(255,255,255,0.65)',
 }
 
 const STEP_NUM: React.CSSProperties = {
@@ -29,17 +32,15 @@ const STEP_NUM: React.CSSProperties = {
   fontSize: '0.6875rem',
   textTransform: 'uppercase' as const,
   letterSpacing: '0.12em',
-  color: 'rgba(124,58,237,0.55)',
+  color: 'rgba(167,139,250,0.8)',
 }
 
 export default function Proceso() {
+  const sectionRef = useRef<HTMLElement>(null)
   const headingRef = useRef<HTMLDivElement>(null)
   const gridRef    = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    gsap.registerPlugin(ScrollTrigger)
-
+  useGSAP(() => {
     gsap.from(headingRef.current, {
       y: 40, opacity: 0, duration: 0.8, ease: 'power3.out',
       scrollTrigger: { trigger: headingRef.current, start: 'top 82%' },
@@ -52,10 +53,10 @@ export default function Proceso() {
         scrollTrigger: { trigger: gridRef.current, start: 'top 82%' },
       })
     }
-  }, [])
+  }, { scope: sectionRef })
 
   return (
-    <section className="py-24 px-4 max-w-5xl mx-auto">
+    <section ref={sectionRef} className="py-24 px-4 max-w-5xl mx-auto">
 
       {/* ── Heading ── */}
       <div ref={headingRef} className="mb-14 md:grid md:grid-cols-2 md:gap-16 items-end">
@@ -106,14 +107,14 @@ export default function Proceso() {
           <div className="relative z-10 p-8 h-full flex flex-col justify-between">
             <div className="flex items-center justify-between">
               <span style={STEP_NUM}>01</span>
-              <span style={{ ...STEP_NUM, color: 'rgba(255,255,255,0.18)' }} className="group-hover:!text-white/40 transition-colors">
+              <span style={{ ...STEP_NUM, color: 'rgba(255,255,255,0.6)' }} className="group-hover:!text-white/70 transition-colors">
                 Inicio
               </span>
             </div>
 
             <div className="mt-8">
               <h3 style={CARD_TITLE}>Suscríbete con claridad</h3>
-              <p style={CARD_DESC} className="max-w-sm group-hover:!text-white/70 transition-colors">
+              <p style={CARD_DESC} className="max-w-sm group-hover:!text-white/80 transition-colors">
                 Elige un plan mensual y centraliza todos tus requerimientos en un único flujo.
                 Sin costos ocultos, sin contratos eternos.
               </p>
@@ -123,12 +124,12 @@ export default function Proceso() {
               {['Plan BASIC', 'Plan MID', 'Plan FULL'].map((t, i) => (
                 <span
                   key={i}
-                  className="group-hover:border-accent/30 group-hover:text-white/60 transition-all duration-300"
+                  className="group-hover:border-accent/30 group-hover:text-white/80 transition-all duration-300"
                   style={{
                     fontSize: '0.6875rem', fontFamily: 'var(--font-inter)', fontWeight: 600,
                     padding: '4px 12px', borderRadius: 100,
                     border: '1px solid rgba(255,255,255,0.1)',
-                    color: 'rgba(255,255,255,0.3)',
+                    color: 'rgba(255,255,255,0.6)',
                     transitionDelay: `${i * 40}ms`,
                   }}
                 >
@@ -157,7 +158,7 @@ export default function Proceso() {
             <span style={STEP_NUM}>02</span>
             <div>
               <h3 style={CARD_TITLE}>Recibe con velocidad</h3>
-              <p style={CARD_DESC} className="group-hover:!text-white/70 transition-colors">
+              <p style={CARD_DESC} className="group-hover:!text-white/80 transition-colors">
                 Entregas ágiles, procesos claros, priorización según impacto.
               </p>
             </div>
@@ -184,7 +185,7 @@ export default function Proceso() {
               <span style={STEP_NUM} className="flex-shrink-0">03</span>
               <div>
                 <h3 style={CARD_TITLE}>Ajustamos todo</h3>
-                <p style={CARD_DESC} className="max-w-lg group-hover:!text-white/70 transition-colors">
+                <p style={CARD_DESC} className="max-w-lg group-hover:!text-white/80 transition-colors">
                   Iteramos contigo hasta que cada entrega esté alineada al 100% con lo que tu marca necesita.
                 </p>
               </div>
