@@ -5,7 +5,7 @@ author: "Relevvo Studio"
 category: "Branding"
 keyword: "branding colombia"
 description: "El 80% de las marcas en Colombia solo tienen un logo. Te explicamos los 5 elementos que necesitas para construir una marca real."
-image: "/images/Relevvostd@3x.png"
+image: "/images/blog/marca-mas-que-logo.png"
 readTime: "5 min"
 ---
 
