@@ -1,8 +1,9 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { PLANS, BUILDER_GROUPS, type Plan } from '@/lib/planes'
 import { WA_NUMBER } from '@/lib/constants'
+import { track } from '@/lib/analytics'
 
 // "Arma tu plan": el visitante marca lo que necesita y le decimos qué plan
 // lo cubre. Toda la lógica sale de BUILDER_GROUPS y PLANS en lib/planes.ts;
@@ -63,8 +64,28 @@ export default function PlanBuilder() {
     setSelected((prev) => {
       const next = new Set(prev)
       next.has(id) ? next.delete(id) : next.add(id)
+      const opt = allOptions.find((o) => o.id === id)
+      track('plan_option_toggle', { option_id: id, option_label: opt?.label, selected: next.has(id) })
       return next
     })
+  }
+
+  // Un evento por cambio de recomendación (no por clic), con las opciones
+  // marcadas: dice qué combinación lleva a cada plan.
+  const lastRecommended = useRef<Plan['id'] | null>(null)
+  useEffect(() => {
+    if (recommended && recommended !== lastRecommended.current) {
+      track('plan_recommended', {
+        plan: recommended,
+        options: allOptions.filter((o) => selected.has(o.id)).map((o) => o.id).join(','),
+      })
+    }
+    lastRecommended.current = recommended
+  }, [recommended, selected, allOptions])
+
+  const viewPlan = (id: Plan['id']) => {
+    setManual(id)
+    track('plan_view', { plan: id, recommended_plan: recommended ?? 'none' })
   }
 
   const uncovered = allOptions.filter((o) => selected.has(o.id) && rank(o.minPlan) > viewRank)
@@ -152,7 +173,7 @@ export default function PlanBuilder() {
                 key={id}
                 type="button"
                 aria-pressed={view === id}
-                onClick={() => setManual(id)}
+                onClick={() => viewPlan(id)}
                 className={`rounded-full py-2 text-xs font-semibold tracking-[0.12em] transition-colors ${
                   view === id ? 'bg-butter text-night' : 'text-muted hover:text-butter'
                 }`}
@@ -195,7 +216,7 @@ export default function PlanBuilder() {
           <div className="flex flex-wrap gap-3 mt-6">
             {plan ? (
               <>
-                <a href={waHref} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                <a href={waHref} target="_blank" rel="noopener noreferrer" className="btn-primary" data-cta={`arma-tu-plan:${plan.id}`}>
                   Quiero {shortName(plan)} →
                 </a>
                 <a href="#planes" className="btn-secondary">Ver los tres planes</a>

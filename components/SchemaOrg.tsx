@@ -126,15 +126,14 @@ export default function SchemaOrg() {
       {
         '@type': 'ItemList',
         name: 'Servicios de Relevvo Studio',
+        // Cada ítem apunta a una página real. Antes todos iban a /#solucion,
+        // un ancla del home que Google trata como la misma URL.
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Diseño Gráfico y Branding Colombia', url: 'https://relevvostudio.com/#solucion' },
-          { '@type': 'ListItem', position: 2, name: 'Logos y Branding Colombia', url: 'https://relevvostudio.com/#solucion' },
-          { '@type': 'ListItem', position: 3, name: 'Marketing Digital Colombia', url: 'https://relevvostudio.com/#solucion' },
-          { '@type': 'ListItem', position: 4, name: 'Landing Pages Colombia', url: 'https://relevvostudio.com/#solucion' },
-          { '@type': 'ListItem', position: 5, name: 'Gestión de Redes Sociales Colombia', url: 'https://relevvostudio.com/#solucion' },
-          { '@type': 'ListItem', position: 6, name: 'Estrategia de Contenido Colombia', url: 'https://relevvostudio.com/#solucion' },
-          { '@type': 'ListItem', position: 7, name: 'Fotografía Comercial Colombia', url: 'https://relevvostudio.com/#solucion' },
-          { '@type': 'ListItem', position: 8, name: 'Pauta Digital Colombia', url: 'https://relevvostudio.com/#solucion' },
+          { '@type': 'ListItem', position: 1, name: 'Branding e identidad de marca',   url: 'https://relevvostudio.com/servicios/branding' },
+          { '@type': 'ListItem', position: 2, name: 'Diseño web y landing pages',      url: 'https://relevvostudio.com/servicios/diseno-web' },
+          { '@type': 'ListItem', position: 3, name: 'Manejo de redes sociales',        url: 'https://relevvostudio.com/servicios/redes-sociales' },
+          { '@type': 'ListItem', position: 4, name: 'Contenido con inteligencia artificial', url: 'https://relevvostudio.com/servicios/contenido-ia' },
+          { '@type': 'ListItem', position: 5, name: 'Planes mensuales de diseño',      url: 'https://relevvostudio.com/planes' },
         ],
       },
     ],
